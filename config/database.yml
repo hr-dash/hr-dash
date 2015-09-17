@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  host: localhost
+  encoding: utf8
+  database: hr_dash_dev
+  pool: 5
+  username: postgres
+  password: postgres
+
+test:
+  adapter: postgresql
+  host: localhost
+  encoding: utf8
+  database: hr_dash_test
+  pool: 5
+  username: postgres
+  password: postgres

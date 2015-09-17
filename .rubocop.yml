@@ -1,0 +1,12 @@
+# クラスにコメントを残さない
+Documentation:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - vendor/**/*
+    - config/**/*
+    - db/migrate/*
+    - Gemfile
+    - Rakefile
