@@ -1,0 +1,15 @@
+.container {
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  margin-bottom: 40px;
+}
+
+header {
+  margin-left: 50px;
+}
+header .menu {
+  font-size: 1.2em;
+}
