@@ -1,8 +1,8 @@
-class CreateCreateUsers < ActiveRecord::Migration
+class CreateUsers < ActiveRecord::Migration
   def change
-    create_table :create_users do |t|
+    create_table :users do |t|
       t.string :name
-      t.belongs_to :group, index: true, foreign_key: false
+      t.belongs_to :group, index: true
       t.integer :employee_code
       t.string :email
       t.date :entry_date

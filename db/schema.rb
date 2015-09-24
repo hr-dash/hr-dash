@@ -49,20 +49,6 @@ ActiveRecord::Schema.define(version: 20150910122142) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "create_users", force: :cascade do |t|
-    t.string   "user_name"
-    t.integer  "group_id"
-    t.integer  "employee_id"
-    t.string   "email"
-    t.date     "entry_date"
-    t.boolean  "beginner_flg"
-    t.datetime "deleted_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "create_users", ["group_id"], name: "index_create_users_on_group_id", using: :btree
-
   create_table "groups", force: :cascade do |t|
     t.string   "group_name"
     t.datetime "deleted_at"
@@ -102,5 +88,19 @@ ActiveRecord::Schema.define(version: 20150910122142) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "group_id"
+    t.integer  "employee_code"
+    t.string   "email"
+    t.date     "entry_date"
+    t.boolean  "beginner_flg"
+    t.datetime "deleted_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "users", ["group_id"], name: "index_users_on_group_id", using: :btree
 
 end
