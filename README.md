@@ -1,4 +1,5 @@
 # HR Dashのリポジトリーです!!
+ci-test
 
 tezuka書き込み
 sawada書き込み
