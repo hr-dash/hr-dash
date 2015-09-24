@@ -16,4 +16,5 @@ RSpec.describe MonthlyReportTag, type: :model do
   it { expect(subject).to respond_to(:id) }
   it { expect(subject).to respond_to(:monthly_report_id) }
   it { expect(subject).to respond_to(:tag_id) }
+
 end
