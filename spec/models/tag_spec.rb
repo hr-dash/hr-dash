@@ -11,7 +11,6 @@
 require 'rails_helper'
 
 RSpec.describe Tag, type: :model do
-
   it { expect(subject).to respond_to(:id) }
   it { expect(subject).to respond_to(:name) }
 end
