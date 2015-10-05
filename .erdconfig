@@ -1,0 +1,7 @@
+attributes:
+  - primary_keys
+  - foreign_keys
+  - inheritance
+  - content
+filename: doc/erd
+orientation: vertical
