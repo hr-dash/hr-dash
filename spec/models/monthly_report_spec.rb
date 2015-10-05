@@ -19,7 +19,6 @@
 require 'rails_helper'
 
 RSpec.describe MonthlyReport, type: :model do
-
   it { expect(subject).to respond_to(:users_id) }
   it { expect(subject).to respond_to(:project_summary) }
   it { expect(subject).to respond_to(:used_technology) }
@@ -29,5 +28,4 @@ RSpec.describe MonthlyReport, type: :model do
   it { expect(subject).to respond_to(:next_month_goals) }
   it { expect(subject).to respond_to(:month) }
   it { expect(subject).to respond_to(:year) }
-
 end
