@@ -1,0 +1,8 @@
+- datas = [{group: "山田", member: "佐藤", month: 6, tags: ["java", "ruby", "vim"]}]
+.list-group
+  - datas.each do |data|
+    a.list-group-item href="#"
+      = "#{data[:group]}G | #{data[:member]} - #{data[:month]}月分"
+      span.glyphicon.glyphicon-thumbs-up.pull-right aria-hidden="true" = 11
+      - data[:tags].each do |tag|
+        span.badge = tag
