@@ -21,4 +21,8 @@ class User < ActiveRecord::Base
   validates :email, length: { maximum: 255 }, email: true, presence: true
   validates :entry_date, presence: true
   validates :beginner_flg, inclusion: { in: [true, false] }
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
 end
