@@ -29,4 +29,3 @@ RSpec.configure do |config|
     FactoryGirl.reload
   end
 end
-
