@@ -22,4 +22,11 @@ RSpec.configure do |config|
     # `true` in RSpec 4.
     mocks.verify_partial_doubles = true
   end
+
+  # add setting
+  config.include FactoryGirl::Syntax::Methods
+  config.before(:all) do
+    FactoryGirl.reload
+  end
 end
+
