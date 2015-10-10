@@ -23,6 +23,5 @@ class AdminUser < ActiveRecord::Base
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  EMAIL_REGEX = /\A[w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, email: true, presence: true, uniqueness: true , length: { maximum: 255 }, allow_blank: true
 end
