@@ -1,3 +1,5 @@
+# custom validator for email.
+
 class EmailValidator < ActiveModel::EachValidator
   def validate_dach(record, attribute, value)
     regex = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
