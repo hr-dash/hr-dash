@@ -9,5 +9,5 @@
 #
 
 class Role < ActiveRecord::Base
-  validates :name, length: { maxmam: 10 }, presence: true
+  validates :name, length: { maximum: 10 }, presence: true
 end
