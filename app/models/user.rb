@@ -15,4 +15,10 @@
 #
 
 class User < ActiveRecord::Base
+  validates :name, length: { maximam: 32 }, presence: true
+  validates :group_id, numericality: { only_integer: true }, presence: true
+  validates :employee_code, numericality: { only_integer: true }, presence: true
+  validates :email, length: { maximam: 255 }, email: true, presence: true
+  validates :entry_date,  presence: true
+  validates :beginner_flg, inclusion: { in: [ true, false ] }
 end
