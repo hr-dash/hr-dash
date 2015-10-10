@@ -18,6 +18,11 @@
 
 class MonthlyReport < ActiveRecord::Base
   validates :users_id, numericality: { only_integer: true }, presence: true
-  validates :month, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 12 }, presence: true
-  validates :year, numericality: { only_integer: true, greater_than_or_equal_to: 2015 }, presence: true
+  validates :month, numericality: { only_integer: true,
+                                    greater_than_or_equal_to: 1,
+                                    less_than_or_equal_to: 12 },
+                    presence: true
+  validates :year, numericality:  { only_integer: true,
+                                    greater_than_or_equal_to: 2015 },
+                   presence: true
 end

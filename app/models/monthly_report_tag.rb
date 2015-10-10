@@ -10,6 +10,7 @@
 #
 
 class MonthlyReportTag < ActiveRecord::Base
-  validates :monthly_report_id, numericality: { only_integer: true }, presence: true
+  validates :monthly_report_id, numericality: { only_integer: true },
+                                presence: true
   validates :tag_id, numericality: { only_integer: true }, presence: true
 end
