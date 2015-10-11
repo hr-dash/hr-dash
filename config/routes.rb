@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   get 'sample' => 'sample#index'
+  get 'sample/group' => 'sample#group'
+  get 'sample/monthly_report' => 'sample#monthly_report'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
