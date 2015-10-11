@@ -13,4 +13,9 @@ require 'rails_helper'
 RSpec.describe Tag, type: :model do
   it { expect(subject).to respond_to(:id) }
   it { expect(subject).to respond_to(:name) }
+
+  it 'is valid with name' do
+    tag = create(:tag)
+    expect(tag).to be_valid
+  end
 end
