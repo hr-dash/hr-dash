@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 20150928132655) do
   end
 
   create_table "monthly_reports", force: :cascade do |t|
-    t.integer  "users_id",             null: false
+    t.integer  "user_id",              null: false
     t.text     "project_summary"
     t.text     "used_technology"
     t.text     "responsible_business"

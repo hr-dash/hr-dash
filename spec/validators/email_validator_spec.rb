@@ -17,7 +17,7 @@ describe EmailValidator, type: :validator do
     let(:user) { model_class.new(email_address) }
 
     context 'with invalid format address' do
-      let(:email_address) { 'hoge@@huga@example.com' }
+      let(:email_address) { '@hoge@@huga@example..com' }
       it { expect(user).not_to be_valid }
     end
 
