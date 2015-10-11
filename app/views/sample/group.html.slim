@@ -1,0 +1,6 @@
+= render partial: 'layouts/search_form'
+h3 グループリスト
+#group_list.panel-group
+  - datas = [{id: "yamada", name: "山田"}, {id: "suzuki", name: "鈴木"}]
+  - datas.each do |data|
+    = render partial: 'layouts/group_panel', locals: { data: data }
