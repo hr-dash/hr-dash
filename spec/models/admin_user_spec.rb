@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: admin_users
+#
+#  id                     :integer          not null, primary key
+#  email                  :string           default(""), not null
+#  encrypted_password     :string           default(""), not null
+#  reset_password_token   :string
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer          default(0), not null
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :inet
+#  last_sign_in_ip        :inet
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#
+
 require 'rails_helper'
 
 describe AdminUser do
@@ -39,11 +58,12 @@ describe AdminUser do
 
   describe '.new' do
     subject { admin_user }
-    context 'correct params' do
-      xit { is_expected.to be_valid } # deviseのせい？うまくいかない
+
+    context 'when correct params' do
+      xit { is_expected.to be_valid } # deviseの:registableをつけたら有効にする
     end
 
-    context 'incorrect params ' do
+    context 'when incorrect params ' do
       context 'with unformat mailaddress.' do
         let(:email) { '@huga..@ex..ample.com' }
         it { is_expected.not_to be_valid }

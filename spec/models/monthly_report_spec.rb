@@ -3,7 +3,7 @@
 # Table name: monthly_reports
 #
 #  id                   :integer          not null, primary key
-#  user_id             :integer          not null
+#  user_id              :integer          not null
 #  project_summary      :text
 #  used_technology      :text
 #  responsible_business :text
