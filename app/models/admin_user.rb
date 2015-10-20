@@ -24,5 +24,5 @@ class AdminUser < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :email, email: true, presence: true, uniqueness: true,
-                    length: { maximum: 255 }, allow_blank: true
+                    length: { maximum: 255 }
 end
