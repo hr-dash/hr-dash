@@ -1,0 +1,25 @@
+# https://github.com/troessner/reek/blob/master/docs/Code-Smells.md
+exclude_paths:
+  - db/migrate
+  - vendor/bundle
+
+IrresponsibleModule:
+  enabled: false
+
+TooManyStatements:
+  enabled: true
+  exclude:
+  - initialize
+  max_statements: 10
+
+NestedIterators:
+  max_allowed_nesting: 3
+
+DuplicateMethodCall:
+  max_calls: 2
+
+UncommunicativeVariableName:
+  enabled: true
+  reject:
+    - !ruby/regexp /[0-9]$/
+    - !ruby/regexp /[A-Z]/
