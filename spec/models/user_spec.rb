@@ -38,9 +38,10 @@ describe User, type: :model do
 
   describe '.new' do
     context 'correct params' do
-      xit { expect(user).to be_valid }
-      # deviseの設定が正しく行われると作成できないはず？
-      # 以下のテストも動作しなくなるかもしれない
+      pending 'deviseの設定が正しく行われると作成できないはず？' do
+        it { expect(user).to be_valid }
+        # 以下のテストも動作しなくなるかもしれない
+      end
     end
 
     context 'incorrect params' do

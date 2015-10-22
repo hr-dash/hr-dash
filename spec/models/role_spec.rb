@@ -19,5 +19,3 @@ describe Role, type: :model do
     expect(role).to be_valid
   end
 end
-
-

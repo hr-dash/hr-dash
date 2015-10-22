@@ -60,7 +60,9 @@ describe AdminUser do
     subject { admin_user }
 
     context 'when correct params' do
-      xit { is_expected.to be_valid } # deviseの:registableをつけたら有効にする
+      pending 'deviseの:registableをつけたら有効にする' do
+        it { is_expected.to be_valid }
+      end
     end
 
     context 'when incorrect params ' do
