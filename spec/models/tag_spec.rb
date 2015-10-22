@@ -23,7 +23,7 @@ describe Tag, type: :model do
       it { expect(tag).to be_valid }
     end
     context 'incorrect params' do
-      before{ tag.name = nil }
+      before { tag.name = nil }
       it { expect(tag).not_to be_valid }
     end
   end
