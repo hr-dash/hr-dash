@@ -1,0 +1,18 @@
+= render partial: 'layouts/html_header'
+body
+  .container-fluid.login-container
+    .login-form
+      form.form-horizontal
+        fieldset
+          h1.text-center = Dash.name
+          .form-group
+            label.col-lg-4.control-label for="email" email
+            .col-lg-6
+              = text_field_tag :email, "", class: "form-control", id: "email"
+          .form-group
+            label.col-lg-4.control-label for="password" password
+            .col-lg-6
+              = password_field_tag :password, "", class: "form-control", id: "password"
+          .form-group
+            .text-center
+              = button_tag "Submit", class: "btn btn-primary"
