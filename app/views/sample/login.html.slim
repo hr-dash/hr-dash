@@ -2,9 +2,9 @@
 body
   .container-fluid.login-container
     .login-form
-      form.form-horizontal
+      h1.text-center = Dash.name
+      = form_tag sample_index_path, method: :get, class: "form-horizontal"
         fieldset
-          h1.text-center = Dash.name
           .form-group
             label.col-lg-4.control-label for="email" email
             .col-lg-6
@@ -13,6 +13,4 @@ body
             label.col-lg-4.control-label for="password" password
             .col-lg-6
               = password_field_tag :password, "", class: "form-control", id: "password"
-          .form-group
-            .text-center
-              = button_tag "Submit", class: "btn btn-primary"
+          = button_tag "Login", class: "btn btn-primary center-block"
