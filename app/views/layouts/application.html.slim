@@ -1,8 +1,7 @@
 = render partial: 'layouts/html_header'
 body
-  .container
-    .row
-      = render partial: 'layouts/header'
-      .col-md-8
-        h1.content
+  .site-body.container-fluid
+    .site-container.row
+      = render partial: 'layouts/site_header'
+      .col-md-9.col-md-offset-1
         = yield
