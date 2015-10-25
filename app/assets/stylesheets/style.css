@@ -1,19 +1,24 @@
-.container {
-  margin: 0;
-  padding: 0;
+/* header */
+html, body, .site-body, .site-container, .site-header, .header-menu {
+  height: 100%;
 }
 
-.content {
-  margin-bottom: 40px;
+.header-menu {
+  width: 80%;
+  position: relative;
 }
 
-header {
-  margin-left: 50px;
-}
-header .menu {
-  font-size: 1.2em;
+.header-menu-title {
+  margin-bottom: 30px;
 }
 
+.header-menu-bottom {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 50px;
+}
+
+/* login-page */
 .login-container {
   position: relative;
   height: 100%;
