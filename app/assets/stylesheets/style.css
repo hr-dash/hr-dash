@@ -3,6 +3,10 @@ html, body, .site-body, .site-container, .site-header, .header-menu {
   height: 100%;
 }
 
+.site-header {
+  position: fixed;
+}
+
 .header-menu {
   width: 80%;
   position: relative;
