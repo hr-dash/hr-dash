@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get 'group'
       get 'login'
       get 'monthly_report'
+      get 'monthly_report_new'
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.
