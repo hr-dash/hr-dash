@@ -1,6 +1,9 @@
 - provide :page_title, "月報トップ"
 
-= render partial: 'layouts/search_form'
-h3 最新の月報一覧
-#report_index
-  = render partial: 'layouts/report_index'
+.page-content
+  h3 キーワード検索
+  = render partial: 'layouts/search_form'
+.page-content
+  h3 最新の月報一覧
+  #report_index
+    = render partial: 'layouts/report_index'
