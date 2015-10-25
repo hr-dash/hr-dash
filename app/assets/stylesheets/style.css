@@ -35,3 +35,8 @@ html, body, .site-body, .site-container, .site-header, .header-menu {
   width: 50%;
   height: 50%;
 }
+
+/* page-body */
+.page-body {
+  margin-top: 50px;
+}
