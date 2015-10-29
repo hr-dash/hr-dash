@@ -2,6 +2,10 @@
 Documentation:
   Enabled: false
 
+# 日本語でのコメントを許可
+AsciiComments:
+  Enabled: false
+
 AllCops:
   Exclude:
     - db/schema.rb
