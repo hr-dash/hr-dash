@@ -9,4 +9,5 @@
 #
 
 class Tag < ActiveRecord::Base
+  validates :name, length: { maximum: 32 }, presence: true
 end

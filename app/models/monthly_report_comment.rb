@@ -11,4 +11,7 @@
 #
 
 class MonthlyReportComment < ActiveRecord::Base
+  validates :user_id, numericality: { only_integer: true }, presence: true
+  validates :monthly_report_id, numericality: { only_integer: true },
+                                presence: true
 end

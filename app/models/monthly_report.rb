@@ -3,7 +3,7 @@
 # Table name: monthly_reports
 #
 #  id                   :integer          not null, primary key
-#  users_id             :integer          not null
+#  user_id              :integer          not null
 #  project_summary      :text
 #  used_technology      :text
 #  responsible_business :text
@@ -17,4 +17,12 @@
 #
 
 class MonthlyReport < ActiveRecord::Base
+  validates :user_id, numericality: { only_integer: true }, presence: true
+  validates :month, numericality: { only_integer: true,
+                                    greater_than_or_equal_to: 1,
+                                    less_than_or_equal_to: 12 },
+                    presence: true
+  validates :year, numericality:  { only_integer: true,
+                                    greater_than_or_equal_to: 2000 },
+                   presence: true
 end

@@ -10,12 +10,21 @@
 
 require 'rails_helper'
 
-RSpec.describe Tag, type: :model do
-  it { expect(subject).to respond_to(:id) }
+describe Tag, type: :model do
   it { expect(subject).to respond_to(:name) }
 
+  let(:tag) { build(:tag) }
   it 'is valid with name' do
-    tag = create(:tag)
     expect(tag).to be_valid
+  end
+
+  describe '.new' do
+    context 'correct params' do
+      it { expect(tag).to be_valid }
+    end
+    context 'incorrect params' do
+      before { tag.name = nil }
+      it { expect(tag).not_to be_valid }
+    end
   end
 end
