@@ -2,9 +2,16 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  get 'sample' => 'sample#index'
-  get 'sample/group' => 'sample#group'
-  get 'sample/monthly_report' => 'sample#monthly_report'
+  resources :sample, only: [:index] do
+    collection do
+      get 'group'
+      get 'login'
+      get 'monthly_report'
+      get 'monthly_report_new'
+      get 'profile'
+    end
+  end
+  root to: 'sample#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
