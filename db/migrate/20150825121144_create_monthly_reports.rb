@@ -1,7 +1,7 @@
 class CreateMonthlyReports < ActiveRecord::Migration
   def change
     create_table :monthly_reports do |t|
-      t.integer :users_id,          null: false
+      t.integer :user_id,          null: false
       t.text :project_summary
       t.text :used_technology
       t.text :responsible_business

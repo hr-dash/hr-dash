@@ -11,6 +11,10 @@
 
 require 'rails_helper'
 
-RSpec.describe Group, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Group, type: :model do
+  it { expect(subject).to respond_to :group_name }
+  it 'is valid with group name' do
+    group = Group.new(group_name: 'hoge')
+    expect(group).to be_valid
+  end
 end
