@@ -1,15 +1,46 @@
-.container {
-  margin: 0;
-  padding: 0;
+/* header */
+html, body, .site-body, .site-container, .site-header, .header-menu {
+  height: 100%;
 }
 
-.content {
-  margin-bottom: 40px;
+.site-header {
+  position: fixed;
 }
 
-header {
-  margin-left: 50px;
+.header-menu {
+  width: 80%;
+  position: relative;
 }
-header .menu {
-  font-size: 1.2em;
+
+.header-menu-title {
+  margin-bottom: 30px;
+}
+
+.header-menu-bottom {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 50px;
+}
+
+/* login-page */
+.login-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.login-form {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 50%;
+  height: 50%;
+}
+
+/* page-body */
+.page-body {
+  margin-top: 50px;
 }
