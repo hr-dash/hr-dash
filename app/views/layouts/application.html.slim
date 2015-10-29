@@ -1,18 +1,11 @@
-doctype html
-html lang="ja"
-  head
-    meta charset="utf-8"
-    meta http-equiv="X-UA-Compatible" content="IE=edge"
-    meta name="viewport" content="width=device-width, initial-scale=1"
-    title Dash
-    = stylesheet_link_tag    'application', media: 'all'
-
-    = javascript_include_tag 'application'
-    = csrf_meta_tags
-  body
-    .container
-      .row
-        = render partial: 'layouts/header'
-        .col-md-8
-          h1.content
+= render partial: 'layouts/html_header'
+body
+  .site-body.container-fluid
+    .site-container.row
+      = render partial: 'layouts/site_header'
+      .col-xs-8.col-xs-offset-3
+        .page-header
+          h1 = yield(:page_title)
+        = render partial: 'layouts/breadcrumbs'
+        .page-body
           = yield
