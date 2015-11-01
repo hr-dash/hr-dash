@@ -60,6 +60,8 @@ group :development, :test do
   gem 'annotate'
 
   gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end
 
 group :development do
@@ -68,7 +70,6 @@ group :development do
 end
 
 group :test do
-  gem 'factory_girl_rails'
   gem 'rspec'
   gem 'autodoc'
   gem 'database_rewinder'
