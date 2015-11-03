@@ -73,5 +73,6 @@ group :test do
   gem 'rspec'
   gem 'autodoc'
   gem 'database_rewinder'
+  gem 'shoulda-matchers'
   gem 'timecop'
 end
