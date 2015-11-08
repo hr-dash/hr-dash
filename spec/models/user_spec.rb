@@ -14,8 +14,6 @@
 #  updated_at    :datetime         not null
 #
 
-require 'rails_helper'
-
 describe User, type: :model do
   describe 'Validations' do
     subject { build(:user) }
