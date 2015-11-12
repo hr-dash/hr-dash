@@ -17,50 +17,16 @@
 require 'rails_helper'
 
 describe User, type: :model do
-  let(:user) do
-    User.new(
-      name: name,
-      group_id: group_id,
-      employee_code: e_code,
-      email: email,
-      entry_date: entry_date,
-      beginner_flg: b_flg,
-      deleted_at: del_at
-    )
-  end
-  let(:name) { 'hoge' }
-  let(:group_id) { 1 }
-  let(:e_code) { 1 }
-  let(:email) { 'hoge@example.com' }
-  let(:entry_date) { '2010-04-01' }
-  let(:b_flg) { true }
-  let(:del_at) { '' }
+  describe 'Validations' do
+    subject { build(:user) }
 
-  describe '.new' do
-    context 'correct params' do
-      pending 'deviseの設定が正しく行われると作成できないはず？' do
-        it { expect(user).to be_valid }
-        # 以下のテストも動作しなくなるかもしれない
-      end
-    end
+    it { is_expected.to be_valid }
 
-    context 'incorrect params' do
-      context 'invalid if group id is string' do
-        let(:group_id) { 'one' }
-        it { expect(user).not_to be_valid }
-      end
-      context 'invalid if employee_code is strig' do
-        let(:e_code) { 'one' }
-        it { expect(user).not_to be_valid }
-      end
-      context 'invalid if email is unformat with mailaddress'do
-        let(:email) { 'hoge@@ex..ample$%.com' }
-        it { expect(user).not_to be_valid }
-      end
-      context 'invalid if beginner flg is nil' do
-        let(:b_flg) { nil }
-        it { expect(user).not_to be_valid }
-      end
-    end
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_length_of(:name).is_at_most(32) }
+    it { is_expected.to validate_presence_of(:employee_code) }
+    it { is_expected.to validate_uniqueness_of(:employee_code) }
+    it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.to validate_presence_of(:entry_date) }
   end
 end
