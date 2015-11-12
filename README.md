@@ -6,7 +6,7 @@ kubota書き込み
 ohara!!
 kudo書き込み
 yamazaki書き込み
-
+kuwahara書き込み
 
 # 環境構築手順
 1. rbenv, ruby2.2を用意
