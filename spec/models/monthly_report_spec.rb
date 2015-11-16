@@ -29,4 +29,18 @@ RSpec.describe MonthlyReport, type: :model do
     it { is_expected.to validate_presence_of(:year) }
     it { is_expected.to validate_numericality_of(:year).is_greater_than_or_equal_to(2000) }
   end
+
+  describe 'Relations' do
+    let(:report) { create(:monthly_report) }
+
+    describe 'Comments' do
+      let!(:comments) { create_list(:monthly_report_comment, 3, monthly_report: report) }
+      it { expect(report.monthly_report_comments.size).to eq 3 }
+
+      context 'When report destroyed' do
+        before { report.destroy }
+        it { expect { comments.sample.reload }.to raise_error(ActiveRecord::RecordNotFound) }
+      end
+    end
+  end
 end
