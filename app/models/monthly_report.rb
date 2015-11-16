@@ -17,6 +17,9 @@
 #
 
 class MonthlyReport < ActiveRecord::Base
+  belongs_to :user
+  has_many :monthly_report_comments, dependent: :destroy
+
   validates :user_id, numericality: { only_integer: true }, presence: true
   validates :month, numericality: { only_integer: true },
                     inclusion: { in: 1..12 },
