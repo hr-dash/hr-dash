@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150928132655) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
     t.text     "body"
@@ -97,7 +100,7 @@ ActiveRecord::Schema.define(version: 20150928132655) do
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.integer  "group_id"
-    t.integer  "employee_code"
+    t.string   "employee_code"
     t.string   "email"
     t.date     "entry_date"
     t.boolean  "beginner_flg"
