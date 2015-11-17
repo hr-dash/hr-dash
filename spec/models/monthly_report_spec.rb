@@ -41,5 +41,19 @@ RSpec.describe MonthlyReport, type: :model do
         it { expect(comments.size).to eq 0 }
       end
     end
+
+    describe 'Tags' do
+      let!(:report) { create(:monthly_report, :with_tags, tag_size: 3) }
+      let!(:report_tags) { report.monthly_report_tags }
+      let!(:tags) { report.tags }
+      it { expect(report_tags.size).to eq 3 }
+      it { expect(tags.size).to eq 3 }
+
+      context 'When report destroyed' do
+        before { report.destroy }
+        it { expect(report_tags.size).to eq 0 }
+        it { expect(Tag.all.size).to eq 3 }
+      end
+    end
   end
 end
