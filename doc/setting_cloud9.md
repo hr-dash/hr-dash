@@ -10,11 +10,11 @@
 1. Cloud9のsshkeyをGitHubの自分のアカウントへ登録
 1. sshkeyは~/.sshディレクトリ直下にあります（ない場合はgenしてください）
 ### Cloud9でworkspaceを作成するとデフォルトリポジトリがmasterになっているのでdevelopへ変更
-1. `git checkout develop'
+1. `git checkout develop`
 1. `git pull`
 
 ## 環境構築
-rbenv ruby2.2を用意
+1. rbenv ruby2.2を用意
 1. `gem install bundler`
 1. `bundle install --path vendor/bundle`
 1. `sudo service postgresql start`
