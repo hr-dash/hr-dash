@@ -19,6 +19,8 @@
 class MonthlyReport < ActiveRecord::Base
   belongs_to :user
   has_many :monthly_report_comments, dependent: :destroy
+  has_many :monthly_report_tags
+  has_many :tags, through: :monthly_report_tags
 
   validates :user_id, numericality: { only_integer: true }, presence: true
   validates :month, numericality: { only_integer: true },
