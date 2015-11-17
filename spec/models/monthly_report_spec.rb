@@ -31,15 +31,14 @@ RSpec.describe MonthlyReport, type: :model do
   end
 
   describe 'Relations' do
-    let(:report) { create(:monthly_report) }
-
     describe 'Comments' do
-      let!(:comments) { create_list(:monthly_report_comment, 3, monthly_report: report) }
-      it { expect(report.monthly_report_comments.size).to eq 3 }
+      let!(:report) { create(:monthly_report, :with_comments, comment_size: 3) }
+      let!(:comments) { report.monthly_report_comments }
+      it { expect(comments.size).to eq 3 }
 
       context 'When report destroyed' do
         before { report.destroy }
-        it { expect { comments.sample.reload }.to raise_error(ActiveRecord::RecordNotFound) }
+        it { expect(comments.size).to eq 0 }
       end
     end
   end
