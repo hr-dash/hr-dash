@@ -23,8 +23,6 @@
 #  last_sign_in_ip        :inet
 #
 
-require 'rails_helper'
-
 describe User, type: :model do
   describe 'Validations' do
     subject { build(:user) }
