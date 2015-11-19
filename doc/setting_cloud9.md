@@ -8,10 +8,10 @@
 
 ## リポジトリ変更
 1. Cloud9のsshkeyをGitHubの自分のアカウントへ登録
-2. sshkeyは~/.sshディレクトリ直下にあります（ない場合はgenしてください）
-### Cloud9でworkspaceを作成するとデフォルトリポジトリがmasterになっているのでdevelopへ変更
-1. `git checkout develop`
-2. `git pull`
+2. sshkeyは~/.sshディレクトリ直下にあります（ない場合はgenしてください)
+3. Cloud9でworkspaceを作成するとデフォルトリポジトリがmasterになっているのでdevelopへ変更
+4. `git checkout develop`
+5. `git pull`
 
 ## 環境構築
 1. rbenv ruby2.2を用意
