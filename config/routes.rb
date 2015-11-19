@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get 'sample' => 'sample#index'
   get 'sample/group' => 'sample#group'
   get 'sample/monthly_report' => 'sample#monthly_report'
+
+  resources 'monthly_reports', except: :destroy
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
