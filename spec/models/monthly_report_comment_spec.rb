@@ -10,8 +10,6 @@
 #  updated_at        :datetime         not null
 #
 
-require 'rails_helper'
-
 describe MonthlyReportComment, type: :model do
   it { expect(subject).to respond_to(:id) }
   it { expect(subject).to respond_to(:user_id) }

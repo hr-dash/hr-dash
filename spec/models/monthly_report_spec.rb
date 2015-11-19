@@ -16,8 +16,6 @@
 #  updated_at           :datetime         not null
 #
 
-require 'rails_helper'
-
 RSpec.describe MonthlyReport, type: :model do
   describe 'Validations' do
     subject { build(:monthly_report) }

@@ -17,8 +17,6 @@
 #  updated_at             :datetime         not null
 #
 
-require 'rails_helper'
-
 describe AdminUser do
   it { expect(subject).to respond_to(:email) }
   it { expect(subject).to respond_to(:encrypted_password) }

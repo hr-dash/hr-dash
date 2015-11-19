@@ -8,8 +8,6 @@
 #  updated_at :datetime         not null
 #
 
-require 'rails_helper'
-
 describe Role, type: :model do
   it { expect(subject).to respond_to(:name) }
 
