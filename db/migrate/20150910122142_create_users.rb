@@ -3,7 +3,7 @@ class CreateUsers < ActiveRecord::Migration
     create_table :users do |t|
       t.string :name
       t.belongs_to :group, index: true
-      t.integer :employee_code
+      t.string :employee_code
       t.string :email
       t.date :entry_date
       t.boolean :beginner_flg
