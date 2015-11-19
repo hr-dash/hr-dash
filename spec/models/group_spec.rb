@@ -9,8 +9,6 @@
 #  updated_at :datetime         not null
 #
 
-require 'rails_helper'
-
 describe Group, type: :model do
   it { expect(subject).to respond_to :group_name }
   it 'is valid with group name' do
