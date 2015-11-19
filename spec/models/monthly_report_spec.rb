@@ -16,8 +16,6 @@
 #  updated_at           :datetime         not null
 #
 
-require 'rails_helper'
-
 RSpec.describe MonthlyReport, type: :model do
   it { expect(subject).to respond_to(:user_id) }
   it { expect(subject).to respond_to(:project_summary) }

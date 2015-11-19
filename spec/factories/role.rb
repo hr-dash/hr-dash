@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :tag do
+  factory :role do
     name Faker::Lorem.word
   end
 end

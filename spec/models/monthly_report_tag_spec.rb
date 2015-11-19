@@ -9,8 +9,6 @@
 #  updated_at        :datetime         not null
 #
 
-require 'rails_helper'
-
 describe MonthlyReportTag, type: :model do
   it { expect(subject).to respond_to(:id) }
   it { expect(subject).to respond_to(:monthly_report_id) }
