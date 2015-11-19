@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe EmailValidator, type: :validator do
   let(:model_class) do
     Struct.new(:email_address) do
