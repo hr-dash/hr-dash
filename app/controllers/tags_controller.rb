@@ -1,5 +1,5 @@
 class TagsController < ApplicationController
   def index
-    @tags = Tag.all
+    @tags = Tag.fixed
   end
 end
