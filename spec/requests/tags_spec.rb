@@ -14,7 +14,7 @@ describe TagsController, type: :request do
       before { get tags_path, nil, headers_for_json }
 
       it { expect(JSON.parse(response.body).size).to eq 1 }
-      it { expect(JSON.parse(response.body).first["name"]).to eq fixed.name }
+      it { expect(JSON.parse(response.body).first['name']).to eq fixed.name }
     end
   end
 end
