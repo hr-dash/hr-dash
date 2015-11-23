@@ -23,6 +23,9 @@ Rails.application.routes.draw do
       get 'profile'
     end
   end
+
+  resources :tags, only: [:index]
+
   root to: 'sample#index'
 
   resources 'monthly_reports', except: :destroy
