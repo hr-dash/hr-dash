@@ -25,6 +25,8 @@
 
 class User < ActiveRecord::Base
   belongs_to :group
+  has_many :monthly_reports
+  has_many :monthly_report_comments
 
   validates :name, length: { maximum: 32 }, presence: true
   validates :employee_code, presence: true, uniqueness: true

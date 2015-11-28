@@ -24,6 +24,12 @@
 #
 
 describe User, type: :model do
+  describe 'Relations' do
+    it { is_expected.to belong_to :group }
+    it { is_expected.to have_many :monthly_reports }
+    it { is_expected.to have_many :monthly_report_comments }
+  end
+
   describe 'Validations' do
     subject { build(:user) }
 
