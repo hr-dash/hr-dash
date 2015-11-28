@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
+  resources :monthly_report_comments, only: [:create, :update, :destroy]
+
   resources :sample, only: [:index] do
     collection do
       get 'group'
