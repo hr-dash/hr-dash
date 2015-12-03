@@ -1,0 +1,31 @@
+h3 =@monthly_report.user.name 
+.panel-group
+  .panel.panel-default
+    .panel-heading.montly-report-panel-header
+      .panel-title.row
+        .col-xs-2
+          a.btn.btn-default.btn-xs.monthly-report-panel-button href="#" role="button" 先月
+        .col-xs-8.monthly-report-panel-date ="#{@monthly_report.year}年#{@monthly_report.month}月の月報"
+        .col-xs-2
+          a.btn.btn-default.btn-xs.monthly-report-panel-button.pull-right href="#" role="button" 来月
+    .panel-body
+      form.form-horizontal
+        .form-group
+          label.col-xs-3.control-label プロジェクト概要
+          .col-xs-9.form-control-static 
+            = @monthly_report.project_summary
+          label.col-xs-3.control-label 使用した技術
+          .col-xs-9.form-control-static
+            = @monthly_report.used_technology
+          label.col-xs-3.control-label 担当した工程
+          .col-xs-9.form-control-static
+            = @monthly_report.responsible_business
+          label.col-xs-3.control-label 業務内容
+          .col-xs-9.form-control-static
+            = @monthly_report.business_content
+          label.col-xs-3.control-label 今月の振り返り
+          .col-xs-9.form-control-static
+            = @monthly_report.looking_back
+          label.col-xs-3.control-label 来月の目標
+          .col-xs-9.form-control-static
+            = @monthly_report.next_month_goals
