@@ -58,6 +58,7 @@ group :development, :test do
   gem 'rubocop'
   gem 'reek'
   gem 'annotate'
+  gem 'meta_request'
 
   gem 'rspec-rails'
   gem 'factory_girl_rails'
@@ -67,6 +68,8 @@ end
 group :development do
   gem 'bullet'
   gem 'rails-erd'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :test do
