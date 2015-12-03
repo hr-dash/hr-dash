@@ -3,7 +3,6 @@ class MonthlyReportsController < ApplicationController
   end
 
   def show
-    @monthly = MonthlyReport.find(params[:id])
-    @user_name = User.find(@monthly.users_id).name
+    @monthly_report = MonthlyReport.find(params[:id])
   end
 end
