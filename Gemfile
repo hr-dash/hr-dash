@@ -58,6 +58,7 @@ group :development, :test do
   gem 'rubocop'
   gem 'reek'
   gem 'annotate'
+  gem 'meta_request'
 
   gem 'rspec-rails'
   gem 'factory_girl_rails'
