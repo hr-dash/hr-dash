@@ -25,6 +25,7 @@
 
 class User < ActiveRecord::Base
   belongs_to :group
+  has_many :monthly_reports
 
   validates :name, length: { maximum: 32 }, presence: true
   validates :employee_code, presence: true, uniqueness: true
@@ -33,6 +34,6 @@ class User < ActiveRecord::Base
   validates :beginner_flg, inclusion: { in: [true, false] }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, 
+  devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 end
