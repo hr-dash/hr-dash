@@ -1,0 +1,16 @@
+= render partial: 'layouts/html_header'
+body
+  .container-fluid.login-container
+    .login-form
+      h1.text-center = Dash.name
+      = form_tag sessions_path, method: :post, class: "form-horizontal"
+        fieldset
+          .form-group
+            label.col-lg-4.control-label for="email" email
+            .col-lg-6
+              = text_field_tag "user[email]", nil, class: "form-control", id: "email"
+          .form-group
+            label.col-lg-4.control-label for="password" password
+            .col-lg-6
+              = password_field_tag "user[password]", nil, class: "form-control", id: "password"
+          = button_tag "Login", class: "btn btn-primary center-block"
