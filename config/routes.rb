@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
 
-  devise_for :users
-  devise_for :admin_users, ActiveAdmin::Devise.config
+  devise_for :users, skip: [:sessions]
+  devise_scope :user do
+    resources :sessions, only: [:new, :create] do
+      collection do
+        delete 'destroy', as: :destroy
+      end
+    end
+  end
+
   ActiveAdmin.routes(self)
 
   resources :monthly_report_comments, only: [:create, :update, :destroy]
