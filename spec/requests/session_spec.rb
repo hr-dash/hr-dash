@@ -16,7 +16,7 @@ describe SessionsController, type: :request do
     before { post sessions_path, login_params }
 
     context 'valid user' do
-      let(:user) { create :user  }
+      let(:user) { create :user }
 
       it { expect(response).to have_http_status :found }
       it { expect(response).to redirect_to(root_path) }
@@ -24,7 +24,7 @@ describe SessionsController, type: :request do
     end
 
     context 'invalid user' do
-      let(:user) { build :user  }
+      let(:user) { build :user }
 
       it { expect(response).to have_http_status :found }
       it { expect(response).to redirect_to(new_session_path) }
@@ -32,7 +32,7 @@ describe SessionsController, type: :request do
   end
 
   describe '#destroy DELETE /sessions/destroy' do
-    let(:user) { create :user  }
+    let(:user) { create :user }
     let(:login_params) { { user: { email: user.email, password: user.password } } }
 
     before do
