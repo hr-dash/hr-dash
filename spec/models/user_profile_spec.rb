@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: user_profiles
+#
+#  id                :integer          not null, primary key
+#  user_id           :integer
+#  self_introduction :text
+#  gender            :integer          default(0), not null
+#  blood_type        :integer          default(0), not null
+#  birthday          :date
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
 require 'rails_helper'
 
 describe UserProfile, type: :model do
