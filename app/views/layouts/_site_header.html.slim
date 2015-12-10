@@ -23,10 +23,10 @@ header.site-header.bg-primary.col-xs-2
     ul.nav.nav-pills.nav-stacked.header-menu-bottom
       li
         - if user_signed_in?
-          = link_to 'ログアウト', destroy_user_session_path, method: :delete
+          = link_to 'ログアウト', destroy_sessions_path, method: :delete
           = link_to '管理画面へ', admin_root_path
         - else
-          = link_to 'ログイン', login_sample_index_path
+          = link_to 'ログイン', new_session_path
       li
         a.lead.bg-primary href="#{profile_sample_index_path}"
           span.glyphicon.glyphicon-user aria-hidden="true"
