@@ -1,4 +1,6 @@
 describe TagsController, type: :request do
+  before { login }
+
   describe 'GET /tags' do
     describe 'return fixed tags' do
       let!(:tags) { create_list(:tag, 3, :fixed) }
