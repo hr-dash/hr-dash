@@ -5,12 +5,7 @@
     .panel-body.row
       .col-md-6
         h5 #{group.name} グループの説明
-        p xxxxxx
-        p yyyyyy
-        p zzzzzz
-        p xxxxxx
-        p yyyyyy
-        p zzzzzz
+        p = group.description
       .col-md-6
         h5 メンバー
         - group.users.each do |user|
