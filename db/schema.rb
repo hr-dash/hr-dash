@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20150928132655) do
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "groups", force: :cascade do |t|
-    t.string   "group_name"
+    t.string   "name"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
