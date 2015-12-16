@@ -8,5 +8,6 @@ describe GroupsController, type: :request do
     it { expect(response).to have_http_status :success }
     it { expect(response.body).to match user.name }
     it { expect(response.body).to match user.group.name }
+    it { expect(response.body).to match user.group.description }
   end
 end
