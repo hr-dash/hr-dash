@@ -1,10 +1,10 @@
 .panel.panel-default
   .panel-heading
-    a data-toggle="collapse" data-parent="#grouop_list" href="##{data[:id]}" = "#{data[:name]} グループ"
-  .panel-collapse.collapse id="#{data[:id]}"
+    a data-toggle="collapse" data-parent="#grouop_list" href="##{group.id}" = "#{group.name} グループ"
+  .panel-collapse.collapse id="#{group.id}"
     .panel-body.row
       .col-md-6
-        h5 #{data[:name]} グループの説明
+        h5 #{group.name} グループの説明
         p xxxxxx
         p yyyyyy
         p zzzzzz
@@ -13,7 +13,5 @@
         p zzzzzz
       .col-md-6
         h5 メンバー
-        p 山田 太郎
-        p 田中 花子
-        p 鈴木 一郎
-        p 佐藤 葉子
+        - group.users.each do |user|
+          p = user.name
