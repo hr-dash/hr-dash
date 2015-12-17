@@ -6,6 +6,9 @@ Documentation:
 AsciiComments:
   Enabled: false
 
+Metrics/LineLength:
+  Max: 128
+
 AllCops:
   Exclude:
     - db/schema.rb
