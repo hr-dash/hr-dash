@@ -29,4 +29,6 @@ class MonthlyReport < ActiveRecord::Base
   validates :year, numericality: { only_integer: true,
                                    greater_than_or_equal_to: 2000 },
                    presence: true
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
 end
