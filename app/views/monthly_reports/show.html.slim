@@ -5,7 +5,7 @@ h3 =@monthly_report.user.name
       .panel-title.row
         .col-xs-2
           a.btn.btn-default.btn-xs.monthly-report-panel-button href="#" role="button" 先月
-        .col-xs-8.monthly-report-panel-date ="#{@monthly_report.year}年#{@monthly_report.month}月の月報"
+        .col-xs-8.monthly-report-panel-date ="#{@monthly_report.target_month.strftime("%Y年%m月")}の月報"
         .col-xs-2
           a.btn.btn-default.btn-xs.monthly-report-panel-button.pull-right href="#" role="button" 来月
     .panel-body
@@ -16,10 +16,10 @@ h3 =@monthly_report.user.name
             = @monthly_report.project_summary
           label.col-xs-3.control-label 使用した技術
           .col-xs-9.form-control-static
-            = @monthly_report.used_technology
+            = @monthly_report.monthly_report_tags
           label.col-xs-3.control-label 担当した工程
           .col-xs-9.form-control-static
-            = @monthly_report.responsible_business
+            = @monthly_report.monthly_working_processes
           label.col-xs-3.control-label 業務内容
           .col-xs-9.form-control-static
             = @monthly_report.business_content

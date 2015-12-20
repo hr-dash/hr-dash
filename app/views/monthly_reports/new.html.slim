@@ -15,10 +15,9 @@
       .col-sm-10.btn-group data-toggle="buttons"
         - MonthlyWorkingProcess.processes.each do |key, value|
           - working_process = MonthlyWorkingProcess.find_or_initialize_by(monthly_report: @monthly_report, process: value)
-          = fields_for working_process do |process_form|
-            label.btn.btn-default
-              = process_form.check_box :process, autocomplete: "off"
-              span = working_process.process_i18n
+          label.btn.btn-default
+            = check_box_tag "working_process[]", value, !working_process.new_record?, autocomplete: "off"
+            span = working_process.process_i18n
     .form-group
       = f.label :business_content, class: 'control-label col-sm-2'
       .col-sm-10
@@ -35,5 +34,6 @@
       = f.label :next_month_goals, class: 'control-label col-sm-2'
       .col-sm-10
         = f.text_area :next_month_goals, class: 'form-control'
+    = f.hidden_field :target_month
     = f.button 'Save as WIP（下書き保存）', class: 'btn btn-lg btn-info btn-block'
     = f.button 'Ship（保存して公開）', class: 'btn btn-lg btn-success btn-block'
