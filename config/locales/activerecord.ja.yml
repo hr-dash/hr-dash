@@ -5,8 +5,8 @@ ja:
     attributes:
       monthly_report:
         project_summary: プロジェクト概要
-        used_technology: 使用した技術
-        responsible_business: 担当した工程
+        monthly_report_tags: 使用した技術
+        monthly_working_processes: 担当した工程
         business_content: 業務内容
         looking_back: 今月の振り返り
         next_month_goals: 来月の目標
@@ -14,7 +14,7 @@ ja:
     <<: activerecord
   enums:
     monthly_working_process:
-      working_process:
+      process:
         definition: 要件定義
         design: 設計
         implementation: 実装
