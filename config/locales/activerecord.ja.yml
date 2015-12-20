@@ -12,3 +12,12 @@ ja:
         next_month_goals: 来月の目標
   activemodel:
     <<: activerecord
+  enums:
+    monthly_working_process:
+      working_process:
+        definition: 要件定義
+        design: 設計
+        implementation: 実装
+        test: テスト
+        operation: 運用保守
+        analysis: 分析

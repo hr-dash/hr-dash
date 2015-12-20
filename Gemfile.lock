@@ -117,6 +117,7 @@ GEM
       warden (~> 1.2.3)
     devise-i18n (0.12.1)
     diff-lcs (1.2.5)
+    enum_help (0.0.14)
     equalizer (0.0.11)
     erubis (2.7.0)
     execjs (2.5.2)
@@ -348,6 +349,7 @@ DEPENDENCIES
   database_rewinder
   devise
   devise-i18n
+  enum_help
   factory_girl_rails
   faker
   global
