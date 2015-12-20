@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207132531) do
+ActiveRecord::Schema.define(version: 20151220122954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,18 +72,26 @@ ActiveRecord::Schema.define(version: 20151207132531) do
   end
 
   create_table "monthly_reports", force: :cascade do |t|
-    t.integer  "user_id",              null: false
+    t.integer  "user_id",          null: false
+    t.datetime "target_month",     null: false
     t.text     "project_summary"
-    t.text     "used_technology"
-    t.text     "responsible_business"
     t.text     "business_content"
     t.text     "looking_back"
     t.text     "next_month_goals"
-    t.integer  "month",                null: false
-    t.integer  "year",                 null: false
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
+
+  add_index "monthly_reports", ["target_month"], name: "index_monthly_reports_on_target_month", using: :btree
+
+  create_table "monthly_working_processes", force: :cascade do |t|
+    t.integer  "monthly_report_id"
+    t.integer  "process",           null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "monthly_working_processes", ["monthly_report_id"], name: "index_monthly_working_processes_on_monthly_report_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -131,9 +139,9 @@ ActiveRecord::Schema.define(version: 20151207132531) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["employee_code"], name: "index_users_on_employee_code", unique: true, using: :btree
   add_index "users", ["group_id"], name: "index_users_on_group_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "monthly_working_processes", "monthly_reports"
   add_foreign_key "user_profiles", "users"
 end

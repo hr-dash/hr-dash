@@ -1,14 +1,15 @@
 FactoryGirl.define do
   factory :monthly_report do
     association :user
-    month { Faker::Number.between(1, 12) }
-    year { Faker::Number.between(2000, 2020) }
+    target_month { Faker::Date.between(2.days.ago, Date.today).beginning_of_month }
     project_summary { Faker::Lorem.paragraph }
-    used_technology { Faker::Lorem.paragraph }
-    responsible_business { Faker::Lorem.paragraph }
     business_content { Faker::Lorem.paragraph }
     looking_back { Faker::Lorem.paragraph }
     next_month_goals { Faker::Lorem.paragraph }
+
+    after(:create) do |report|
+      create(:monthly_working_process, monthly_report: report)
+    end
 
     trait :with_comments do
       transient do
