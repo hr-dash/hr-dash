@@ -1,0 +1,51 @@
+- provide :page_title, "月報登録"
+
+.page-content.well
+  = form_for @monthly_report, html: { class: 'form-horizontal' } do |f|
+    .form-group
+      = f.label :project_summary, class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_area :project_summary, class: 'form-control'
+    .form-group
+      = f.label :used_technology, class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_field :used_technology, class: 'form-control'
+    .form-group
+      = f.label :responsible_business, class: 'control-label col-sm-2'
+      .col-sm-10.btn-group data-toggle="buttons"
+        label.btn.btn-default
+          = f.check_box :responsible_business, autocomplete: "off"
+          span 要件定義
+        label.btn.btn-default
+          = f.check_box :responsible_business, autocomplete: "off"
+          span 設計
+        label.btn.btn-default
+          = f.check_box :responsible_business, autocomplete: "off"
+          span 実装
+        label.btn.btn-default
+          = f.check_box :responsible_business, autocomplete: "off"
+          span テスト
+        label.btn.btn-default
+          = f.check_box :responsible_business, autocomplete: "off"
+          span 運用保守
+        label.btn.btn-default
+          = f.check_box :responsible_business, autocomplete: "off"
+          span 分析
+    .form-group
+      = f.label :business_content, class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_area :business_content, class: 'form-control'
+    .form-group
+      = label_tag :last_month_goals, '今月の目標', class: 'control-label col-sm-2'
+      .col-sm-10
+        p.form-control-static 先月、「来月の目標」に書いた内容を表示
+    .form-group
+      = f.label :looking_back, class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_area :looking_back, class: 'form-control'
+    .form-group
+      = f.label :next_month_goals, class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_area :next_month_goals, class: 'form-control'
+    = f.button 'Save as WIP（下書き保存）', class: 'btn btn-lg btn-info btn-block'
+    = f.button 'Ship（保存して公開）', class: 'btn btn-lg btn-success btn-block'
