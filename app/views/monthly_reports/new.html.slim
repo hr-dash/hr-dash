@@ -7,30 +7,18 @@
       .col-sm-10
         = f.text_area :project_summary, class: 'form-control'
     .form-group
-      = f.label :used_technology, class: 'control-label col-sm-2'
+      = f.label :monthly_report_tags, class: 'control-label col-sm-2'
       .col-sm-10
-        = f.text_field :used_technology, class: 'form-control'
+        = f.text_field :monthly_report_tags, class: 'form-control'
     .form-group
-      = f.label :responsible_business, class: 'control-label col-sm-2'
+      = f.label :monthly_working_processes, class: 'control-label col-sm-2'
       .col-sm-10.btn-group data-toggle="buttons"
-        label.btn.btn-default
-          = f.check_box :responsible_business, autocomplete: "off"
-          span 要件定義
-        label.btn.btn-default
-          = f.check_box :responsible_business, autocomplete: "off"
-          span 設計
-        label.btn.btn-default
-          = f.check_box :responsible_business, autocomplete: "off"
-          span 実装
-        label.btn.btn-default
-          = f.check_box :responsible_business, autocomplete: "off"
-          span テスト
-        label.btn.btn-default
-          = f.check_box :responsible_business, autocomplete: "off"
-          span 運用保守
-        label.btn.btn-default
-          = f.check_box :responsible_business, autocomplete: "off"
-          span 分析
+        - MonthlyWorkingProcess.processes.each do |key, value|
+          - working_process = MonthlyWorkingProcess.find_or_initialize_by(monthly_report: @monthly_report, process: value)
+          = fields_for working_process do |process_form|
+            label.btn.btn-default
+              = process_form.check_box :process, autocomplete: "off"
+              span = working_process.process_i18n
     .form-group
       = f.label :business_content, class: 'control-label col-sm-2'
       .col-sm-10
