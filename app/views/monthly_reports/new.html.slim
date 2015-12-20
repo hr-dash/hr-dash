@@ -3,36 +3,36 @@
 .page-content.well
   = form_for @monthly_report, html: { class: 'form-horizontal' } do |f|
     .form-group
-      = f.label :project_summary, class: 'control-label col-sm-2'
-      .col-sm-10
+      = f.label :project_summary, class: 'control-label col-xs-3'
+      .col-xs-9
         = f.text_area :project_summary, class: 'form-control'
     .form-group
-      = f.label :monthly_report_tags, class: 'control-label col-sm-2'
-      .col-sm-10
+      = f.label :monthly_report_tags, class: 'control-label col-xs-3'
+      .col-xs-9
         = f.text_field :monthly_report_tags, class: 'form-control'
     .form-group
-      = f.label :monthly_working_processes, class: 'control-label col-sm-2'
-      .col-sm-10.btn-group data-toggle="buttons"
+      = f.label :monthly_working_processes, class: 'control-label col-xs-3'
+      .col-xs-9.btn-group data-toggle="buttons"
         - MonthlyWorkingProcess.processes.each do |key, value|
           - working_process = MonthlyWorkingProcess.find_or_initialize_by(monthly_report: @monthly_report, process: value)
           label.btn.btn-default
             = check_box_tag "working_process[]", value, !working_process.new_record?, autocomplete: "off"
             span = working_process.process_i18n
     .form-group
-      = f.label :business_content, class: 'control-label col-sm-2'
-      .col-sm-10
+      = f.label :business_content, class: 'control-label col-xs-3'
+      .col-xs-9
         = f.text_area :business_content, class: 'form-control'
     .form-group
-      = label_tag :last_month_goals, '今月の目標', class: 'control-label col-sm-2'
-      .col-sm-10
+      = label_tag :last_month_goals, '今月の目標', class: 'control-label col-xs-3'
+      .col-xs-9
         p.form-control-static 先月、「来月の目標」に書いた内容を表示
     .form-group
-      = f.label :looking_back, class: 'control-label col-sm-2'
-      .col-sm-10
+      = f.label :looking_back, class: 'control-label col-xs-3'
+      .col-xs-9
         = f.text_area :looking_back, class: 'form-control'
     .form-group
-      = f.label :next_month_goals, class: 'control-label col-sm-2'
-      .col-sm-10
+      = f.label :next_month_goals, class: 'control-label col-xs-3'
+      .col-xs-9
         = f.text_area :next_month_goals, class: 'form-control'
     = f.hidden_field :target_month
     = f.button 'Save as WIP（下書き保存）', class: 'btn btn-lg btn-info btn-block'
