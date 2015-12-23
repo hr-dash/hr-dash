@@ -40,7 +40,7 @@ describe AdminUser do
       current_sign_in_at: c_sign_in_at,
       last_sign_in_at: l_sign_in_at,
       current_sign_in_ip: c_sign_in_ip,
-      last_sign_in_ip: l_sign_in_ip
+      last_sign_in_ip: l_sign_in_ip,
     )
   end
   let(:email) { 'hoge@example.com' }
