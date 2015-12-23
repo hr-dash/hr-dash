@@ -57,4 +57,18 @@ RSpec.describe MonthlyReport, type: :model do
       end
     end
   end
+
+  describe 'Callbacks' do
+    describe '#log_shipped_at' do
+      context 'wip' do
+        let(:report) { create(:monthly_report, :wip) }
+        it { expect(report.shipped_at).to be nil }
+      end
+
+      context 'shipped' do
+        let(:report) { create(:monthly_report, :shipped) }
+        it { expect(report.shipped_at).not_to be nil }
+      end
+    end
+  end
 end

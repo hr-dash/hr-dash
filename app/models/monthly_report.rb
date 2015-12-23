@@ -28,11 +28,18 @@ class MonthlyReport < ActiveRecord::Base
 
   enum status: { wip: 0, shipped: 1 }
 
+  before_save :log_shipped_at
+
   private
 
   def target_beginning_of_month?
     return if target_month.blank?
     return if target_month == target_month.beginning_of_month
     errors.add :target_month, 'invalid target month'
+  end
+
+  def log_shipped_at
+    return if status == 'wip'
+    self.shipped_at ||= Time.current
   end
 end
