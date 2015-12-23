@@ -22,7 +22,7 @@ RSpec.describe MonthlyReport, type: :model do
     it { is_expected.to validate_presence_of(:user_id) }
     it { is_expected.to validate_presence_of(:target_month) }
 
-    describe "#is_target_beginning_of_month" do
+    describe '#target_beginning_of_month?' do
       let(:invalid_target) { Faker::Date.backward(100).end_of_month }
       let(:monthly_report) { build(:monthly_report, target_month: invalid_target) }
 

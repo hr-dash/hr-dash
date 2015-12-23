@@ -13,9 +13,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def create
-    @monthly_report = MonthlyReport.new(permitted_params) do |report|
-      report.user = current_user
-    end
+    @monthly_report = MonthlyReport.new(permitted_params) { |report| report.user = current_user }
 
     processes = params[:working_process].try!(:map) do |process|
       MonthlyWorkingProcess.new(monthly_report: @monthly_report, process: process)

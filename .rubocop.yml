@@ -9,6 +9,9 @@ AsciiComments:
 Metrics/LineLength:
   Max: 128
 
+TrailingComma:
+  EnforcedStyleForMultiline: comma
+
 AllCops:
   Exclude:
     - db/schema.rb

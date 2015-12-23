@@ -23,13 +23,13 @@ class MonthlyReport < ActiveRecord::Base
 
   validates :user_id, numericality: { only_integer: true }, presence: true
   validates :target_month, presence: true
-  validate :is_target_beginning_of_month
+  validate :target_beginning_of_month?
 
   private
 
-  def is_target_beginning_of_month
+  def target_beginning_of_month?
     return if target_month.blank?
     return if target_month == target_month.beginning_of_month
-    errors.add :target_month, "invalid target month"
+    errors.add :target_month, 'invalid target month'
   end
 end
