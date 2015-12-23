@@ -21,7 +21,7 @@
             = @monthly_report.monthly_report_tags
           label.col-xs-3.control-label = t "#{attr}.monthly_working_processes"
           .col-xs-9.form-control-static
-            = @monthly_report.monthly_working_processes
+            = @monthly_report.monthly_working_processes.map(&:process_i18n).join(" ")
           label.col-xs-3.control-label = t "#{attr}.business_content"
           .col-xs-9.form-control-static
             = @monthly_report.business_content
