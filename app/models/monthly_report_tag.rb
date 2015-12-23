@@ -12,6 +12,7 @@
 class MonthlyReportTag < ActiveRecord::Base
   belongs_to :monthly_report
   belongs_to :tag
+  delegate :name, to: :tag
 
   validates :monthly_report_id, numericality: { only_integer: true },
                                 presence: true
