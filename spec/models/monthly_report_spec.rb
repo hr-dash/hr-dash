@@ -5,8 +5,9 @@
 #  id               :integer          not null, primary key
 #  user_id          :integer          not null
 #  target_month     :datetime         not null
+#  status           :integer          not null
+#  shipped_at       :datetime
 #  project_summary  :text
-#  working_process  :integer          is an Array
 #  business_content :text
 #  looking_back     :text
 #  next_month_goals :text
