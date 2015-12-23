@@ -22,7 +22,4 @@ class AdminUser < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
-
-  validates :email, email: true, presence: true, uniqueness: true,
-                    length: { maximum: 255 }
 end

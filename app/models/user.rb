@@ -31,7 +31,6 @@ class User < ActiveRecord::Base
 
   validates :name, length: { maximum: 32 }, presence: true
   validates :employee_code, presence: true, uniqueness: true
-  validates :email, length: { maximum: 255 }, email: true, presence: true
   validates :entry_date, presence: true
   validates :beginner_flg, inclusion: { in: [true, false] }
   # Include default devise modules. Others available are:
