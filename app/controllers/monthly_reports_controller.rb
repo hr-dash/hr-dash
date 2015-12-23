@@ -20,7 +20,7 @@ class MonthlyReportsController < ApplicationController
     processes = params[:working_process].try!(:map) do |process|
       MonthlyWorkingProcess.new(monthly_report: @monthly_report, process: process)
     end
-    @monthly_report.monthly_working_processes = processes
+    @monthly_report.monthly_working_processes = processes || []
 
     if @monthly_report.save
       redirect_to @monthly_report
