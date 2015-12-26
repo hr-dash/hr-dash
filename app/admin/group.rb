@@ -1,3 +1,3 @@
 ActiveAdmin.register Group do
-  permit_params %w(group_name deleted_at)
+  permit_params Group.column_names
 end

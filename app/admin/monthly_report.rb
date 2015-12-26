@@ -1,7 +1,5 @@
 ActiveAdmin.register MonthlyReport do
-  params = %w(user_id project_summary used_technology responsible_business)
-  params.concat(%w(business_content looking_back next_month_goals month year))
-  permit_params params
+  permit_params MonthlyReport.column_names
 
   index do
     selectable_column

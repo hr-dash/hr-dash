@@ -1,5 +1,5 @@
 ActiveAdmin.register MonthlyReportTag do
-  permit_params %w(monthly_report_id tag_id)
+  permit_params MonthlyReportTag.column_names
 
   index do
     selectable_column
