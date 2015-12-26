@@ -1,5 +1,5 @@
 ActiveAdmin.register MonthlyReportComment do
-  permit_params %w(user_id comment monthly_report_id)
+  permit_params MonthlyReportComment.column_names
 
   index do
     selectable_column
