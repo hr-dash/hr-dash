@@ -1,4 +1,9 @@
 $ ->
+  marked.setOptions({
+    gfm: true,
+    sanitize: true
+  })
+
   $('.tab-md-preview').click ->
     content = $(this).closest('.markdown-editor').find('.markdown-content')
     text = content.find('textarea').val()
