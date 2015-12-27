@@ -1,6 +1,7 @@
 $ ->
   marked.setOptions({
     gfm: true,
+    breaks: true,
     sanitize: true,
     highlight: (code) ->
       hljs.highlightAuto(code).value
