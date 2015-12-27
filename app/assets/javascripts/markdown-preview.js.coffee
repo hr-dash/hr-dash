@@ -1,7 +1,9 @@
 $ ->
   marked.setOptions({
     gfm: true,
-    sanitize: true
+    sanitize: true,
+    highlight: (code) ->
+      hljs.highlightAuto(code).value
   })
 
   $('.tab-md-preview').click ->
