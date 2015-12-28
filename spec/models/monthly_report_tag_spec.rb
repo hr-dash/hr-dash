@@ -29,11 +29,6 @@ describe MonthlyReportTag, type: :model do
     end
 
     context 'incorrect params ' do
-      context 'monthly report id is string' do
-        let(:report_id) { 'one' }
-        it { expect(report_tag).not_to be_valid }
-      end
-
       context 'tag id is string' do
         let(:tag_id) { 'one' }
         it { expect(report_tag).not_to be_valid }
