@@ -235,6 +235,7 @@ GEM
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.2)
+    rdiscount (2.1.8)
     rdoc (4.2.0)
     reek (3.5.0)
       parser (~> 2.2.2.5)
@@ -362,6 +363,7 @@ DEPENDENCIES
   pry
   rails (= 4.2.3)
   rails-erd
+  rdiscount
   reek
   rspec
   rspec-rails
