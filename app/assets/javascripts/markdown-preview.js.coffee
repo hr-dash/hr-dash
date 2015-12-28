@@ -12,3 +12,5 @@ $ ->
     text = content.find('textarea').val()
     preview = content.find('.content-md-preview')
     preview.html(marked(text))
+
+  hljs.initHighlightingOnLoad()
