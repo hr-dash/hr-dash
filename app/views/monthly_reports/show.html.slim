@@ -14,20 +14,20 @@
         .form-group
           - attr = 'activerecord.attributes.monthly_report'
           label.col-xs-3.control-label = t "#{attr}.project_summary"
-          .col-xs-9.form-control-static 
-            = @monthly_report.project_summary
+          .col-xs-9.form-control-static
+            = render 'layouts/markdown_view', content: @monthly_report.project_summary
           label.col-xs-3.control-label = t "#{attr}.monthly_report_tags"
           .col-xs-9.form-control-static
-            = @monthly_report.monthly_report_tags
+            = render 'layouts/monthly_report_tags_show', tags: @monthly_report.tags, prefix: :report
           label.col-xs-3.control-label = t "#{attr}.monthly_working_processes"
           .col-xs-9.form-control-static
             = @monthly_report.monthly_working_processes.map(&:process_i18n).join(" ")
           label.col-xs-3.control-label = t "#{attr}.business_content"
           .col-xs-9.form-control-static
-            = @monthly_report.business_content
+            = render 'layouts/markdown_view', content: @monthly_report.business_content
           label.col-xs-3.control-label = t "#{attr}.looking_back"
           .col-xs-9.form-control-static
-            = @monthly_report.looking_back
+            = render 'layouts/markdown_view', content: @monthly_report.looking_back
           label.col-xs-3.control-label = t "#{attr}.next_month_goals"
           .col-xs-9.form-control-static
-            = @monthly_report.next_month_goals
+            = render 'layouts/markdown_view', content: @monthly_report.next_month_goals
