@@ -12,4 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+
+// Bootstrap
+//= require bootstrap.min
+//= require marked.min
+//= require highlight.pack
+//= require bootstrap-tags.min
+
 //= require_tree .
