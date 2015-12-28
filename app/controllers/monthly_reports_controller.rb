@@ -15,9 +15,7 @@ class MonthlyReportsController < ApplicationController
   def create
     @monthly_report = MonthlyReport.new(permitted_params) do |report|
       report.user   = current_user
-      report.status = params[:wip] ? :wip : :shipped
-      report.monthly_working_processes = working_processes(report)
-      report.tags = monthly_report_tags
+      assign_relational_params(report)
     end
 
     if @monthly_report.save
@@ -29,6 +27,12 @@ class MonthlyReportsController < ApplicationController
 
   private
 
+  def assign_relational_params(report)
+    report.status = params[:wip] ? :wip : :shipped
+    report.monthly_working_processes = working_processes(report)
+    report.tags = monthly_report_tags
+  end
+
   def working_processes(monthly_report)
     processes = params[:working_process].try!(:map) do |process|
       MonthlyWorkingProcess.new(monthly_report: monthly_report, process: process)
@@ -38,7 +42,7 @@ class MonthlyReportsController < ApplicationController
 
   def monthly_report_tags
     tags = params[:monthly_report][:monthly_report_tags].try!(:split, ',').try!(:map) do |tag|
-      tag = Tag.find_or_create_by(name: tag)
+      Tag.find_or_create_by(name: tag)
     end
     tags || []
   end
