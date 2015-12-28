@@ -17,6 +17,7 @@ class MonthlyReportsController < ApplicationController
       report.user   = current_user
       report.status = params[:wip] ? :wip : :shipped
       report.monthly_working_processes = working_processes(report)
+      report.tags = monthly_report_tags
     end
 
     if @monthly_report.save
@@ -33,6 +34,13 @@ class MonthlyReportsController < ApplicationController
       MonthlyWorkingProcess.new(monthly_report: monthly_report, process: process)
     end
     processes || []
+  end
+
+  def monthly_report_tags
+    tags = params[:monthly_report][:monthly_report_tags].split(',').map do |tag|
+      tag = Tag.find_or_create_by(name: tag)
+    end
+    tags || []
   end
 
   def permitted_params
