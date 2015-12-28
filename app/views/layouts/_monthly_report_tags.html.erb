@@ -1,0 +1,24 @@
+<div id="monthly_report_tags" class="tag-list"></div>
+
+<script>
+$(function(){
+  var refresh_tags_input = function(self) {
+    var input = $('#monthly_report_tags_input');
+    (typeof(input) == undefined) ? null : input.val(self.getTags());
+  }
+
+  var tagger = $('#monthly_report_tags').tags({
+      tagData: <%= raw (tags.present? ? tags.map(&:name) : []) %>,
+      suggestions: <%= raw Tag.all.pluck(:name) %>,
+      caseInsensitive: true,
+      tagClass: 'btn-success',
+      afterAddingTag: function() {
+        refresh_tags_input(this);
+      },
+      afterDeletingTag: function() {
+        refresh_tags_input(this);
+      }
+  });
+  refresh_tags_input(tagger);
+});
+</script>
