@@ -37,7 +37,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def monthly_report_tags
-    tags = params[:monthly_report][:monthly_report_tags].split(',').map do |tag|
+    tags = params[:monthly_report][:monthly_report_tags].try!(:split, ',').try!(:map) do |tag|
       tag = Tag.find_or_create_by(name: tag)
     end
     tags || []
