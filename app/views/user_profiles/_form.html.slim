@@ -1,0 +1,50 @@
+.page-content
+  .jumbotron
+    h2
+      span.glyphicon.glyphicon-user
+      span #{user.name}
+
+    = form_for profile, class: 'form-horizontal' do |f|
+      .form-group
+        = f.label :gender, '性別', class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.radio_button :gender, 'male', checked: profile.gender == 'male'
+          = f.label :gender_male, '男性'
+
+          = f.radio_button :gender, 'female', checked: profile.gender == 'female'
+          = f.label :gender_female, '女性'
+
+          = f.radio_button :gender, 'gender_hidden', checked: profile.gender == 'gender_hidden'
+          = f.label :gender_gender_hidden, '無記入'
+
+      .form-group
+        = f.label :blood_type, '血液型', class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.radio_button :blood_type, 'a', checked: profile.blood_type == 'a'
+          = f.label :blood_type_a, 'A型'
+
+          = f.radio_button :blood_type, 'b', checked: profile.blood_type == 'b'
+          = f.label :blood_type_b, 'B型'
+          
+          = f.radio_button :blood_type, 'ab', checked: profile.blood_type == 'ab'
+          = f.label :blood_type_ab, 'AB型'
+
+          = f.radio_button :blood_type, 'o', checked: profile.blood_type == 'o'
+          = f.label :blood_type_o, 'O型'
+
+          = f.radio_button :blood_type, 'blood_hidden', checked: profile.blood_type == 0
+          = f.label :blood_type_blood_hidden, '無記入'
+
+      .form-group
+        = f.label :birthday, '誕生日', class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.date_field :birthday, class: 'form-control'
+        
+      .form-group
+        = f.label :self_introduction, '自己紹介', class: 'col-sm-2 control-label'
+        .col-sm-10
+          = f.text_area :self_introduction, class: 'form-control'
+
+      = f.hidden_field :user_id, value: user.id
+
+      = f.submit '登録'
