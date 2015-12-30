@@ -6,44 +6,35 @@
   = form_for profile, html: { class: 'form-horizontal' } do |f|
     .form-group
       = f.label :gender, '性別', class: 'col-sm-2 control-label'
-      .col-sm-10
-        .radio-inline
-          label
-            = f.radio_button :gender, 'male', checked: profile.gender == 'male'
-            = '男性'
-        .radio-inline
-          label
-            = f.radio_button :gender, 'female', checked: profile.gender == 'female'
-            = '女性'
-        .radio-inline
-          label
-            = f.radio_button :gender, 'gender_hidden', checked: profile.gender == 'gender_hidden'
-            = '無記入'
+      .col-sm-10.btn-group data-toggle='buttons'
+        = f.label :gender_male, class: "btn btn-default #{add_class(profile, 'male')}"
+          = f.radio_button :gender, 'male', checked: male?(profile)
+          = '男性'
+        = f.label :gender_female, class: "btn btn-default #{add_class(profile, 'female')}"
+          = f.radio_button :gender, 'female', checked: female?(profile)
+          = '女性'
+        = f.label :gender_gender_hidden, class: "btn btn-default #{add_class(profile, 'gender_hidden')}"
+          = f.radio_button :gender, 'gender_hidden', checked: gender_hidden?(profile)
+          = '秘密'
 
     .form-group
       = f.label :blood_type, '血液型', class: 'col-sm-2 control-label'
-      .col-sm-10
-        .radio-inline
-          label
-            = f.radio_button :blood_type, 'a', checked: profile.blood_type == 'a'
-            = 'A型'
-        .radio-inline
-          label
-            = f.radio_button :blood_type, 'b', checked: profile.blood_type == 'b'
-            = 'B型'
-        .radio-inline
-          label
-            = f.radio_button :blood_type, 'ab', checked: profile.blood_type == 'ab'
-            = 'AB型'
-        .radio-inline
-          label
-            = f.radio_button :blood_type, 'o', checked: profile.blood_type == 'o'
-            = 'O型'
-  
-        .radio-inline
-          label
-            = f.radio_button :blood_type, 'blood_hidden', checked: profile.blood_type == 'blood_hidden'
-            = '無記入'
+      .col-sm-10.btn-group data-toggle='buttons'
+        = f.label :blood_type_a, class: "btn btn-default #{add_class(profile, 'blood_a')}"
+          = f.radio_button :blood_type, 'a', checked: blood_a?(profile)
+          = 'A型'
+        = f.label :blood_type_b, class: "btn btn-default #{add_class(profile, 'blood_b')}"
+          = f.radio_button :blood_type, 'b', checked: blood_b?(profile)
+          = 'B型'
+        = f.label :blood_type_ab, class: "btn btn-default #{add_class(profile, 'blood_ab')}"
+          = f.radio_button :blood_type, 'ab', checked: blood_ab?(profile)
+          = 'AB型'
+        = f.label :blood_type_o, class: "btn btn-default #{add_class(profile, 'blood_o')}"
+          = f.radio_button :blood_type, 'o', checked: blood_o?(profile)
+          = 'O型'
+        = f.label :blood_type_blood_hidden, class: "btn btn-default #{add_class(profile, 'blood_hidden')}"
+          = f.radio_button :blood_type, 'blood_hidden', checked: blood_hidden?(profile)
+          = '秘密'
 
     .form-group
       = f.label :birthday, '誕生日', class: 'col-sm-2 control-label'
