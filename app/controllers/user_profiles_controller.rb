@@ -5,7 +5,7 @@ class UserProfilesController < ApplicationController
   end
 
   def create
-    UserProfile.create! permitted_params
+    UserProfile.create! add_user_id_to_params
     redirect_to profile_sample_index_path
   end
 
@@ -16,14 +16,20 @@ class UserProfilesController < ApplicationController
 
   def update
     profile = UserProfile.find_by(user_id: current_user.id)
-    profile.update! permitted_params
+    profile.update! add_user_id_to_params
     redirect_to profile_sample_index_path
   end
 
   private
 
+  def add_user_id_to_params
+    profile = permitted_params
+    profile[:user_id] = current_user.id
+    profile
+  end
+
   def permitted_params
     params.require(:user_profile)
-      .permit(:user_id, :self_introduction, :gender, :blood_type, :birthday)
+      .permit(:self_introduction, :gender, :blood_type, :birthday)
   end
 end

@@ -7,34 +7,18 @@
     .form-group
       = f.label :gender, '性別', class: 'col-sm-2 control-label'
       .col-sm-10.btn-group data-toggle='buttons'
-        = f.label :gender_male, class: "btn btn-default #{add_class(profile, 'male')}"
-          = f.radio_button :gender, 'male', checked: male?(profile)
-          = '男性'
-        = f.label :gender_female, class: "btn btn-default #{add_class(profile, 'female')}"
-          = f.radio_button :gender, 'female', checked: female?(profile)
-          = '女性'
-        = f.label :gender_gender_hidden, class: "btn btn-default #{add_class(profile, 'gender_hidden')}"
-          = f.radio_button :gender, 'gender_hidden', checked: gender_hidden?(profile)
-          = '秘密'
+        - UserProfile.genders.keys.each do |gender|
+          = f.label "gender_#{gender}", class: "btn btn-default #{add_class(profile, gender)}"
+            = f.radio_button :gender, gender, checked: profile.send("#{gender}?")
+            = labels[gender]
 
     .form-group
       = f.label :blood_type, '血液型', class: 'col-sm-2 control-label'
       .col-sm-10.btn-group data-toggle='buttons'
-        = f.label :blood_type_a, class: "btn btn-default #{add_class(profile, 'blood_a')}"
-          = f.radio_button :blood_type, 'a', checked: blood_a?(profile)
-          = 'A型'
-        = f.label :blood_type_b, class: "btn btn-default #{add_class(profile, 'blood_b')}"
-          = f.radio_button :blood_type, 'b', checked: blood_b?(profile)
-          = 'B型'
-        = f.label :blood_type_ab, class: "btn btn-default #{add_class(profile, 'blood_ab')}"
-          = f.radio_button :blood_type, 'ab', checked: blood_ab?(profile)
-          = 'AB型'
-        = f.label :blood_type_o, class: "btn btn-default #{add_class(profile, 'blood_o')}"
-          = f.radio_button :blood_type, 'o', checked: blood_o?(profile)
-          = 'O型'
-        = f.label :blood_type_blood_hidden, class: "btn btn-default #{add_class(profile, 'blood_hidden')}"
-          = f.radio_button :blood_type, 'blood_hidden', checked: blood_hidden?(profile)
-          = '秘密'
+        - UserProfile.blood_types.keys.each do |blood_type|
+          = f.label "blood_type_#{blood_type}", class: "btn btn-default #{add_class(profile, blood_type)}"
+            = f.radio_button :blood_type, blood_type, checked: profile.send("#{blood_type}?")
+            = labels[blood_type]
 
     .form-group
       = f.label :birthday, '誕生日', class: 'col-sm-2 control-label'
@@ -45,7 +29,5 @@
       = f.label :self_introduction, '自己紹介', class: 'col-sm-2 control-label'
       .col-sm-10
         = f.text_area :self_introduction, class: 'form-control'
-
-    = f.hidden_field :user_id, value: user.id
 
     = button_tag '登録', class: 'btn btn-lg btn-success btn-block'
