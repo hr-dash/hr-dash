@@ -23,9 +23,7 @@ class UserProfilesController < ApplicationController
   private
 
   def add_user_id_to_params
-    profile = permitted_params
-    profile[:user_id] = current_user.id
-    profile
+    permitted_params.merge(user_id: current_user.id)
   end
 
   def permitted_params

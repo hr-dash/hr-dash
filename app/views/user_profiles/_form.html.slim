@@ -7,18 +7,18 @@
     .form-group
       = f.label :gender, '性別', class: 'col-sm-2 control-label'
       .col-sm-10.btn-group data-toggle='buttons'
-        - UserProfile.genders.keys.each do |gender|
-          = f.label "gender_#{gender}", class: "btn btn-default #{add_class(profile, gender)}"
-            = f.radio_button :gender, gender, checked: profile.send("#{gender}?")
-            = labels[gender]
+        - UserProfile.genders_i18n.each do |key, label|
+          = f.label "gender_#{key}", class: "btn btn-default #{'active' if profile.gender == key}"
+            = f.radio_button :gender, key
+            = label
 
     .form-group
       = f.label :blood_type, '血液型', class: 'col-sm-2 control-label'
       .col-sm-10.btn-group data-toggle='buttons'
-        - UserProfile.blood_types.keys.each do |blood_type|
-          = f.label "blood_type_#{blood_type}", class: "btn btn-default #{add_class(profile, blood_type)}"
-            = f.radio_button :blood_type, blood_type, checked: profile.send("#{blood_type}?")
-            = labels[blood_type]
+        - UserProfile.blood_types_i18n.each do |key, label|
+          = f.label "blood_type_#{key}", class: "btn btn-default #{'active' if profile.blood_type == key}"
+            = f.radio_button :blood_type, key
+            = label
 
     .form-group
       = f.label :birthday, '誕生日', class: 'col-sm-2 control-label'
