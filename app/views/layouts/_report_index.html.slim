@@ -1,7 +1,7 @@
 .list-group
   - @monthly_reports.each do |report|
     a.list-group-item href=(monthly_report_path(report))
-      = "#{report.user.group.group_name}G | #{report.user.name} - #{report.target_month.month}月分"
+      = "#{report.user.group.name}G | #{report.user.name} - #{report.target_month.month}月分"
       - # span.glyphicon.glyphicon-thumbs-up.pull-right aria-hidden="true" = 11
       - report.monthly_report_tags.each do |tag|
         span.badge = tag.name
