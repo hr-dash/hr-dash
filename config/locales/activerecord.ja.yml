@@ -1,0 +1,23 @@
+ja:
+  activerecord: &activerecord
+    models:
+      monthly_report: 月報
+    attributes:
+      monthly_report:
+        project_summary: プロジェクト概要
+        monthly_report_tags: 使用した技術
+        monthly_working_processes: 担当した工程
+        business_content: 業務内容
+        looking_back: 今月の振り返り
+        next_month_goals: 来月の目標
+  activemodel:
+    <<: activerecord
+  enums:
+    monthly_working_process:
+      process:
+        definition: 要件定義
+        design: 設計
+        implementation: 実装
+        test: テスト
+        operation: 運用保守
+        analysis: 分析

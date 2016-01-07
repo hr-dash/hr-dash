@@ -2,18 +2,16 @@
 #
 # Table name: monthly_reports
 #
-#  id                   :integer          not null, primary key
-#  user_id              :integer          not null
-#  project_summary      :text
-#  used_technology      :text
-#  responsible_business :text
-#  business_content     :text
-#  looking_back         :text
-#  next_month_goals     :text
-#  month                :integer          not null
-#  year                 :integer          not null
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
+#  id               :integer          not null, primary key
+#  user_id          :integer          not null
+#  target_month     :datetime         not null
+#  project_summary  :text
+#  working_process  :integer          is an Array
+#  business_content :text
+#  looking_back     :text
+#  next_month_goals :text
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #
 
 RSpec.describe MonthlyReport, type: :model do
@@ -22,10 +20,14 @@ RSpec.describe MonthlyReport, type: :model do
 
     it { is_expected.to be_valid }
     it { is_expected.to validate_presence_of(:user_id) }
-    it { is_expected.to validate_presence_of(:month) }
-    it { is_expected.to validate_inclusion_of(:month).in_range(1..12) }
-    it { is_expected.to validate_presence_of(:year) }
-    it { is_expected.to validate_numericality_of(:year).is_greater_than_or_equal_to(2000) }
+    it { is_expected.to validate_presence_of(:target_month) }
+
+    describe '#target_beginning_of_month?' do
+      let(:invalid_target) { Faker::Date.backward(100).end_of_month }
+      let(:monthly_report) { build(:monthly_report, target_month: invalid_target) }
+
+      it { expect(monthly_report).not_to be_valid }
+    end
   end
 
   describe 'Relations' do
