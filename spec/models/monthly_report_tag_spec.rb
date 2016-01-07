@@ -17,7 +17,7 @@ describe MonthlyReportTag, type: :model do
   let(:report_tag) do
     MonthlyReportTag.create(
       monthly_report_id: report_id,
-      tag_id: tag_id
+      tag_id: tag_id,
     )
   end
   let(:report_id) { 1 }

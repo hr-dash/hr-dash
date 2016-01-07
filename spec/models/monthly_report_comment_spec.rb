@@ -20,7 +20,7 @@ describe MonthlyReportComment, type: :model do
     MonthlyReportComment.new(
       user_id: user_id,
       comment: comment,
-      monthly_report_id: report_id
+      monthly_report_id: report_id,
     )
   end
   let(:user_id) { 1 }
