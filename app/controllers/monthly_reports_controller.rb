@@ -13,12 +13,11 @@ class MonthlyReportsController < ApplicationController
   end
 
   def create
-    @monthly_report = MonthlyReport.new(permitted_params) { |report| report.user = current_user }
-
-    processes = params[:working_process].try!(:map) do |process|
-      MonthlyWorkingProcess.new(monthly_report: @monthly_report, process: process)
+    @monthly_report = MonthlyReport.new(permitted_params) do |report|
+      report.user   = current_user
+      report.status = params[:wip] ? :wip : :shipped
+      report.monthly_working_processes = working_processes(report)
     end
-    @monthly_report.monthly_working_processes = processes || []
 
     if @monthly_report.save
       redirect_to @monthly_report
@@ -28,6 +27,13 @@ class MonthlyReportsController < ApplicationController
   end
 
   private
+
+  def working_processes(monthly_report)
+    processes = params[:working_process].try!(:map) do |process|
+      MonthlyWorkingProcess.new(monthly_report: monthly_report, process: process)
+    end
+    processes || []
+  end
 
   def permitted_params
     params.require(:monthly_report).permit(
