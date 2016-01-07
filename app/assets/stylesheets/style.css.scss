@@ -44,3 +44,14 @@ html, body, .site-body, .site-container, .site-header, .header-menu {
 .page-body {
   margin-top: 50px;
 }
+
+/* markdown-preview */
+.markdown-editor {
+  .nav-tabs a {
+    text-decoration: none;
+  }
+
+  .markdown-content {
+    border-top: none;
+  }
+}
