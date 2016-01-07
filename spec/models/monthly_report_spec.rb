@@ -5,8 +5,9 @@
 #  id               :integer          not null, primary key
 #  user_id          :integer          not null
 #  target_month     :datetime         not null
+#  status           :integer          not null
+#  shipped_at       :datetime
 #  project_summary  :text
-#  working_process  :integer          is an Array
 #  business_content :text
 #  looking_back     :text
 #  next_month_goals :text
@@ -53,6 +54,20 @@ RSpec.describe MonthlyReport, type: :model do
         before { report.destroy }
         it { expect(report_tags.size).to eq 0 }
         it { expect(Tag.all.size).to eq 3 }
+      end
+    end
+  end
+
+  describe 'Callbacks' do
+    describe '#log_shipped_at' do
+      context 'wip' do
+        let(:report) { create(:monthly_report, :wip) }
+        it { expect(report.shipped_at).to be nil }
+      end
+
+      context 'shipped' do
+        let(:report) { create(:monthly_report, :shipped) }
+        it { expect(report.shipped_at).not_to be nil }
       end
     end
   end
