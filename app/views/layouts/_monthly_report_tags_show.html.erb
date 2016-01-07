@@ -1,0 +1,12 @@
+<% taglist_id = "#{prefix}-tag-list" %>
+<div id="<%= taglist_id %>" class="tag-list"></div>
+
+<script>
+$(function(){
+  $('#<%= taglist_id %>').tags({
+    readOnly: true,
+    tagData: <%= raw (tags.present? ? tags.map(&:name) : []) %>,
+    tagClass: 'btn-success',
+  });
+});
+</script>
