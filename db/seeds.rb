@@ -1,4 +1,3 @@
-AdminUser.destroy_all
 User.destroy_all
 MonthlyReport.destroy_all
 Tag.destroy_all
