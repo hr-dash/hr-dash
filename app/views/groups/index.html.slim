@@ -1,10 +1,6 @@
 - provide :page_title, "グループトップ"
 
 .page-content
-  h3 メンバー検索
-  = render partial: 'layouts/search_form'
-
-.page-content
   h3 グループ一覧
   #group_list.panel-group
     - @groups.each do |group|
