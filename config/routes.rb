@@ -24,8 +24,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :tags, only: [:index]
-
   root to: 'sample#index'
 
   resources 'monthly_reports', except: :destroy
