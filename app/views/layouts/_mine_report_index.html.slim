@@ -12,7 +12,7 @@ table.table
         th
           span.label.label-warning 未登録
         th
-          = link_to '登録', new_monthly_report_path, class: 'btn btn-sm btn-default'
+          = link_to '登録', new_monthly_report_path(target_month: report.target_month), class: 'btn btn-sm btn-default'
       - else
         th
           span.label.label-success 登録済

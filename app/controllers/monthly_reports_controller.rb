@@ -7,7 +7,7 @@ class MonthlyReportsController < ApplicationController
     @target_year = (params[:target_year] || Time.current.year).to_i
     @monthly_reports = (1..12).map do |month|
       target_month = Time.zone.local(@target_year, month)
-      next if target_month >= Time.current
+      next if target_month >= Time.current.last_month.since(5.days)
       MonthlyReport.find_or_initialize_by(user: current_user, target_month: target_month)
     end.compact
   end
@@ -17,7 +17,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def new
-    target_month = Time.current.beginning_of_month
+    target_month = params[:target_month] || Time.current.last_month.beginning_of_month
     @monthly_report = MonthlyReport.new(target_month: target_month)
   end
 
