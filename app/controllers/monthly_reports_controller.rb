@@ -4,7 +4,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def mine
-    @target_year = params[:target_year] || Time.current.year
+    @target_year = (params[:target_year] || Time.current.year).to_i
     @monthly_reports = (1..12).map do |month|
       target_month = Time.zone.local(@target_year, month)
       next if target_month >= Time.current
