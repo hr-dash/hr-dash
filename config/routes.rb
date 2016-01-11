@@ -26,8 +26,12 @@ Rails.application.routes.draw do
 
   root to: 'sample#index'
 
-  resources 'monthly_reports', except: :destroy
   resources 'user_profiles', except: [:index, :show, :destroy]
+  resources 'monthly_reports', except: :destroy do
+    collection do
+      get :mine
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

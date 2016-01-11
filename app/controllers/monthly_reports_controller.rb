@@ -3,6 +3,15 @@ class MonthlyReportsController < ApplicationController
     @monthly_reports = MonthlyReport.page params[:page]
   end
 
+  def mine
+    @target_year = params[:target_year] || Time.current.year
+    @monthly_reports = (1..12).map do |month|
+      target_month = Time.zone.local(@target_year, month)
+      next if target_month >= Time.current
+      MonthlyReport.find_or_initialize_by(user: current_user, target_month: target_month)
+    end.compact
+  end
+
   def show
     @monthly_report = MonthlyReport.find(params[:id])
   end
