@@ -1,4 +1,8 @@
 .page-content.well
+  - if monthly_report.errors.present?
+    ul
+      - monthly_report.errors.full_messages.each do |message|
+        li.text-danger = message
   = form_for monthly_report, html: { class: 'form-horizontal' } do |f|
     .form-group
       = f.label :project_summary, class: 'control-label col-xs-3'
