@@ -20,6 +20,8 @@ header.site-header.bg-primary.col-xs-2
             = link_to "Top", monthly_reports_path
           li
             = link_to "登録", new_monthly_report_path
+          li
+            = link_to "マイ月報", mine_monthly_reports_path
     ul.nav.nav-pills.nav-stacked.header-menu-bottom
       li
         - if user_signed_in?
