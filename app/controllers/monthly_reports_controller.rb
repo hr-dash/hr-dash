@@ -5,10 +5,15 @@ class MonthlyReportsController < ApplicationController
 
   def mine
     @target_year = (params[:target_year] || Time.current.year).to_i
+    from = Time.local(@target_year).beginning_of_year
+    to = Time.local(@target_year).end_of_year
+    reports = MonthlyReport.where(user: current_user, target_month: from..to)
+
     @monthly_reports = (1..12).map do |month|
       target_month = Time.zone.local(@target_year, month)
-      next if target_month >= Time.current.last_month.since(5.days)
-      MonthlyReport.find_or_initialize_by(user: current_user, target_month: target_month)
+      report = reports.find { |r| r.target_month == target_month }
+      report ||= MonthlyReport.new(user: current_user, target_month: target_month)
+      report.registrable_term? ? report : nil
     end.compact
   end
 
