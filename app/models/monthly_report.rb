@@ -25,12 +25,37 @@ class MonthlyReport < ActiveRecord::Base
   validates :user_id, numericality: { only_integer: true }, presence: true
   validates :target_month, presence: true
   validate :target_beginning_of_month?
+  validate :target_month_registrable_term
+
+  REGISTRABLE_TERM_FROM = Time.local(2000, 1, 1)
 
   enum status: { wip: 0, shipped: 1 }
 
   before_save :log_shipped_at
 
+  def registrable_term?
+    registrable_term.cover? target_month
+  end
+
+  def registrable_term
+    registrable_term_from..registrable_term_to
+  end
+
   private
+
+  def registrable_term_from
+    REGISTRABLE_TERM_FROM
+  end
+
+  def registrable_term_to
+    Time.current.last_month.since(5.days)
+  end
+
+  def target_month_registrable_term
+    return if target_month.blank?
+    return if registrable_term?
+    errors.add :target_month, " must be #{registrable_term}"
+  end
 
   def target_beginning_of_month?
     return if target_month.blank?

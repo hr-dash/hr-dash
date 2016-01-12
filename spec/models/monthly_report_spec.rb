@@ -29,6 +29,20 @@ RSpec.describe MonthlyReport, type: :model do
 
       it { expect(monthly_report).not_to be_valid }
     end
+
+    describe '#target_month_registrable_term' do
+      let(:monthly_report) { build(:monthly_report, target_month: invalid_target) }
+
+      context 'before lower limit' do
+        let(:invalid_target) { Time.current.ago(1.year + 1.day) }
+        it { expect(monthly_report).not_to be_valid }
+      end
+
+      context 'after higher limit' do
+        let(:invalid_target) { Time.current }
+        it { expect(monthly_report).not_to be_valid }
+      end
+    end
   end
 
   describe 'Relations' do
