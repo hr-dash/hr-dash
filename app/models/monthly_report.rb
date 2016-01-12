@@ -27,6 +27,8 @@ class MonthlyReport < ActiveRecord::Base
   validate :target_beginning_of_month?
   validate :target_month_registrable_term
 
+  scope :year, -> year { where(target_month: (Time.zone.local(year))..(Time.zone.local(year).end_of_year)) }
+
   REGISTRABLE_TERM_FROM = Time.local(2000, 1, 1)
 
   enum status: { wip: 0, shipped: 1 }
