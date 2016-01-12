@@ -5,9 +5,7 @@ class MonthlyReportsController < ApplicationController
 
   def mine
     @target_year = (params[:target_year] || Time.current.year).to_i
-    from = Time.local(@target_year).beginning_of_year
-    to = Time.local(@target_year).end_of_year
-    reports = MonthlyReport.where(user: current_user, target_month: from..to)
+    reports = MonthlyReport.year(@target_year).where(user: current_user)
 
     @monthly_reports = (1..12).map do |month|
       target_month = Time.zone.local(@target_year, month)
