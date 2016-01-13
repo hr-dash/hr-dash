@@ -3,26 +3,19 @@
 # Table name: tags
 #
 #  id         :integer          not null, primary key
+#  status     :integer          not null
 #  name       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 describe Tag, type: :model do
-  it { expect(subject).to respond_to(:name) }
+  describe 'Validations' do
+    subject { build(:tag) }
 
-  let(:tag) { build(:tag) }
-  it 'is valid with name' do
-    expect(tag).to be_valid
-  end
-
-  describe '.new' do
-    context 'correct params' do
-      it { expect(tag).to be_valid }
-    end
-    context 'incorrect params' do
-      before { tag.name = nil }
-      it { expect(tag).not_to be_valid }
-    end
+    it { is_expected.to be_valid }
+    it { is_expected.to validate_presence_of(:status) }
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_length_of(:name).is_at_most(32) }
   end
 end
