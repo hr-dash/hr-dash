@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       get 'profile'
     end
   end
+
   root to: 'sample#index'
 
   resources 'monthly_reports', except: :destroy
