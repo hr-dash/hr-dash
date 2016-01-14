@@ -1,0 +1,42 @@
+.page-content.well
+  - if monthly_report.errors.present?
+    ul
+      - monthly_report.errors.full_messages.each do |message|
+        li.text-danger = message
+  = form_for monthly_report, html: { class: 'form-horizontal' } do |f|
+    .form-group
+      = f.label :project_summary, class: 'control-label col-xs-3'
+      .col-xs-9
+        == render 'layouts/markdown_editor', attr: :project_summary, form: f
+    .form-group
+      = f.label :monthly_report_tags, class: 'control-label col-xs-3'
+      .col-xs-9
+        = f.hidden_field :monthly_report_tags, id: :monthly_report_tags_input, class: 'form-control'
+        == render 'layouts/monthly_report_tags', tags: monthly_report.monthly_report_tags
+    .form-group
+      = f.label :monthly_working_processes, class: 'control-label col-xs-3'
+      .col-xs-9.btn-group data-toggle="buttons"
+        - MonthlyWorkingProcess.processes.each do |key, value|
+          - working_process = MonthlyWorkingProcess.find_or_initialize_by(monthly_report: monthly_report, process: value)
+          label.btn.btn-default
+            = check_box_tag "working_process[]", key, !working_process.new_record?, autocomplete: "off"
+            span = working_process.process_i18n
+    .form-group
+      = f.label :business_content, class: 'control-label col-xs-3'
+      .col-xs-9
+        == render 'layouts/markdown_editor', attr: :business_content, form: f
+    .form-group
+      = label_tag :last_month_goals, '今月の目標', class: 'control-label col-xs-3'
+      .col-xs-9
+        p.form-control-static 先月、「来月の目標」に書いた内容を表示
+    .form-group
+      = f.label :looking_back, class: 'control-label col-xs-3'
+      .col-xs-9
+        == render 'layouts/markdown_editor', attr: :looking_back, form: f
+    .form-group
+      = f.label :next_month_goals, class: 'control-label col-xs-3'
+      .col-xs-9
+        == render 'layouts/markdown_editor', attr: :next_month_goals, form: f
+    = f.hidden_field :target_month
+    = f.button 'Save as WIP（下書き保存）', name: :wip, class: 'btn btn-lg btn-info btn-block'
+    = f.button 'Ship（保存して公開）', class: 'btn btn-lg btn-success btn-block'
