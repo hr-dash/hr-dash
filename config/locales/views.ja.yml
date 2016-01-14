@@ -1,8 +1,8 @@
 ja:
   views:
     pagination:
-      first: "&laquo;"
-      last: "&raquo;"
-      previous: "&lsaquo;"
-      next: "&rsaquo;"
+      first: "＜＜"
+      last: "＞＞"
+      previous: "＜"
+      next: "＞"
       truncate: "..."
