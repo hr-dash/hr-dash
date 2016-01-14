@@ -1,6 +1,6 @@
 class MonthlyReportsController < ApplicationController
   def index
-    @monthly_reports = MonthlyReport.all
+    @monthly_reports = MonthlyReport.page params[:page]
   end
 
   def show
