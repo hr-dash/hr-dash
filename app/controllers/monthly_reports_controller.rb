@@ -3,12 +3,17 @@ class MonthlyReportsController < ApplicationController
     @monthly_reports = MonthlyReport.page params[:page]
   end
 
+  def mine
+    @target_year = (params[:target_year] || Time.current.year).to_i
+    @monthly_reports = my_reports_in_year(@target_year)
+  end
+
   def show
     @monthly_report = MonthlyReport.find(params[:id])
   end
 
   def new
-    target_month = Time.current.beginning_of_month
+    target_month = params[:target_month] || Time.current.last_month.beginning_of_month
     @monthly_report = MonthlyReport.new(target_month: target_month)
   end
 
@@ -45,6 +50,17 @@ class MonthlyReportsController < ApplicationController
       Tag.find_or_create_by(name: tag)
     end
     tags || []
+  end
+
+  def my_reports_in_year(year)
+    reports = MonthlyReport.year(year).where(user: current_user)
+
+    (1..12).map do |month|
+      target_month = Time.zone.local(year, month)
+      report = reports.find { |r| r.target_month == target_month }
+      report ||= MonthlyReport.new(user: current_user, target_month: target_month)
+      report.registrable_term? ? report : nil
+    end.compact
   end
 
   def permitted_params
