@@ -34,7 +34,8 @@ RSpec.describe MonthlyReport, type: :model do
       let(:monthly_report) { build(:monthly_report, target_month: invalid_target) }
 
       context 'before lower limit' do
-        let(:invalid_target) { Time.current.ago(1.year + 1.day) }
+        let(:lower_limit) { Time.local(2000, 1, 1) }
+        let(:invalid_target) { lower_limit.ago(1.day) }
         it { expect(monthly_report).not_to be_valid }
       end
 
