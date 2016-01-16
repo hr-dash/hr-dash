@@ -50,4 +50,24 @@ describe MonthlyReportsController, type: :request do
       it { expect(user_report.present?).to eq false }
     end
   end
+
+  describe '#edit GET /monthly_reports/:id/edit' do
+    context 'invalid' do
+      before { get edit_monthly_report_path(report, target_month: report.target_month) }
+      it { expect(response).to have_http_status :redirect }
+      it { expect(response).to redirect_to(mine_monthly_reports_path) }
+    end
+
+    context 'valid' do
+      before do
+        logout
+        login report.user
+        get edit_monthly_report_path(report, target_month: report.target_month)
+      end
+
+      it { expect(response).to have_http_status :success }
+      it { expect(response).to render_template('monthly_reports/edit') }
+      it { expect(response.body).to match report.target_month.strftime('%Y年%m月') }
+    end
+  end
 end
