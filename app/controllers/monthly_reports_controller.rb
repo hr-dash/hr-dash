@@ -30,6 +30,18 @@ class MonthlyReportsController < ApplicationController
     end
   end
 
+  def edit
+    target_month = Time.parse(params[:target_month]).gmtime
+  rescue
+    target_month = nil
+  ensure
+    @monthly_report = current_user.monthly_reports.find_by_target_month target_month
+    redirect_to action: :mine if @monthly_report.nil?
+  end
+
+  def update
+  end
+
   private
 
   def assign_relational_params(report)
