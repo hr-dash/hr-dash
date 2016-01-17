@@ -1,5 +1,5 @@
 module ApplicationHelper
   def markdown(text)
-    RDiscount.new(text, :autolink, :filter_html, :generate_toc)
+    GitHub::Markdown.render_gfm(h(text))
   end
 end
