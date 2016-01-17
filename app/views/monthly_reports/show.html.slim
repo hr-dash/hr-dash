@@ -34,7 +34,7 @@
           .col-xs-9.form-control-static
             = render 'layouts/markdown_view', content: @monthly_report.next_month_goals
 = link_to '編集',
-          edit_monthly_report_path(id: params[:id], target_month: @monthly_report.target_month),
+          edit_monthly_report_path(@monthly_report),
           class: 'btn btn-success btn-lg btn-block',
           role: 'button'
 

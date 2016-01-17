@@ -31,23 +31,20 @@ class MonthlyReportsController < ApplicationController
   end
 
   def edit
-    target_month = Time.parse(params[:target_month]).gmtime
-  rescue
-    target_month = nil
-  ensure
-    @monthly_report = current_user.monthly_reports.find_by_target_month target_month
-    redirect_to action: :mine if @monthly_report.nil?
+    @monthly_report = current_user.monthly_reports.find params[:id]
   end
 
   def update
-    @monthly_report = current_user.monthly_reports.where(id: params[:id]).first
-    @monthly_report.update_attributes!(permitted_params) do |report|
+    @monthly_report = current_user.monthly_reports.find(params[:id])
+    report_update = @monthly_report.update_attributes(permitted_params) do |report|
       assign_relational_params(report)
     end
 
-    redirect_to @monthly_report
-  rescue
-    redirect_to action: :edit
+    if report_update
+      redirect_to @monthly_report
+    else
+      render :edit
+    end
   end
 
   private
