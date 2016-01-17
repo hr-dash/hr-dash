@@ -40,6 +40,14 @@ class MonthlyReportsController < ApplicationController
   end
 
   def update
+    @monthly_report = current_user.monthly_reports.where(id: params[:id]).first
+    @monthly_report.update_attributes!(permitted_params) do |report|
+      assign_relational_params(report)
+    end
+
+    redirect_to @monthly_report
+  rescue
+    redirect_to action: :edit
   end
 
   private
