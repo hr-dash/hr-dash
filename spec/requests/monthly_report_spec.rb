@@ -60,7 +60,6 @@ describe MonthlyReportsController, type: :request do
 
     context 'valid' do
       before do
-        logout
         login report.user
         get edit_monthly_report_path(report, target_month: report.target_month)
       end
@@ -68,6 +67,28 @@ describe MonthlyReportsController, type: :request do
       it { expect(response).to have_http_status :success }
       it { expect(response).to render_template('monthly_reports/edit') }
       it { expect(response.body).to match report.target_month.strftime('%Y年%m月') }
+    end
+  end
+
+  describe '#update PATCH /monthly_report/:id' do
+    let(:new_report) { build(:monthly_report) }
+    let(:report_params) { new_report.attributes.reject { |k, _| k =~ /id\z/ || k =~ /_at/ } }
+    let(:patch_params) { { monthly_report: report_params } }
+    let(:user_report) { MonthlyReport.find_by(report_params, user: report.user) }
+    context 'valid' do
+      before do
+        login report.user
+        patch monthly_report_path report, patch_params
+      end
+
+      it { expect(response).to have_http_status :redirect }
+      it { expect(user_report).to be_present }
+    end
+
+    context 'invalid' do
+      before { patch monthly_report_path report, patch_params }
+      it { expect(response).to have_http_status :redirect }
+      it { expect(user_report).to be_nil }
     end
   end
 end
