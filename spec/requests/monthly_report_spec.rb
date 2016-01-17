@@ -53,9 +53,8 @@ describe MonthlyReportsController, type: :request do
 
   describe '#edit GET /monthly_reports/:id/edit' do
     context 'invalid' do
-      before { get edit_monthly_report_path(report, target_month: report.target_month) }
-      it { expect(response).to have_http_status :redirect }
-      it { expect(response).to redirect_to(mine_monthly_reports_path) }
+      before { get edit_monthly_report_path(report) }
+      it { expect(response).to have_http_status :not_found }
     end
 
     context 'valid' do
@@ -85,9 +84,9 @@ describe MonthlyReportsController, type: :request do
       it { expect(user_report).to be_present }
     end
 
-    context 'invalid' do
+    context 'not_found' do
       before { patch monthly_report_path report, patch_params }
-      it { expect(response).to have_http_status :redirect }
+      it { expect(response).to have_http_status :not_found }
       it { expect(user_report).to be_nil }
     end
   end
