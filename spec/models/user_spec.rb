@@ -28,6 +28,8 @@ describe User, type: :model do
     it { is_expected.to belong_to :group }
     it { is_expected.to have_many :monthly_reports }
     it { is_expected.to have_many :monthly_report_comments }
+    it { is_expected.to have_one :user_profile }
+    it { is_expected.to have_one :role }
   end
 
   describe 'Validations' do

@@ -25,9 +25,11 @@
 
 class User < ActiveRecord::Base
   has_one :user_profile, dependent: :destroy
+  has_one :role, class_name: 'UserRole', dependent: :destroy
   belongs_to :group
   has_many :monthly_reports
   has_many :monthly_report_comments
+  delegate :admin?, to: :role, allow_nil: true
 
   validates :name, length: { maximum: 32 }, presence: true
   validates :employee_code, presence: true, uniqueness: true
