@@ -20,7 +20,7 @@ RSpec.describe MonthlyReport, type: :model do
     subject { build(:monthly_report) }
 
     it { is_expected.to be_valid }
-    it { is_expected.to validate_presence_of(:user_id) }
+    it { is_expected.to validate_presence_of(:user) }
     it { is_expected.to validate_presence_of(:target_month) }
 
     describe '#target_beginning_of_month?' do
@@ -47,9 +47,15 @@ RSpec.describe MonthlyReport, type: :model do
   end
 
   describe 'Relations' do
+    it { is_expected.to belong_to :user }
+    it { is_expected.to have_many :comments }
+    it { is_expected.to have_many :monthly_report_tags }
+    it { is_expected.to have_many :tags }
+    it { is_expected.to have_many :monthly_working_processes }
+
     describe 'Comments' do
       let!(:report) { create(:monthly_report, :with_comments, comment_size: 3) }
-      let!(:comments) { report.monthly_report_comments }
+      let!(:comments) { report.comments }
       it { expect(comments.size).to eq 3 }
 
       context 'When report destroyed' do
