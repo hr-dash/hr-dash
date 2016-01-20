@@ -24,7 +24,7 @@ class MonthlyReportCommentsController < ApplicationController
   def destroy
     comment = current_user.monthly_report_comments.find(params[:id])
     comment.destroy
-    head :ok
+    redirect_to comment.monthly_report
   end
 
   private
