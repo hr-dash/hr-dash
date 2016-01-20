@@ -17,12 +17,12 @@
 
 class MonthlyReport < ActiveRecord::Base
   belongs_to :user
-  has_many :monthly_report_comments, dependent: :destroy
+  has_many :comments, class_name: 'MonthlyReportComment', dependent: :destroy
   has_many :monthly_report_tags, dependent: :destroy
   has_many :tags, through: :monthly_report_tags
   has_many :monthly_working_processes, dependent: :destroy
 
-  validates :user_id, numericality: { only_integer: true }, presence: true
+  validates :user, presence: true
   validates :target_month, presence: true
   validate :target_beginning_of_month?
   validate :target_month_registrable_term
