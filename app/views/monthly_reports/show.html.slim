@@ -34,7 +34,7 @@
             = render 'layouts/markdown_view', content: @monthly_report.next_month_goals
 
 h2 Comments
-- @monthly_report.comments.each do |comment|
+- @monthly_report.comments.order(:created_at).each do |comment|
   == render 'monthly_reports/comment', comment: comment
 
 == render 'monthly_reports/new_comment', comment: @monthly_report.comments.new, attr: 'new-comment'
