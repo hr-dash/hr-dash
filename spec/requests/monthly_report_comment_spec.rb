@@ -6,11 +6,11 @@ describe MonthlyReportCommentsController, type: :request do
 
   describe '#create POST /monthly_report_comments' do
     let(:comment) { build(:monthly_report_comment, monthly_report: report) }
-    let(:comment_params) { { comment: comment.attributes.slice('comment', 'monthly_report_id') } }
+    let(:comment_params) { { monthly_report_comment: comment.attributes.slice('comment', 'monthly_report_id') } }
 
     before { post monthly_report_comments_path, comment_params }
 
-    it { expect(response).to have_http_status :success }
+    it { expect(response).to have_http_status :redirect }
     it { expect(user.monthly_report_comments.size).to eq 1 }
     it { expect(user.monthly_report_comments.first.comment).to eq comment.comment }
   end
