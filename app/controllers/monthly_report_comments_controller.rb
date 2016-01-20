@@ -1,9 +1,13 @@
 class MonthlyReportCommentsController < ApplicationController
   def create
-    MonthlyReportComment.create!(permitted_params) do |comment|
-      comment.user = current_user
+    comment = MonthlyReportComment.new(permitted_params)
+    comment.user = current_user
+
+    if comment.save
+      redirect_to comment.monthly_report
+    else
+      redirect_to :back
     end
-    head :ok
   end
 
   def update
@@ -21,6 +25,6 @@ class MonthlyReportCommentsController < ApplicationController
   private
 
   def permitted_params
-    params.require(:comment).permit(:comment, :monthly_report_id)
+    params.require(:monthly_report_comment).permit(:comment, :monthly_report_id)
   end
 end
