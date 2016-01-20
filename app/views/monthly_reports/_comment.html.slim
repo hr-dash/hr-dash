@@ -1,6 +1,11 @@
-.panel.panel-default
+.panel.panel-default id=("comment-#{comment.id}")
   .panel-heading.monthly-report-panel-header
     = "#{comment.user.name}  commented #{comment.updated_at}"
+    - if comment.user == current_user
+      .pull-right
+        = content_tag :div, class: :monthly_report_comment_edit, style: 'cursor: pointer'
+          span.glyphicon.glyphicon-pencil aria-hidden="true"
+          = hidden_field_tag :comment_id, comment.id
   .panel-body
     .markdown-body
       = markdown(comment.comment).to_html.html_safe

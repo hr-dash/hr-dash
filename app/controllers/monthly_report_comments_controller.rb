@@ -10,6 +10,11 @@ class MonthlyReportCommentsController < ApplicationController
     end
   end
 
+  def edit
+    comment = current_user.monthly_report_comments.find(params[:id])
+    render partial: 'monthly_reports/new_comment', locals: { comment: comment, attr: "edit-comment#{comment.id}" }
+  end
+
   def update
     comment = current_user.monthly_report_comments.find(params[:id])
     comment.update!(permitted_params)

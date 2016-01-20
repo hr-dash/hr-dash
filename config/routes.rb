@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   resources :groups, only: [:index]
-  resources :monthly_report_comments, only: [:create, :update, :destroy]
+  resources :monthly_report_comments, only: [:create, :edit, :update, :destroy]
 
   resources :sample, only: [:index] do
     collection do
