@@ -1,0 +1,6 @@
+.panel.panel-default
+  .panel-heading.monthly-report-panel-header
+    = "#{comment.user.name}  commented #{comment.updated_at}"
+  .panel-body
+    .markdown-body
+      = markdown(comment.comment).to_html.html_safe
