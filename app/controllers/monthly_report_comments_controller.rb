@@ -4,7 +4,7 @@ class MonthlyReportCommentsController < ApplicationController
     comment.user = current_user
 
     if comment.save
-      redirect_to comment.monthly_report
+      redirect_to monthly_report_path(comment.monthly_report, anchor: "comment-#{comment.id}")
     else
       redirect_to :back
     end
@@ -18,7 +18,7 @@ class MonthlyReportCommentsController < ApplicationController
   def update
     comment = current_user.monthly_report_comments.find(params[:id])
     comment.update!(permitted_params)
-    head :ok
+    redirect_to monthly_report_path(comment.monthly_report, anchor: "comment-#{comment.id}")
   end
 
   def destroy
