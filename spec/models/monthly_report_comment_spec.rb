@@ -11,37 +11,16 @@
 #
 
 describe MonthlyReportComment, type: :model do
-  it { expect(subject).to respond_to(:id) }
-  it { expect(subject).to respond_to(:user_id) }
-  it { expect(subject).to respond_to(:comment) }
-  it { expect(subject).to respond_to(:monthly_report_id) }
-
-  let(:report_comment) do
-    MonthlyReportComment.new(
-      user_id: user_id,
-      comment: comment,
-      monthly_report_id: report_id,
-    )
+  describe 'Relations' do
+    it { is_expected.to belong_to :user }
+    it { is_expected.to belong_to :monthly_report }
   end
-  let(:user_id) { 1 }
-  let(:comment) { 'hogehoge' }
-  let(:report_id) { 1 }
 
-  describe '.new' do
-    context 'correct params' do
-      it { expect(report_comment).to be_valid }
-    end
+  describe 'Validations' do
+    subject { build(:monthly_report_comment) }
 
-    context 'incorrect params' do
-      context 'invalid if user_id is string'do
-        let(:user_id) { 'one' }
-        it { expect(report_comment).not_to be_valid }
-      end
-
-      context 'invalid if monthly report id is string ' do
-        let(:report_id) { 'one' }
-        it { expect(report_comment).not_to be_valid }
-      end
-    end
+    it { is_expected.to be_valid }
+    it { is_expected.to validate_presence_of(:user) }
+    it { is_expected.to validate_presence_of(:monthly_report) }
   end
 end
