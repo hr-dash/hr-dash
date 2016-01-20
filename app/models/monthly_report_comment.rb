@@ -14,7 +14,6 @@ class MonthlyReportComment < ActiveRecord::Base
   belongs_to :user
   belongs_to :monthly_report
 
-  validates :user_id, numericality: { only_integer: true }, presence: true
-  validates :monthly_report_id, numericality: { only_integer: true },
-                                presence: true
+  validates :user, presence: true
+  validates :monthly_report, presence: true
 end
