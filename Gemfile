@@ -35,7 +35,7 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'slim'
 gem 'slim-rails'
 gem 'kaminari'
-gem 'rdiscount'
+gem 'github-markdown'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
