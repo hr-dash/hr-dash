@@ -1,6 +1,7 @@
 class UserProfilesController < ApplicationController
   def new
-    @profile = UserProfile.new(user: current_user)
+    @profile = UserProfile.new
+    @user = current_user
   end
 
   def create
