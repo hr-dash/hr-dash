@@ -4,7 +4,7 @@
       = link_to 'Write', "##{attr}-write", "data-toggle" => "tab"
     li.tab-md-preview
       = link_to 'Preview', "##{attr}-preview", "data-toggle" => "tab"
-  
+
   .tab-content.markdown-content
     .tab-pane.active id=("#{attr}-write")
       = form.text_area attr, rows: 5, class: 'form-control'
