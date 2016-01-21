@@ -9,8 +9,7 @@ class UserProfilesController < ApplicationController
   end
 
   def edit
-    @profile = UserProfile.find_by(user_id: current_user.id)
-    @user = current_user
+    @profile = current_user.user_profile
   end
 
   def update
