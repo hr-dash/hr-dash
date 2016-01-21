@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
   root to: 'sample#index'
 
-  resources 'user_profiles', except: [:index, :show, :destroy]
+  resources :user_profiles, except: [:show, :destroy]
   resources 'monthly_reports', except: :destroy do
     collection do
       get :mine
