@@ -1,8 +1,9 @@
 rails_root = File.expand_path('../../', __FILE__)
+rails_env = ENV['RAILS_ENV'] || "development"
 ENV['BUNDLE_GEMFILE'] = rails_root + "/Gemfile"
 working_directory rails_root
 
-listen 8080
+listen "#{rails_root}/tmp/#{rails_env}_unicorn.sock"
 
 pid File.join(rails_root, 'tmp', 'pids', 'unicorn.pid')
 
