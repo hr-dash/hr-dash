@@ -26,7 +26,8 @@ header.site-header.bg-primary.col-xs-2
       li
         - if user_signed_in?
           = link_to 'ログアウト', destroy_sessions_path, method: :delete
-          = link_to '管理画面へ', admin_root_path
+          - if current_user.admin?
+            = link_to '管理画面へ', admin_root_path
         - else
           = link_to 'ログイン', new_session_path
       li
