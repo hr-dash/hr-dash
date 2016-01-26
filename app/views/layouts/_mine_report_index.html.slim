@@ -18,3 +18,4 @@ table.table
           span.label.label-success 登録済
         th
           = link_to '閲覧', monthly_report_path(report), class: 'btn btn-sm btn-default'
+          = link_to '編集', edit_monthly_report_path(report), { class: 'btn btn-sm btn-success', id: 'edit-monthly-button' }
