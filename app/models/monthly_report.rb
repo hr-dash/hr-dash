@@ -43,6 +43,14 @@ class MonthlyReport < ActiveRecord::Base
     registrable_term_from..registrable_term_to
   end
 
+  def prev_month
+    self.class.find_by(user: user, target_month: target_month.prev_month)
+  end
+
+  def next_month
+    self.class.find_by(user: user, target_month: target_month.next_month)
+  end
+
   private
 
   def registrable_term_from
