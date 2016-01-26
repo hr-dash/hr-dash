@@ -32,7 +32,7 @@ ActiveAdmin.register User do
   form do |f|
     f.inputs 'User Details' do
       f.input :name
-      f.input :group_id
+      f.input :group
       f.input :employee_code
       f.input :email
       f.input :entry_date
