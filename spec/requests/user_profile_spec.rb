@@ -1,5 +1,5 @@
 describe UserProfilesController, type: :request do
-  let(:profile) { create :user_profile }
+  let!(:profile) { create :user_profile }
   before { login profile.user }
 
   describe '#new GET /user_profiles/new' do

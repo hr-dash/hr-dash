@@ -1,7 +1,6 @@
 class UserProfilesController < ApplicationController
   def new
-    @profile = UserProfile.new
-    @user = current_user
+    @profile = UserProfile.new(user: current_user)
   end
 
   def create
@@ -10,7 +9,7 @@ class UserProfilesController < ApplicationController
   end
 
   def edit
-    @profile = current_user.user_profile
+    @profile = UserProfile.find_by!(user: current_user)
   end
 
   def update
