@@ -1,4 +1,5 @@
 ActiveAdmin.register User do
+  menu parent: 'ユーザー'
   csv_importable validate: false
   permit_params :name, :group_id, :employee_code, :email, :entry_date, :beginner_flg,
                 :deleted_at, :password, :password_confirmation
