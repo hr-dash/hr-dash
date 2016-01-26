@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: 'sample#index'
+  root to: 'monthly_reports#index'
 
   resource :user_profile, except: [:show, :destroy]
   resources 'monthly_reports', except: :destroy do
