@@ -1,4 +1,5 @@
 ActiveAdmin.register MonthlyReport do
+  menu parent: '月報'
   permit_params { MonthlyReport.column_names }
 
   index do
