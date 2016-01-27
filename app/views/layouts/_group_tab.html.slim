@@ -6,7 +6,7 @@ div.row.group-tab
           a href="##{group.id}" data-toggle="tab" = "#{group.name} G"
   .col-md-9.tab-content.group-tab-content
     - groups.each_with_index do |group, index|
-      .tab-pane class="row #{'active' if index == 0}" id="#{group.id}"
+      .tab-pane.row class="#{'active' if index == 0}" id="#{group.id}"
         .col-md-7
           h5 #{group.name} グループの説明
           p = group.description
