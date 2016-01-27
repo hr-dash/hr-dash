@@ -1,4 +1,5 @@
 ActiveAdmin.register User do
+  menu parent: 'ユーザー'
   csv_importable validate: false
   permit_params :name, :group_id, :employee_code, :email, :entry_date, :beginner_flg,
                 :deleted_at, :password, :password_confirmation
@@ -31,7 +32,7 @@ ActiveAdmin.register User do
   form do |f|
     f.inputs 'User Details' do
       f.input :name
-      f.input :group_id
+      f.input :group
       f.input :employee_code
       f.input :email
       f.input :entry_date

@@ -10,10 +10,18 @@ html, body, .site-body, .site-container, .site-header, .header-menu {
 .header-menu {
   width: 80%;
   position: relative;
+
+  span {
+    font-size: 80%;
+  }
 }
 
 .header-menu-title {
   margin-bottom: 30px;
+
+  a {
+    text-decoration: none;
+  }
 }
 
 .header-menu-bottom {

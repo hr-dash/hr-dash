@@ -5,11 +5,13 @@
     .panel-heading.monthly-report-panel-header
       .panel-title.row
         .col-xs-2
-          a.btn.btn-default.btn-xs.monthly-report-panel-button href="#" role="button" 先月
+          - if @monthly_report.prev_month
+            a.btn.btn-default.btn-xs.monthly-report-panel-button href=(monthly_report_path(@monthly_report.prev_month)) role="button" 先月
         .col-xs-8.monthly-report-panel-date 
           = "#{@monthly_report.target_month.strftime("%Y年%m月")}の月報"
         .col-xs-2
-          a.btn.btn-default.btn-xs.monthly-report-panel-button.pull-right href="#" role="button" 来月
+          - if @monthly_report.next_month
+            a.btn.btn-default.btn-xs.monthly-report-panel-button.pull-right href=(monthly_report_path(@monthly_report.next_month)) role="button" 来月
     .panel-body
       form.form-horizontal
         .form-group
