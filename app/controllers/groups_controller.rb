@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
   def index
-    @groups = Group.all
+    @groups = Group.all.order(:id)
   end
 end
