@@ -79,10 +79,10 @@ ActiveRecord::Schema.define(version: 20151220122954) do
   add_index "monthly_working_processes", ["monthly_report_id"], name: "index_monthly_working_processes_on_monthly_report_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
-    t.integer  "status",     null: false
-    t.string   "name",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "status",     default: 0, null: false
+    t.string   "name",                   null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", using: :btree

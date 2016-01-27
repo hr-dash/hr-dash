@@ -32,10 +32,12 @@ gem 'enum_help'
 gem 'global'
 gem 'identity_cache'
 gem 'activeadmin', github: 'activeadmin'
+gem 'active_admin_import', github: "activeadmin-plugins/active_admin_import"
 gem 'slim'
 gem 'slim-rails'
 gem 'kaminari'
 gem 'github-markdown'
+gem 'unicorn'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

@@ -1,6 +1,14 @@
-.panel.panel-default
+.panel.panel-default id=("comment-#{comment.id}")
   .panel-heading.monthly-report-panel-header
     = "#{comment.user.name}  commented #{comment.updated_at}"
+    - if comment.user == current_user
+      .pull-right
+        = content_tag :a, href: monthly_report_comment_path(comment), 'data-method' => :delete, 'data-confirm' => 'コメントを削除して宜しいですか？'
+          span.glyphicon.glyphicon-remove aria-hidden="true"
+      .pull-right
+        = content_tag :div, class: :monthly_report_comment_edit, style: 'cursor: pointer'
+          span.glyphicon.glyphicon-pencil aria-hidden="true" 　
+          = hidden_field_tag :comment_id, comment.id
   .panel-body
     .markdown-body
       = markdown(comment.comment).html_safe
