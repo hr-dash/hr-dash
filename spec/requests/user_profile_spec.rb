@@ -15,7 +15,7 @@ describe UserProfilesController, type: :request do
     context 'valid' do
       before do
         login profile.user
-        get edit_user_profile_path(id: user_id)
+        get edit_user_profile_path(id: profile.id)
       end
 
       it { expect(response).to have_http_status :success }
@@ -23,21 +23,23 @@ describe UserProfilesController, type: :request do
     end
 
     context 'invalid' do
-      let(:invalid_user_id) { user_id + 1 }
+      let!(:profile) { create :user_profile }
+      let(:invalid_id) { profile.id + 1 }
       before do
         login profile.user
-        get edit_user_profile_path(id: invalid_user_id)
+        get edit_user_profile_path(id: invalid_id)
       end
 
-      it { expect(response).to have_http_status :redirect }
-      it { expect(response).to redirect_to root_path }
+      it { expect(response).to have_http_status :not_found }
+      it { expect(response).to render_template 'errors/404' }
     end
 
     context 'not found' do
       let(:user) { create :user }
+      let(:profile_id) { 0 }
       before do
         login user
-        get edit_user_profile_path(id: user.id)
+        get edit_user_profile_path(id: profile_id)
       end
 
       it { expect(response).to have_http_status :not_found }
