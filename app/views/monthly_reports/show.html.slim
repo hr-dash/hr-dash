@@ -6,7 +6,8 @@
       .panel-title.row
         .col-xs-2
           a.btn.btn-default.btn-xs.monthly-report-panel-button href="#" role="button" 先月
-        .col-xs-8.monthly-report-panel-date ="#{@monthly_report.target_month.strftime("%Y年%m月")}の月報"
+        .col-xs-8.monthly-report-panel-date 
+          = "#{@monthly_report.target_month.strftime("%Y年%m月")}の月報"
         .col-xs-2
           a.btn.btn-default.btn-xs.monthly-report-panel-button.pull-right href="#" role="button" 来月
     .panel-body
@@ -32,6 +33,10 @@
           label.col-xs-3.control-label = t "#{attr}.next_month_goals"
           .col-xs-9.form-control-static
             = render 'layouts/markdown_view', content: @monthly_report.next_month_goals
+= link_to '編集',
+          edit_monthly_report_path(@monthly_report),
+          class: 'btn btn-success btn-lg btn-block',
+          role: 'button'
 
 h2 Comments
 - @monthly_report.comments.each do |comment|
