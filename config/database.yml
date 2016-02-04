@@ -15,3 +15,12 @@ test:
   pool: 5
   username: postgres
   password: postgres
+
+production:
+  adapter: postgresql
+  host: localhost
+  encoding: utf8
+  database: hr_dash_production
+  pool: 5
+  username: <%= ENV["HR_DASH_DB_USERNAME"] %>
+  password: <%= ENV["HR_DASH_DB_PASSWORD"] %>
