@@ -1,8 +1,19 @@
 ja:
   activerecord: &activerecord
     models:
+      group: グループ
       monthly_report: 月報
+      monthly_report_comment: 月報コメント
+      monthly_report_tag: 月報タグ
+      monthly_working_process: 月別担当業務
+      role: ロール
+      tag: タグ
+      user: ユーザー
+      user_profile: プロフィール
     attributes:
+      group:
+        name: 名前
+        description: 説明
       monthly_report:
         project_summary: プロジェクト概要
         monthly_report_tags: 使用した技術
@@ -10,6 +21,26 @@ ja:
         business_content: 業務内容
         looking_back: 今月の振り返り
         next_month_goals: 来月の目標
+      monthly_report_comment:
+        comment: コメント
+      monthly_working_process:
+        process: 担当業務
+      role:
+        name: 名前
+      tag:
+        status: 状態
+        name: 名前
+      user:
+        name: 名前
+        employee_code: 社員番号
+        email: メールアドレス
+        entry_date: 入社日
+        beginner_flg: 未経験
+      user_profile:
+        self_introduction: 自己紹介
+        gender: 性別
+        blood_type: 血液型
+        birthday: 誕生日
   activemodel:
     <<: activerecord
   enums:
@@ -21,6 +52,10 @@ ja:
         test: テスト
         operation: 運用保守
         analysis: 分析
+    tag:
+      status:
+        unfixed: 未定
+        fixed: 確定
     user_profile:
       gender:
         gender_hidden: 秘密
