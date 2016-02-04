@@ -10,7 +10,7 @@ describe MonthlyReportsController, type: :request do
     it { expect(response.body).to match report.user.name }
   end
 
-  describe "root_path" do
+  describe 'root_path' do
     before { get root_path }
     it { expect(response).to have_http_status :success }
     it { expect(response).to render_template('monthly_reports/index') }
