@@ -1,0 +1,17 @@
+div.row.group-tab
+  .col-md-3.group-tab-header
+    ul.nav.nav-pills.nav-stacked
+      - groups.each_with_index do |group, index|
+        li class="#{'active' if index == 0}"
+          a href="##{group.id}" data-toggle="tab" = "#{group.name} G"
+  .col-md-9.tab-content.group-tab-content
+    - groups.each_with_index do |group, index|
+      .tab-pane.row class="#{'active' if index == 0}" id="#{group.id}"
+        .col-md-7
+          h5 #{group.name} グループの説明
+          p = group.description
+        .col-md-5
+          h5 メンバー
+          - group.users.each do |user|
+            p = user.name
+  
