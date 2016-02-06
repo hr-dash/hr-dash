@@ -2,6 +2,20 @@ describe UserProfilesController, type: :request do
   let!(:profile) { create :user_profile }
   before { login profile.user }
 
+  describe '#show GET /user_profiles/:id' do
+    before { get user_profile_path(profile) }
+    it { expect(response).to have_http_status :success }
+    it { expect(response).to render_template('user_profiles/show') }
+    it { expect(response.body).to match profile.user.name }
+    it { expect(response.body).to match profile.user.group.name }
+    it { expect(response.body).to match profile.user.employee_code.to_s }
+    it { expect(response.body).to match profile.user.email }
+    it { expect(response.body).to match profile.user.entry_date.to_s }
+    it { expect(response.body).to match profile.gender_i18n }
+    it { expect(response.body).to match profile.blood_type_i18n }
+    it { expect(response.body).to match profile.birthday.to_s }
+  end
+
   describe '#new GET /user_profiles/new' do
     before { get new_user_profile_path }
     it { expect(response).to have_http_status :success }
