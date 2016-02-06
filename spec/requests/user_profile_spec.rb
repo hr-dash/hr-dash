@@ -3,17 +3,26 @@ describe UserProfilesController, type: :request do
   before { login profile.user }
 
   describe '#show GET /user_profiles/:id' do
-    before { get user_profile_path(profile) }
-    it { expect(response).to have_http_status :success }
-    it { expect(response).to render_template('user_profiles/show') }
-    it { expect(response.body).to match profile.user.name }
-    it { expect(response.body).to match profile.user.group.name }
-    it { expect(response.body).to match profile.user.employee_code.to_s }
-    it { expect(response.body).to match profile.user.email }
-    it { expect(response.body).to match profile.user.entry_date.to_s }
-    it { expect(response.body).to match profile.gender_i18n }
-    it { expect(response.body).to match profile.blood_type_i18n }
-    it { expect(response.body).to match profile.birthday.to_s }
+    context 'valid' do
+      before { get user_profile_path(profile) }
+      it { expect(response).to have_http_status :success }
+      it { expect(response).to render_template('user_profiles/show') }
+      it { expect(response.body).to match profile.user.name }
+      it { expect(response.body).to match profile.user.group.name }
+      it { expect(response.body).to match profile.user.employee_code.to_s }
+      it { expect(response.body).to match profile.user.email }
+      it { expect(response.body).to match profile.user.entry_date.to_s }
+      it { expect(response.body).to match profile.gender_i18n }
+      it { expect(response.body).to match profile.blood_type_i18n }
+      it { expect(response.body).to match profile.birthday.to_s }
+    end
+
+    context 'invalid' do
+      let(:invalid_id) { profile.id + 1 }
+      before { get user_profile_path(id: invalid_id) }
+      it { expect(response).to have_http_status :not_found }
+      it { expect(response).to render_template 'errors/404' }
+    end
   end
 
   describe '#new GET /user_profiles/new' do
