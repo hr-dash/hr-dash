@@ -1,4 +1,8 @@
 class UserProfilesController < ApplicationController
+  def show
+    @profile = UserProfile.find_by!(id: params[:id], user: current_user)
+  end
+
   def new
     @profile = UserProfile.new(user: current_user)
   end
