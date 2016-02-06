@@ -17,9 +17,9 @@ describe UserProfilesController, type: :request do
       it { expect(response.body).to match profile.birthday.to_s }
     end
 
-    context 'invalid' do
-      let(:invalid_id) { profile.id + 1 }
-      before { get user_profile_path(id: invalid_id) }
+    context 'not_found' do
+      let(:not_found_id) { 0 }
+      before { get user_profile_path(id: not_found_id) }
       it { expect(response).to have_http_status :not_found }
       it { expect(response).to render_template 'errors/404' }
     end
