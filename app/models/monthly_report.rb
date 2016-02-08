@@ -29,6 +29,7 @@ class MonthlyReport < ActiveRecord::Base
   validate :uniq_by_user_and_target_month, on: :create
 
   scope :year, ->(year) { where(target_month: (Time.zone.local(year))..(Time.zone.local(year).end_of_year)) }
+  scope :released, -> { where.not(shipped_at: nil) }
 
   REGISTRABLE_TERM_FROM = Time.local(2000, 1, 1)
 

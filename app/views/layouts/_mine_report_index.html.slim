@@ -15,10 +15,10 @@ table.table
           = link_to '登録', new_monthly_report_path(target_month: report.target_month), class: 'btn btn-sm btn-default'
       - else
         th
-          -if report.shipped?
+          - if report.shipped_at
             span.label.label-success 登録済
-          -else
-            span.label.label-info 下書き中
+          - else
+            span.label.label-info 下書き
         th
           = link_to '閲覧', monthly_report_path(report), class: 'btn btn-sm btn-default'
           = link_to '編集', edit_monthly_report_path(report), { class: 'btn btn-sm btn-success', id: 'edit-monthly-button' }
