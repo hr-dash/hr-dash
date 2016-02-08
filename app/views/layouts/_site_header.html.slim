@@ -32,6 +32,9 @@ header.site-header.bg-primary.col-xs-2
               li
                 = link_to '管理画面へ', admin_root_path
             li
-              = link_to 'プロフィール', user_profile_path(current_user)
+              - if current_user.user_profile.try(:id)
+                = link_to 'プロフィール', user_profile_path(current_user.user_profile)
+              - else
+                = link_to 'プロフィール', new_user_profile_path
             li
               = link_to 'ログアウト', destroy_sessions_path, method: :delete

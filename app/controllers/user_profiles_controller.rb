@@ -9,7 +9,7 @@ class UserProfilesController < ApplicationController
 
   def create
     UserProfile.create! add_user_id_to_params
-    redirect_to profile_sample_index_path
+    redirect_to current_user.user_profile
   end
 
   def edit
@@ -19,7 +19,7 @@ class UserProfilesController < ApplicationController
   def update
     profile = UserProfile.find_by(user_id: current_user.id)
     profile.update! add_user_id_to_params
-    redirect_to profile_sample_index_path
+    redirect_to current_user.user_profile
   end
 
   private
