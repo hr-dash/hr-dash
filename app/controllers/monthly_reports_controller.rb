@@ -1,6 +1,7 @@
 class MonthlyReportsController < ApplicationController
   def index
-    @monthly_reports = MonthlyReport.released.page params[:page]
+    users = User.where("name LIKE ?", "%#{params[:name]}%")
+    @monthly_reports = MonthlyReport.released.where(user: users).page params[:page]
   end
 
   def mine
