@@ -1,6 +1,6 @@
 class MonthlyReportsController < ApplicationController
   def index
-    @monthly_reports = MonthlyReport.page params[:page]
+    @monthly_reports = MonthlyReport.released.page params[:page]
   end
 
   def mine
@@ -36,11 +36,10 @@ class MonthlyReportsController < ApplicationController
 
   def update
     @monthly_report = current_user.monthly_reports.find(params[:id])
-    report_update = @monthly_report.update_attributes(permitted_params) do |report|
-      assign_relational_params(report)
-    end
+    @monthly_report.assign_attributes(permitted_params)
+    assign_relational_params(@monthly_report)
 
-    if report_update
+    if @monthly_report.save
       redirect_to @monthly_report
     else
       render :edit

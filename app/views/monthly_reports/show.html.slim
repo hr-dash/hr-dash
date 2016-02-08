@@ -35,10 +35,11 @@
           label.col-xs-3.control-label = t "#{attr}.next_month_goals"
           .col-xs-9.form-control-static
             = render 'layouts/markdown_view', content: @monthly_report.next_month_goals
-= link_to '編集',
-          edit_monthly_report_path(@monthly_report),
-          class: 'btn btn-success btn-lg btn-block',
-          role: 'button'
+- if @monthly_report.user == current_user
+  = link_to '編集',
+            edit_monthly_report_path(@monthly_report),
+            class: 'btn btn-success btn-lg btn-block',
+            role: 'button'
 
 h2 Comments
 - @monthly_report.comments.order(:created_at).each do |comment|
