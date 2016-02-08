@@ -1,10 +1,10 @@
 - provide :page_title, "月報トップ"
 
 .page-content
-  h3 キーワード検索
-  = render partial: 'layouts/search_form'
+  h3 名前検索
+  == render partial: 'layouts/search_form', locals: { path: monthly_reports_path, param: :name, method: :get }
 .page-content
   h3 最新の月報一覧
   #report_index
-    = render partial: 'layouts/report_index'
+    == render partial: 'layouts/report_index'
   = paginate @monthly_reports
