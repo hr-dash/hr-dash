@@ -1,6 +1,7 @@
-.search.form-group.content
-  .input-group
-    input.form-control type="search"
-    span.input-group-btn
-      button.btn.btn-default type="button"
-        span.glyphicon.glyphicon-search aria-hidden="true"
+= form_tag path, method: method
+  .search.form-group.content
+    .input-group
+      input.form-control type="search" name=(param)
+      span.input-group-btn
+        button.btn.btn-default type="submit"
+          span.glyphicon.glyphicon-search aria-hidden="true"

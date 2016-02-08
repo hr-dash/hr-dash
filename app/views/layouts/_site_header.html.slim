@@ -12,8 +12,6 @@ header.site-header.bg-primary.col-xs-2
           li
             = link_to "Top", monthly_reports_path
           li
-            = link_to "登録", new_monthly_report_path
-          li
             = link_to "マイ月報", mine_monthly_reports_path
       li.dropdown
         a.lead.bg-primary.dropdown-toggle data-toggle="dropdown" aria-expanded="false"
@@ -32,6 +30,9 @@ header.site-header.bg-primary.col-xs-2
               li
                 = link_to '管理画面へ', admin_root_path
             li
-              = link_to 'プロフィール', user_profile_path(current_user)
+              - if current_user.user_profile.try(:id)
+                = link_to 'プロフィール', user_profile_path(current_user.user_profile)
+              - else
+                = link_to 'プロフィール', new_user_profile_path
             li
               = link_to 'ログアウト', destroy_sessions_path, method: :delete
