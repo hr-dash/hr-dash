@@ -6,7 +6,7 @@ ja:
       monthly_report_comment: 月報コメント
       monthly_report_tag: 月報タグ
       monthly_working_process: 月別担当業務
-      role: ロール
+      user_role: ロール
       tag: タグ
       user: ユーザー
       user_profile: プロフィール
@@ -21,12 +21,16 @@ ja:
         business_content: 業務内容
         looking_back: 今月の振り返り
         next_month_goals: 来月の目標
+        target_month: 対象月
+        shipped_at: 公開日
+        status: ステータス
       monthly_report_comment:
         comment: コメント
       monthly_working_process:
         process: 担当業務
-      role:
-        name: 名前
+      user_role:
+        user: ユーザー
+        admin: 管理者
       tag:
         status: 状態
         name: 名前
@@ -36,7 +40,12 @@ ja:
         email: メールアドレス
         entry_date: 入社日
         beginner_flg: 未経験
+        group: グループ
+        deleted_at: 退社日
+        password: パスワード
+        password_confirmation: パスワード（確認）
       user_profile:
+        user: ユーザー
         self_introduction: 自己紹介
         gender: 性別
         blood_type: 血液型
