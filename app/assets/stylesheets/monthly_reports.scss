@@ -3,6 +3,9 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 div.monthly-report-panel-date {
   text-align: center;
+  span.monthly-report-status {
+    margin-right: 5px;
+  }
 }
 div.monthly-report-panel-header {
   padding-top: 15px;
