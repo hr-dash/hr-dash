@@ -8,7 +8,7 @@
           - if @monthly_report.prev_month
             a.btn.btn-default.btn-xs.monthly-report-panel-button href=(monthly_report_path(@monthly_report.prev_month)) role="button" 先月
         .col-xs-8.monthly-report-panel-date 
-          - if status_is_shipped? @monthly_report
+          - if @monthly_report.shipped?
             span.label.label-success.monthly-report-status 登録済
           -else
             span.label.label-info.monthly-report-status 下書き中
