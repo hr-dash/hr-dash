@@ -9,7 +9,6 @@
     .tab-pane.active id=("#{attr}-write")
       = form.text_area attr, rows: 5, class: 'form-control'
       p
-        span = 'You can use '
-        a href='https://help.github.com/articles/github-flavored-markdown' target='_blank' GFM
-        span = ' except for HTML.'
+        a href='https://help.github.com/articles/basic-writing-and-formatting-syntax/' target='_blank' Markdown
+        span = '記法が使えます。'
     .tab-pane.content-md-preview.markdown-body id=("#{attr}-preview")
