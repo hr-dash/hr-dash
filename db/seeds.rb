@@ -10,13 +10,11 @@ if Rails.env.development?
 
   5.times { FactoryGirl.create(:monthly_report_tag) }
 else
-  user = User.create(
-    name: 'admin',
-    email: 'test@example.com',
-    password: 'password',
-    employee_code: 'x',
-    entry_date: Date.today,
-    beginner_flg: true,
-  )
+  user = User.create(name: 'admin',
+                     email: 'test@example.com',
+                     password: 'password',
+                     employee_code: 'x',
+                     entry_date: Date.today,
+                     beginner_flg: true)
   UserRole.create(user: user, admin: true)
 end
