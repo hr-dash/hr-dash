@@ -35,8 +35,16 @@ class User < ActiveRecord::Base
   validates :employee_code, presence: true, uniqueness: true
   validates :entry_date, presence: true
   validates :beginner_flg, inclusion: { in: [true, false] }
+  after_create :create_profile
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  private
+
+  def create_profile
+    UserProfile.new(user_id: self.id).save
+  end
 end
+
