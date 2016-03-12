@@ -11,7 +11,7 @@ RSpec.describe Notify, type: :mailer do
   describe "monthly_report_registration" do
     let(:mail) { Notify.monthly_report_registration(user.id,report.id) }
     let(:name) { user.name }
-    let(:created_at) { report.created_at.strftime('%Y年%m月') }
+    let(:created_at) { report.target_month.strftime('%Y年%m月') }
     let(:title) { "#{name}が#{created_at}の月報を登録しました" }
     
     it "deliver_now" do

@@ -7,7 +7,7 @@ p 氏名: #{@user.name}
 p 今月の業務報告
 p = "-------------------------------------------------------------"
 p 【プロジェクト概要】
-p = @report.project_summary
+= simple_format(h(@report.project_summary))
 p 【使用した技術】
 -  @report.tags.each do |t|
   p = t.name
@@ -15,9 +15,9 @@ p 【担当した工程】
 - @report.monthly_working_processes.each do |e|
  p = Settings.monthly_report.working_process[e.process]
 p 【業務内容】
-p = @report.business_content
+= simple_format(h(@report.business_content))
 p 【今月の振り返り】
-p = @report.looking_back
+= simple_format(h(@report.looking_back))
 p 【来月の目標】
-p = @report.next_month_goals
+= simple_format(h(@report.next_month_goals))
 p = "-------------------------------------------------------------"
