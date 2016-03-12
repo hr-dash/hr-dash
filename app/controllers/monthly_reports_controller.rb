@@ -26,6 +26,9 @@ class MonthlyReportsController < ApplicationController
     end
 
     if @monthly_report.save
+      if @monthly_report.status == "shipped"
+        Notify.monthly_report_registration(@monthly_report.user.id,@monthly_report.id).deliver_now
+      end
       redirect_to @monthly_report
     else
       render :new
@@ -42,6 +45,9 @@ class MonthlyReportsController < ApplicationController
     assign_relational_params(@monthly_report)
 
     if @monthly_report.save
+      if @monthly_report.status == "shipped"
+        Notify.monthly_report_registration(@monthly_report.user.id,@monthly_report.id).deliver_now
+      end
       redirect_to @monthly_report
     else
       render :edit

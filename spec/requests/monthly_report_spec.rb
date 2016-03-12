@@ -68,6 +68,7 @@ describe MonthlyReportsController, type: :request do
     let(:tag_params) { 'Ruby,Rails' }
     let(:user_report) { MonthlyReport.find_by(user: user) }
 
+
     context 'valid' do
       before { post monthly_reports_path, post_params }
       context 'registered as wip' do
@@ -95,6 +96,22 @@ describe MonthlyReportsController, type: :request do
       it { expect(response).to have_http_status :success }
       it { expect(response).to render_template('monthly_reports/new') }
       it { expect(user_report.present?).to eq false }
+    end
+
+    context 'when shipped' do
+      let(:post_params) { { monthly_report: report_params } }
+      after(:all) do
+        ActionMailer::Base.deliveries.clear
+      end
+      subject { post monthly_reports_path, post_params }
+      it { expect{ subject }.to change{ ActionMailer::Base.deliveries.size }.by(1) }
+    end
+    context 'when wip' do
+      let(:wip_report) { build(:monthly_report, :wip) }
+      let(:wip_report_params) { wip_report.attributes.reject { |k, _| k =~ /id\z/ || k =~ /_at/ } }
+      let(:post_params) { { monthly_report: wip_report_params } }
+      subject { post monthly_reports_path, post_params }
+      it { expect(ActionMailer::Base.deliveries.size).to eq(0) }
     end
 
     describe '#working_process' do
@@ -202,6 +219,24 @@ describe MonthlyReportsController, type: :request do
       before { patch monthly_report_path report, patch_params }
       it { expect(response).to have_http_status :not_found }
       it { expect(user_report).to be_nil }
+    end
+
+    context 'when shipped' do
+      before { login report.user }
+      after(:all) do
+        ActionMailer::Base.deliveries.clear
+      end
+      subject { patch monthly_report_path report, patch_params }
+      it { expect{ subject }.to change{ ActionMailer::Base.deliveries.size }.by(1) }
+    end
+
+    context 'when wip' do
+      before { login report.user }
+      let(:wip_report) { build(:monthly_report, :wip) }
+      let(:wip_report_params) { wip_report.attributes.reject { |k, _| k =~ /id\z/ || k =~ /_at/ } }
+      let(:patch_params) { { monthly_report: wip_report_params } }
+      subject { patch monthly_reports_path report, patch_params }
+      it { expect(ActionMailer::Base.deliveries.size).to eq(0) }
     end
   end
 end
