@@ -1,0 +1,3 @@
+mailer:
+  mail_address: 'hoge@example.com'
+  password: 'hogehoge'

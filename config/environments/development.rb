@@ -41,6 +41,18 @@ Rails.application.configure do
 
 
   # deviseの設定
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
+  # Mailer Configration
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:               'smtp.gmail.com',
+    port:                  587,
+    domain:                'example.com',
+    user_name:             Settings.mailer[:mail_address],
+    password:              Settings.mailer[:password],
+    authentication:        'plain',
+    enable_starttls_auto:  true
+  }
 end
