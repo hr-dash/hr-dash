@@ -5,9 +5,10 @@ class Notify < ApplicationMailer
   #
   #   en.notify.monthly_report_registration.subject
   #
-  def monthly_report_registration
-    @greeting = "Hi"
-
-    mail to: Settings.mailer[:mail_address]
+  def monthly_report_registration(user_id,monthly_report_id)
+    @report = MonthlyReport.find(monthly_report_id)
+    @user = User.find(user_id)
+    @title = "#{@user.name}が#{@report.created_at.strftime('%Y年%m月')}の月報を登録しました"
+    mail(to: @user.email, subject: @title)
   end
 end

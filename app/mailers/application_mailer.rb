@@ -1,3 +1,3 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: Settings.mailer[:mail_address]
+  default from: Settings.mailer[:from]
 end
