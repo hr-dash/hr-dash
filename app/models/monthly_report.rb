@@ -53,6 +53,14 @@ class MonthlyReport < ActiveRecord::Base
     self.class.find_by(user: user, target_month: target_month.next_month)
   end
 
+  def set_prev_monthly_report
+    p_monthly = prev_month
+    return self unless p_monthly
+
+    set_contents = %w(project_summary business_content next_month_goals looking_back)
+    set_monthly_report p_monthly, set_contents
+  end
+
   private
 
   def registrable_term_from
@@ -84,5 +92,13 @@ class MonthlyReport < ActiveRecord::Base
   def log_shipped_at
     return if status == 'wip'
     self.shipped_at ||= Time.current
+  end
+
+  def set_monthly_report(monthly_report, keys)
+    assign_attributes(monthly_report
+                            .attributes
+                            .select { |key, _| keys.include? key }
+                            .merge('tags' => monthly_report.tags))
+    self
   end
 end
