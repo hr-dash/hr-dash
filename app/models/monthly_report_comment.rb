@@ -16,4 +16,5 @@ class MonthlyReportComment < ActiveRecord::Base
 
   validates :user, presence: true
   validates :monthly_report, presence: true
+  validates :comment, presence: true, length: { maximum: 3000 }
 end
