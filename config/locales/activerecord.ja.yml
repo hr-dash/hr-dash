@@ -49,7 +49,7 @@ ja:
         self_introduction: 自己紹介
         gender: 性別
         blood_type: 血液型
-        birthday: 誕生日
+        birthday: 生年月日
   activemodel:
     <<: activerecord
   enums:

@@ -5,7 +5,7 @@
 
   = form_for profile, html: { class: 'form-horizontal' } do |f|
     .form-group
-      = f.label :gender, '性別', class: 'col-sm-2 control-label'
+      = f.label :gender, class: 'col-sm-2 control-label'
       .col-sm-10.btn-group data-toggle='buttons'
         - UserProfile.genders_i18n.each do |key, label|
           = f.label "gender_#{key}", class: "btn btn-default #{'active' if profile.gender == key}"
@@ -13,7 +13,7 @@
             = label
 
     .form-group
-      = f.label :blood_type, '血液型', class: 'col-sm-2 control-label'
+      = f.label :blood_type, class: 'col-sm-2 control-label'
       .col-sm-10.btn-group data-toggle='buttons'
         - UserProfile.blood_types_i18n.each do |key, label|
           = f.label "blood_type_#{key}", class: "btn btn-default #{'active' if profile.blood_type == key}"
@@ -21,12 +21,12 @@
             = label
 
     .form-group
-      = f.label :birthday, '誕生日', class: 'col-sm-2 control-label'
+      = f.label :birthday, class: 'col-sm-2 control-label'
       .col-sm-10
         = f.date_field :birthday, class: 'form-control'
 
     .form-group
-      = f.label :self_introduction, '自己紹介', class: 'col-sm-2 control-label'
+      = f.label :self_introduction, class: 'col-sm-2 control-label'
       .col-sm-10
         = f.text_area :self_introduction, class: 'form-control'
 
