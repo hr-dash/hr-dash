@@ -11,7 +11,7 @@
 
     .tab-content.markdown-content
       .tab-pane.active id=("#{attr}-write")
-          = f.text_area :comment, rows: 5, class: 'form-control'
+          = f.text_area :comment, rows: 5, class: 'form-control', maxlength: 3000
           p
             span = 'You can use '
             a href='https://help.github.com/articles/github-flavored-markdown' target='_blank' GFM
