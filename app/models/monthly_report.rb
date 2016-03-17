@@ -26,8 +26,10 @@ class MonthlyReport < ActiveRecord::Base
   validates :target_month, presence: true
   validate :target_beginning_of_month?
   validate :target_month_registrable_term
+  validate :uniq_by_user_and_target_month, on: :create
 
   scope :year, ->(year) { where(target_month: (Time.zone.local(year))..(Time.zone.local(year).end_of_year)) }
+  scope :released, -> { where.not(shipped_at: nil) }
 
   REGISTRABLE_TERM_FROM = Time.local(2000, 1, 1)
 
@@ -71,6 +73,12 @@ class MonthlyReport < ActiveRecord::Base
     return if target_month.blank?
     return if target_month == target_month.beginning_of_month
     errors.add :target_month, 'invalid target month'
+  end
+
+  def uniq_by_user_and_target_month
+    return if target_month.blank? || user.blank?
+    return unless self.class.find_by(user: user, target_month: target_month)
+    errors.add :target_month, 'report already registered'
   end
 
   def log_shipped_at
