@@ -44,6 +44,6 @@ class User < ActiveRecord::Base
   private
 
   def create_profile
-    UserProfile.new(user_id: id).save!
+    UserProfile.create!(user_id: id)
   end
 end
