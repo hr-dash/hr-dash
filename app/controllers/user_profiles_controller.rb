@@ -1,6 +1,6 @@
 class UserProfilesController < ApplicationController
   def show
-    @profile = UserProfile.find_by!(user: params[:id])
+    @profile = UserProfile.find(params[:id])
   end
 
   def new
