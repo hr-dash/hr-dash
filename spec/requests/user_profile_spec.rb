@@ -5,7 +5,7 @@ describe UserProfilesController, type: :request do
 
   describe '#show GET /user_profiles/:id' do
     context 'valid' do
-      before { get user_profile_path(user) }
+      before { get user_profile_path(profile) }
       it { expect(response).to have_http_status :success }
       it { expect(response).to render_template('user_profiles/show') }
       it { expect(response.body).to match user.name }
