@@ -54,11 +54,19 @@ class MonthlyReport < ActiveRecord::Base
   end
 
   def set_prev_monthly_report
-    p_monthly = prev_month
-    return self unless p_monthly
+    if self.prev_month 
+      set_contents = %w(project_summary business_content next_month_goals looking_back)
+      assign_attributes(self.prev_month
+                        .attributes
+                        .select { |key, _|  set_contents.include? key }
+                        .merge('tags' => prev_month.tags))
+    end
 
-    set_contents = %w(project_summary business_content next_month_goals looking_back)
-    set_monthly_report p_monthly, set_contents
+    self
+  end
+
+  def str_target_month
+    target_month.strftime('%Y%m')
   end
 
   private
@@ -92,13 +100,5 @@ class MonthlyReport < ActiveRecord::Base
   def log_shipped_at
     return if status == 'wip'
     self.shipped_at ||= Time.current
-  end
-
-  def set_monthly_report(monthly_report, keys)
-    assign_attributes(monthly_report
-                            .attributes
-                            .select { |key, _| keys.include? key }
-                            .merge('tags' => monthly_report.tags))
-    self
   end
 end
