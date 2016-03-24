@@ -12,8 +12,8 @@ p 【使用した技術】
 -  @report.tags.each do |t|
   p = t.name
 p 【担当した工程】
-- @report.monthly_working_processes.each do |e|
- p = Settings.monthly_report.working_process[e.process]
+- @report.monthly_working_processes.map(&:process_i18n).each do |process|
+ p = process
 p 【業務内容】
 = simple_format(h(@report.business_content))
 p 【今月の振り返り】
