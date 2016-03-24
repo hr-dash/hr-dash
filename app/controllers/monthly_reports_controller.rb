@@ -14,9 +14,8 @@ class MonthlyReportsController < ApplicationController
   end
 
   def new
-    target_month = params[:target_month] ? params[:target_month].to_time : Time.current.last_month.beginning_of_month
-    monthly_report = MonthlyReport.new(target_month: target_month, user: current_user)
-    @monthly_report = monthly_report.set_prev_monthly_report
+    target_month = params[:target_month] || Time.current.last_month.beginning_of_month
+    @monthly_report = MonthlyReport.new(target_month: target_month, user: current_user)
   end
 
   def create
