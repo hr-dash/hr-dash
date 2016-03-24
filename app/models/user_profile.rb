@@ -13,6 +13,7 @@
 #
 
 class UserProfile < ActiveRecord::Base
+
   belongs_to :user
 
   validates :gender, presence: true
