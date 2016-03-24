@@ -8,11 +8,3 @@ mailer:
   enable_starttls_auto: true
   from: 'hoge@example.com'
 
-monthly_report:
-  working_process:
-    definition: '要件定義'
-    design: '設計'
-    implementation: '実装'
-    test: 'テスト'
-    operation: '運用保守'
-    analysis: '分析'
