@@ -3,7 +3,7 @@
     ul
       - monthly_report.errors.full_messages.each do |message|
         li.text-danger = message
-  - if monthly_report.prev_month
+  - if params[:action] == 'new' && monthly_report.prev_month
     = button_to '先月の月報をコピー',{ action: 'copy' }, params: { target_month: monthly_report.str_target_month }, method: 'get'
   = form_for monthly_report, html: { class: 'form-horizontal' } do |f|
     .form-group
@@ -19,10 +19,15 @@
       = f.label :monthly_working_processes, class: 'control-label col-xs-3'
       .col-xs-9.btn-group data-toggle="buttons"
         - MonthlyWorkingProcess.processes.each do |key, value|
-          - working_process = MonthlyWorkingProcess.find_or_initialize_by(monthly_report: monthly_report, process: value)
-          label.btn.btn-default
-            = check_box_tag "working_process[]", key, !working_process.new_record?, autocomplete: "off"
-            span = working_process.process_i18n
+          - working_process = monthly_report.monthly_working_processes.select { |mwp| mwp.process == key }.first || MonthlyWorkingProcess.new(process: value)
+          - unless working_process.monthly_report.present?
+            label.btn.btn-default
+              = check_box_tag "working_process[]", key, false, autocomplete: "off"
+              span = working_process.process_i18n
+          - else
+            label.btn.btn-default.active
+              = check_box_tag "working_process[]", key, true, autocomplete: "off"
+              span = working_process.process_i18n
     .form-group
       = f.label :business_content, class: 'control-label col-xs-3'
       .col-xs-9
