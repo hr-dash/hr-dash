@@ -4,7 +4,7 @@
       - monthly_report.errors.full_messages.each do |message|
         li.text-danger = message
   - if monthly_report.prev_month
-    = button_to '先月の月報をコピー',{ action: 'prev_month' }, params: { target_month: monthly_report.str_target_month }, method: 'get'
+    = button_to '先月の月報をコピー',{ action: 'copy' }, params: { target_month: monthly_report.str_target_month }, method: 'get'
   = form_for monthly_report, html: { class: 'form-horizontal' } do |f|
     .form-group
       = f.label :project_summary, class: 'control-label col-xs-3'

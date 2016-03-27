@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   resources 'monthly_reports', except: :destroy do
     collection do
       get :mine
-      get :prev_month
+      get :copy
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

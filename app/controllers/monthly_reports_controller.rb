@@ -47,7 +47,7 @@ class MonthlyReportsController < ApplicationController
     end
   end
 
-  def prev_month
+  def copy
     target_month = Time.mktime params[:target_month][0..3], params[:target_month][4, 5]
     @monthly_report = MonthlyReport.new(target_month: target_month, user: current_user).try(:set_prev_monthly_report)
     render action: :new

@@ -55,11 +55,12 @@ class MonthlyReport < ActiveRecord::Base
 
   def set_prev_monthly_report
     if self.prev_month 
-      set_contents = %w(project_summary business_content next_month_goals looking_back)
+      contents_set = %w(project_summary business_content next_month_goals looking_back)
       assign_attributes(self.prev_month
                         .attributes
-                        .select { |key, _|  set_contents.include? key }
-                        .merge('tags' => prev_month.tags))
+                        .select { |key, _|  contents_set.include? key }
+                        .merge('tags' => prev_month.tags,
+                               'monthly_working_processes' => prev_month.monthly_working_processes))
     end
 
     self
