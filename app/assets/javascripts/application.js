@@ -18,5 +18,6 @@
 //= require marked.min
 //= require highlight.pack
 //= require bootstrap-tags.min
+//= require bootstrap-hover-dropdown.min
 
 //= require_tree .
