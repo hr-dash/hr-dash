@@ -61,6 +61,7 @@ ja:
         test: テスト
         operation: 運用保守
         analysis: 分析
+        training: 研修
     tag:
       status:
         unfixed: 未定

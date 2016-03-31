@@ -19,5 +19,6 @@ class MonthlyWorkingProcess < ActiveRecord::Base
     test: 3,
     operation: 4,
     analysis: 5,
+    training: 6,
   }
 end
