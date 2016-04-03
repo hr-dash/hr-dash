@@ -96,4 +96,31 @@ describe MonthlyReportsController, type: :request do
       it { expect(user_report).to be_nil }
     end
   end
+
+  describe '#copy GET /monthly_reports/copy' do
+    context 'If monthly report on the last month is not registered' do
+      let(:params) { { target_month: '201603' } }
+      before { get copy_monthly_reports_path params }
+
+      it { expect(response).to have_http_status :success }
+      it { expect(response).to render_template('monthly_reports/new') }
+    end
+
+    context 'If monthly report on the last month has been registered' do
+      let(:monthly_report) { create(:monthly_report_tag).monthly_report }
+      let(:params) { { target_month: monthly_report.target_month.next_month.strftime('%Y%m') } }
+
+      before do
+        login monthly_report.user
+        get copy_monthly_reports_path(params)
+      end
+
+      it { expect(response).to have_http_status :success }
+      it { expect(response).to render_template('monthly_reports/new') }
+      it { expect(response.body).to match monthly_report.project_summary }
+      it { expect(response.body).to match monthly_report.business_content }
+      it { expect(response.body).to match monthly_report.looking_back }
+      it { expect(response.body).to match monthly_report.next_month_goals }
+    end
+  end
 end

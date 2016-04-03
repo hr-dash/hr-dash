@@ -19,8 +19,8 @@
       = f.label :monthly_working_processes, class: 'control-label col-xs-3'
       .col-xs-9.btn-group data-toggle="buttons"
         - MonthlyWorkingProcess.processes.each do |key, value|
-          - working_process = monthly_report.monthly_working_processes.select { |mwp| mwp.process == key }.first || MonthlyWorkingProcess.new(process: value)
-          - unless working_process.monthly_report.present?
+          - working_process = monthly_report.monthly_working_processes.find { |mwp| mwp.process == key } || MonthlyWorkingProcess.new(process: value)
+          - if working_process.new_record?
             label.btn.btn-default
               = check_box_tag "working_process[]", key, false, autocomplete: "off"
               span = working_process.process_i18n
