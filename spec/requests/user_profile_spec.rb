@@ -1,13 +1,13 @@
 describe UserProfilesController, type: :request do
   let(:user) { create :user }
-  let(:profile) { UserProfile.find_by(user_id: user) }
+  let(:profile) { user.user_profile }
   before { login user }
 
   describe '#show GET /user_profiles/:id' do
     context 'valid' do
       before { get user_profile_path(profile) }
       it { expect(response).to have_http_status :success }
-      it { expect(response).to render_template('user_profiles/show') }
+      it { expect(response).to render_template 'user_profiles/show' }
       it { expect(response.body).to match user.name }
       it { expect(response.body).to match user.group.name }
       it { expect(response.body).to match user.employee_code.to_s }
@@ -16,6 +16,19 @@ describe UserProfilesController, type: :request do
       it { expect(response.body).to match profile.gender_i18n }
       it { expect(response.body).to match profile.blood_type_i18n }
       it { expect(response.body).to match profile.birthday.to_s }
+    end
+
+    context 'valid without group_id' do
+      let(:user) do
+        create(:user) do |u|
+          u.group_id = nil
+        end
+      end
+
+      before { get user_profile_path(user.user_profile) }
+
+      it { expect(response).to have_http_status :success }
+      it { expect(response).to render_template 'user_profiles/show' }
     end
 
     context 'not_found' do
