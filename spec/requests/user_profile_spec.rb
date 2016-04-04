@@ -20,13 +20,20 @@ describe UserProfilesController, type: :request do
 
     context 'valid without group_id' do
       let(:user) do
-        create(:user) do |u|
-          u.group_id = nil
-        end
+        create(:user) { |u| u.group_id = nil }
       end
 
       before { get user_profile_path(user.user_profile) }
+      it { expect(response).to have_http_status :success }
+      it { expect(response).to render_template 'user_profiles/show' }
+    end
 
+    context 'valid without birthday' do
+      let(:user) do
+        create(:user) { |u| u.user_profile.birthday = nil }
+      end
+
+      before { get user_profile_path(user.user_profile) }
       it { expect(response).to have_http_status :success }
       it { expect(response).to render_template 'user_profiles/show' }
     end
