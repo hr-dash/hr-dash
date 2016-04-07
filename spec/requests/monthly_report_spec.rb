@@ -31,9 +31,26 @@ describe MonthlyReportsController, type: :request do
   end
 
   describe '#new GET /monthly_reports/new' do
-    before { get new_monthly_report_path }
-    it { expect(response).to have_http_status :success }
-    it { expect(response).to render_template('monthly_reports/new') }
+    context 'If monthly report on the last month is not registered' do
+      before { get new_monthly_report_path }
+      it { expect(response).to have_http_status :success }
+      it { expect(response).to render_template('monthly_reports/new') }
+      it { expect(response.body).not_to match '先月の月報をコピー' }
+    end
+
+    context 'If monthly report on the last month has been registered' do
+      let(:monthly_report) { create(:monthly_report_tag).monthly_report }
+      let(:params) { { target_month: monthly_report.target_month.next_month } }
+
+      before do
+        login monthly_report.user
+        get new_monthly_report_path params
+      end
+
+      it { expect(response).to have_http_status :success }
+      it { expect(response).to render_template('monthly_reports/new') }
+      it { expect(response.body).to match '先月の月報をコピー' }
+    end
   end
 
   describe '#create POST /monthly_reports' do
