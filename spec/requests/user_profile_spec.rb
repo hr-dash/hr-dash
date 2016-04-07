@@ -19,10 +19,7 @@ describe UserProfilesController, type: :request do
     end
 
     context 'valid without group_id' do
-      let(:user) do
-        create(:user) { |u| u.group_id = nil }
-      end
-
+      let(:user) { create(:user, group_id: nil) }
       before { get user_profile_path(user.user_profile) }
       it { expect(response).to have_http_status :success }
       it { expect(response).to render_template 'user_profiles/show' }
