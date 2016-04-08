@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
   root to: 'monthly_reports#index'
 
-  resources :user_profiles, except: [:index, :destroy]
+  resources :user_profiles, only: [:show, :edit, :update]
   resources 'monthly_reports', except: :destroy do
     collection do
       get :mine
