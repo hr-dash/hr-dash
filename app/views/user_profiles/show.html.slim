@@ -36,8 +36,8 @@
           tr
             th 誕生日
             td
-              = @profile.birthday
+              = @profile.birthday || '未記入'
     section
       h2.profile-heading 自己紹介
       pre
-        = @profile.self_introduction
+        = @profile.self_introduction || '未記入'
