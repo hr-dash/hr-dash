@@ -5,11 +5,24 @@ ActiveAdmin.register MonthlyReportComment do
   index do
     selectable_column
     id_column
-    column :user_id
+    column :user
     column :comment
-    column :monthly_report_id
+    column :monthly_report
     column :created_at
-    column :updated_at
     actions
+  end
+
+  filter :user
+  filter :monthly_report_id
+  filter :comment
+
+  form do |f|
+    f.semantic_errors
+    f.inputs do
+      f.input :user
+      f.input :monthly_report_id
+      f.input :comment
+    end
+    f.actions
   end
 end
