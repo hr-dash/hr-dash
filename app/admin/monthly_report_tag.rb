@@ -5,10 +5,20 @@ ActiveAdmin.register MonthlyReportTag do
   index do
     selectable_column
     id_column
-    column :monthly_report_id
-    column :tag_id
-    column :created_at
-    column :updated_at
+    column :monthly_report
+    column :tag
     actions
+  end
+
+  filter :monthly_report_id
+  filter :tag
+
+  form do |f|
+    f.semantic_errors
+    f.inputs do
+      f.input :monthly_report_id
+      f.input :tag
+    end
+    f.actions
   end
 end
