@@ -56,10 +56,11 @@ class MonthlyReportsController < ApplicationController
   end
 
   def working_processes(monthly_report)
-    processes = params[:working_process].try!(:map) do |process|
-      MonthlyWorkingProcess.new(monthly_report: monthly_report, process: process)
-    end
-    processes || []
+    return [] if params[:working_process].blank?
+
+    params[:working_process]
+      .select { |process| MonthlyWorkingProcess.processes.keys.include?(process) }
+      .map { |process| MonthlyWorkingProcess.new(monthly_report: monthly_report, process: process) }
   end
 
   def monthly_report_tags
