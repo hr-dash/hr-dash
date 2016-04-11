@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 20160406232611) do
     t.datetime "updated_at",                    null: false
   end
 
-  add_index "user_profiles", ["user_id"], name: "index_user_profiles_on_user_id", using: :btree
+  add_index "user_profiles", ["user_id"], name: "index_user_profiles_on_user_id", unique: true, using: :btree
 
   create_table "user_roles", force: :cascade do |t|
     t.integer  "user_id"
