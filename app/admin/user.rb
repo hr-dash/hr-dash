@@ -1,6 +1,7 @@
 ActiveAdmin.register User do
   menu parent: 'ユーザー'
   csv_importable validate: false
+  actions :all, except: [:destroy]
   permit_params :name, :group_id, :employee_code, :email, :entry_date, :beginner_flg,
                 :deleted_at, :password, :password_confirmation
 
@@ -8,19 +9,17 @@ ActiveAdmin.register User do
     selectable_column
     id_column
     column :name
-    column :group_id
+    column :group
     column :employee_code
     column :email
     column :entry_date
     column :beginner_flg
     column :deleted_at
-    column :created_at
-    column :updated_at
     actions
   end
 
   filter :name
-  filter :group_id
+  filter :group
   filter :employee_code
   filter :email
   filter :entry_date
@@ -35,11 +34,9 @@ ActiveAdmin.register User do
       f.input :group
       f.input :employee_code
       f.input :email
-      f.input :entry_date
+      f.input :entry_date, as: :datepicker
       f.input :beginner_flg
-      f.input :deleted_at
-      f.input :password
-      f.input :password_confirmation
+      f.input :deleted_at, as: :datepicker
     end
     f.actions
   end
