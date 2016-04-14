@@ -40,4 +40,4 @@
     section
       h2.profile-heading 自己紹介
       pre
-        = @profile.self_introduction || '未入力'
+        = @profile.self_introduction.presence || '未入力'
