@@ -68,11 +68,11 @@ ja:
         fixed: 確定
     user_profile:
       gender:
-        gender_hidden: 秘密
+        gender_blank: 未入力
         male: 男性
         female: 女性
       blood_type:
-        blood_hidden: 秘密
+        blood_blank: 未入力
         a: A型
         b: B型
         ab: AB型

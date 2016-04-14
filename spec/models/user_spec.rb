@@ -44,4 +44,10 @@ describe User, type: :model do
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_presence_of(:entry_date) }
   end
+
+  describe 'After create' do
+    let(:user) { create(:user) }
+    let(:profile) { UserProfile.find_by(user_id: user) }
+    it { expect(profile).to be_present }
+  end
 end

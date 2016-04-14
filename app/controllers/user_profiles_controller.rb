@@ -1,11 +1,6 @@
 class UserProfilesController < ApplicationController
-  def new
-    @profile = UserProfile.new(user: current_user)
-  end
-
-  def create
-    UserProfile.create! add_user_id_to_params
-    redirect_to profile_sample_index_path
+  def show
+    @profile = UserProfile.find(params[:id])
   end
 
   def edit

@@ -1,0 +1,43 @@
+- provide :page_title, 'プロフィール'
+
+.page-content
+  .jumbotron
+    section
+      h2.profile-heading
+        span.glyphicon.glyphicon-user
+        span
+          = @profile.user.name
+      table.table
+        tbody
+          tr
+            th グループ
+            td 
+              = @profile.user.group&.name
+          tr
+            th 社員番号
+            td
+              = @profile.user.employee_code
+          tr
+            th メールアドレス
+            td
+              = @profile.user.email
+          tr
+            th 入社日
+            td
+              = @profile.user.entry_date
+          tr
+            th 性別
+            td
+              = @profile.gender_i18n
+          tr
+            th 血液型
+            td
+              = @profile.blood_type_i18n
+          tr
+            th 誕生日
+            td
+              = @profile.birthday || '未入力'
+    section
+      h2.profile-heading 自己紹介
+      pre
+        = @profile.self_introduction.presence || '未入力'
