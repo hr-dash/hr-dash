@@ -21,4 +21,7 @@ class MonthlyWorkingProcess < ActiveRecord::Base
     analysis: 5,
     training: 6,
   }
+
+  validates :monthly_report, presence: true
+  validates :process, presence: true
 end

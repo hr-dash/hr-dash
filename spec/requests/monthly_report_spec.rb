@@ -55,6 +55,25 @@ describe MonthlyReportsController, type: :request do
       it { expect(response).to render_template('monthly_reports/new') }
       it { expect(user_report.present?).to eq false }
     end
+
+    describe '#working_process' do
+      let(:post_params) { { monthly_report: report_params, working_process: [working_process] } }
+      before { post monthly_reports_path, post_params }
+      subject { user_report.monthly_working_processes }
+
+      context 'valid' do
+        let(:working_process) { build(:monthly_working_process).process }
+        it { expect(response).to have_http_status :redirect }
+        it { expect(subject.size).to eq 1 }
+        it { expect(subject.first.process).to eq working_process }
+      end
+
+      context 'invalid' do
+        let(:working_process) { 'invalid_process' }
+        it { expect(response).to have_http_status :redirect }
+        it { expect(subject.size).to eq 0 }
+      end
+    end
   end
 
   describe '#edit GET /monthly_reports/:id/edit' do
