@@ -16,5 +16,8 @@ RSpec.describe MonthlyWorkingProcess, type: :model do
     subject { build(:monthly_working_process) }
 
     it { is_expected.to be_valid }
+    it { is_expected.to validate_presence_of(:monthly_report) }
+    it { is_expected.to validate_presence_of(:process) }
+    it { is_expected.to define_enum_for(:process) }
   end
 end
