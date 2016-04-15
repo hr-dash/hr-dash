@@ -29,6 +29,7 @@ module ActiveAdmin
       end
 
       after_save do |model|
+        return unless model.valid?
         @active_admin_action_log.update!(resource: model, path: resource_path)
       end
     end
