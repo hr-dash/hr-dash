@@ -1,5 +1,6 @@
 ActiveAdmin.register Group do
   csv_importable
+  active_admin_action_log
   permit_params { Group.column_names }
   actions :all, except: [:destroy]
 
