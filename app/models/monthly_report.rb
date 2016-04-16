@@ -53,6 +53,23 @@ class MonthlyReport < ActiveRecord::Base
     self.class.find_by(user: user, target_month: target_month.next_month)
   end
 
+  def set_prev_monthly_report
+    if prev_month
+      contents_set = %w(project_summary business_content next_month_goals looking_back)
+      assign_attributes(prev_month
+                        .attributes
+                        .select { |key, _|  contents_set.include? key }
+                        .merge('tags' => prev_month.tags,
+                               'monthly_working_processes' => prev_month.monthly_working_processes))
+    end
+
+    self
+  end
+
+  def str_target_month
+    target_month.strftime('%Y%m')
+  end
+
   private
 
   def registrable_term_from
