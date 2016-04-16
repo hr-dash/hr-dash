@@ -57,7 +57,6 @@ describe UserProfilesController, type: :request do
     end
 
     context 'invalid' do
-      let!(:profile) { create :user_profile }
       let(:invalid_id) { profile.id + 1 }
       before do
         login profile.user

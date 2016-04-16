@@ -11,10 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406232611) do
+ActiveRecord::Schema.define(version: 20160411141342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_admin_action_logs", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.string   "path"
+    t.string   "action"
+    t.text     "changes_log"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "active_admin_action_logs", ["resource_id", "resource_type"], name: "index_active_admin_action_logs_on_resource_id_and_resource_type", using: :btree
+  add_index "active_admin_action_logs", ["user_id"], name: "index_active_admin_action_logs_on_user_id", using: :btree
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -133,6 +147,7 @@ ActiveRecord::Schema.define(version: 20160406232611) do
   add_index "users", ["group_id"], name: "index_users_on_group_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "active_admin_action_logs", "users"
   add_foreign_key "monthly_working_processes", "monthly_reports"
   add_foreign_key "user_profiles", "users"
 end
