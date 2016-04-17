@@ -1,6 +1,18 @@
-User.destroy_all
-MonthlyReport.destroy_all
-Tag.destroy_all
+[
+  ActiveAdminActionLog,
+  User,
+  MonthlyReport,
+  Tag,
+  HelpText,
+].map(&:destroy_all)
+
+Dir.glob("#{Rails.root}/db/seeds/*.yml").each do |yaml_filename|
+  klass = File.basename(yaml_filename,".yml").classify.constantize
+
+  File.open(yaml_filename) do |load_target_yaml|
+    YAML.load(load_target_yaml).each { |record| klass.create!(record) }
+  end
+end
 
 if Rails.env.development?
   user = FactoryGirl.create(:user, email: 'test@example.com', password: 'password')
