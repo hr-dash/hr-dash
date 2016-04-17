@@ -1,7 +1,7 @@
 ActiveAdmin.register HelpText do
   active_admin_action_log
   permit_params { HelpText.column_names }
-  actions :all, except: [:destroy]
+  actions :all, except: [:new, :create, :destroy]
 
   index do
     id_column
