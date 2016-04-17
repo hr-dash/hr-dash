@@ -63,8 +63,8 @@ describe UserProfilesController, type: :request do
         get edit_user_profile_path(id: invalid_id)
       end
 
-      it { expect(response).to have_http_status :not_found }
-      it { expect(response).to render_template 'errors/404' }
+      it { expect(response).to have_http_status :redirect }
+      it { expect(response).to redirect_to root_path }
     end
 
     context 'not found' do
@@ -75,8 +75,8 @@ describe UserProfilesController, type: :request do
         get edit_user_profile_path(id: profile_id)
       end
 
-      it { expect(response).to have_http_status :not_found }
-      it { expect(response).to render_template 'errors/404' }
+      it { expect(response).to have_http_status :redirect }
+      it { expect(response).to redirect_to root_path }
     end
   end
 end

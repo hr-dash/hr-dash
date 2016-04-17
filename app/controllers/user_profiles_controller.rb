@@ -1,10 +1,12 @@
 class UserProfilesController < ApplicationController
+  before_action :correct_user?, only: [:edit, :update]
+
   def show
     @profile = UserProfile.find(params[:id])
   end
 
   def edit
-    @profile = UserProfile.find_by!(id: params[:id], user: current_user)
+    @profile = UserProfile.find(params[:id])
   end
 
   def update
@@ -15,12 +17,12 @@ class UserProfilesController < ApplicationController
 
   private
 
-  def add_user_id_to_params
-    permitted_params.merge(user_id: current_user.id)
-  end
-
   def permitted_params
     params.require(:user_profile)
       .permit(:self_introduction, :gender, :blood_type, :birthday)
+  end
+
+  def correct_user?
+    redirect_to root_path unless current_user.user_profile.id == params[:id].to_i
   end
 end
