@@ -8,4 +8,25 @@ describe HelpText, type: :model do
     it { is_expected.to validate_presence_of(:target) }
     it { is_expected.to validate_presence_of(:body) }
   end
+
+  describe '.placeholders' do
+    let!(:help_text) { create(:help_text, :placeholder) }
+    subject { described_class.placeholders(category) }
+
+    context 'match category' do
+      let(:category) { help_text.category }
+      let(:target) { help_text.target }
+      let(:body) { help_text.body }
+      let(:result) { { target.to_sym => body } }
+      it { is_expected.not_to be_blank }
+      it { is_expected.to eq result }
+    end
+
+    context 'not match category' do
+      let(:category) { 'invalid category' }
+      let(:result) { {} }
+      it { is_expected.to be_blank }
+      it { is_expected.to eq result }
+    end
+  end
 end
