@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160411141342) do
+ActiveRecord::Schema.define(version: 20160417072102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20160411141342) do
 
   create_table "monthly_reports", force: :cascade do |t|
     t.integer  "user_id",          null: false
-    t.datetime "target_month",     null: false
+    t.date     "target_month",     null: false
     t.integer  "status",           null: false
     t.datetime "shipped_at"
     t.text     "project_summary"
