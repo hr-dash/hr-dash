@@ -25,4 +25,15 @@ ActiveAdmin.register HelpText do
       row :updated_at
     end
   end
+
+  form do |f|
+    f.semantic_errors
+    f.inputs do
+      f.input :category, input_html: { disabled: true }
+      f.input :help_type, input_html: { disabled: true }
+      f.input :target, input_html: { disabled: true }
+      f.input :body
+    end
+    f.actions
+  end
 end
