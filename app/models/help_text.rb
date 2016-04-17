@@ -8,9 +8,9 @@ class HelpText < ActiveRecord::Base
 
   def self.placeholders(category)
     where(category: category)
-    .placeholder
-    .pluck(:target, :body)
-    .to_h
-    .symbolize_keys
+      .placeholder
+      .pluck(:target, :body)
+      .to_h
+      .symbolize_keys
   end
 end
