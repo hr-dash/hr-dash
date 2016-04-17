@@ -74,7 +74,7 @@ class MonthlyReportsController < ApplicationController
     reports = MonthlyReport.year(year).where(user: current_user)
 
     (1..12).map do |month|
-      target_month = Date.new(year, month)
+      target_month = Date.new(year, month, 1)
       report = reports.find { |r| r.target_month == target_month }
       report ||= MonthlyReport.new(user: current_user, target_month: target_month)
       report.registrable_term? ? report : nil
