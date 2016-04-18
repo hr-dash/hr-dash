@@ -4,7 +4,7 @@
 #
 #  id               :integer          not null, primary key
 #  user_id          :integer          not null
-#  target_month     :datetime         not null
+#  target_month     :date             not null
 #  status           :integer          not null
 #  shipped_at       :datetime
 #  project_summary  :text
