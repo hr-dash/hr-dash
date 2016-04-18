@@ -3,7 +3,7 @@
 # Table name: tags
 #
 #  id         :integer          not null, primary key
-#  status     :integer          not null
+#  status     :integer          default(0), not null
 #  name       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
