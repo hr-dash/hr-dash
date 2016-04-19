@@ -92,4 +92,21 @@ RSpec.describe MonthlyReport, type: :model do
       end
     end
   end
+
+  describe '#this_month_goals' do
+    let(:user) { create(:user) }
+    let(:report) { create(:monthly_report, user: user) }
+    subject { report.this_month_goals }
+
+    context 'not exist last month report' do
+      it { is_expected.to be_nil }
+    end
+
+    context 'exist last month report' do
+      let(:last_month) { report.target_month.prev_month }
+      before { create(:monthly_report, user: user, target_month: last_month) }
+
+      it { is_expected.not_to be_nil }
+    end
+  end
 end
