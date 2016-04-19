@@ -46,10 +46,12 @@ class MonthlyReport < ActiveRecord::Base
   end
 
   def prev_month
+    return unless target_month
     self.class.find_by(user: user, target_month: target_month.prev_month)
   end
 
   def next_month
+    return unless target_month
     self.class.find_by(user: user, target_month: target_month.next_month)
   end
 
