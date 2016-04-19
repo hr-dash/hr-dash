@@ -54,7 +54,7 @@ class MonthlyReport < ActiveRecord::Base
   end
 
   def this_month_goals
-    prev_month&.next_month_goals
+    prev_month.try!(:next_month_goals)
   end
 
   private
