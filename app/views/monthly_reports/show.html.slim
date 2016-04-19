@@ -33,6 +33,9 @@
           label.col-xs-3.control-label = t "#{attr}.business_content"
           .col-xs-9.form-control-static
             = render 'layouts/markdown_view', content: @monthly_report.business_content
+          label.col-xs-3.control-label 今月の目標
+          .col-xs-9.form-control-static
+            = render 'layouts/markdown_view', content: @monthly_report.this_month_goals
           label.col-xs-3.control-label = t "#{attr}.looking_back"
           .col-xs-9.form-control-static
             = render 'layouts/markdown_view', content: @monthly_report.looking_back
