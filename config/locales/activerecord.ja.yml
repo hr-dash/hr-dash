@@ -2,6 +2,7 @@ ja:
   activerecord: &activerecord
     models:
       group: グループ
+      help_text: ヘルプテキスト
       monthly_report: 月報
       monthly_report_comment: 月報コメント
       monthly_report_tag: 月報タグ
@@ -14,6 +15,11 @@ ja:
       group:
         name: 名前
         description: 説明
+      help_text:
+        category: カテゴリ
+        help_type: 種類
+        target: 対象
+        body: テキスト
       monthly_report:
         project_summary: プロジェクト概要
         monthly_report_tags: 使用した技術

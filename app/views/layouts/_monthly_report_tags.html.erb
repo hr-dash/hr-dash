@@ -17,7 +17,8 @@ $(function(){
       },
       afterDeletingTag: function() {
         refresh_tags_input(this);
-      }
+      },
+      promptText: <%= placeholder.to_json.html_safe %>
   });
   refresh_tags_input(tagger);
 
