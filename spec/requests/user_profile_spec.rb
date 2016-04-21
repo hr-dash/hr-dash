@@ -49,7 +49,7 @@ describe UserProfilesController, type: :request do
     context 'valid' do
       before do
         login profile.user
-        get edit_user_profile_path(id: profile.id)
+        get edit_user_profile_path(profile)
       end
 
       it { expect(response).to have_http_status :success }
@@ -57,26 +57,23 @@ describe UserProfilesController, type: :request do
     end
 
     context 'invalid' do
-      let(:invalid_id) { profile.id + 1 }
+      let(:other_user) { create(:user) }
       before do
-        login profile.user
-        get edit_user_profile_path(id: invalid_id)
+        login other_user
+        get edit_user_profile_path(profile)
       end
 
-      it { expect(response).to have_http_status :redirect }
-      it { expect(response).to redirect_to root_path }
+      it { expect(response).to have_http_status :not_found }
     end
 
     context 'not found' do
-      let(:user) { create :user }
       let(:profile_id) { 0 }
       before do
-        login user
+        login profile.user
         get edit_user_profile_path(id: profile_id)
       end
 
-      it { expect(response).to have_http_status :redirect }
-      it { expect(response).to redirect_to root_path }
+      it { expect(response).to have_http_status :not_found }
     end
   end
 
@@ -88,7 +85,7 @@ describe UserProfilesController, type: :request do
     context 'valid' do
       before do
         login profile.user
-        patch user_profile_path profile, patch_params
+        patch user_profile_path(profile, patch_params)
       end
 
       it { expect(response).to have_http_status :redirect }
@@ -96,14 +93,23 @@ describe UserProfilesController, type: :request do
     end
 
     context 'invalid' do
-      let(:invalid_id) { profile.id + 1 }
+      let(:other_user) { create(:user) }
       before do
-        login profile.user
-        patch user_profile_path invalid_id, patch_params
+        login other_user
+        patch user_profile_path(profile, patch_params)
       end
 
-      it { expect(response).to have_http_status :redirect }
-      it { expect(response).to redirect_to root_path }
+      it { expect(response).to have_http_status :not_found }
+    end
+
+    context 'not_found' do
+      let(:profile_id) { 0 }
+      before do
+        login profile.user
+        patch user_profile_path(profile_id, patch_params)
+      end
+
+      it { expect(response).to have_http_status :not_found }
     end
   end
 end
