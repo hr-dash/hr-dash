@@ -79,4 +79,31 @@ describe UserProfilesController, type: :request do
       it { expect(response).to redirect_to root_path }
     end
   end
+
+  describe '#update PATCH /user_profiles/:id' do
+    let(:new_profile) { attributes_for(:user_profile) }
+    let(:profile_params) { new_profile }
+    let(:patch_params) { { user_profile: profile_params } }
+
+    context 'valid' do
+      before do
+        login profile.user
+        patch user_profile_path profile, patch_params
+      end
+
+      it { expect(response).to have_http_status :redirect }
+      it { expect(response).to redirect_to user_profile_path(user.user_profile) }
+    end
+
+    context 'invalid' do
+      let(:invalid_id) { profile.id + 1 }
+      before do
+        login profile.user
+        patch user_profile_path invalid_id, patch_params
+      end
+
+      it { expect(response).to have_http_status :redirect }
+      it { expect(response).to redirect_to root_path }
+    end
+  end
 end

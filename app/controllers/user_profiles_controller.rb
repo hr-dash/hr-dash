@@ -1,5 +1,5 @@
 class UserProfilesController < ApplicationController
-  before_action :correct_user?, only: [:edit, :update]
+  before_action :correct_user!, only: [:edit, :update]
 
   def show
     @profile = UserProfile.find(params[:id])
@@ -10,9 +10,12 @@ class UserProfilesController < ApplicationController
   end
 
   def update
-    profile = UserProfile.find_by(user_id: current_user.id)
-    profile.update! add_user_id_to_params
-    redirect_to profile_sample_index_path
+    @profile = UserProfile.find(params[:id])
+    if @profile.update(permitted_params)
+      redirect_to @profile
+    else
+      render :edit
+    end
   end
 
   private
@@ -22,7 +25,8 @@ class UserProfilesController < ApplicationController
       .permit(:self_introduction, :gender, :blood_type, :birthday)
   end
 
-  def correct_user?
-    redirect_to root_path unless current_user.user_profile.id == params[:id].to_i
+  def correct_user!
+    profile_id = current_user.user_profile.id
+    redirect_to root_path unless profile_id == params[:id].to_i
   end
 end
