@@ -1,10 +1,9 @@
 mailer:
   address: 'smtp.gmail.com'
   port: 587
-  domain: 'foo@example.com'
-  user_name: 'hoge@example.com'
-  password: 'hogehoge'
+  domain: 'gmail.com'
+  user_name: 'freezer53000@gmail.com'
+  password: 'fbnvyyksmsfwdnau'
   authentication: 'plain'
   enable_starttls_auto: true
-  from: 'hoge@example.com'
-
+  from: 'freezer53000@gmail.com'

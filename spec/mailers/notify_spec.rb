@@ -2,7 +2,7 @@ require "rails_helper"
 RSpec.describe Notify, type: :mailer do
   let!(:report) { create(:monthly_report, :with_comments, :with_tags) }
   let(:user) { create(:user) }
-  let(:from) { Settings.mailer[:from] } 
+  let(:from) { "システム管理者 "+"#{Settings.mailer[:from]}" } 
 
   after(:all) do
     ActionMailer::Base.deliveries.clear
@@ -21,7 +21,7 @@ RSpec.describe Notify, type: :mailer do
     it "renders the headers" do
       expect(mail.subject).to eq(title)
       expect(mail.to).to include(user.email)
-      expect(mail.from[0]).to eq(from)
+      expect(mail.from).to eq(from)
     end
 
     it "renders the body" do

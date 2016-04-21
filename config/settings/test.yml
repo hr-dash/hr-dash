@@ -6,4 +6,4 @@ mailer:
   password: ENV["MAILER_PASSWORD"]
   authentication: 'plain'
   enable_starttls_auto: true
-  from: ENV["MAILER_FROM"]
+  from: 'test@example.com' 
