@@ -8,5 +8,9 @@ FactoryGirl.define do
     trait :placeholder do
       help_type { 'placeholder' }
     end
+
+    trait :hint do
+      help_type { 'hint' }
+    end
   end
 end
