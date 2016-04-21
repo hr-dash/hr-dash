@@ -53,6 +53,17 @@ ActiveRecord::Schema.define(version: 20160417072102) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "help_texts", force: :cascade do |t|
+    t.string   "category"
+    t.string   "help_type"
+    t.string   "target"
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "help_texts", ["category", "help_type"], name: "index_help_texts_on_category_and_help_type", using: :btree
+
   create_table "monthly_report_comments", force: :cascade do |t|
     t.integer  "user_id",           null: false
     t.text     "comment"
