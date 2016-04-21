@@ -35,3 +35,10 @@
   body: "例）\r\n1. \r\n2. \r\n3."
   created_at: 2016-04-17 04:03:04.259770000 Z
   updated_at: 2016-04-17 04:03:58.588447000 Z
+- id: 6
+  category: monthly_report
+  help_type: hint
+  target: this_month_goals
+  body: "先月の月報が入力されていません。\r\n先月の月報の「来月の目標」が表示されます。"
+  created_at: 2016-04-17 04:03:04.259770000 Z
+  updated_at: 2016-04-17 04:03:58.588447000 Z
