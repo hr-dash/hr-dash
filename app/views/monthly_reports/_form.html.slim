@@ -5,6 +5,7 @@
         li.text-danger = message
   = form_for monthly_report, html: { class: 'form-horizontal' } do |f|
     - placeholders = HelpText.placeholders(:monthly_report)
+    - hints = HelpText.hints(:monthly_report)
     .form-group
       = f.label :project_summary, class: 'control-label col-xs-3'
       .col-xs-9
@@ -27,9 +28,9 @@
       .col-xs-9
         == render 'layouts/markdown_editor', attr: :business_content, form: f, placeholder: placeholders[:business_content]
     .form-group
-      = label_tag :last_month_goals, '今月の目標', class: 'control-label col-xs-3'
+      = label_tag :this_month_goals, '今月の目標', class: 'control-label col-xs-3'
       .col-xs-9
-        pre.form-control-static = monthly_report.this_month_goals || "先月の月報が入力されていません。\n先月の月報の「来月の目標」が表示されます。"
+        pre.form-control-static = monthly_report.this_month_goals || hints[:this_month_goals]
     .form-group
       = f.label :looking_back, class: 'control-label col-xs-3'
       .col-xs-9
