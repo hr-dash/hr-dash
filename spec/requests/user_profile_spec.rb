@@ -1,9 +1,10 @@
 describe UserProfilesController, type: :request do
   let(:user) { create :user }
   let(:profile) { user.user_profile }
-  before { login user }
 
   describe '#show GET /user_profiles/:id' do
+    before { login user }
+
     context 'valid' do
       before { get user_profile_path(profile) }
       it { expect(response).to have_http_status :success }
@@ -16,6 +17,27 @@ describe UserProfilesController, type: :request do
       it { expect(response.body).to match profile.gender_i18n }
       it { expect(response.body).to match profile.blood_type_i18n }
       it { expect(response.body).to match profile.birthday.to_s }
+      it { expect(response.body).to match 'プロフィール編集' }
+    end
+
+    context 'valid login user except profile owner' do
+      let(:other_user) { create :user }
+      let(:other_user_profile) { other_user.user_profile }
+      before do
+        login other_user
+        get user_profile_path(profile)
+      end
+      it { expect(response).to have_http_status :success }
+      it { expect(response).to render_template 'user_profiles/show' }
+      it { expect(response.body).to match user.name }
+      it { expect(response.body).to match user.group.name }
+      it { expect(response.body).to match user.employee_code.to_s }
+      it { expect(response.body).to match user.email }
+      it { expect(response.body).to match user.entry_date.to_s }
+      it { expect(response.body).to match profile.gender_i18n }
+      it { expect(response.body).to match profile.blood_type_i18n }
+      it { expect(response.body).to match profile.birthday.to_s }
+      it { expect(response.body).not_to match 'プロフィール編集' }
     end
 
     context 'valid without group_id' do

@@ -7,6 +7,10 @@
         span.glyphicon.glyphicon-user
         span
           = @profile.user.name
+      - if current_user.id == @profile.user.id
+        .edit-profile
+          a href = edit_user_profile_path(@profile)
+            | プロフィール編集
       table.table
         tbody
           tr
