@@ -9,7 +9,7 @@
           = @profile.user.name
       - if current_user == @profile.user
         .edit-profile
-          = link_to('プロフィール編集', edit_user_profile_path(@profile.id))
+          = link_to('プロフィール編集', edit_user_profile_path(@profile))
       table.table
         tbody
           tr
