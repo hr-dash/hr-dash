@@ -30,7 +30,9 @@
     .form-group
       = label_tag :this_month_goals, '今月の目標', class: 'control-label col-xs-3'
       .col-xs-9
-        pre.form-control-static = monthly_report.this_month_goals || hints[:this_month_goals]
+        .form-control-static
+          - this_month_goals = monthly_report.this_month_goals.presence || hints[:this_month_goals]
+          = render 'layouts/markdown_view', content: this_month_goals
     .form-group
       = f.label :looking_back, class: 'control-label col-xs-3'
       .col-xs-9
