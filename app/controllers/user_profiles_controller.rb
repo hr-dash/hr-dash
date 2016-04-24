@@ -4,11 +4,11 @@ class UserProfilesController < ApplicationController
   end
 
   def edit
-    @profile = UserProfile.find_by!(id: params[:id], user_id: current_user.id)
+    @profile = UserProfile.find_by!(id: params[:id], user: current_user)
   end
 
   def update
-    @profile = UserProfile.find_by!(id: params[:id], user_id: current_user.id)
+    @profile = UserProfile.find_by!(id: params[:id], user: current_user)
     if @profile.update(permitted_params)
       redirect_to @profile
     else
