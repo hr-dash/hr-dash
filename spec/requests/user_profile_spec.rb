@@ -54,7 +54,6 @@ describe UserProfilesController, type: :request do
       end
     end
 
-
     context 'not_found' do
       let(:not_found_id) { 0 }
       before { get user_profile_path(id: not_found_id) }
