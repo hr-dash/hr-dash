@@ -8,16 +8,15 @@ class UserProfilesController < ApplicationController
   end
 
   def update
-    profile = UserProfile.find_by(user_id: current_user.id)
-    profile.update! add_user_id_to_params
-    redirect_to profile_sample_index_path
+    @profile = UserProfile.find_by!(id: params[:id], user: current_user)
+    if @profile.update(permitted_params)
+      redirect_to @profile
+    else
+      render :edit
+    end
   end
 
   private
-
-  def add_user_id_to_params
-    permitted_params.merge(user_id: current_user.id)
-  end
 
   def permitted_params
     params.require(:user_profile)

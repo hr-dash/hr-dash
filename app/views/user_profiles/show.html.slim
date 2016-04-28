@@ -7,6 +7,9 @@
         span.glyphicon.glyphicon-user
         span
           = @profile.user.name
+      - if current_user == @profile.user
+        .edit-profile
+          = link_to('プロフィール編集', edit_user_profile_path(@profile))
       table.table
         tbody
           tr
@@ -41,3 +44,4 @@
       h2.profile-heading 自己紹介
       pre
         = @profile.self_introduction.presence || '未入力'
+
