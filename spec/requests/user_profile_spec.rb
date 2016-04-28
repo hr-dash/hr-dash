@@ -86,14 +86,15 @@ describe UserProfilesController, type: :request do
         it { expect(response).to have_http_status :not_found }
       end
 
-      context 'profile does not exist'
-      let(:profile_id) { 0 }
-      before do
-        login profile.user
-        get edit_user_profile_path(id: profile_id)
-      end
+      context 'profile does not exist' do
+        let(:profile_id) { 0 }
+        before do
+          login profile.user
+          get edit_user_profile_path(id: profile_id)
+        end
 
-      it { expect(response).to have_http_status :not_found }
+        it { expect(response).to have_http_status :not_found }
+      end
     end
   end
 
