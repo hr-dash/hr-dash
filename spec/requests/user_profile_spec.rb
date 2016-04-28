@@ -63,8 +63,6 @@ describe UserProfilesController, type: :request do
   end
 
   describe '#edit GET /user_profiles/:id/edit' do
-    let(:user_id) { profile.user_id }
-
     context 'valid' do
       before do
         login profile.user
@@ -100,8 +98,7 @@ describe UserProfilesController, type: :request do
 
   describe '#update PATCH /user_profiles/:id' do
     let(:new_profile) { attributes_for(:user_profile) }
-    let(:profile_params) { new_profile }
-    let(:patch_params) { { user_profile: profile_params } }
+    let(:patch_params) { { user_profile: new_profile } }
 
     context 'valid' do
       before do
