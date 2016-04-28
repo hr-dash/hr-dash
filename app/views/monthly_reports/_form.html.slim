@@ -19,7 +19,7 @@
       .col-xs-9.btn-group data-toggle="buttons"
         - MonthlyWorkingProcess.processes.each do |key, value|
           - working_process = MonthlyWorkingProcess.find_or_initialize_by(monthly_report: monthly_report, process: value)
-          label.btn.btn-default
+          label.btn.btn-default class=('active' if !working_process.new_record?)
             = check_box_tag "working_process[]", key, !working_process.new_record?, autocomplete: "off"
             span = working_process.process_i18n
     .form-group
