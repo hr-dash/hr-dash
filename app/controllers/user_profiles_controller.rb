@@ -21,6 +21,6 @@ class UserProfilesController < ApplicationController
 
   def permitted_params
     params.require(:user_profile)
-      .permit(:self_introduction, :gender, :blood_type, :birthday)
+      .permit(:self_introduction, :blood_type, :birthday)
   end
 end
