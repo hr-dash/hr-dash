@@ -19,6 +19,5 @@ class UserProfile < ActiveRecord::Base
   validates :gender, presence: true
   validates :blood_type, presence: true
 
-  enum gender: { gender_blank: 0, male: 1, female: 2 }
   enum blood_type: { blood_blank: 0, a: 1, b: 2, ab: 3, o: 4 }
 end

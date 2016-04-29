@@ -14,7 +14,7 @@ describe UserProfilesController, type: :request do
         it { expect(response.body).to match user.employee_code.to_s }
         it { expect(response.body).to match user.email }
         it { expect(response.body).to match user.entry_date.to_s }
-        it { expect(response.body).to match profile.gender_i18n }
+        it { expect(response.body).to match user.gender_i18n }
         it { expect(response.body).to match profile.blood_type_i18n }
         it { expect(response.body).to match profile.birthday.to_s }
         it { expect(response.body).to match 'このユーザーの月報を閲覧' }
