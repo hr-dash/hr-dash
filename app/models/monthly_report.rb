@@ -24,6 +24,10 @@ class MonthlyReport < ActiveRecord::Base
 
   validates :user, presence: true
   validates :target_month, presence: true
+  validates :project_summary, length: { maximum: 5000 }
+  validates :business_content, length: { maximum: 5000 }
+  validates :looking_back, length: { maximum: 5000 }
+  validates :next_month_goals, length: { maximum: 5000 }
   validate :target_beginning_of_month?
   validate :target_month_registrable_term
   validate :uniq_by_user_and_target_month, on: :create

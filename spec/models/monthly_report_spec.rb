@@ -22,6 +22,10 @@ RSpec.describe MonthlyReport, type: :model do
     it { is_expected.to be_valid }
     it { is_expected.to validate_presence_of(:user) }
     it { is_expected.to validate_presence_of(:target_month) }
+    it { is_expected.to validate_length_of(:project_summary).is_at_most(5000) }
+    it { is_expected.to validate_length_of(:business_content).is_at_most(5000) }
+    it { is_expected.to validate_length_of(:looking_back).is_at_most(5000) }
+    it { is_expected.to validate_length_of(:next_month_goals).is_at_most(5000) }
 
     describe '#target_beginning_of_month?' do
       let(:invalid_target) { Faker::Date.backward(100).end_of_month }
