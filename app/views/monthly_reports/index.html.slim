@@ -3,8 +3,14 @@
 .page-content
   .jumbotron
     .container
-      h3 名前検索
-      == render partial: 'layouts/search_form', locals: { path: monthly_reports_path, param: :name }
+      = form_tag monthly_reports_path, method: :get, class: 'form-horizontal'
+        .form-group
+          .col-xs-10
+          label.control-label.col-xs-2 for="searchByName" 氏名
+            = text_field_tag :name, nil, id: 'searchByName', class: 'form-control'
+        .form-group
+          .col-xs-10.col-xs-offset-2
+            button.btn.btn-default 検索
 .page-content
   h3 最新の月報一覧
   #report_index
