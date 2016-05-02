@@ -1,7 +1,7 @@
 class MonthlyReportsController < ApplicationController
   def index
     @q = MonthlyReport.ransack(search_params)
-    @monthly_reports = @q.result.released.page params[:page]
+    @monthly_reports = @q.result(distinct: true).released.page params[:page]
   end
 
   def mine
