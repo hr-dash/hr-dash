@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   resources 'monthly_reports', except: :destroy do
     collection do
       get 'users/:user_id', to: :user, as: :user
+      get :copy
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

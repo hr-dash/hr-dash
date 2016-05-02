@@ -3,6 +3,10 @@
     ul
       - monthly_report.errors.full_messages.each do |message|
         li.text-danger = message
+
+  - if params[:action] == 'new' && monthly_report.prev_month
+    = button_to '先月の月報をコピー', { action: 'copy' }, params: { target_month: monthly_report.target_month }, method: 'get'
+
   = form_for monthly_report, html: { class: 'form-horizontal' } do |f|
     - placeholders = HelpText.placeholders(:monthly_report)
     - hints = HelpText.hints(:monthly_report)
@@ -19,7 +23,7 @@
       = f.label :monthly_working_processes, class: 'control-label col-xs-3'
       .col-xs-9.btn-group data-toggle="buttons"
         - MonthlyWorkingProcess.processes.each do |key, value|
-          - working_process = MonthlyWorkingProcess.find_or_initialize_by(monthly_report: monthly_report, process: value)
+          - working_process = monthly_report.monthly_working_processes.find { |mwp| mwp.process == key } || MonthlyWorkingProcess.new(process: value)
           label.btn.btn-default class=('active' if !working_process.new_record?)
             = check_box_tag "working_process[]", key, !working_process.new_record?, autocomplete: "off"
             span = working_process.process_i18n
