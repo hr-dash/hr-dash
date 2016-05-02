@@ -97,6 +97,8 @@ class MonthlyReportsController < ApplicationController
     search_conditions = %i(
       user_group_id_eq user_name_cont
     )
+
+    params[:q][:tags_name_in] = params[:q][:tags_name_in].split(',')
     params.require(:q).permit(search_conditions)
   end
 end
