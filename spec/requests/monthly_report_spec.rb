@@ -142,6 +142,7 @@ describe MonthlyReportsController, type: :request do
         it { expect(response).to have_http_status :success }
         it { expect(response).to render_template('monthly_reports/new') }
         it { expect(response.body).not_to match '先月の月報をコピー' }
+        # 何かしらの担当工程がactiveになってるかどうかをチェック
         it { expect(response.body).to match 'label class=\"btn btn-default active\"' }
         it { expect(response.body).to match prev_monthly_report.business_content }
         it { expect(response.body).to match prev_monthly_report.looking_back }

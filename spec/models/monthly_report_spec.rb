@@ -113,4 +113,19 @@ RSpec.describe MonthlyReport, type: :model do
       it { is_expected.not_to be_nil }
     end
   end
+
+  describe '#set_prev_monthly_report!' do
+    let(:user) { create(:user) }
+    let(:report) { MonthlyReport.new(target_month: Date.today.beginning_of_month, user: user) }
+    subject { report.set_prev_monthly_report! }
+
+    context 'not exist last month report' do
+      it { expect { subject }.to raise_error ActiveRecord::RecordNotFound }
+    end
+
+    context 'exist last month report' do
+      before { create(:monthly_report, target_month: report.target_month.last_month, user: user) }
+      it { expect { subject }.not_to raise_error }
+    end
+  end
 end
