@@ -49,7 +49,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def copy
-    @monthly_report = MonthlyReport.new(target_month: params[:target_month], user: current_user).try!(:set_prev_monthly_report!)
+    @monthly_report = MonthlyReport.new(target_month: params[:target_month], user: current_user).set_prev_monthly_report!
     render :new
   end
 
