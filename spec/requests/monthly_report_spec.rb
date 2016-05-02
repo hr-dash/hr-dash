@@ -41,9 +41,25 @@ describe MonthlyReportsController, type: :request do
   end
 
   describe '#new GET /monthly_reports/new' do
-    before { get new_monthly_report_path }
-    it { expect(response).to have_http_status :success }
-    it { expect(response).to render_template('monthly_reports/new') }
+    context 'If monthly report on the last month is not registered' do
+      before { get new_monthly_report_path }
+      it { expect(response).to have_http_status :success }
+      it { expect(response).to render_template('monthly_reports/new') }
+      it { expect(response.body).not_to match '先月の月報をコピー' }
+    end
+
+    context 'If monthly report on the last month has been registered' do
+      let!(:prev_monthly_report) { create(:monthly_report_tag).monthly_report }
+      let(:params) { { target_month: prev_monthly_report.target_month.next_month } }
+      before do
+        login prev_monthly_report.user
+        get new_monthly_report_path params
+      end
+
+      it { expect(response).to have_http_status :success }
+      it { expect(response).to render_template('monthly_reports/new') }
+      it { expect(response.body).to match '先月の月報をコピー' }
+    end
   end
 
   describe '#create POST /monthly_reports' do
@@ -101,6 +117,40 @@ describe MonthlyReportsController, type: :request do
       it { expect(response).to have_http_status :success }
       it { expect(response).to render_template('monthly_reports/edit') }
       it { expect(response.body).to match report.target_month.strftime('%Y年%m月') }
+      it { expect(response.body).not_to match '先月の月報をコピー' }
+    end
+  end
+
+  describe '#copy GET /monthly_reports/copy' do
+    context 'valid' do
+      context 'If monthly report on the last month is not registered' do
+        let(:params) { { target_month: Date.today.beginning_of_month } }
+        before { get copy_monthly_reports_path params }
+
+        it { expect(response).to have_http_status :success }
+        it { expect(response).to render_template('monthly_reports/new') }
+        it { expect(response.body).not_to match '先月の月報をコピー' }
+        it { expect(response.body).not_to match 'label class=\"btn btn-default active\"' }
+      end
+
+      context 'If monthly report on the last month has been registered' do
+        let!(:prev_monthly_report) { create(:monthly_report_tag).monthly_report }
+        let(:params) { { target_month: prev_monthly_report.target_month.next_month.beginning_of_month } }
+        before do
+          login prev_monthly_report.user
+          get copy_monthly_reports_path params
+        end
+
+        it { expect(response).to have_http_status :success }
+        it { expect(response).to render_template('monthly_reports/new') }
+        it { expect(response.body).not_to match '先月の月報をコピー' }
+        it { expect(response.body).to match 'label class=\"btn btn-default active\"' }
+        it { expect(response.body).to match prev_monthly_report.business_content }
+        it { expect(response.body).to match prev_monthly_report.looking_back }
+        it { expect(response.body).to match prev_monthly_report.project_summary }
+        it { expect(response.body).to match prev_monthly_report.next_month_goals }
+        it { expect(response.body).to match prev_monthly_report.tags.first.name }
+      end
     end
   end
 
