@@ -1,4 +1,5 @@
 - provide :page_title, "月報トップ"
+- placeholders = HelpText.placeholders(:monthly_report)
 
 .page-content
   .jumbotron
@@ -12,6 +13,11 @@
           = f.label :user_name_cont, '氏名', class: 'control-label col-xs-2'
           .col-xs-10
             = f.search_field :user_name_cont, class: 'form-control'
+        .form-group
+          = f.label :tags_name_in, '使用した技術', class: 'control-label col-xs-2'
+          .col-xs-10
+            = f.hidden_field :tags_name_in, id: :monthly_report_tags_input, class: 'form-control'
+            == render 'layouts/monthly_report_tags', tags: nil, placeholder: placeholders[:tags]
         .form-group
           .col-xs-10.col-xs-offset-2
             = f.button '検索', class: 'btn btn-default'
