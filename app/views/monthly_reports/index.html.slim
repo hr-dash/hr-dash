@@ -17,7 +17,7 @@
           = f.label :tags_name_in, '使用した技術', class: 'control-label col-xs-2'
           .col-xs-10
             = f.hidden_field :tags_name_in, id: :monthly_report_tags_input, class: 'form-control'
-            == render 'layouts/monthly_report_tags', tags: nil, placeholder: placeholders[:tags]
+            == render 'layouts/monthly_report_tags', tags: @q.tags_name_in, placeholder: placeholders[:tags]
         .form-group
           .col-xs-10.col-xs-offset-2
             = f.button '検索', class: 'btn btn-default'
