@@ -63,16 +63,14 @@ class MonthlyReport < ActiveRecord::Base
     prev_month.try!(:next_month_goals)
   end
 
-  def set_prev_monthly_report
-    if prev_month
-      contents = %w(project_summary business_content looking_back next_month_goals)
-      assign_attributes(prev_month
-                        .attributes
-                        .select { |key, _| contents.include? key }
-                        .merge('tags' => prev_month.tags,
-                               'monthly_working_processes' => prev_month.monthly_working_processes))
-    end
-
+  def set_prev_monthly_report!
+    fail ActiveRecord::RecordNotFound unless prev_month
+    contents = %w(project_summary business_content looking_back next_month_goals)
+    assign_attributes(prev_month
+                      .attributes
+                      .select { |key, _| contents.include? key }
+                      .merge('tags' => prev_month.tags,
+                             'monthly_working_processes' => prev_month.monthly_working_processes))
     self
   end
 
