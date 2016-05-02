@@ -122,17 +122,15 @@ describe MonthlyReportsController, type: :request do
   end
 
   describe '#copy GET /monthly_reports/copy' do
-    context 'valid' do
-      context 'If monthly report on the last month is not registered' do
+    context 'invalid' do
+      context 'not_found' do
         let(:params) { { target_month: Date.today.beginning_of_month } }
         before { get copy_monthly_reports_path params }
-
-        it { expect(response).to have_http_status :success }
-        it { expect(response).to render_template('monthly_reports/new') }
-        it { expect(response.body).not_to match '先月の月報をコピー' }
-        it { expect(response.body).not_to match 'label class=\"btn btn-default active\"' }
+        it { expect(response).to have_http_status :not_found }
       end
+    end
 
+    context 'valid' do
       context 'If monthly report on the last month has been registered' do
         let!(:prev_monthly_report) { create(:monthly_report_tag).monthly_report }
         let(:params) { { target_month: prev_monthly_report.target_month.next_month.beginning_of_month } }
