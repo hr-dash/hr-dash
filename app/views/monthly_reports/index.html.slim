@@ -1,8 +1,20 @@
 - provide :page_title, "月報トップ"
 
 .page-content
-  h3 名前検索
-  == render partial: 'layouts/search_form', locals: { path: monthly_reports_path, param: :name }
+  .jumbotron
+    .container
+      = search_form_for @q, { class: 'form-horizontal' } do |f|
+        .form-group
+          = f.label :user_group_id_eq, 'グループ', class: 'control-label col-xs-2'
+          .col-xs-10
+            = f.select :user_group_id_eq, options_for_select(Group.pluck(:name, :id), selected: @q.user_group_id_eq), { include_blank: true }, class: 'form-control'
+        .form-group
+          = f.label :user_name_cont, '氏名', class: 'control-label col-xs-2'
+          .col-xs-10
+            = f.search_field :user_name_cont, class: 'form-control'
+        .form-group
+          .col-xs-10.col-xs-offset-2
+            = f.button '検索', class: 'btn btn-default'
 .page-content
   h3 最新の月報一覧
   #report_index
