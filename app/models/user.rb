@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   validates :entry_date, presence: true
   validates :beginner_flg, inclusion: { in: [true, false] }
 
-  enum gender: { gender_blank: 0, male: 1, female: 2 }
+  enum gender: { gender_unknown: 0, male: 1, female: 2 }
 
   after_create :create_profile
   # Include default devise modules. Others available are:
