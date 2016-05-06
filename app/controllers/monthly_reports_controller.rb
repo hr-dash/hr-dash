@@ -1,7 +1,7 @@
 class MonthlyReportsController < ApplicationController
   def index
-    users = User.where('name LIKE ?', "%#{params[:name]}%")
-    @monthly_reports = MonthlyReport.released.where(user: users).page params[:page]
+    @q = MonthlyReport.ransack(search_params)
+    @monthly_reports = @q.result.released.page params[:page]
   end
 
   def mine
@@ -89,5 +89,14 @@ class MonthlyReportsController < ApplicationController
       :looking_back,
       :next_month_goals,
     )
+  end
+
+  def search_params
+    return unless params[:q]
+
+    search_conditions = %i(
+      user_group_id_eq user_name_cont
+    )
+    params.require(:q).permit(search_conditions)
   end
 end
