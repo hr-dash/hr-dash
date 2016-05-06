@@ -93,12 +93,14 @@ class MonthlyReportsController < ApplicationController
 
   def search_params
     return unless params[:q]
-
-    search_conditions = %i(
-      user_group_id_eq user_name_cont
-    )
-
     params[:q][:tags_name_in] = params[:q][:tags_name_in].split(',')
+
+    search_conditions = [
+      :user_group_id_eq,
+      :user_name_cont,
+      tags_name_in: [],
+    ]
+
     params.require(:q).permit(search_conditions)
   end
 end
