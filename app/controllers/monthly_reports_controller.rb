@@ -1,6 +1,6 @@
 class MonthlyReportsController < ApplicationController
   def index
-    @q = MonthlyReport.ransack(params[:q])
+    @q = MonthlyReport.ransack(search_params)
     @monthly_reports = @q.result.released.page params[:page]
   end
 
@@ -89,5 +89,14 @@ class MonthlyReportsController < ApplicationController
       :looking_back,
       :next_month_goals,
     )
+  end
+
+  def search_params
+    return unless params[:q]
+
+    search_conditions = %i(
+      user_group_id_eq user_name_cont
+    )
+    params.require(:q).permit(search_conditions)
   end
 end
