@@ -1,7 +1,7 @@
 = form_tag path, method: :get
   .search.form-group.content
     .input-group
-      input.form-control type="search" name=(param)
+      input.form-control type="search" name=(param) value="#{params[:name]}"
       span.input-group-btn
         button.btn.btn-default type="submit"
           span.glyphicon.glyphicon-search aria-hidden="true"

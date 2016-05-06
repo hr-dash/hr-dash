@@ -75,6 +75,7 @@ group :development do
   gem 'rails-erd'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'meta_request'
 end
 
 group :test do
