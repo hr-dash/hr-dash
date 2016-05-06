@@ -99,6 +99,7 @@ class MonthlyReportsController < ApplicationController
       :user_group_id_eq,
       :user_name_cont,
       tags_name_in: [],
+      monthly_working_processes_process_in: [],
     ]
 
     params.require(:q).permit(search_conditions)
