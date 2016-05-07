@@ -1,6 +1,7 @@
 [
   ActiveAdminActionLog,
   User,
+  Group,
   MonthlyReport,
   Tag,
   HelpText,
