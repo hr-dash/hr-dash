@@ -10,6 +10,7 @@
       - if current_user == @profile.user
         .edit-profile
           = link_to('プロフィール編集', edit_user_profile_path(@profile))
+      = link_to 'このユーザーの月報を閲覧', user_monthly_reports_path(@profile.user), class: 'pull-right'
       table.table
         tbody
           tr
