@@ -33,13 +33,6 @@ describe MonthlyReportsController, type: :request do
     end
   end
 
-  describe '#mine GET /monthly_reports/mine' do
-    before { get mine_monthly_reports_path }
-    it { expect(response).to have_http_status :success }
-    it { expect(response).to render_template('monthly_reports/mine') }
-    it { expect(response.body).to match user.name }
-  end
-
   describe '#show GET /monthly_reports/:id' do
     before { get monthly_report_path(report) }
     it { expect(response).to have_http_status :success }
