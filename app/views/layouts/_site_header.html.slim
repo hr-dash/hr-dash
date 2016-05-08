@@ -12,7 +12,7 @@ header.site-header.bg-primary.col-xs-2
           li
             = link_to "Top", monthly_reports_path
           li
-            = link_to "マイ月報", mine_monthly_reports_path
+            = link_to "マイ月報", user_monthly_reports_path(current_user)
       li.dropdown
         a.lead.bg-primary.dropdown-toggle data-toggle="dropdown" aria-expanded="false"
           span.glyphicon.glyphicon-th-list aria-hidden="true"
