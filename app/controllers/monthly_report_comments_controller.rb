@@ -4,7 +4,7 @@ class MonthlyReportCommentsController < ApplicationController
     comment.user = current_user
 
     if comment.save
-      redirect_to monthly_report_path(comment.monthly_report, anchor: "comment-#{comment.id}")
+      redirect_to comment_path(comment)
     else
       comment.errors.full_messages.each { |msg| flash[:error] = msg }
       redirect_to :back
@@ -19,7 +19,7 @@ class MonthlyReportCommentsController < ApplicationController
   def update
     comment = current_user.monthly_report_comments.find(params[:id])
     if comment.update(permitted_params)
-      redirect_to monthly_report_path(comment.monthly_report, anchor: "comment-#{comment.id}")
+      redirect_to comment_path(comment)
     else
       comment.errors.full_messages.each { |msg| flash[:error] = msg }
       redirect_to :back
@@ -33,6 +33,10 @@ class MonthlyReportCommentsController < ApplicationController
   end
 
   private
+
+  def comment_path(comment)
+    monthly_report_path(comment.monthly_report, anchor: "comment-#{comment.id}")
+  end
 
   def permitted_params
     params.require(:monthly_report_comment).permit(:comment, :monthly_report_id)
