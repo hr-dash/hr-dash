@@ -6,7 +6,7 @@ class MonthlyReportCommentsController < ApplicationController
     if comment.save
       redirect_to comment_path(comment)
     else
-      comment.errors.full_messages.each { |msg| flash[:error] = msg }
+      flash_errors(comment)
       redirect_to :back
     end
   end
@@ -21,7 +21,7 @@ class MonthlyReportCommentsController < ApplicationController
     if comment.update(permitted_params)
       redirect_to comment_path(comment)
     else
-      comment.errors.full_messages.each { |msg| flash[:error] = msg }
+      flash_errors(comment)
       redirect_to :back
     end
   end
@@ -33,6 +33,10 @@ class MonthlyReportCommentsController < ApplicationController
   end
 
   private
+
+  def flash_errors(comment)
+    comment.errors.full_messages.each { |msg| flash[:error] = msg }
+  end
 
   def comment_path(comment)
     monthly_report_path(comment.monthly_report, anchor: "comment-#{comment.id}")
