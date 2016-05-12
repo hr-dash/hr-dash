@@ -13,5 +13,5 @@ div.row.group-tab
         .col-md-5
           h5 メンバー
           - group.users.each do |user|
-            p = user.name
+            p = link_to user.name, user_profile_path(user.user_profile)
   
