@@ -8,8 +8,9 @@ $(function(){
   }
 
   var tagger = $('#monthly_report_tags').tags({
-      tagData: <%= (tags.present? ? tags.map(&:name) : []).to_json.html_safe %>,
+      tagData: <%= tags.to_json.html_safe %>,
       suggestions: <%= Tag.fixed.pluck(:name).to_json.html_safe %>,
+      suggestOnClick: true,
       caseInsensitive: true,
       tagClass: 'btn-success',
       afterAddingTag: function() {
