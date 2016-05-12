@@ -4,9 +4,10 @@ class MonthlyReportsController < ApplicationController
     @monthly_reports = @q.result.released.page params[:page]
   end
 
-  def mine
+  def user
     @target_year = (params[:target_year] || Date.current.year).to_i
-    @monthly_reports = my_reports_in_year(@target_year)
+    @report_user = User.find(params[:user_id])
+    @monthly_reports = user_reports_in_year(@target_year, @report_user)
   end
 
   def show
@@ -70,13 +71,13 @@ class MonthlyReportsController < ApplicationController
     tags || []
   end
 
-  def my_reports_in_year(year)
-    reports = MonthlyReport.year(year).where(user: current_user)
+  def user_reports_in_year(year, report_user)
+    reports = MonthlyReport.year(year).where(user: report_user)
 
     (1..12).map do |month|
       target_month = Date.new(year, month, 1)
       report = reports.find { |r| r.target_month == target_month }
-      report ||= MonthlyReport.new(user: current_user, target_month: target_month)
+      report ||= MonthlyReport.new(user: report_user, target_month: target_month)
       report.registrable_term? ? report : nil
     end.compact
   end
