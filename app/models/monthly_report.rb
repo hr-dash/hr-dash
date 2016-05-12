@@ -35,8 +35,6 @@ class MonthlyReport < ActiveRecord::Base
   scope :year, ->(year) { where(target_month: (Time.zone.local(year))..(Time.zone.local(year).end_of_year)) }
   scope :released, -> { where.not(shipped_at: nil) }
 
-  REGISTRABLE_TERM_FROM = Time.local(2000, 1, 1)
-
   enum status: { wip: 0, shipped: 1 }
 
   before_save :log_shipped_at
@@ -77,7 +75,7 @@ class MonthlyReport < ActiveRecord::Base
   private
 
   def registrable_term_from
-    REGISTRABLE_TERM_FROM
+    user.entry_date.beginning_of_month
   end
 
   def registrable_term_to
@@ -85,6 +83,7 @@ class MonthlyReport < ActiveRecord::Base
   end
 
   def target_month_registrable_term
+    return if user.blank?
     return if target_month.blank?
     return if registrable_term?
     errors.add :target_month, " must be #{registrable_term}"
