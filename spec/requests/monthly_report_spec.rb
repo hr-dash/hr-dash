@@ -204,15 +204,32 @@ describe MonthlyReportsController, type: :request do
         wip: true,
       }
     end
-
     context 'valid' do
       before do
         login report.user
-        patch monthly_report_path report, patch_params
+      end
+      context 'when shipped' do
+        before do
+          patch monthly_report_path report, patch_params
+        end
+        after(:each) do
+          ActionMailer::Base.deliveries.clear
+        end
+
+        it { expect(response).to have_http_status :redirect }
+        it { expect(user_report).to be_present }
+        it { expect(ActionMailer::Base.deliveries.size).to eq(1) }
       end
 
-      it { expect(response).to have_http_status :redirect }
-      it { expect(user_report).to be_present }
+      context 'when wip' do
+       let(:wip_report) { build(:monthly_report, :wip) }
+       let(:wip_report_params) { wip_report.attributes.reject { |k, _| k =~ /id\z/ || k =~ /_at/ } }
+       let(:patch_params) { { monthly_report: wip_report_params } }
+        before do
+          patch monthly_report_path report, wip_report_params
+        end
+       it { expect(ActionMailer::Base.deliveries.size).to eq(0) }
+      end
     end
 
     context 'not_found' do
@@ -221,22 +238,5 @@ describe MonthlyReportsController, type: :request do
       it { expect(user_report).to be_nil }
     end
 
-    context 'when shipped' do
-      before { login report.user }
-      after(:all) do
-        ActionMailer::Base.deliveries.clear
-      end
-      subject { patch monthly_report_path report, patch_params }
-      it { expect{ subject }.to change{ ActionMailer::Base.deliveries.size }.by(1) }
-    end
-
-    context 'when wip' do
-      before { login report.user }
-      let(:wip_report) { build(:monthly_report, :wip) }
-      let(:wip_report_params) { wip_report.attributes.reject { |k, _| k =~ /id\z/ || k =~ /_at/ } }
-      let(:patch_params) { { monthly_report: wip_report_params } }
-      subject { patch monthly_reports_path report, patch_params }
-      it { expect(ActionMailer::Base.deliveries.size).to eq(0) }
-    end
   end
 end
