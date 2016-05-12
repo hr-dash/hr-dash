@@ -48,6 +48,11 @@ class MonthlyReportsController < ApplicationController
     end
   end
 
+  def copy
+    @monthly_report = MonthlyReport.new(target_month: params[:target_month], user: current_user).set_prev_monthly_report!
+    render :new
+  end
+
   private
 
   def assign_relational_params(report)
