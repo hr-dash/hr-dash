@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   resources :user_profiles, only: [:show, :edit, :update]
   resources 'monthly_reports', except: :destroy do
     collection do
-      get :mine
+      get 'users/:user_id', to: :user, as: :user
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.
