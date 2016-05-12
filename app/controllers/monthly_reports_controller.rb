@@ -1,7 +1,7 @@
 class MonthlyReportsController < ApplicationController
   def index
     @q = MonthlyReport.ransack(search_params)
-    @monthly_reports = @q.result.released.page params[:page]
+    @monthly_reports = @q.result(distinct: true).released.page params[:page]
   end
 
   def user
@@ -94,10 +94,15 @@ class MonthlyReportsController < ApplicationController
 
   def search_params
     return unless params[:q]
+    params[:q][:tags_name_in] = params[:q][:tags_name_in].split(',')
 
-    search_conditions = %i(
-      user_group_id_eq user_name_cont
-    )
+    search_conditions = [
+      :user_group_id_eq,
+      :user_name_cont,
+      tags_name_in: [],
+      monthly_working_processes_process_in: [],
+    ]
+
     params.require(:q).permit(search_conditions)
   end
 end

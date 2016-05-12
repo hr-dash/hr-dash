@@ -14,7 +14,7 @@
       = f.label :monthly_report_tags, class: 'control-label col-xs-3'
       .col-xs-9
         = f.hidden_field :monthly_report_tags, id: :monthly_report_tags_input, class: 'form-control'
-        == render 'layouts/monthly_report_tags', tags: monthly_report.monthly_report_tags, placeholder: placeholders[:tags]
+        == render 'layouts/monthly_report_tags', tags: monthly_report.monthly_report_tags.map(&:name), placeholder: placeholders[:tags]
     .form-group
       = f.label :monthly_working_processes, class: 'control-label col-xs-3'
       .col-xs-9.btn-group data-toggle="buttons"
