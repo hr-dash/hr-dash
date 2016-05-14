@@ -35,10 +35,11 @@ RSpec.describe MonthlyReport, type: :model do
     end
 
     describe '#target_month_registrable_term' do
-      let(:monthly_report) { build(:monthly_report, target_month: invalid_target) }
+      let(:user) { create(:user) }
+      let(:monthly_report) { build(:monthly_report, user: user, target_month: invalid_target) }
 
       context 'before lower limit' do
-        let(:lower_limit) { Time.local(2000, 1, 1) }
+        let(:lower_limit) { user.entry_date.beginning_of_month }
         let(:invalid_target) { lower_limit.ago(1.day) }
         it { expect(monthly_report).not_to be_valid }
       end
