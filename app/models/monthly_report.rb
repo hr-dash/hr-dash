@@ -75,7 +75,7 @@ class MonthlyReport < ActiveRecord::Base
     return if user.blank?
     return if target_month.blank?
     return if registrable_term?
-    errors.add :target_month, " must included by user.report_registrable_months"
+    errors.add :target_month, ' must included by user.report_registrable_months'
   end
 
   def target_beginning_of_month?
