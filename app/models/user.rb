@@ -41,7 +41,19 @@ class User < ActiveRecord::Base
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  def registrable_term
+    registrable_term_from..registrable_term_to
+  end
+
   private
+
+  def report_registrable_from
+    entry_date.beginning_of_month
+  end
+
+  def report_registrable_to
+    Time.current.last_month.since(5.days)
+  end
 
   def create_profile
     UserProfile.create!(user_id: id)

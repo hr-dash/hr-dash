@@ -40,11 +40,8 @@ class MonthlyReport < ActiveRecord::Base
   before_save :log_shipped_at
 
   def registrable_term?
-    registrable_term.cover? target_month
-  end
-
-  def registrable_term
-    registrable_term_from..registrable_term_to
+    return false unless user
+    user.registrable_term.cover? target_month
   end
 
   def prev_month
@@ -74,19 +71,11 @@ class MonthlyReport < ActiveRecord::Base
 
   private
 
-  def registrable_term_from
-    user.entry_date.beginning_of_month
-  end
-
-  def registrable_term_to
-    Time.current.last_month.since(5.days)
-  end
-
   def target_month_registrable_term
     return if user.blank?
     return if target_month.blank?
     return if registrable_term?
-    errors.add :target_month, " must be #{registrable_term}"
+    errors.add :target_month, " must be #{user.registrable_term}"
   end
 
   def target_beginning_of_month?
