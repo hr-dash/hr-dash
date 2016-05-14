@@ -50,4 +50,27 @@ describe User, type: :model do
     let(:profile) { UserProfile.find_by(user_id: user) }
     it { expect(profile).to be_present }
   end
+
+  describe '#report_registrable_months' do
+    let(:entry_date) { Date.new(2016, 1, 1) }
+    let(:user) { create(:user, entry_date: entry_date) }
+
+    before { Timecop.freeze(today) }
+    after { Timecop.return }
+    subject { user.report_registrable_months }
+
+    context 'when cannot regist this month report' do
+      let(:today) { Date.new(2016, 5, 26) }
+      it { expect(subject.first).to eq entry_date }
+      it { expect(subject.size).to eq 4 }
+      it { expect(subject.last).to eq Date.new(2016, 4, 1) }
+    end
+
+    context 'when can regist this month report' do
+      let(:today) { Date.new(2016, 5, 27) }
+      it { expect(subject.first).to eq entry_date }
+      it { expect(subject.size).to eq 5 }
+      it { expect(subject.last).to eq Date.new(2016, 5, 1) }
+    end
+  end
 end

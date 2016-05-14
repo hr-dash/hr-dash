@@ -41,8 +41,16 @@ class User < ActiveRecord::Base
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  def registrable_term
-    registrable_term_from..registrable_term_to
+  def report_registrable_months
+    months = []
+    month = report_registrable_from
+
+    while month <= report_registrable_to
+      months << month
+      month = month.next_month
+    end
+
+    months
   end
 
   private
