@@ -43,6 +43,7 @@ describe User, type: :model do
     it { is_expected.to validate_uniqueness_of(:employee_code) }
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_presence_of(:entry_date) }
+    it { is_expected.to validate_presence_of(:gender) }
   end
 
   describe 'After create' do

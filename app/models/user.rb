@@ -35,6 +35,7 @@ class User < ActiveRecord::Base
   validates :employee_code, presence: true, uniqueness: true
   validates :entry_date, presence: true
   validates :beginner_flg, inclusion: { in: [true, false] }
+  validates :gender, presence: true
 
   enum gender: { gender_unknown: 0, male: 1, female: 2 }
 
