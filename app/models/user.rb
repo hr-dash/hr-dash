@@ -21,6 +21,7 @@
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :inet
 #  last_sign_in_ip        :inet
+#  gender                 :integer          default(0), not null
 #
 
 class User < ActiveRecord::Base

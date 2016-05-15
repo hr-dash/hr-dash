@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: help_texts
+#
+#  id         :integer          not null, primary key
+#  category   :string
+#  help_type  :string
+#  target     :string
+#  body       :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class HelpText < ActiveRecord::Base
   validates :category, presence: true
   validates :help_type, presence: true
