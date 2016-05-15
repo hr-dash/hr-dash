@@ -74,7 +74,7 @@ ja:
         fixed: 確定
     user:
       gender:
-        gender_blank: 未入力
+        gender_unknown: 未入力
         male: 男性
         female: 女性
     user_profile:
