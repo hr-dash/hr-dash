@@ -39,8 +39,15 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-
   # deviseの設定
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
+  # Bulletの設定
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true # JavaScript alert in browser
+    Bullet.console = true # Warning to JavaScript console
+    Bullet.bullet_logger = true # Rails.root/log/bullet.log
+    Bullet.rails_logger = true # Add warning to rails_log
+  end
 end
