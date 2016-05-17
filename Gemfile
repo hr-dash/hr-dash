@@ -67,6 +67,7 @@ group :development, :test do
   gem 'reek'
   gem 'annotate'
   gem 'meta_request'
+  gem 'bullet'
 
   gem 'rspec-rails'
   gem 'factory_girl_rails'
@@ -76,7 +77,6 @@ end
 group :development do
   gem 'activerecord-cause'
   gem 'benchmark-ips'
-  gem 'bullet'
   gem 'rails-erd'
   gem 'better_errors'
   gem 'binding_of_caller'
