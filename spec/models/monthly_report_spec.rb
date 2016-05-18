@@ -17,15 +17,33 @@
 
 RSpec.describe MonthlyReport, type: :model do
   describe 'Validations' do
-    subject { build(:monthly_report) }
+    shared_examples 'common validations' do
+      it { is_expected.to validate_presence_of(:user) }
+      it { is_expected.to validate_presence_of(:target_month) }
+      it { is_expected.to validate_length_of(:project_summary).is_at_most(5000) }
+      it { is_expected.to validate_length_of(:business_content).is_at_most(5000) }
+      it { is_expected.to validate_length_of(:looking_back).is_at_most(5000) }
+      it { is_expected.to validate_length_of(:next_month_goals).is_at_most(5000) }
+    end
 
-    it { is_expected.to be_valid }
-    it { is_expected.to validate_presence_of(:user) }
-    it { is_expected.to validate_presence_of(:target_month) }
-    it { is_expected.to validate_length_of(:project_summary).is_at_most(5000) }
-    it { is_expected.to validate_length_of(:business_content).is_at_most(5000) }
-    it { is_expected.to validate_length_of(:looking_back).is_at_most(5000) }
-    it { is_expected.to validate_length_of(:next_month_goals).is_at_most(5000) }
+    context 'when status is wip' do
+      subject { build(:monthly_report) }
+      it { is_expected.to be_valid }
+      it_behaves_like 'common validations'
+    end
+
+    context 'when status is shipped' do
+      subject { build(:shipped_montly_report) }
+      it { is_expected.to be_valid }
+      it_behaves_like 'common validations'
+
+      it { is_expected.to validate_presence_of(:project_summary) }
+      it { is_expected.to validate_presence_of(:business_content) }
+      it { is_expected.to validate_presence_of(:looking_back) }
+      it { is_expected.to validate_presence_of(:next_month_goals) }
+      it { is_expected.to validate_presence_of(:monthly_working_processes) }
+      it { is_expected.to validate_presence_of(:monthly_report_tags) }
+    end
 
     describe '#target_beginning_of_month?' do
       let(:invalid_target) { Faker::Date.backward(100).end_of_month }
@@ -86,12 +104,12 @@ RSpec.describe MonthlyReport, type: :model do
   describe 'Callbacks' do
     describe '#log_shipped_at' do
       context 'wip' do
-        let(:report) { create(:monthly_report, :wip) }
+        let(:report) { create(:monthly_report) }
         it { expect(report.shipped_at).to be nil }
       end
 
       context 'shipped' do
-        let(:report) { create(:monthly_report, :shipped) }
+        let(:report) { create(:shipped_montly_report) }
         it { expect(report.shipped_at).not_to be nil }
       end
     end
@@ -124,7 +142,7 @@ RSpec.describe MonthlyReport, type: :model do
     end
 
     context 'exist last month report' do
-      before { create(:monthly_report, target_month: report.target_month.last_month, user: user) }
+      before { create(:shipped_montly_report, target_month: report.target_month.last_month, user: user) }
       it { expect { subject }.not_to raise_error }
     end
   end
