@@ -1,5 +1,5 @@
 describe MonthlyReportsController, type: :request do
-  let!(:report) { create(:monthly_report, :with_comments, :with_tags) }
+  let!(:report) { create(:shipped_montly_report, :with_comments) }
   let(:user) { create(:user) }
   before { login user }
 
@@ -63,15 +63,30 @@ describe MonthlyReportsController, type: :request do
   end
 
   describe '#create POST /monthly_reports' do
-    let(:new_report) { build(:monthly_report) }
-    let(:report_params) { new_report.attributes.reject { |k, _| k =~ /id\z/ || k =~ /_at/ } }
+    let(:report_params) { attributes_for(:monthly_report) }
+    let(:process_params) { [build(:monthly_working_process).process] }
+    let(:tag_params) { 'Ruby,Rails' }
     let(:user_report) { MonthlyReport.find_by(user: user) }
 
     context 'valid' do
-      let(:post_params) { { monthly_report: report_params } }
       before { post monthly_reports_path, post_params }
-      it { expect(response).to have_http_status :redirect }
-      it { expect(user_report.present?).to eq true }
+      context 'registered as wip' do
+        let(:post_params) { { monthly_report: report_params, wip: true } }
+        it { expect(response).to have_http_status :redirect }
+        it { expect(user_report.present?).to eq true }
+      end
+
+      context 'registered as shipped' do
+        let(:post_params) do
+          {
+            monthly_report: report_params.merge(monthly_report_tags: tag_params),
+            working_process: process_params,
+          }
+        end
+
+        it { expect(response).to have_http_status :redirect }
+        it { expect(user_report.present?).to eq true }
+      end
     end
 
     context 'invalid' do
@@ -83,19 +98,26 @@ describe MonthlyReportsController, type: :request do
     end
 
     describe '#working_process' do
-      let(:post_params) { { monthly_report: report_params, working_process: [working_process] } }
+      let(:tag_params) { 'Ruby,Rails' }
+      let(:post_params) do
+        {
+          monthly_report: report_params.merge(monthly_report_tags: tag_params),
+          working_process: [process_params],
+          wip: true,
+        }
+      end
       before { post monthly_reports_path, post_params }
       subject { user_report.monthly_working_processes }
 
       context 'valid' do
-        let(:working_process) { build(:monthly_working_process).process }
+        let(:process_params) { build(:monthly_working_process).process }
         it { expect(response).to have_http_status :redirect }
         it { expect(subject.size).to eq 1 }
-        it { expect(subject.first.process).to eq working_process }
+        it { expect(subject.first.process).to eq process_params }
       end
 
       context 'invalid' do
-        let(:working_process) { 'invalid_process' }
+        let(:process_params) { 'invalid_process' }
         it { expect(response).to have_http_status :redirect }
         it { expect(subject.size).to eq 0 }
       end
@@ -132,7 +154,7 @@ describe MonthlyReportsController, type: :request do
 
     context 'valid' do
       context 'If monthly report on the last month has been registered' do
-        let!(:prev_monthly_report) { create(:monthly_report_tag).monthly_report }
+        let!(:prev_monthly_report) { create(:shipped_montly_report) }
         let(:params) { { target_month: prev_monthly_report.target_month.next_month.beginning_of_month } }
         before do
           login prev_monthly_report.user
@@ -154,10 +176,18 @@ describe MonthlyReportsController, type: :request do
   end
 
   describe '#update PATCH /monthly_report/:id' do
-    let(:new_report) { build(:monthly_report) }
-    let(:report_params) { new_report.attributes.reject { |k, _| k =~ /id\z/ || k =~ /_at/ } }
-    let(:patch_params) { { monthly_report: report_params } }
+    let(:report_params) { attributes_for(:monthly_report) }
+    let(:tag_params) { 'Ruby,Rails' }
+    let(:process_params) { [build(:monthly_working_process).process] }
     let(:user_report) { MonthlyReport.find_by(report_params, user: report.user) }
+    let(:patch_params) do
+      {
+        monthly_report: report_params.merge(monthly_report_tags: tag_params),
+        working_process: process_params,
+        wip: true,
+      }
+    end
+
     context 'valid' do
       before do
         login report.user
