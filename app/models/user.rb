@@ -46,7 +46,27 @@ class User < ActiveRecord::Base
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  def report_registrable_months
+    months = []
+    month = report_registrable_from
+
+    while month <= report_registrable_to
+      months << month
+      month = month.next_month
+    end
+
+    months
+  end
+
   private
+
+  def report_registrable_from
+    entry_date.beginning_of_month
+  end
+
+  def report_registrable_to
+    Time.current.last_month.since(5.days)
+  end
 
   def create_profile
     UserProfile.create!(user_id: id)

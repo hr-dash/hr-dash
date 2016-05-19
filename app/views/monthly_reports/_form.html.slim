@@ -11,6 +11,14 @@
     - placeholders = HelpText.placeholders(:monthly_report)
     - hints = HelpText.hints(:monthly_report)
     .form-group
+      = f.label :target_month, class: 'control-label col-xs-3'
+      .col-xs-9
+        select#monthly_report_target_month.form-control onchange='location.href=this.selectedOptions[0].getAttribute("href")'
+          - current_user.report_registrable_months.each do |m|
+            - report = current_user.monthly_reports.find_or_initialize_by(target_month: m)
+            - path = report.new_record? ? new_monthly_report_path(target_month: m) : edit_monthly_report_path(report)
+            option value=(m) href=(path) selected=(true if monthly_report.target_month == m) = m.strftime('%Y月%m月')
+    .form-group
       = f.label :project_summary, class: 'control-label col-xs-3'
       .col-xs-9
         == render 'layouts/markdown_editor', attr: :project_summary, form: f, placeholder: placeholders[:project_summary]
