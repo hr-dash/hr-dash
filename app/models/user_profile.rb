@@ -15,7 +15,6 @@ class UserProfile < ActiveRecord::Base
   belongs_to :user
 
   validates :self_introduction, length: { maximum: 1000 }
-  validates :gender, presence: true
   validates :blood_type, presence: true
 
   enum blood_type: { blood_blank: 0, a: 1, b: 2, ab: 3, o: 4 }
