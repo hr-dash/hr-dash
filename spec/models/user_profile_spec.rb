@@ -22,7 +22,6 @@ describe UserProfile, type: :model do
     subject { build(:user_profile) }
 
     it { is_expected.to validate_length_of(:self_introduction).is_at_most(1000) }
-    it { is_expected.to validate_presence_of(:gender) }
     it { is_expected.to validate_presence_of(:blood_type) }
   end
 end
