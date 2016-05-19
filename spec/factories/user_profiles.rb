@@ -5,7 +5,6 @@
 #  id                :integer          not null, primary key
 #  user_id           :integer          not null
 #  self_introduction :text
-#  gender            :integer          default(0), not null
 #  blood_type        :integer          default(0), not null
 #  birthday          :date
 #  created_at        :datetime         not null
@@ -16,7 +15,6 @@ FactoryGirl.define do
   factory :user_profile do
     association :user
     self_introduction Faker::Lorem.paragraph
-    gender { UserProfile.genders.keys.sample }
     blood_type { UserProfile.blood_types.keys.sample }
     birthday { Faker::Date.between(100.years.ago, Date.today) }
   end

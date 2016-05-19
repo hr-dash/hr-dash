@@ -7,5 +7,6 @@ FactoryGirl.define do
     password { Faker::Internet.password(8) }
     entry_date { Faker::Date.between(3.years.ago, Date.today) }
     beginner_flg { [true, false].sample }
+    gender { User.genders.keys.sample }
   end
 end

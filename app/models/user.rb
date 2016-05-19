@@ -21,6 +21,7 @@
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :inet
 #  last_sign_in_ip        :inet
+#  gender                 :integer          default(0), not null
 #
 
 class User < ActiveRecord::Base
@@ -35,6 +36,10 @@ class User < ActiveRecord::Base
   validates :employee_code, presence: true, uniqueness: true
   validates :entry_date, presence: true
   validates :beginner_flg, inclusion: { in: [true, false] }
+  validates :gender, presence: true
+
+  enum gender: { gender_unknown: 0, male: 1, female: 2 }
+
   after_create :create_profile
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
