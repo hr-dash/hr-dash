@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   resources :user_profiles, only: [:show, :edit, :update]
   resources 'monthly_reports', except: :destroy do
     collection do
-      get 'users/:user_id', to: :user, as: :user
+      get 'users/:user_id', action: :user, as: :user
       get :copy
     end
   end
