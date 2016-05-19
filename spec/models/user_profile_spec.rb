@@ -5,7 +5,6 @@
 #  id                :integer          not null, primary key
 #  user_id           :integer          not null
 #  self_introduction :text
-#  gender            :integer          default(0), not null
 #  blood_type        :integer          default(0), not null
 #  birthday          :date
 #  created_at        :datetime         not null
@@ -23,7 +22,6 @@ describe UserProfile, type: :model do
     subject { build(:user_profile) }
 
     it { is_expected.to validate_length_of(:self_introduction).is_at_most(1000) }
-    it { is_expected.to validate_presence_of(:gender) }
     it { is_expected.to validate_presence_of(:blood_type) }
   end
 end

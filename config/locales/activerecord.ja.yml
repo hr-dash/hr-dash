@@ -72,11 +72,12 @@ ja:
       status:
         unfixed: 未定
         fixed: 確定
-    user_profile:
+    user:
       gender:
-        gender_blank: 未入力
+        gender_unknown: 未入力
         male: 男性
         female: 女性
+    user_profile:
       blood_type:
         blood_blank: 未入力
         a: A型
