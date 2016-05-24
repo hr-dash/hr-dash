@@ -38,6 +38,7 @@ gem 'slim-rails'
 gem 'kaminari'
 gem 'github-markdown'
 gem 'unicorn'
+gem 'newrelic_rpm'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
