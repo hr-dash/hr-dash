@@ -39,6 +39,8 @@ gem 'kaminari'
 gem 'github-markdown'
 gem 'unicorn'
 gem 'newrelic_rpm'
+gem 'peek'
+gem 'peek-rblineprof'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -78,8 +80,6 @@ group :development do
   gem 'rails-erd'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'peek'
-  gem 'peek-rblineprof'
 end
 
 group :test do
