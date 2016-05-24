@@ -76,6 +76,8 @@ group :development do
   gem 'rails-erd'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'peek'
+  gem 'peek-rblineprof'
 end
 
 group :test do
