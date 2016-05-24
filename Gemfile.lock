@@ -59,6 +59,8 @@ GEM
       activemodel (= 4.2.3)
       activesupport (= 4.2.3)
       arel (~> 6.0)
+    activerecord-cause (0.3.0)
+      activerecord (>= 3.2)
     activerecord-import (0.10.0)
       activerecord (>= 3.0)
     activesupport (4.2.3)
@@ -358,6 +360,7 @@ PLATFORMS
 DEPENDENCIES
   active_admin_import!
   activeadmin!
+  activerecord-cause
   annotate
   autodoc
   better_errors
