@@ -73,6 +73,7 @@ end
 
 group :development do
   gem 'activerecord-cause'
+  gem 'benchmark-ips'
   gem 'bullet'
   gem 'rails-erd'
   gem 'better_errors'

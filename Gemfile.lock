@@ -88,6 +88,7 @@ GEM
       activesupport (>= 3.0.0)
       rspec
     bcrypt (3.1.10)
+    benchmark-ips (2.6.1)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -378,6 +379,7 @@ DEPENDENCIES
   activerecord-cause
   annotate
   autodoc
+  benchmark-ips
   better_errors
   binding_of_caller
   bullet
