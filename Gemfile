@@ -71,6 +71,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'activerecord-cause'
   gem 'bullet'
   gem 'rails-erd'
   gem 'better_errors'
