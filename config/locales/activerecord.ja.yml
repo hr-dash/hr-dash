@@ -47,13 +47,13 @@ ja:
         entry_date: 入社日
         beginner_flg: 未経験
         group: グループ
+        gender: 性別
         deleted_at: 退社日
         password: パスワード
         password_confirmation: パスワード（確認）
       user_profile:
         user: ユーザー
         self_introduction: 自己紹介
-        gender: 性別
         blood_type: 血液型
         birthday: 生年月日
   activemodel:
