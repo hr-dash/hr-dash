@@ -4,13 +4,14 @@ ActiveAdmin.register User do
   active_admin_action_log
   actions :all, except: [:destroy]
   permit_params :name, :group_id, :employee_code, :email, :entry_date, :beginner_flg,
-                :deleted_at, :password, :password_confirmation
+                :deleted_at, :password, :password_confirmation, :gender
 
   index do
     selectable_column
     id_column
     column :name
     column :group
+    column :gender, :gender_i18n
     column :employee_code
     column :email
     column :entry_date
@@ -21,6 +22,7 @@ ActiveAdmin.register User do
 
   filter :name
   filter :group
+  filter :gender, as: :select, collection: User.genders
   filter :employee_code
   filter :email
   filter :entry_date
@@ -33,6 +35,7 @@ ActiveAdmin.register User do
     f.inputs 'User Details' do
       f.input :name
       f.input :group
+      f.input :gender, as: :select, collection: User.genders.keys
       f.input :employee_code
       f.input :email
       f.input :entry_date, as: :datepicker
