@@ -7,3 +7,4 @@ mailer:
   authentication: 'plain'
   enable_starttls_auto: true
   from: 'freezer53000@gmail.com'
+  from_name: 'システム管理者'
