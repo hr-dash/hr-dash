@@ -31,6 +31,16 @@ class MonthlyReport < ActiveRecord::Base
   validate :target_beginning_of_month?
   validate :target_month_registrable_term
   validate :uniq_by_user_and_target_month, on: :create
+  with_options if: :shipped? do
+    validates :project_summary, presence: true
+    validates :business_content, presence: true
+    validates :looking_back, presence: true
+    validates :next_month_goals, presence: true
+    validates :monthly_report_tags, presence: true
+    validates :monthly_working_processes, presence: true
+  end
+
+  validates_associated :monthly_report_tags
 
   scope :year, ->(year) { where(target_month: (Time.zone.local(year))..(Time.zone.local(year).end_of_year)) }
   scope :released, -> { where.not(shipped_at: nil) }
