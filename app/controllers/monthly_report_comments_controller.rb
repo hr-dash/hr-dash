@@ -35,7 +35,7 @@ class MonthlyReportCommentsController < ApplicationController
   private
 
   def flash_errors(comment)
-    flash[:error] = comment.errors.full_messages
+    flash.now[:error] = comment.errors.full_messages
   end
 
   def comment_path(comment)

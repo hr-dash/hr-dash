@@ -28,7 +28,7 @@ class MonthlyReportsController < ApplicationController
     if @monthly_report.save
       redirect_to @monthly_report
     else
-      flash[:error] = @monthly_report.errors.full_messages
+      flash.now[:error] = @monthly_report.errors.full_messages
       render :new
     end
   end
@@ -45,7 +45,7 @@ class MonthlyReportsController < ApplicationController
     if @monthly_report.save
       redirect_to @monthly_report
     else
-      flash[:error] = @monthly_report.errors.full_messages
+      flash.now[:error] = @monthly_report.errors.full_messages
       render :edit
     end
   end

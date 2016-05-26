@@ -12,7 +12,7 @@ class UserProfilesController < ApplicationController
     if @profile.update(permitted_params)
       redirect_to @profile
     else
-      flash[:error] = @profile.errors.full_messages
+      flash.now[:error] = @profile.errors.full_messages
       render :edit
     end
   end
