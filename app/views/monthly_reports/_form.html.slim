@@ -1,9 +1,4 @@
 .page-content.well
-  - if monthly_report.errors.present?
-    ul
-      - monthly_report.errors.full_messages.each do |message|
-        li.text-danger = message
-
   - if params[:action] == 'new' && monthly_report.prev_month
     = button_to '先月の月報をコピー', { action: 'copy' }, params: { target_month: monthly_report.target_month }, method: 'get'
 
