@@ -19,10 +19,22 @@ ActiveAdmin.register UserProfile do
   filter :birthday
   filter :updated_at
 
+  show do
+    attributes_table do
+      row :id
+      row :user
+      row :self_introduction
+      row('血液型') { |r| r.blood_type_i18n }
+      row :birthday
+      row :created_at
+      row :updated_at
+    end
+  end
+
   form do |f|
     f.inputs do
       f.input :user, input_html: { disabled: true }
-      f.input :blood_type, as: :select, collection: UserProfile.blood_types.keys
+      f.input :blood_type, as: :select, collection: UserProfile.blood_types_i18n.invert
       f.input :self_introduction
       f.input :birthday, as: :datepicker
     end
