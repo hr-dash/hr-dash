@@ -28,7 +28,7 @@ class MonthlyReportsController < ApplicationController
     if @monthly_report.save
       redirect_to @monthly_report
     else
-      flash.now[:error] = @monthly_report.errors.full_messages
+      flash_errors(@monthly_report)
       render :new
     end
   end
@@ -45,7 +45,7 @@ class MonthlyReportsController < ApplicationController
     if @monthly_report.save
       redirect_to @monthly_report
     else
-      flash.now[:error] = @monthly_report.errors.full_messages
+      flash_errors(@monthly_report)
       render :edit
     end
   end
@@ -56,6 +56,10 @@ class MonthlyReportsController < ApplicationController
   end
 
   private
+
+  def flash_errors(monthly_report)
+    flash.now[:error] = monthly_report.errors.full_messages
+  end
 
   def assign_relational_params(report)
     report.status = params[:wip] ? :wip : :shipped
