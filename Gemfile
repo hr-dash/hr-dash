@@ -38,6 +38,9 @@ gem 'slim-rails'
 gem 'kaminari'
 gem 'github-markdown'
 gem 'unicorn'
+gem 'newrelic_rpm'
+gem 'peek'
+gem 'peek-rblineprof'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -71,6 +74,8 @@ group :development, :test do
 end
 
 group :development do
+  gem 'activerecord-cause'
+  gem 'benchmark-ips'
   gem 'bullet'
   gem 'rails-erd'
   gem 'better_errors'
