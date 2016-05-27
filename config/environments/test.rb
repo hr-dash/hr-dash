@@ -45,5 +45,6 @@ Rails.application.configure do
     Bullet.enable = true
     Bullet.bullet_logger = true
     Bullet.raise  = true # N+1問題が発見された時にErrorを発生させる
+    Bullet.unused_eager_loading_enable = false
   end
 end

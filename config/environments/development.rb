@@ -49,5 +49,6 @@ Rails.application.configure do
     Bullet.console = true # Warning to JavaScript console
     Bullet.bullet_logger = true # Rails.root/log/bullet.log
     Bullet.rails_logger = true # Add warning to rails_log
+    Bullet.unused_eager_loading_enable = false
   end
 end
