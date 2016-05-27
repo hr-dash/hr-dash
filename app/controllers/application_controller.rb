@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
 
+  def current_user
+    @current_user ||= super && User.includes(:role).find(@current_user.id)
+  end
+
   def authenticate_admin_user!
     redirect_to :root unless current_user.admin?
   end
