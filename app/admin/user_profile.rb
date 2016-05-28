@@ -4,6 +4,12 @@ ActiveAdmin.register UserProfile do
   permit_params { UserProfile.column_names }
   actions :all, except: [:new, :create, :destroy]
 
+  controller do
+    def scoped_collection
+      super.includes :user
+    end
+  end
+
   index do
     id_column
     column :user
