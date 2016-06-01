@@ -80,6 +80,8 @@ group :development do
   gem 'rails-erd'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'capistrano', '~> 3.1'
+  gem 'capistrano-rails', '~> 1.1'
 end
 
 group :test do
