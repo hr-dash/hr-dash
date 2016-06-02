@@ -41,6 +41,7 @@ gem 'unicorn'
 gem 'newrelic_rpm'
 gem 'peek'
 gem 'peek-rblineprof'
+gem 'config'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

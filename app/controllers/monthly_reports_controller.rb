@@ -26,6 +26,7 @@ class MonthlyReportsController < ApplicationController
     end
 
     if @monthly_report.save
+      monthly_report_notify
       redirect_to @monthly_report
     else
       render :new
@@ -40,8 +41,8 @@ class MonthlyReportsController < ApplicationController
     @monthly_report = current_user.monthly_reports.find(params[:id])
     @monthly_report.assign_attributes(permitted_params)
     assign_relational_params(@monthly_report)
-
     if @monthly_report.save
+      monthly_report_notify
       redirect_to @monthly_report
     else
       render :edit
@@ -109,5 +110,11 @@ class MonthlyReportsController < ApplicationController
     ]
 
     params.require(:q).permit(search_conditions)
+  end
+
+  def monthly_report_notify
+    user_id = @monthly_report.user.id
+    report_id = @monthly_report.id
+    Notify.monthly_report_registration(user_id, report_id).deliver_now if @monthly_report.status == 'shipped'
   end
 end
