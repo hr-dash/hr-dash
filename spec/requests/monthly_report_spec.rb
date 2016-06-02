@@ -87,6 +87,7 @@ describe MonthlyReportsController, type: :request do
         it { expect(response).to have_http_status :redirect }
         it { expect(user_report.present?).to eq true }
       end
+
     end
 
     context 'invalid' do
@@ -97,20 +98,24 @@ describe MonthlyReportsController, type: :request do
       it { expect(user_report.present?).to eq false }
     end
 
-    context 'when shipped' do
-      let(:post_params) { { monthly_report: report_params } }
-      after(:all) do
-        ActionMailer::Base.deliveries.clear
+    describe 'notify mail' do
+      after(:each) { ActionMailer::Base.deliveries.clear }
+      context 'registered as shipped' do
+        let(:post_params) do
+          {
+            monthly_report: report_params.merge(monthly_report_tags: tag_params),
+            working_process: process_params,
+          }
+        end
+        subject { post monthly_reports_path, post_params }
+        it { expect { subject }.to change { ActionMailer::Base.deliveries.size }.by(1) }
       end
-      subject { post monthly_reports_path, post_params }
-      it { expect { subject }.to change { ActionMailer::Base.deliveries.size }.by(1) }
-    end
-    context 'when wip' do
-      let(:wip_report) { build(:monthly_report, :wip) }
-      let(:wip_report_params) { wip_report.attributes.reject { |k, _| k =~ /id\z/ || k =~ /_at/ } }
-      let(:post_params) { { monthly_report: wip_report_params } }
-      subject { post monthly_reports_path, post_params }
-      it { expect(ActionMailer::Base.deliveries.size).to eq(0) }
+
+      context 'registered as whipped' do
+        let(:post_params) { { monthly_report: report_params, wip: true } }
+        subject { post monthly_reports_path, post_params }
+        it { expect(ActionMailer::Base.deliveries.size).to eq(0) }
+      end
     end
 
     describe '#working_process' do
@@ -192,7 +197,7 @@ describe MonthlyReportsController, type: :request do
   end
 
   describe '#update PATCH /monthly_report/:id' do
-    let(:report_params) { attributes_for(:monthly_report) }
+    let(:report_params) { attributes_for(:monthly_report, :shipped) }
     let(:tag_params) { 'Ruby,Rails' }
     let(:process_params) { [build(:monthly_working_process).process] }
     let(:user_report) { MonthlyReport.find_by(report_params, user: report.user) }
@@ -200,7 +205,6 @@ describe MonthlyReportsController, type: :request do
       {
         monthly_report: report_params.merge(monthly_report_tags: tag_params),
         working_process: process_params,
-        wip: true,
       }
     end
     context 'valid' do
@@ -211,21 +215,32 @@ describe MonthlyReportsController, type: :request do
         before do
           patch monthly_report_path report, patch_params
         end
+
+        it { expect(response).to have_http_status :redirect }
+        it { expect(user_report).to be_present }
+      end
+
+      describe 'notify mail' do
         after(:each) do
           ActionMailer::Base.deliveries.clear
         end
 
-        it { expect(response).to have_http_status :redirect }
-        it { expect(user_report).to be_present }
-        it { expect(ActionMailer::Base.deliveries.size).to eq(1) }
-      end
+        context 'when shipped' do
+          subject { patch monthly_report_path report, patch_params }
+          it { expect { subject }.to change { ActionMailer::Base.deliveries.size }.by(1) }
+        end
 
-      context 'when wip' do
-        let(:wip_report) { build(:monthly_report, :wip) }
-        let(:wip_report_params) { wip_report.attributes.reject { |k, _| k =~ /id\z/ || k =~ /_at/ } }
-        let(:patch_params) { { monthly_report: wip_report_params } }
-        before { patch monthly_report_path report, wip_report_params }
-        it { expect(ActionMailer::Base.deliveries.size).to eq(0) }
+        context 'when wipped' do
+          let(:patch_params) do
+            {
+              monthly_report: report_params.merge(monthly_report_tags: tag_params),
+              working_process: process_params,
+              wip: true,
+            }
+          end
+          before { patch monthly_report_path report, patch_params }
+          it { expect(ActionMailer::Base.deliveries.size).to eq(0) }
+        end
       end
     end
 
