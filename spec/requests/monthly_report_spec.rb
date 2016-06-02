@@ -68,7 +68,6 @@ describe MonthlyReportsController, type: :request do
     let(:tag_params) { 'Ruby,Rails' }
     let(:user_report) { MonthlyReport.find_by(user: user) }
 
-
     context 'valid' do
       before { post monthly_reports_path, post_params }
       context 'registered as wip' do
@@ -104,7 +103,7 @@ describe MonthlyReportsController, type: :request do
         ActionMailer::Base.deliveries.clear
       end
       subject { post monthly_reports_path, post_params }
-      it { expect{ subject }.to change{ ActionMailer::Base.deliveries.size }.by(1) }
+      it { expect { subject }.to change { ActionMailer::Base.deliveries.size }.by(1) }
     end
     context 'when wip' do
       let(:wip_report) { build(:monthly_report, :wip) }
@@ -222,13 +221,11 @@ describe MonthlyReportsController, type: :request do
       end
 
       context 'when wip' do
-       let(:wip_report) { build(:monthly_report, :wip) }
-       let(:wip_report_params) { wip_report.attributes.reject { |k, _| k =~ /id\z/ || k =~ /_at/ } }
-       let(:patch_params) { { monthly_report: wip_report_params } }
-        before do
-          patch monthly_report_path report, wip_report_params
-        end
-       it { expect(ActionMailer::Base.deliveries.size).to eq(0) }
+        let(:wip_report) { build(:monthly_report, :wip) }
+        let(:wip_report_params) { wip_report.attributes.reject { |k, _| k =~ /id\z/ || k =~ /_at/ } }
+        let(:patch_params) { { monthly_report: wip_report_params } }
+        before { patch monthly_report_path report, wip_report_params }
+        it { expect(ActionMailer::Base.deliveries.size).to eq(0) }
       end
     end
 
@@ -237,6 +234,5 @@ describe MonthlyReportsController, type: :request do
       it { expect(response).to have_http_status :not_found }
       it { expect(user_report).to be_nil }
     end
-
   end
 end
