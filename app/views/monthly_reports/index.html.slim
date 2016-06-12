@@ -30,7 +30,7 @@
           .col-xs-10.col-xs-offset-2
             = f.button '検索', class: 'btn btn-default'
 .page-content
-  h3 = params[:q]&.any? { |_, value| value.present? } ? '検索結果' : '最新の月報一覧'
+  h3 = @q.conditions.empty? ? '最新の月報一覧' : '検索結果'
   #report_index
     == render partial: 'layouts/report_index'
   = paginate @monthly_reports
