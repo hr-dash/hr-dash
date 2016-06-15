@@ -7,9 +7,10 @@ set :repo_url, 'git@github.com:hr-dash/hr-dash.git'
 set :rbenv_ruby, '2.3.1'
 set :rbenv_path, '/usr/local/rbenv'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)}"
+set :bundle_jobs, 2
 
 # Default branch is :master
-# ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, '/var/www/my_app_name'
