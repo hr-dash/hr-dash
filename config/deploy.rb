@@ -5,6 +5,8 @@ set :application, 'hr-dash'
 set :repo_url, 'git@github.com:hr-dash/hr-dash.git'
 
 set :rbenv_ruby, '2.3.1'
+set :rbenv_path, '/usr/local/rbenv'
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)}"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
