@@ -6,6 +6,12 @@ ActiveAdmin.register User do
   permit_params :name, :group_id, :employee_code, :email, :entry_date, :beginner_flg,
                 :deleted_at, :password, :password_confirmation, :gender
 
+  controller do
+    def scoped_collection
+      super.includes :group
+    end
+  end
+
   index do
     selectable_column
     id_column

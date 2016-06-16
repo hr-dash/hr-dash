@@ -1,6 +1,7 @@
 class MonthlyReportsController < ApplicationController
   def index
-    @q = MonthlyReport.ransack(search_params)
+    references = [{ user: :group }, { monthly_report_tags: :tag }]
+    @q = MonthlyReport.includes(references).ransack(search_params)
     @monthly_reports = @q.result(distinct: true).released.page params[:page]
   end
 
@@ -11,7 +12,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def show
-    @monthly_report = MonthlyReport.find(params[:id])
+    @monthly_report = MonthlyReport.includes(comments: :user).find(params[:id])
   end
 
   def new
@@ -34,7 +35,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def edit
-    @monthly_report = current_user.monthly_reports.find params[:id]
+    @monthly_report = current_user.monthly_reports.includes(monthly_report_tags: :tag).find params[:id]
   end
 
   def update

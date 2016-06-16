@@ -4,6 +4,12 @@ ActiveAdmin.register MonthlyReport do
   permit_params { MonthlyReport.column_names }
   actions :all, except: [:destroy]
 
+  controller do
+    def scoped_collection
+      super.includes :user, monthly_report_tags: :tag
+    end
+  end
+
   index do
     selectable_column
     id_column

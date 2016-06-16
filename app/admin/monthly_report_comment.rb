@@ -3,6 +3,12 @@ ActiveAdmin.register MonthlyReportComment do
   active_admin_action_log
   permit_params { MonthlyReportComment.column_names }
 
+  controller do
+    def scoped_collection
+      super.includes :user, :monthly_report
+    end
+  end
+
   index do
     selectable_column
     id_column

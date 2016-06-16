@@ -2,6 +2,12 @@ ActiveAdmin.register ActiveAdminActionLog do
   menu label: 'ログ'
   actions :index, :show
 
+  controller do
+    def scoped_collection
+      super.includes :user, :resource
+    end
+  end
+
   index do
     id_column
     column :user
