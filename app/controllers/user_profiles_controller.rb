@@ -9,7 +9,8 @@ class UserProfilesController < ApplicationController
 
   def update
     @profile = UserProfile.find_by!(id: params[:id], user: current_user)
-    if @profile.update(permitted_params)
+    @profile.assign_attributes assign_profile_params
+    if @profile.save
       redirect_to @profile
     else
       @profile.errors.full_messages.each { |msg| flash[:error] = msg }
