@@ -80,6 +80,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-safe-deploy-to', '~> 1.1.1'
+  gem 'capistrano3-unicorn'
 end
 
 group :test do
