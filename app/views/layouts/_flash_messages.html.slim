@@ -1,5 +1,5 @@
 - flash.each do |type, messages|
-  - messages.each do |message|
+  - Array(messages).each do |message|
     .alert.alert-dismissible.fade.in class=(alert_class_for(type))
       button.close type="button" data-dismiss="alert"
         span aria-hidden="true" &times;
