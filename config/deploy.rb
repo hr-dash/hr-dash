@@ -2,7 +2,7 @@
 lock '3.5.0'
 
 set :application, 'hr-dash'
-set :repo_url, 'git@github.com:hr-dash/hr-dash.git'
+set :repo_url, 'https://github.com/hr-dash/hr-dash.git'
 
 set :rbenv_ruby, '2.3.1'
 set :rbenv_path, '/usr/local/rbenv'
