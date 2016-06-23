@@ -9,7 +9,7 @@ class UserProfilesController < ApplicationController
 
   def update
     @profile = UserProfile.find_by!(id: params[:id], user: current_user)
-    @profile.assign_attributes assign_profile_params
+    @profile.assign_attributes valid_profile_params
     if @profile.save
       redirect_to @profile
     else
@@ -25,7 +25,7 @@ class UserProfilesController < ApplicationController
       .permit(:self_introduction, :blood_type, :birthday)
   end
 
-  def assign_profile_params
+  def valid_profile_params
     return permitted_params if UserProfile.blood_types.include? permitted_params[:blood_type]
     permitted_params.reject { |key, _| key == 'blood_type' }
   end
