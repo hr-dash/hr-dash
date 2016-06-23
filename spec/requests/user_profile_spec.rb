@@ -104,11 +104,25 @@ describe UserProfilesController, type: :request do
     context 'valid' do
       before do
         login profile.user
-        patch user_profile_path(profile, patch_params)
       end
 
-      it { expect(response).to have_http_status :redirect }
-      it { expect(response).to redirect_to user_profile_path(user.user_profile) }
+      context 'valid_params' do
+        before { patch user_profile_path(profile, patch_params) }
+
+        it { expect(response).to have_http_status :redirect }
+        it { expect(response).to redirect_to user_profile_path(user.user_profile) }
+      end
+
+      context 'invalid_params' do
+        let(:invalid_params) { patch_params.merge(blood_type: 'test') }
+        let!(:profile_blood_type) { profile.blood_type }
+
+        before { patch user_profile_path(profile, invalid_params) }
+
+        it { expect(profile.blood_type).to eq profile_blood_type }
+        it { expect(response).to have_http_status :redirect }
+        it { expect(response).to redirect_to user_profile_path(user.user_profile) }
+      end
     end
 
     context 'invalid' do
