@@ -84,7 +84,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def user_reports_in_year(year, report_user)
-    reports = MonthlyReport.year(year).where(user: report_user)
+    reports = MonthlyReport.year(year).where(user: report_user).includes(:user)
 
     (1..12).map do |month|
       target_month = Date.new(year, month, 1)
