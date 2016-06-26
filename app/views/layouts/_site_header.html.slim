@@ -13,6 +13,12 @@ header.site-header.bg-primary.col-xs-2
             = link_to "Top", monthly_reports_path
           li
             = link_to "マイ月報", user_monthly_reports_path(current_user)
+          li
+            - @target_month = Time.current.last_month.since(5.days).beginning_of_month.strftime("%a, %d %b %Y")
+            - if MonthlyReport.find_by(user: current_user, target_month: @target_month).nil?
+              = link_to "月報登録", new_monthly_report_path
+            - else
+              = content_tag 'a', "月報登録"
       li.dropdown
         a.lead.bg-primary.dropdown-toggle data-toggle="dropdown" aria-expanded="false"
           span.glyphicon.glyphicon-th-list aria-hidden="true"
