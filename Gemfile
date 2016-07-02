@@ -32,6 +32,7 @@ gem 'slim-rails'
 gem 'kaminari'
 gem 'github-markdown'
 gem 'unicorn'
+gem 'unicorn-worker-killer'
 gem 'newrelic_rpm'
 gem 'peek'
 gem 'peek-rblineprof'
@@ -81,6 +82,7 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-safe-deploy-to', '~> 1.1.1'
   gem 'capistrano3-unicorn'
+  gem 'capistrano3-nginx'
 end
 
 group :test do
