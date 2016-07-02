@@ -3,7 +3,7 @@
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 
-server 'hr-dash-server', roles: %w{web}
+server 'hr-dash-server', user: 'vagrant', roles: %w{web app db}
 # server 'example.com', user: 'deploy', roles: %w{app db web}, my_property: :my_value
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
@@ -31,7 +31,7 @@ server 'hr-dash-server', roles: %w{web}
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 set :rails_env, :production
-
+set :unicorn_rack_env, :production
 
 
 # Custom SSH Options
