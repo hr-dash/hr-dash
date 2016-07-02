@@ -44,6 +44,17 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 set :unicorn_pid, "#{shared_path}/tmp/pids/unicorn.pid"
 
 namespace :deploy do
+  desc 'Upload config files'
+  task :upload do
+    on roles(:app) do |host|
+      if test "[ ! -d #{shared_path}/config ]"
+        execute "mkdir -p #{shared_path}/config"
+      end
+      upload!("config/database.yml.#{fetch(:rails_env)}", "#{shared_path}/config/database.yml")
+      upload!("config/secrets.yml.#{fetch(:rails_env)}", "#{shared_path}/config/secrets.yml")
+    end
+  end
+  before :starting, 'deploy:upload'
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
