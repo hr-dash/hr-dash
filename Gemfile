@@ -92,4 +92,5 @@ group :test do
   gem 'database_rewinder'
   gem 'shoulda-matchers'
   gem 'timecop'
+  gem 'poltergeist'
 end
