@@ -73,6 +73,7 @@ RSpec.configure do |config|
 
   # Setting for Devise
   config.include RequestHelpers, type: :request
+  config.include RequestHelpers, type: :feature
 
   config.include Capybara::DSL
 end
