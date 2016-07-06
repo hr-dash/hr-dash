@@ -2,7 +2,7 @@ ActiveAdmin.register MonthlyReport do
   menu parent: '月報'
   active_admin_action_log
   permit_params { MonthlyReport.column_names }
-  actions :all, except: [:destroy]
+  actions :all, except: [:new, :create, :destroy]
 
   controller do
     def scoped_collection
