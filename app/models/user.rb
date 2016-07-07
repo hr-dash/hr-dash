@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   end
 
   def report_registrable_to
-    Time.current.last_month.since(5.days).to_date
+    Time.current.since(5.days).last_month.to_date
   end
 
   def create_profile

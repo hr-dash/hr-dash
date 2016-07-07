@@ -63,17 +63,35 @@ describe User, type: :model do
     subject { user.report_registrable_months }
 
     context 'when cannot regist this month report' do
-      let(:today) { '20160525' }
-      it { expect(subject.first).to eq entry_date }
-      it { expect(subject.size).to eq 4 }
-      it { expect(subject.last).to eq Date.new(2016, 4, 1) }
+      context 'short month' do
+        let(:today) { '20160425' }
+        it { expect(subject.first).to eq entry_date }
+        it { expect(subject.size).to eq 3 }
+        it { expect(subject.last).to eq Date.new(2016, 3, 1) }
+      end
+
+      context 'long month' do
+        let(:today) { '20160526' }
+        it { expect(subject.first).to eq entry_date }
+        it { expect(subject.size).to eq 4 }
+        it { expect(subject.last).to eq Date.new(2016, 4, 1) }
+      end
     end
 
     context 'when can regist this month report' do
-      let(:today) { '20160526' }
-      it { expect(subject.first).to eq entry_date }
-      it { expect(subject.size).to eq 5 }
-      it { expect(subject.last).to eq Date.new(2016, 5, 1) }
+      context 'short month' do
+        let(:today) { '20160426' }
+        it { expect(subject.first).to eq entry_date }
+        it { expect(subject.size).to eq 4 }
+        it { expect(subject.last).to eq Date.new(2016, 4, 1) }
+      end
+
+      context 'long month' do
+        let(:today) { '20160527' }
+        it { expect(subject.first).to eq entry_date }
+        it { expect(subject.size).to eq 5 }
+        it { expect(subject.last).to eq Date.new(2016, 5, 1) }
+      end
     end
   end
 end
