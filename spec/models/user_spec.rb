@@ -56,7 +56,8 @@ describe User, type: :model do
   describe '#report_registrable_months' do
     let(:entry_date) { Date.new(2016, 1, 1) }
     let(:user) { create(:user, entry_date: entry_date) }
-    let(:now) { "#{today}T000000+0900" }
+    let(:now_str) { "#{today}T000000+0900" }
+    let(:now) { Time.strptime(now_str, '%Y%m%dT%H%M%S%z') }
 
     before { Timecop.freeze(now) }
     after { Timecop.return }
