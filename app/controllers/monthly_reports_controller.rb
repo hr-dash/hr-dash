@@ -16,7 +16,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def new
-    target_month = params[:target_month] || Date.current.last_month.since(5.days).beginning_of_month
+    target_month = params[:target_month] || current_user.report_registrable_to.beginning_of_month
     @monthly_report = current_user.monthly_reports.build(target_month: target_month)
   end
 

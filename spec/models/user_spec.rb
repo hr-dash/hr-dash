@@ -95,4 +95,25 @@ describe User, type: :model do
       end
     end
   end
+
+  pending 'To merge a branch of Dev/262 use same class for date' do
+    describe '#report_registrable_to' do
+      let(:entry_date) { Date.new(2016, 1, 1) }
+      let(:user) { create(:user, entry_date: entry_date) }
+
+      before { Timecop.freeze(today) }
+      after { Timecop.return }
+      subject { user.report_registrable_to }
+
+      context 'when end of the month before than 5 days' do
+        let(:today) { Date.new(2016, 5, 26) }
+        it { expect(subject).to eq Date.new(2016, 4, 30) }
+      end
+
+      context 'when end of the month 5 days before or later' do
+        let(:today) { Date.new(2016, 5, 27) }
+        it { expect(subject).to eq Date.new(2016, 5, 1) }
+      end
+    end
+  end
 end
