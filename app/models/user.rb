@@ -63,14 +63,16 @@ class User < ActiveRecord::Base
     Time.current.since(5.days).last_month.to_date
   end
 
+  def create_profile
+    UserProfile.create!(user_id: id)
+  end
+
   private
 
   def report_registrable_from
     entry_date.beginning_of_month
   end
 
-  def create_profile
-    UserProfile.create!(user_id: id)
   def initialize_password
     self.password ||= SecureRandom.base64(8)
   end

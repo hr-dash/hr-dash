@@ -1,6 +1,7 @@
 ActiveAdmin.register User do
   menu parent: 'ユーザー'
-  csv_importable validate: false
+  csv_importable validate: false,
+                 after_batch_import: ->(file) { User.last(file.csv_lines.size).each(&:create_profile) }
   active_admin_action_log
   actions :all, except: [:destroy]
   permit_params :name, :group_id, :employee_code, :email, :entry_date, :beginner_flg,
