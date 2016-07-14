@@ -9,6 +9,11 @@
 1. `git clone git@github.com:hr-dash/hr-dash.git`
 1. `cd hr-dash`
 1. `bundle install --path vendor/bundle`
+1. install [phantonjs](http://phantomjs.org/)
+
+  ```
+  brew install phantomjs
+  ```
 1. install postgresql (>= 9.4.0)
   
   ```
