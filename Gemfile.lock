@@ -72,6 +72,7 @@ GEM
     adamantium (0.2.0)
       ice_nine (~> 0.11.0)
       memoizable (~> 0.4.0)
+    addressable (2.4.0)
     airbrussh (1.0.2)
       sshkit (>= 1.6.1, != 1.7.0)
     annotate (2.6.10)
@@ -126,8 +127,16 @@ GEM
       sshkit (~> 1.3)
     capistrano-safe-deploy-to (1.1.1)
       capistrano (>= 3.0)
+    capybara (2.7.1)
+      addressable
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
     choice (0.2.0)
     cityhash (0.8.1)
+    cliver (0.3.2)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -236,6 +245,10 @@ GEM
       peek
       rblineprof
     pg (0.18.2)
+    poltergeist (1.10.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      websocket-driver (>= 0.2.0)
     polyamorous (1.2.0)
       activerecord (>= 3.0)
     powerpack (0.1.1)
@@ -395,6 +408,11 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
+    websocket-driver (0.6.4)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.2)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
@@ -435,6 +453,7 @@ DEPENDENCIES
   peek
   peek-rblineprof
   pg
+  poltergeist
   pry
   rails (= 4.2.3)
   rails-erd
