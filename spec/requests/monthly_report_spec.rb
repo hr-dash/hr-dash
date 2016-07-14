@@ -60,6 +60,26 @@ describe MonthlyReportsController, type: :request do
       it { expect(response).to render_template('monthly_reports/new') }
       it { expect(response.body).to match '先月の月報をコピー' }
     end
+
+    context 'when not the end of the month of 5 days.' do
+      before do
+        Timecop.freeze(Date.new(2016, 5, 26))
+        get new_monthly_report_path
+      end
+
+      after { Timecop.return }
+      it { expect(response.body).not_to match Time.now.strftime('%Y年%m月') }
+    end
+
+    context 'when the end of the month of 5 days.' do
+      before do
+        Timecop.freeze(Date.new(2016, 5, 27))
+        get new_monthly_report_path
+      end
+
+      after { Timecop.return }
+      it { expect(response.body).to match Time.now.strftime('%Y年%m月') }
+    end
   end
 
   describe '#create POST /monthly_reports' do

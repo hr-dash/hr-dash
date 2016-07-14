@@ -58,14 +58,14 @@ class User < ActiveRecord::Base
     months
   end
 
+  def report_registrable_to
+    Time.current.since(5.days).last_month.to_date
+  end
+
   private
 
   def report_registrable_from
     entry_date.beginning_of_month
-  end
-
-  def report_registrable_to
-    Time.current.last_month.since(5.days)
   end
 
   def create_profile

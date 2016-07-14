@@ -12,7 +12,7 @@
           - current_user.report_registrable_months.each do |m|
             - report = current_user.monthly_reports.find_or_initialize_by(target_month: m)
             - path = report.new_record? ? new_monthly_report_path(target_month: m) : edit_monthly_report_path(report)
-            option value=(m) href=(path) selected=(true if monthly_report.target_month == m) = m.strftime('%Y月%m月')
+            option value=(m) href=(path) selected=(true if monthly_report.target_month == m) = m.strftime('%Y年%m月')
     .form-group
       = f.label :project_summary, class: 'control-label col-xs-3'
       .col-xs-9
