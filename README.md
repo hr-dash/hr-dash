@@ -1,5 +1,8 @@
 # HR Dashのリポジトリーです!!
 
+[![CircleCI](https://circleci.com/gh/hr-dash/hr-dash.svg?style=svg)](https://circleci.com/gh/hr-dash/hr-dash)  
+[![codebeat badge](https://codebeat.co/badges/bff83534-d5b9-458d-964a-72bddc4a812d)](https://codebeat.co/projects/github-com-hr-dash-hr-dash)
+
 ## 環境構築手順
 1. rbenv, ruby2.3を用意
 1. `gem install bundler`
