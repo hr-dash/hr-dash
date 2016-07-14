@@ -21,7 +21,7 @@ describe 'Admin::UserRole', type: :feature do
     let!(:new_user) { create(:user) }
     before do
       visit new_admin_user_role_path
-      select new_user.name, from: 'user_role_user_id'
+      select new_user.name, from: 'ユーザー'
       check 'user_role_admin'
       click_on 'Create ロール'
     end
