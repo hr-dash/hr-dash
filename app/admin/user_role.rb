@@ -3,6 +3,12 @@ ActiveAdmin.register UserRole do
   active_admin_action_log
   permit_params { UserRole.column_names }
 
+  controller do
+    def scoped_collection
+      super.includes :user
+    end
+  end
+
   index do
     selectable_column
     id_column
