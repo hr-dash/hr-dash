@@ -1,9 +1,4 @@
 mailer:
- address: ENV["MAILER_ADDRESS"]
- port: ENV["MAILER_PORT"]
- domain: ENV["MAILER_DOMAIN"]
- user_name: ENV["MAILER_USERNAME"]
- password: ENV["MAILER_PASSWORD"]
  authentication: 'plain'
  enable_starttls_auto: true
- from: ENV["MAILER_FROM"]
+ from_name: 'システム管理者'

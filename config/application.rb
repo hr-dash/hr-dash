@@ -15,6 +15,8 @@ require 'sprockets/railtie'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Dotenv::Railtie.load
+
 module Dash
   class Application < Rails::Application
     config.name = 'Dash'
