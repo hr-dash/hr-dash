@@ -1,0 +1,12 @@
+<%= @report.target_month.strftime('%Y年%m月') %>の月報が登録されました。
+
+登録日時:  <%= @report.created_at %>
+
+氏名: <%= @user.name %>
+
+<%= @report.target_month.strftime('%Y年%m月') %> の業務報告
+-------------------------------------------------------------
+【プロジェクト概要】
+<%= simple_format(h(@report.project_summary)) %>
+<%= monthly_report_url(@report) %>
+-------------------------------------------------------------

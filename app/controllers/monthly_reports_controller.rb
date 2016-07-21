@@ -25,8 +25,9 @@ class MonthlyReportsController < ApplicationController
       report.user   = current_user
       assign_relational_params(report)
     end
-
+    shipped_at_was = @monthly_report.shipped_at_was
     if @monthly_report.save
+      monthly_report_notify(shipped_at_was)
       redirect_to @monthly_report
     else
       flash_errors(@monthly_report)
@@ -42,8 +43,9 @@ class MonthlyReportsController < ApplicationController
     @monthly_report = current_user.monthly_reports.find(params[:id])
     @monthly_report.assign_attributes(permitted_params)
     assign_relational_params(@monthly_report)
-
+    shipped_at_was = @monthly_report.shipped_at_was
     if @monthly_report.save
+      monthly_report_notify(shipped_at_was)
       redirect_to @monthly_report
     else
       flash_errors(@monthly_report)
@@ -116,5 +118,10 @@ class MonthlyReportsController < ApplicationController
     ]
 
     params.require(:q).permit(search_conditions)
+  end
+
+  def monthly_report_notify(shipped_at_was)
+    return unless shipped_at_was.blank?
+    Notify.monthly_report_registration(@monthly_report.user.id, @monthly_report.id).deliver_now
   end
 end
