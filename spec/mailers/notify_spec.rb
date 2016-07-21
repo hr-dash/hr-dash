@@ -2,7 +2,7 @@ require 'rails_helper'
 RSpec.describe Notify, type: :mailer do
   let!(:report) { create(:monthly_report, :with_comments, :with_tags) }
   let(:user) { create(:user) }
-  let(:from) { ENV['MAILER_FROM'] }
+  let(:from) { 'test@example.com' }
 
   after(:all) do
     ActionMailer::Base.deliveries.clear

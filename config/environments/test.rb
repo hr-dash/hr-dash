@@ -50,4 +50,7 @@ Rails.application.configure do
 
   # Access to rack session
   config.middleware.use RackSessionAccess::Middleware
+
+  # ActionMailerの設定
+  config.action_mailer.default_options = { from: 'test@example.com' }
 end
