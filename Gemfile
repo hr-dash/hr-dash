@@ -90,6 +90,7 @@ group :test do
   gem 'rspec'
   gem 'autodoc'
   gem 'database_rewinder'
+  gem 'rack_session_access'
   gem 'shoulda-matchers'
   gem 'timecop'
   gem 'poltergeist'

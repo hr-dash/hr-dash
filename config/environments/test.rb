@@ -47,4 +47,7 @@ Rails.application.configure do
     Bullet.raise  = true # N+1問題が発見された時にErrorを発生させる
     Bullet.unused_eager_loading_enable = false
   end
+
+  # Access to rack session
+  config.middleware.use RackSessionAccess::Middleware
 end
