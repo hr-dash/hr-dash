@@ -79,6 +79,5 @@ Rails.application.configure do
 
   # ActionMailerの設定
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-  config.action_mailer.default_options = { from: 'test@example.com' }
-
+  config.action_mailer.default_options = { from: "システム管理者 <#{ENV['MAILER_FROM']}>" }
 end

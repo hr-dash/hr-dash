@@ -53,7 +53,7 @@ Rails.application.configure do
 
   # Mailer Configration
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-  config.action_mailer.default_options = { from: "#{Settings.mailer.from_name} <#{ENV['MAILER_FROM']}>" }
+  config.action_mailer.default_options = { from: "システム管理者 <#{ENV['MAILER_FROM']}>" }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
@@ -62,7 +62,7 @@ Rails.application.configure do
     domain:                ENV['MAILER_DOMAIN'],
     user_name:             ENV['MAILER_USERNAME'],
     password:              ENV['MAILER_PASSWORD'],
-    authentication:        Settings.mailer[:authentication],
-    enable_starttls_auto:  Settings.mailer[:enable_starttls_auto]
+    authentication:        'plain',
+    enable_starttls_auto:  true
   }
 end

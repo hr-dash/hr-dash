@@ -1,4 +1,0 @@
-mailer:
- authentication: 'plain'
- enable_starttls_auto: true
- from_name: 'システム管理者'
