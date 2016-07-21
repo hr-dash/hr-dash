@@ -1,5 +1,5 @@
 ActiveAdmin.register Tag do
-  csv_importable
+  csv_importable validate: false
   active_admin_action_log
   permit_params { Tag.column_names }
   actions :all, except: [:destroy]
