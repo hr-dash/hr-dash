@@ -32,4 +32,19 @@ describe 'Admin::User', type: :feature do
     it { expect(user.reload.name).to eq new_name }
     it { expect(current_path).to eq admin_user_path(user) }
   end
+
+  describe '#update_password' do
+    let(:other_user) { create(:user) }
+    let(:new_password) { Faker::Internet.password }
+    before do
+      visit edit_password_admin_user_path(other_user)
+      fill_in 'パスワード', with: new_password
+      fill_in 'パスワード（確認）', with: new_password
+      click_on '更新する'
+    end
+
+    it { expect(current_path).to eq admin_users_path }
+    it { expect(page_title).to have_content('ユーザー') }
+    it { expect(other_user.reload.valid_password?(new_password)).to be true }
+  end
 end
