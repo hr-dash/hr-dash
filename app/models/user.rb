@@ -67,6 +67,10 @@ class User < ActiveRecord::Base
     UserProfile.create!(user_id: id)
   end
 
+  def active_for_authentication?
+    super && (deleted_at.nil? || deleted_at > Time.current)
+  end
+
   private
 
   def report_registrable_from
