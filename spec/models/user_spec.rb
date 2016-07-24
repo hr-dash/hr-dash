@@ -96,6 +96,36 @@ describe User, type: :model do
     end
   end
 
+  describe '#active_for_authentication?' do
+    let(:user) { create(:user, deleted_at: deleted_at) }
+    let(:today) { Date.today }
+    subject { user.active_for_authentication? }
+
+    context 'active' do
+      context 'deleted_at is nil' do
+        let(:deleted_at) { nil }
+        it { is_expected.to be true }
+      end
+
+      context 'deleted_at is after today' do
+        let(:deleted_at) { today + 1.day }
+        it { is_expected.to be true }
+      end
+    end
+
+    context 'inactive' do
+      context 'deleted_at is before today' do
+        let(:deleted_at) { today - 1.day }
+        it { is_expected.to be false }
+      end
+
+      context 'deleted_at is today' do
+        let(:deleted_at) { today }
+        it { is_expected.to be false }
+      end
+    end
+  end
+
   pending 'To merge a branch of Dev/262 use same class for date' do
     describe '#report_registrable_to' do
       let(:entry_date) { Date.new(2016, 1, 1) }
