@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def basic_auth_for_admin
+    return if Rails.env.test?
     authenticate_or_request_with_http_basic do |username, password|
       username == ENV['BASIC_AUTH_USERNAME'] && password == ENV['BASIC_AUTH_PASSWORD']
     end
