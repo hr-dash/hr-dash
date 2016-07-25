@@ -116,6 +116,24 @@ RSpec.describe MonthlyReport, type: :model do
     end
   end
 
+  describe '.of_latest_month_registed_by' do
+    let(:user) { create(:user) }
+
+    context 'reprot is exists' do
+      let(:valid_target) { user.report_registrable_to.beginning_of_month }
+      let!(:monthly_report) { create(:monthly_report, user: user, target_month: valid_target) }
+      let(:latest_report) { MonthlyReport.of_latest_month_registed_by user }
+
+      it { expect(latest_report).to be }
+    end
+
+    context 'report is not exists' do
+      let(:latest_report) { MonthlyReport.of_latest_month_registed_by user }
+
+      it { expect(latest_report).not_to be }
+    end
+  end
+
   describe '#this_month_goals' do
     let(:user) { create(:user) }
     let(:report) { create(:monthly_report, user: user) }

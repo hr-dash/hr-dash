@@ -14,8 +14,9 @@ header.site-header.bg-primary.col-xs-2
           li
             = link_to "マイ月報", user_monthly_reports_path(current_user)
           li
-            - if MonthlyReport.already_registered? current_user
-              = content_tag 'a', "月報登録"
+            - @target_month_report = MonthlyReport.of_latest_month_registed_by current_user
+            - if @target_month_report.present?
+              = link_to "月報編集", edit_monthly_report_path(id: @target_month_report.id)
             - else
               = link_to "月報登録", new_monthly_report_path
       li.dropdown

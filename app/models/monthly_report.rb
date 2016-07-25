@@ -49,9 +49,8 @@ class MonthlyReport < ActiveRecord::Base
 
   before_save :log_shipped_at
 
-  def self.already_registered?(user)
-    last_month = user.report_registrable_months.last.strftime('%a, %d %b %Y')
-    find_by(user: user, target_month: last_month).present?
+  def self.of_latest_month_registed_by(user)
+    user.monthly_reports.find_by(target_month: user.report_registrable_to.beginning_of_month)
   end
 
   def registrable_term?
