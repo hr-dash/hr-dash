@@ -12,4 +12,10 @@ class ApplicationController < ActionController::Base
   def authenticate_admin_user!
     redirect_to :root unless current_user.admin?
   end
+
+  def basic_auth_for_admin
+    authenticate_or_request_with_http_basic do |username, password|
+      username == "admin" && password == "password"
+    end
+  end
 end
