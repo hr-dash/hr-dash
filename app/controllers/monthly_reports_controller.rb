@@ -121,7 +121,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def monthly_report_notify(shipped_at_was)
-    return unless shipped_at_was.blank?
+    return if @monthly_report.wip? || shipped_at_was.present?
     Notify.monthly_report_registration(@monthly_report.user.id, @monthly_report.id).deliver_now
   end
 end
