@@ -14,16 +14,6 @@ Rails.application.routes.draw do
   resources :groups, only: [:index]
   resources :monthly_report_comments, only: [:create, :edit, :update, :destroy]
 
-  resources :sample, only: [:index] do
-    collection do
-      get 'group'
-      get 'login'
-      get 'monthly_report'
-      get 'monthly_report_new'
-      get 'profile'
-    end
-  end
-
   root to: 'monthly_reports#index'
 
   resources :user_profiles, only: [:show, :edit, :update]
