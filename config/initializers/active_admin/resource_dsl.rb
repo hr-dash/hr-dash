@@ -5,7 +5,7 @@ module ActiveAdmin
         validate: true,
         batch_transaction: true,
         template_object: ActiveAdminImport::Model.new(
-          force_encoding: :auto
+          force_encoding: :sjis
         ),
       }.merge!(options))
     end

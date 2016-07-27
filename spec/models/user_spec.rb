@@ -56,23 +56,64 @@ describe User, type: :model do
   describe '#report_registrable_months' do
     let(:entry_date) { Date.new(2016, 1, 1) }
     let(:user) { create(:user, entry_date: entry_date) }
+    let(:now_str) { "#{today}T000000+0900" }
+    let(:now) { Time.strptime(now_str, '%Y%m%dT%H%M%S%z') }
 
-    before { Timecop.freeze(today) }
+    before { Timecop.freeze(now) }
     after { Timecop.return }
     subject { user.report_registrable_months }
 
     context 'when cannot regist this month report' do
-      let(:today) { Date.new(2016, 5, 26) }
-      it { expect(subject.first).to eq entry_date }
-      it { expect(subject.size).to eq 4 }
-      it { expect(subject.last).to eq Date.new(2016, 4, 1) }
+      context 'short month' do
+        let(:today) { '20160425' }
+        it { expect(subject.first).to eq entry_date }
+        it { expect(subject.size).to eq 3 }
+        it { expect(subject.last).to eq Date.new(2016, 3, 1) }
+      end
+
+      context 'long month' do
+        let(:today) { '20160526' }
+        it { expect(subject.first).to eq entry_date }
+        it { expect(subject.size).to eq 4 }
+        it { expect(subject.last).to eq Date.new(2016, 4, 1) }
+      end
     end
 
     context 'when can regist this month report' do
-      let(:today) { Date.new(2016, 5, 27) }
-      it { expect(subject.first).to eq entry_date }
-      it { expect(subject.size).to eq 5 }
-      it { expect(subject.last).to eq Date.new(2016, 5, 1) }
+      context 'short month' do
+        let(:today) { '20160426' }
+        it { expect(subject.first).to eq entry_date }
+        it { expect(subject.size).to eq 4 }
+        it { expect(subject.last).to eq Date.new(2016, 4, 1) }
+      end
+
+      context 'long month' do
+        let(:today) { '20160527' }
+        it { expect(subject.first).to eq entry_date }
+        it { expect(subject.size).to eq 5 }
+        it { expect(subject.last).to eq Date.new(2016, 5, 1) }
+      end
+    end
+  end
+
+  pending 'To merge a branch of Dev/262 use same class for date' do
+    describe '#report_registrable_to' do
+      let(:entry_date) { Date.new(2016, 1, 1) }
+      let(:user) { create(:user, entry_date: entry_date) }
+
+      before { Timecop.freeze(today) }
+      after { Timecop.return }
+      subject { user.report_registrable_to }
+
+      context 'when end of the month before than 5 days' do
+        let(:today) { Date.new(2016, 5, 26) }
+        it { expect(subject).to eq Date.new(2016, 4, 30) }
+      end
+
+      context 'when end of the month 5 days before or later' do
+        let(:today) { Date.new(2016, 5, 27) }
+        it { expect(subject).to eq Date.new(2016, 5, 1) }
+      end
     end
   end
 end

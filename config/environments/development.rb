@@ -40,7 +40,6 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # deviseの設定
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
   # Bulletの設定
   config.after_initialize do
@@ -51,4 +50,19 @@ Rails.application.configure do
     Bullet.rails_logger = true # Add warning to rails_log
     Bullet.unused_eager_loading_enable = false
   end
+
+  # Mailer Configration
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_options = { from: "システム管理者 <#{ENV['MAILER_FROM']}>" }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:               ENV['MAILER_ADDRESS'],
+    port:                  ENV['MAILER_PORT'],
+    domain:                ENV['MAILER_DOMAIN'],
+    user_name:             ENV['MAILER_USERNAME'],
+    password:              ENV['MAILER_PASSWORD'],
+    authentication:        'plain',
+    enable_starttls_auto:  true
+  }
 end

@@ -41,6 +41,7 @@ gem 'unicorn'
 gem 'newrelic_rpm'
 gem 'peek'
 gem 'peek-rblineprof'
+gem 'dotenv-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -83,12 +84,15 @@ group :development do
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-rbenv', '~> 2.0'
+  gem 'capistrano-safe-deploy-to', '~> 1.1.1'
 end
 
 group :test do
   gem 'rspec'
   gem 'autodoc'
   gem 'database_rewinder'
+  gem 'rack_session_access'
   gem 'shoulda-matchers'
   gem 'timecop'
+  gem 'poltergeist'
 end
