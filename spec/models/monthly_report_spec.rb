@@ -130,7 +130,7 @@ RSpec.describe MonthlyReport, type: :model do
     context 'when report doesn`t exist' do
       let(:latest_report) { MonthlyReport.of_latest_month_registered_by user }
 
-      it { expect(latest_report).to be nil}
+      it { expect(latest_report).to be nil }
     end
   end
 
