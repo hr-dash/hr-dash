@@ -2,7 +2,7 @@ class MonthlyReportsController < ApplicationController
   def index
     references = [{ user: :group }, { monthly_report_tags: :tag }]
     @q = MonthlyReport.includes(references).ransack(search_params)
-    @monthly_reports = @q.result(distinct: true).released.page params[:page]
+    @monthly_reports = @q.result(distinct: true).released.order('shipped_at desc').page params[:page]
   end
 
   def user
