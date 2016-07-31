@@ -1,6 +1,7 @@
 .panel.panel-default id=("comment-#{comment.id}")
   .panel-heading.monthly-report-panel-header
-    = "#{comment.user.name}  commented #{comment.updated_at}"
+    = "#{comment.user.name}  commented "
+    = link_to comment.updated_at, monthly_report_path(comment.monthly_report, anchor: "comment-#{comment.id}")
     - if comment.user == current_user
       .pull-right
         = content_tag :a, href: monthly_report_comment_path(comment), 'data-method' => :delete, 'data-confirm' => 'コメントを削除して宜しいですか？'
