@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20160428131101) do
 
   create_table "groups", force: :cascade do |t|
     t.string   "name",        null: false
+    t.string   "email",       null: false
     t.text     "description"
     t.datetime "deleted_at"
     t.datetime "created_at",  null: false
