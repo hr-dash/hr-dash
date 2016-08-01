@@ -1,8 +1,8 @@
 .list-group
   - @monthly_reports.each do |report|
     a.list-group-item href=(monthly_report_path(report))
-      = "#{report.user.group.name}G | #{report.user.name} - #{report.target_month.strftime("%Y年%m月")}分"
-      - # span.glyphicon.glyphicon-thumbs-up.pull-right aria-hidden="true" = 11
+      = Array(report.user.group).map { |g| "【#{g.name}G】" }.join
+      = "#{report.user.name} - #{report.target_month.strftime("%Y年%m月")}分"
       - tags = report.monthly_report_tags.order('monthly_report_tags.id')
       - tags.first(3).each do |tag|
         span.badge = tag.name
