@@ -1,0 +1,15 @@
+= render partial: 'layouts/html_header'
+body
+  .container-fluid.login-container
+    .login-form
+      h1.text-center = Dash.name
+      p.text-center パスワード再設定用のURLをメールアドレスに送信します。
+      = form_tag password_resets_path, method: :post, class: "form-horizontal"
+        fieldset
+          .form-group
+            = render partial: 'layouts/flash_messages', flash: flash
+          .form-group
+            label.col-lg-4.control-label for="email" email
+            .col-lg-6
+              = text_field_tag "email", nil, class: "form-control", id: "email"
+          = button_tag "Submit", class: "btn btn-info center-block"
