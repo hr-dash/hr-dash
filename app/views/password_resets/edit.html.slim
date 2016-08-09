@@ -1,0 +1,21 @@
+= render partial: 'layouts/html_header'
+body
+  .container-fluid.login-container
+    .login-form
+      h1.text-center = Dash.name
+      p.text-center 新しいパスワードを入力してください。
+      = form_for(resource, url: password_reset_path(resource), html: { class: 'form-horizontal' }) do |f|
+        fieldset
+          = f.hidden_field :reset_password_token
+          .form-group
+            = render partial: 'layouts/flash_messages', flash: flash
+          .form-group
+            = f.label :password, 'new password', class: 'col-lg-4 control-label'
+            .col-lg-6
+              = f.password_field :password, class: 'form-control'
+          .form-group
+            = f.label :password_confirmation, 'new password (confirmation)', class: 'col-lg-4 control-label'
+            .col-lg-6
+              = f.password_field :password_confirmation, class: 'form-control'
+          .form-group
+          = f.button 'Change Password', class: 'btn btn-info center-block'
