@@ -11,6 +11,12 @@ ActiveAdmin.register User do
     def scoped_collection
       super.includes :group
     end
+
+    private
+
+    def password_params
+      params.require(:user).permit(:password, :password_confirmation)
+    end
   end
 
   index do
@@ -24,7 +30,10 @@ ActiveAdmin.register User do
     column :entry_date
     column :beginner_flg
     column :deleted_at
-    actions
+    actions do |user|
+      br
+      link_to 'PW変更', edit_password_admin_user_path(user)
+    end
   end
 
   filter :name
@@ -50,5 +59,21 @@ ActiveAdmin.register User do
       f.input :deleted_at, as: :datepicker
     end
     f.actions
+  end
+
+  member_action :edit_password, method: :get do
+    @user = resource
+  end
+
+  member_action :update_password, method: :patch do
+    @user = resource
+    @user.assign_attributes(password_params)
+
+    if @user.save
+      redirect_to action: :index
+    else
+      flash[:error] = @user.errors.full_messages
+      redirect_to :back
+    end
   end
 end
