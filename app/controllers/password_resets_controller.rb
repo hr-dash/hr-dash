@@ -4,9 +4,9 @@ class PasswordResetsController < Devise::PasswordsController
   def new; end
 
   def create
-    user = User.find_by(email: params["email"])
+    user = User.find_by(email: params[:email])
 
-    if user&.active_for_authentication?
+    if user.try!(:active_for_authentication?)
       user.send_reset_password_instructions
     else
       flash[:error] = '有効なメールアドレスではありません。'
