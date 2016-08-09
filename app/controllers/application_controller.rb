@@ -12,4 +12,11 @@ class ApplicationController < ActionController::Base
   def authenticate_admin_user!
     redirect_to :root unless current_user.admin?
   end
+
+  def basic_auth_for_admin
+    return if Rails.env.test?
+    authenticate_or_request_with_http_basic do |username, password|
+      username == ENV['BASIC_AUTH_USERNAME'] && password == ENV['BASIC_AUTH_PASSWORD']
+    end
+  end
 end
