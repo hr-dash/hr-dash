@@ -13,3 +13,4 @@ body
             .col-lg-6
               = text_field_tag "email", nil, class: "form-control", id: "email"
           = button_tag "Submit", class: "btn btn-info center-block"
+          small.right = link_to 'ログイン画面へ', new_session_path
