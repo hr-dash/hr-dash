@@ -49,6 +49,10 @@ class MonthlyReport < ActiveRecord::Base
 
   before_save :log_shipped_at
 
+  def self.of_latest_month_registered_by(user)
+    user.monthly_reports.find_by(target_month: user.report_registrable_to.beginning_of_month)
+  end
+
   def registrable_term?
     return false unless user
     user.report_registrable_months.include? target_month
