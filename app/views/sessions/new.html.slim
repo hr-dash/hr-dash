@@ -6,6 +6,8 @@ body
       = form_for(resource, url: sessions_path, html: { class: 'form-horizontal' }) do |f|
         fieldset
           .form-group
+            = render partial: 'layouts/flash_messages', flash: flash
+          .form-group
             = f.label :email, 'email', class: 'col-lg-4 control-label'
             .col-lg-6
               = f.email_field :email, class: 'form-control'
@@ -13,6 +15,4 @@ body
             = f.label :password, 'password', class: 'col-lg-4 control-label'
             .col-lg-6
               = f.password_field :password, class: 'form-control'
-          .form-group
-            = render partial: 'layouts/flash_messages', flash: flash
           = f.button 'Login', class: 'btn btn-primary center-block'
