@@ -23,10 +23,6 @@ $(function(){
   });
   refresh_tags_input(tagger);
 
-  $('#monthly_report_tags > input').focusout(function() {
-    if (this.value.trim() === '') { return; }
-    tagger.addTag(this.value);
-    this.value = '';
-  });
+  $('#monthly_report_tags > input').focusout(function() { this.value = ''; });
 });
 </script>
