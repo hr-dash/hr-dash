@@ -79,9 +79,11 @@ class MonthlyReportsController < ApplicationController
   end
 
   def monthly_report_tags
-    tags = params[:monthly_report][:monthly_report_tags].try!(:split, ',').try!(:map) do |tag|
-      Tag.find_or_create_by(name: tag.strip)
-    end
+    tags = params[:monthly_report][:monthly_report_tags].try!(:split, ',').try!(:map) do |name|
+      tag = Tag.find_or_initialize_by(name: name.strip)
+      tag.save ? tag : nil # 許容できないタグは無視
+    end.try!(:compact)
+
     tags || []
   end
 
