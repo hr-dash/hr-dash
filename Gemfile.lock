@@ -99,6 +99,7 @@ GEM
     bourbon (4.2.3)
       sass (~> 3.4)
       thor
+    brakeman (3.3.2)
     builder (3.2.2)
     bullet (4.14.7)
       activesupport (>= 3.0.0)
@@ -422,6 +423,7 @@ DEPENDENCIES
   benchmark-ips
   better_errors
   binding_of_caller
+  brakeman
   bullet
   byebug
   capistrano (~> 3.1)
