@@ -8,6 +8,7 @@ ActiveAdmin.register Group do
     attributes_table do
       row :id
       row :name
+      row :email
       row :description
       row 'メンバー' do |group|
         group.users.each do |user|
@@ -24,6 +25,7 @@ ActiveAdmin.register Group do
     f.semantic_errors
     f.inputs do
       f.input :name
+      f.input :email
       f.input :description
       f.input :deleted_at, as: :datepicker
     end

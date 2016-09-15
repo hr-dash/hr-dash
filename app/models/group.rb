@@ -4,6 +4,7 @@
 #
 #  id          :integer          not null, primary key
 #  name        :string           not null
+#  email       :string           not null
 #  description :text
 #  deleted_at  :datetime
 #  created_at  :datetime         not null
@@ -14,4 +15,5 @@ class Group < ActiveRecord::Base
   has_many :users
 
   validates :name, presence: true
+  validates :email, presence: true, format: { with: /\A[^@]+@[^@]+\z/ }
 end

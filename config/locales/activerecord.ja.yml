@@ -14,6 +14,7 @@ ja:
     attributes:
       group:
         name: 名前
+        email: メールアドレス
         description: 説明
       help_text:
         category: カテゴリ
