@@ -14,6 +14,7 @@ describe 'Admin::User', type: :feature do
     before { visit admin_user_path(user) }
     it { expect(page_title).to have_content(user.name) }
     it { expect(page).to have_content(user.group.name) }
+    it { expect(page).to have_content('PW変更') }
   end
 
   describe '#create' do
