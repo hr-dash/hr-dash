@@ -8,5 +8,5 @@ p = "#{@report.target_month.strftime('%Y年%m月')}の業務報告"
 p  -------------------------------------------------------------
 p 【プロジェクト概要】
 = simple_format(h(@report.project_summary))
-= monthly_report_url(@report)
+= link_to monthly_report_url(@report), monthly_report_url(@report)
 p -------------------------------------------------------------
