@@ -4,7 +4,7 @@ RSpec.describe Notify, type: :mailer do
   let(:user) { create(:user) }
   let(:from) { 'test@example.com' }
 
-  after(:all) do
+  before(:all) do
     ActionMailer::Base.deliveries.clear
   end
 

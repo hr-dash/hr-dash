@@ -98,7 +98,7 @@ describe User, type: :model do
 
   describe '#active_for_authentication?' do
     let(:user) { create(:user, deleted_at: deleted_at) }
-    let(:today) { Date.today }
+    let(:today) { Time.current.to_date }
     subject { user.active_for_authentication? }
 
     context 'active' do

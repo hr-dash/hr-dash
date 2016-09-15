@@ -38,4 +38,6 @@ header.site-header.bg-primary.col-xs-2
             li
               = link_to 'プロフィール', user_profile_path(current_user.user_profile)
             li
+              = link_to 'パスワード変更', password_reset_sessions_path, data: { confirm: 'パスワードを変更しますか？一旦、ログアウトします。' }
+            li
               = link_to 'ログアウト', destroy_sessions_path, method: :delete
