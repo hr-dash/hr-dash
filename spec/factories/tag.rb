@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :tag do
     status Tag.statuses[:fixed]
-    name { Faker::Lorem.word }
+    sequence(:name) { |i| "#{Faker::Lorem.word}#{i}" }
 
     trait :unfixed do
       status Tag.statuses[:unfixed]
