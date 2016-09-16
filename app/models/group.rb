@@ -16,4 +16,6 @@ class Group < ActiveRecord::Base
 
   validates :name, presence: true
   validates :email, presence: true, format: { with: /\A[^@]+@[^@]+\z/ }
+
+  scope :active, -> { where('deleted_at IS NULL OR deleted_at > ?', Time.current) }
 end
