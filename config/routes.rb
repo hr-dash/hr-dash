@@ -1,3 +1,23 @@
+class PageCountConstraint
+  PAGE_COUNT_LIMIT = 100000
+
+  def matches?(request)
+    return true unless request.query_parameters['page']
+    request.query_parameters['page'].to_i < PAGE_COUNT_LIMIT
+  end
+end
+
+class TargetYearConstraint
+  YEARS_LOWER_LIMIT = 2000
+  YEARS_UPPER_LIMIT = 2100
+
+  def matches?(request)
+    target_year = request.query_parameters['target_year']&.to_i
+    return true unless target_year
+    (target_year >= YEARS_LOWER_LIMIT) && (target_year < YEARS_UPPER_LIMIT)
+  end
+end
+
 Rails.application.routes.draw do
 
   devise_for :users, skip: [:sessions, :password]
@@ -16,12 +36,12 @@ Rails.application.routes.draw do
   resources :groups, only: [:index]
   resources :monthly_report_comments, only: [:create, :edit, :update, :destroy]
 
-  root to: 'monthly_reports#index'
+  root to: 'monthly_reports#index', constraints: PageCountConstraint.new
 
   resources :user_profiles, only: [:show, :edit, :update]
-  resources 'monthly_reports', except: :destroy do
+  resources 'monthly_reports', except: :destroy, constraints: PageCountConstraint.new do
     collection do
-      get 'users/:user_id', action: :user, as: :user
+      get 'users/:user_id', action: :user, as: :user, user_id: /\d{,6}/, constraints: TargetYearConstraint.new
       get :copy
     end
   end
