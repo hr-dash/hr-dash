@@ -1,7 +1,7 @@
 describe MonthlyReportsController, type: :request do
   let!(:report) { create(:shipped_montly_report, :with_comments) }
   let(:user) { create(:user) }
-  let(:page_count_limit) { PageCountConstraint::PAGE_COUNT_LIMIT }
+  let(:page_count_limit) { Constraints::PageCount::PAGE_COUNT_LIMIT }
   before { login user }
 
   describe '#index GET /monthly_reports' do
@@ -38,8 +38,8 @@ describe MonthlyReportsController, type: :request do
   end
 
   describe '#user GET /monthly_reports/users/:user_id' do
-    let(:years_lower_limit) { TargetYearConstraint::YEARS_LOWER_LIMIT }
-    let(:years_upper_limit) { TargetYearConstraint::YEARS_UPPER_LIMIT }
+    let(:years_lower_limit) { Constraints::TargetYear::YEARS_LOWER_LIMIT }
+    let(:years_upper_limit) { Constraints::TargetYear::YEARS_UPPER_LIMIT }
     context 'view my_reports' do
       before { get user_monthly_reports_path(user) }
       it { expect(response).to have_http_status :success }
