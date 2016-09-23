@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   resources :user_profiles, only: [:show, :edit, :update]
   resources 'monthly_reports', except: :destroy, constraints: Constraints::PageCount do
     collection do
-      get 'users/:user_id', action: :user, as: :user, user_id: /\d{,6}/, constraints: Constraints::TargetYear
+      get 'users/:user_id', action: :user, as: :user, constraints: Constraints::MonthlyReport
       get :copy
     end
   end

@@ -1,7 +1,6 @@
 describe MonthlyReportsController, type: :request do
   let!(:report) { create(:shipped_montly_report, :with_comments) }
   let(:user) { create(:user) }
-  let(:page_count_limit) { Constraints::PageCount::PAGE_COUNT_LIMIT }
   before { login user }
 
   describe '#index GET /monthly_reports' do
@@ -9,37 +8,15 @@ describe MonthlyReportsController, type: :request do
     it { expect(response).to have_http_status :success }
     it { expect(response).to render_template('monthly_reports/index') }
     it { expect(response.body).to match report.user.name }
-
-    context 'page count less than 100_000' do
-      before { get monthly_reports_path(page: page_count_limit - 1) }
-      it { expect(response).to have_http_status :success }
-    end
-
-    context 'page count greater than or equal to 100_000' do
-      before { get monthly_reports_path(page: page_count_limit) }
-      it { expect(response).to have_http_status :not_found }
-    end
   end
 
   describe 'root_path' do
     before { get root_path }
     it { expect(response).to have_http_status :success }
     it { expect(response).to render_template('monthly_reports/index') }
-
-    context 'page count less than 100_000' do
-      before { get monthly_reports_path(page: page_count_limit - 1) }
-      it { expect(response).to have_http_status :success }
-    end
-
-    context 'page count greater than or equal to 100_000' do
-      before { get monthly_reports_path(page: page_count_limit) }
-      it { expect(response).to have_http_status :not_found }
-    end
   end
 
   describe '#user GET /monthly_reports/users/:user_id' do
-    let(:years_lower_limit) { Constraints::TargetYear::YEARS_LOWER_LIMIT }
-    let(:years_upper_limit) { Constraints::TargetYear::YEARS_UPPER_LIMIT }
     context 'view my_reports' do
       before { get user_monthly_reports_path(user) }
       it { expect(response).to have_http_status :success }
@@ -53,37 +30,6 @@ describe MonthlyReportsController, type: :request do
       it { expect(response).to have_http_status :success }
       it { expect(response).to render_template('monthly_reports/user') }
       it { expect(response.body).to match other_user.name }
-    end
-
-    context 'user_id greater than or equal to 1_000_000' do
-      context 'when user_id is 1_000_000' do
-        let(:url) { user_monthly_reports_path(user_id: 1_000_000) }
-        it { expect { url }.to raise_error ActionController::UrlGenerationError }
-      end
-    end
-
-    context 'target_year between 2000 and 2099' do
-      context 'when target_year in 2000' do
-        before { get user_monthly_reports_path(user, target_year: years_lower_limit) }
-        it { expect(response).to have_http_status :success }
-      end
-
-      context 'when target_year in 2099' do
-        before { get user_monthly_reports_path(user, target_year: years_upper_limit - 1) }
-        it { expect(response).to have_http_status :success }
-      end
-    end
-
-    context 'target_year not between 2000 and 2099' do
-      context 'when target_year in 1999' do
-        before { get user_monthly_reports_path(user, target_year: years_lower_limit - 1) }
-        it { expect(response).to have_http_status :not_found }
-      end
-
-      context 'when target_year in 2100' do
-        before { get user_monthly_reports_path(user, target_year: years_upper_limit) }
-        it { expect(response).to have_http_status :not_found }
-      end
     end
   end
 
