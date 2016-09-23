@@ -1,6 +1,7 @@
 describe MonthlyReportsController, type: :request do
   let!(:report) { create(:shipped_montly_report, :with_comments) }
   let(:user) { create(:user) }
+  let(:page_count_limit) { PageCountConstraint::PAGE_COUNT_LIMIT }
   before { login user }
 
   describe '#index GET /monthly_reports' do
@@ -9,13 +10,13 @@ describe MonthlyReportsController, type: :request do
     it { expect(response).to render_template('monthly_reports/index') }
     it { expect(response.body).to match report.user.name }
 
-    context 'page count less than 100000' do
-      before { get monthly_reports_path(page: 99_999) }
+    context 'page count less than 100_000' do
+      before { get monthly_reports_path(page: page_count_limit - 1) }
       it { expect(response).to have_http_status :success }
     end
 
-    context 'page count greater than or equal to 100000' do
-      before { get monthly_reports_path(page: 100_000) }
+    context 'page count greater than or equal to 100_000' do
+      before { get monthly_reports_path(page: page_count_limit) }
       it { expect(response).to have_http_status :not_found }
     end
   end
@@ -25,18 +26,20 @@ describe MonthlyReportsController, type: :request do
     it { expect(response).to have_http_status :success }
     it { expect(response).to render_template('monthly_reports/index') }
 
-    context 'page count less than 100000' do
-      before { get monthly_reports_path(page: 99_999) }
+    context 'page count less than 100_000' do
+      before { get monthly_reports_path(page: page_count_limit - 1) }
       it { expect(response).to have_http_status :success }
     end
 
-    context 'page count greater than or equal to 100000' do
-      before { get monthly_reports_path(page: 100_000) }
+    context 'page count greater than or equal to 100_000' do
+      before { get monthly_reports_path(page: page_count_limit) }
       it { expect(response).to have_http_status :not_found }
     end
   end
 
   describe '#user GET /monthly_reports/users/:user_id' do
+    let(:years_lower_limit) { TargetYearConstraint::YEARS_LOWER_LIMIT }
+    let(:years_upper_limit) { TargetYearConstraint::YEARS_UPPER_LIMIT }
     context 'view my_reports' do
       before { get user_monthly_reports_path(user) }
       it { expect(response).to have_http_status :success }
@@ -52,33 +55,34 @@ describe MonthlyReportsController, type: :request do
       it { expect(response.body).to match other_user.name }
     end
 
-    context 'user_id greater than or equal to 1000000' do
-      it 'when user_id is 1000000, throw UrlGenerationError'do
-        expect { get user_monthly_reports_path(user_id: 1_000_000) }
-          .to raise_error ActionController::UrlGenerationError
+    context 'user_id greater than or equal to 1_000_000' do
+      context 'when user_id is 1_000_000' do
+        let(:url) { user_monthly_reports_path(user_id: 1_000_000) }
+        it { expect { url }.to raise_error ActionController::UrlGenerationError }
       end
     end
 
-    context 'target_year between 2000 to 2099' do
-      it 'when target_year in 2000, request to be success' do
-        get user_monthly_reports_path(user, target_year: 2000)
-        expect(response).to have_http_status :success
+    context 'target_year between 2000 and 2099' do
+      context 'when target_year in 2000' do
+        before { get user_monthly_reports_path(user, target_year: years_lower_limit) }
+        it { expect(response).to have_http_status :success }
       end
 
-      it 'when target_year in 2099, request to be success' do
-        get user_monthly_reports_path(user, target_year: 2099)
-        expect(response).to have_http_status :success
+      context 'when target_year in 2099' do
+        before { get user_monthly_reports_path(user, target_year: years_upper_limit - 1) }
+        it { expect(response).to have_http_status :success }
       end
     end
 
-    context 'target_year not between 2000 to 2099' do
-      it 'when target_year in 1999, throw UrlGenerationError' do
-        expect { get user_monthly_reports_path(target_year: 1999) }
-          .to raise_error ActionController::UrlGenerationError
+    context 'target_year not between 2000 and 2099' do
+      context 'when target_year in 1999' do
+        before { get user_monthly_reports_path(user, target_year: years_lower_limit - 1) }
+        it { expect(response).to have_http_status :not_found }
       end
-      it 'when target_year in 2100, throw UrlGenerationError' do
-        expect { get user_monthly_reports_path(target_year: 2100) }
-          .to raise_error ActionController::UrlGenerationError
+
+      context 'when target_year in 2100' do
+        before { get user_monthly_reports_path(user, target_year: years_upper_limit) }
+        it { expect(response).to have_http_status :not_found }
       end
     end
   end
