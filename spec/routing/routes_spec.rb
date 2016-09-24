@@ -12,7 +12,7 @@ describe 'Routing', type: :routing do
   end
 
   describe '/monthly_reports/user/:user_id' do
-    let(:user_id_limit) { 1_000_000 }
+    let(:user_id_limit) { Constraints::MonthlyReportUser::USER_ID_LIMIT }
 
     context 'user_id less than 1_000_000' do
       it { expect(get: user_monthly_reports_path(user_id: user_id_limit - 1)).to be_routable }
@@ -25,8 +25,8 @@ describe 'Routing', type: :routing do
 
   describe '/monthly_reports/user/:user_id?target_year=:target_year' do
     let(:user) { create(:user) }
-    let(:years_lower_limit) { Constraints::MonthlyReport::YEARS_LOWER_LIMIT }
-    let(:years_upper_limit) { Constraints::MonthlyReport::YEARS_UPPER_LIMIT }
+    let(:years_lower_limit) { Constraints::MonthlyReportUser::YEARS_LOWER_LIMIT }
+    let(:years_upper_limit) { Constraints::MonthlyReportUser::YEARS_UPPER_LIMIT }
 
     context 'target_year between 2000 and 2099' do
       it { expect(get: user_monthly_reports_path(user, target_year: years_lower_limit)).to be_routable }

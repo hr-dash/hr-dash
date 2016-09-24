@@ -1,5 +1,5 @@
 module Constraints
-  class MonthlyReport
+  class MonthlyReportUser
     USER_ID_LIMIT = 1_000_000
     YEARS_LOWER_LIMIT = 2000
     YEARS_UPPER_LIMIT = 2100
@@ -13,7 +13,7 @@ module Constraints
 
       def valid_user_id?(user_id)
         return true unless user_id
-        user_id < 1_000_000
+        user_id < USER_ID_LIMIT
       end
 
       def valid_year?(year)
