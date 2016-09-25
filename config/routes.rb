@@ -1,3 +1,5 @@
+require_relative 'routes/constraints'
+
 Rails.application.routes.draw do
 
   devise_for :users, skip: [:sessions, :password]
@@ -16,12 +18,12 @@ Rails.application.routes.draw do
   resources :groups, only: [:index]
   resources :monthly_report_comments, only: [:create, :edit, :update, :destroy]
 
-  root to: 'monthly_reports#index'
+  root to: 'monthly_reports#index', constraints: Constraints::PageCount
 
   resources :user_profiles, only: [:show, :edit, :update]
-  resources 'monthly_reports', except: :destroy do
+  resources 'monthly_reports', except: :destroy, constraints: Constraints::PageCount do
     collection do
-      get 'users/:user_id', action: :user, as: :user
+      get 'users/:user_id', action: :user, as: :user, user_id: /\d{,6}/, constraints: Constraints::TargetYear
       get :copy
     end
   end
