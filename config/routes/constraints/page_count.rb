@@ -4,7 +4,7 @@ module Constraints
 
     def self.matches?(request)
       return true unless request.query_parameters['page']
-      request.query_parameters['page'].to_i < PAGE_COUNT_LIMIT
+      request.query_parameters['page'].to_i <= PAGE_COUNT_LIMIT
     end
   end
 end
