@@ -45,6 +45,34 @@ describe User, type: :model do
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_presence_of(:entry_date) }
     it { is_expected.to validate_presence_of(:gender) }
+
+    describe '#secure_password' do
+      it { is_expected.not_to validate_presence_of(:password) }
+      it { is_expected.to validate_length_of(:password).is_at_least(8).is_at_most(72) }
+
+      context 'valid_passwords' do
+        valid_passwords = %w(
+          Passw0rd
+          aA1#$%&@'()/*+.=-
+        )
+
+        valid_passwords.each do |password|
+          it { is_expected.to allow_value(password).for(:password) }
+        end
+      end
+
+      context 'invalid_passwords' do
+        invalid_passwords = %w(
+          ABCD1234
+          1a2b3c4d
+          aAzZ@bBcC
+        )
+
+        invalid_passwords.each do |password|
+          it { is_expected.not_to allow_value(password).for(:password) }
+        end
+      end
+    end
   end
 
   describe 'After create' do
