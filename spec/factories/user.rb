@@ -4,7 +4,6 @@ FactoryGirl.define do
     association :group
     sequence(:employee_code) { |i| "#{i}#{Faker::Number.number(10)}" }
     sequence(:email) { |i| "#{i}#{Faker::Internet.email}" }
-    password { Faker::Internet.password(8) }
     entry_date { Faker::Date.between(3.years.ago, 1.year.ago) }
     beginner_flg { [true, false].sample }
     gender { User.genders.keys.sample }
