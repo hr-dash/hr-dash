@@ -25,7 +25,7 @@
 #
 
 class User < ActiveRecord::Base
-  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d#$%&@'()\/\*\+\.=-]{8,72}+\z/
+  PASSWORD_REGEX = %r|\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d#$%&@'()\/\*\+\.=-]{8,72}+\z|
 
   has_one :user_profile, dependent: :destroy
   has_one :role, class_name: 'UserRole', dependent: :destroy
@@ -81,8 +81,8 @@ class User < ActiveRecord::Base
   end
 
   def secure_password
-    return true unless self.password
-    return if self.password.match(PASSWORD_REGEX)
+    return true unless password
+    return if password.match(PASSWORD_REGEX)
     errors.add :password, 'は大文字・小文字・数字が1字以上、8文字以上72文字以内で入力してください'
   end
 
