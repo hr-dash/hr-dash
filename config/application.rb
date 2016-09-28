@@ -45,6 +45,8 @@ module Dash
         g.helper false
     end
 
+    config.action_dispatch.default_headers['X-Frame-Options'] = 'DENY'
+
     config.exceptions_app = ->(env) { ErrorsController.action(:show).call(env) }
   end
 end
