@@ -61,6 +61,10 @@ ActiveAdmin.register User do
     f.actions
   end
 
+  action_item :change_password, only: [:edit, :show] do
+    link_to 'PW変更', edit_password_admin_user_path(user)
+  end
+
   member_action :edit_password, method: :get do
     @user = resource
   end
