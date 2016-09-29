@@ -25,6 +25,8 @@
 #
 
 class User < ActiveRecord::Base
+  PASSWORD_REGEX = %r|\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d#$%&@'()\/\*\+\.=-]{8,72}+\z|
+
   has_one :user_profile, dependent: :destroy
   has_one :role, class_name: 'UserRole', dependent: :destroy
   belongs_to :group
@@ -37,6 +39,7 @@ class User < ActiveRecord::Base
   validates :entry_date, presence: true
   validates :beginner_flg, inclusion: { in: [true, false] }
   validates :gender, presence: true
+  validate :secure_password
 
   enum gender: { gender_unknown: 0, male: 1, female: 2 }
 
@@ -77,7 +80,18 @@ class User < ActiveRecord::Base
     entry_date.beginning_of_month
   end
 
+  def secure_password
+    return true unless password
+    return if password.match(PASSWORD_REGEX)
+    errors.add :password, 'は大文字・小文字・数字が1字以上、8文字以上72文字以内で入力してください'
+  end
+
   def initialize_password
-    self.password ||= SecureRandom.base64(8)
+    required_chars = ['A'..'Z', 'a'..'z', '0'..'9'].map do |range|
+      chars = range.to_a
+      chars[rand(chars.size)]
+    end
+
+    self.password ||= SecureRandom.base64(8) + required_chars.join
   end
 end
