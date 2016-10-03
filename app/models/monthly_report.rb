@@ -44,8 +44,6 @@ class MonthlyReport < ActiveRecord::Base
   scope :year, ->(year) { where(target_month: (Time.zone.local(year))..(Time.zone.local(year).end_of_year)) }
   scope :released, -> { where.not(shipped_at: nil) }
 
-  before_save :log_shipped_at
-
   def self.of_latest_month_registered_by(user)
     user.monthly_reports.find_by(target_month: user.report_registrable_to.beginning_of_month)
   end
@@ -80,6 +78,14 @@ class MonthlyReport < ActiveRecord::Base
     self
   end
 
+  def shipped!
+    self.shipped_at ||= Time.current
+  end
+
+  def shipped?
+    shipped_at.present?
+  end
+
   private
 
   def target_month_registrable_term
@@ -99,10 +105,5 @@ class MonthlyReport < ActiveRecord::Base
     return if target_month.blank? || user.blank?
     return unless self.class.find_by(user: user, target_month: target_month)
     errors.add :target_month, 'report already registered'
-  end
-
-  def log_shipped_at
-    return if status == 'wip'
-    self.shipped_at ||= Time.current
   end
 end

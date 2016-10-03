@@ -65,7 +65,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def assign_relational_params(report)
-    report.status = params[:wip] ? :wip : :shipped
+    report.shipped! unless params[:wip]
     report.monthly_working_processes = working_processes(report)
     report.tags = monthly_report_tags
   end

@@ -7,8 +7,12 @@ FactoryGirl.define do
     looking_back { Faker::Lorem.paragraph }
     next_month_goals { Faker::Lorem.paragraph }
 
+    trait :wip do
+      shipped_at { nil }
+    end
+
     trait :shipped do
-      shippted_at { Time.current }
+      shipped_at { Time.current }
     end
 
     trait :with_comments do
