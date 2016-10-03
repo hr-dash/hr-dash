@@ -8,7 +8,7 @@ describe 'Admin::MonthlyReport', type: :feature do
     before { visit admin_monthly_reports_path }
     it { expect(page_title).to have_content('月報') }
     it { expect(page).to have_content(user.name) }
-    it { expect(page).to have_content(report.status) }
+    it { expect(page).to have_content(report.shipped_at) }
     it { expect(page).not_to have_css('.delete_link') }
   end
 
