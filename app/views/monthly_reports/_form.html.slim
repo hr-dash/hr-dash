@@ -49,5 +49,8 @@
       .col-xs-9
         == render 'layouts/markdown_editor', attr: :next_month_goals, form: f, placeholder: placeholders[:next_month_goals]
     = f.hidden_field :target_month
-    = f.button 'Save as WIP（下書き保存）', name: :wip, class: 'btn btn-lg btn-info btn-block'
-    = f.button 'Ship（保存して公開）', class: 'btn btn-lg btn-success btn-block'
+    - if monthly_report.shipped?
+      = f.button 'Update（月報を更新）', class: 'btn btn-lg btn-success btn-block'
+    - else
+      = f.button 'Save as WIP（下書き保存）', name: :wip, class: 'btn btn-lg btn-info btn-block'
+      = f.button 'Ship（保存して公開）', class: 'btn btn-lg btn-success btn-block'
