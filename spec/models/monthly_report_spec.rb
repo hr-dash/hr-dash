@@ -5,7 +5,6 @@
 #  id               :integer          not null, primary key
 #  user_id          :integer          not null
 #  target_month     :date             not null
-#  status           :integer          not null
 #  shipped_at       :datetime
 #  project_summary  :text
 #  business_content :text
@@ -26,13 +25,13 @@ RSpec.describe MonthlyReport, type: :model do
       it { is_expected.to validate_length_of(:next_month_goals).is_at_most(5000) }
     end
 
-    context 'when status is wip' do
+    context 'when report is wip' do
       subject { build(:monthly_report) }
       it { is_expected.to be_valid }
       it_behaves_like 'common validations'
     end
 
-    context 'when status is shipped' do
+    context 'when report is shipped' do
       subject { build(:shipped_montly_report) }
       it { is_expected.to be_valid }
       it_behaves_like 'common validations'

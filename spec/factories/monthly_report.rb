@@ -1,19 +1,14 @@
 FactoryGirl.define do
   factory :monthly_report do
     association :user
-    status { MonthlyReport.statuses[:wip] }
     target_month { Faker::Date.between(6.months.ago, 1.months.ago).beginning_of_month }
     project_summary { Faker::Lorem.paragraph }
     business_content { Faker::Lorem.paragraph }
     looking_back { Faker::Lorem.paragraph }
     next_month_goals { Faker::Lorem.paragraph }
 
-    trait :wip do
-      status { MonthlyReport.statuses[:wip] }
-    end
-
     trait :shipped do
-      status { MonthlyReport.statuses[:shipped] }
+      shippted_at { Time.current }
     end
 
     trait :with_comments do

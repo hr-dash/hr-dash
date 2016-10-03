@@ -5,7 +5,6 @@
 #  id               :integer          not null, primary key
 #  user_id          :integer          not null
 #  target_month     :date             not null
-#  status           :integer          not null
 #  shipped_at       :datetime
 #  project_summary  :text
 #  business_content :text
@@ -44,8 +43,6 @@ class MonthlyReport < ActiveRecord::Base
 
   scope :year, ->(year) { where(target_month: (Time.zone.local(year))..(Time.zone.local(year).end_of_year)) }
   scope :released, -> { where.not(shipped_at: nil) }
-
-  enum status: { wip: 0, shipped: 1 }
 
   before_save :log_shipped_at
 

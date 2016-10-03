@@ -17,7 +17,6 @@ ActiveAdmin.register MonthlyReport do
     column :target_month do |r|
       div { r.target_month.strftime('%Y年%m月') }
     end
-    column :status
     column :shipped_at
     column :project_summary
     actions
@@ -25,7 +24,6 @@ ActiveAdmin.register MonthlyReport do
 
   filter :user
   filter :target_month
-  filter :status, as: :select, collection: MonthlyReport.statuses
   filter :shipped_at
   filter :project_summary
   filter :monthly_report_tags
@@ -36,7 +34,6 @@ ActiveAdmin.register MonthlyReport do
       row :id
       row :user
       row :target_month
-      row :status
       row :shipped_at
       row :project_summary
       row :business_content
@@ -61,7 +58,6 @@ ActiveAdmin.register MonthlyReport do
     f.inputs 'MonthlyReport Details' do
       f.input :user
       f.input :target_month, as: :datepicker
-      f.input :status, as: :select, collection: MonthlyReport.statuses.keys
       f.input :shipped_at, as: :datepicker
       f.input :project_summary
       f.input :business_content
