@@ -1,8 +1,8 @@
 module Encryptor
   extend ActiveSupport::Concern
 
-  CIPHER = ENV["ENCRYPTOR_CIPHER"]
-  PASS = ENV["ENCRYPTOR_PASS"]
+  CIPHER = ENV['ENCRYPTOR_CIPHER']
+  PASS = ENV['ENCRYPTOR_PASS']
 
   module ClassMethods
     def encrypt(data)
@@ -25,21 +25,28 @@ module Encryptor
 
     def encrypted_columns(*columns)
       columns.each do |column|
-        define_method(column) do
-          begin
-            self.class.decrypt(self["encrypted_#{column}"])
-          rescue ActiveSupport::MessageVerifier::InvalidSignature
-            self["encrypted_#{column}"]
-          end
-        end
-
-        define_method("#{column}=") do |value|
-          self["encrypted_#{column}"] = self.class.encrypt(value)
-        end
+        define_getter(column)
+        define_setter(column)
 
         define_method("#{column}_changed?") do
           self["encrypted_#{column}_changed?"]
         end
+      end
+    end
+
+    def define_getter(column)
+      define_method(column) do
+        begin
+          self.class.decrypt(self["encrypted_#{column}"])
+        rescue ActiveSupport::MessageVerifier::InvalidSignature
+          self["encrypted_#{column}"]
+        end
+      end
+    end
+
+    def define_setter(column)
+      define_method("#{column}=") do |value|
+        self["encrypted_#{column}"] = self.class.encrypt(value)
       end
     end
   end
