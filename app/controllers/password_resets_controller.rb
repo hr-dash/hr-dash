@@ -4,7 +4,7 @@ class PasswordResetsController < Devise::PasswordsController
   def new; end
 
   def create
-    user = User.find_by(email: params[:email])
+    user = User.find_for_database_authentication(email: params[:email])
 
     if user.try!(:active_for_authentication?)
       user.send_reset_password_instructions
