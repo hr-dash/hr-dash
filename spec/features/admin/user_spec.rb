@@ -36,8 +36,7 @@ describe 'Admin::User', type: :feature do
 
   describe '#update_password' do
     let(:other_user) { create(:user) }
-    let(:required_chars) { 'aA1' } # 大文字小文字数字1字以上
-    let(:new_password) { Faker::Internet.password + required_chars }
+    let(:new_password) { generate_random_password }
     before do
       visit edit_password_admin_user_path(other_user)
       fill_in 'パスワード', with: new_password
