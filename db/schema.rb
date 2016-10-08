@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(version: 20160428131101) do
     t.string   "name"
     t.integer  "group_id"
     t.string   "employee_code"
-    t.string   "email"
+    t.string   "encrypted_email",                     null: false
     t.date     "entry_date"
     t.boolean  "beginner_flg"
     t.datetime "deleted_at"
@@ -158,7 +158,6 @@ ActiveRecord::Schema.define(version: 20160428131101) do
     t.integer  "gender",                 default: 0,  null: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["group_id"], name: "index_users_on_group_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 

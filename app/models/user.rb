@@ -6,7 +6,7 @@
 #  name                   :string
 #  group_id               :integer
 #  employee_code          :string
-#  email                  :string
+#  encrypted_email        :string           not null
 #  entry_date             :date
 #  beginner_flg           :boolean
 #  deleted_at             :datetime
