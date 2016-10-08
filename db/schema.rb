@@ -158,6 +158,7 @@ ActiveRecord::Schema.define(version: 20160428131101) do
     t.integer  "gender",                 default: 0,  null: false
   end
 
+  add_index "users", ["encrypted_email"], name: "index_users_on_encrypted_email", unique: true, using: :btree
   add_index "users", ["group_id"], name: "index_users_on_group_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
