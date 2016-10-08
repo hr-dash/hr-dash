@@ -36,11 +36,7 @@ module Encryptor
 
     def define_getter(column)
       define_method(column) do
-        begin
-          self.class.decrypt(self["encrypted_#{column}"])
-        rescue ActiveSupport::MessageVerifier::InvalidSignature
-          self["encrypted_#{column}"]
-        end
+        self.class.decrypt(self["encrypted_#{column}"])
       end
     end
 
