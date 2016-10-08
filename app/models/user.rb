@@ -28,6 +28,9 @@
 #
 
 class User < ActiveRecord::Base
+  include Encryptor
+  encrypted_columns :email
+
   PASSWORD_REGEX = %r|\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d#$%&@'()\/\*\+\.=-]{8,72}+\z|
 
   has_one :user_profile, dependent: :destroy
@@ -52,6 +55,10 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable
+
+  def self.find_for_database_authentication(warden_conditions)
+    where(encrypted_email: encrypt(warden_conditions[:email])).first
+  end
 
   def report_registrable_months
     months = []
