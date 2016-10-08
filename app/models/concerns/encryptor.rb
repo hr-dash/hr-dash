@@ -6,6 +6,8 @@ module Encryptor
 
   module ClassMethods
     def encrypt(data)
+      return unless data
+
       cipher = OpenSSL::Cipher::Cipher.new(CIPHER)
       cipher.encrypt
       cipher.pkcs5_keyivgen(PASS)
