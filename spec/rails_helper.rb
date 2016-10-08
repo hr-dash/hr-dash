@@ -76,5 +76,6 @@ RSpec.configure do |config|
   config.include RequestHelpers, type: :request
   config.include RequestHelpers, type: :feature
 
+  config.include Helpers
   config.include Capybara::DSL
 end
