@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428131101) do
+ActiveRecord::Schema.define(version: 20161009101808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,16 @@ ActiveRecord::Schema.define(version: 20160428131101) do
   end
 
   add_index "help_texts", ["category", "help_type"], name: "index_help_texts_on_category_and_help_type", using: :btree
+
+  create_table "inquiries", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.text     "body",       null: false
+    t.string   "referer"
+    t.string   "user_agent"
+    t.string   "session_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "monthly_report_comments", force: :cascade do |t|
     t.integer  "user_id",           null: false
