@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
   def self.find_for_database_authentication(warden_conditions)
-    where(encrypted_email: encrypt(warden_conditions[:email])).first
+    find_by(encrypted_email: encrypt(warden_conditions[:email]))
   end
 
   def report_registrable_months
