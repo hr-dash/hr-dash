@@ -3,6 +3,7 @@ module Encryptor
 
   CIPHER = ENV['ENCRYPTOR_CIPHER']
   PASS = ENV['ENCRYPTOR_PASS']
+  SALT = ENV['ENCRYPTOR_SALT']
 
   module ClassMethods
     def encrypt(data)
@@ -10,7 +11,7 @@ module Encryptor
 
       cipher = OpenSSL::Cipher::Cipher.new(CIPHER)
       cipher.encrypt
-      cipher.pkcs5_keyivgen(PASS)
+      cipher.pkcs5_keyivgen(PASS, SALT)
       Base64.strict_encode64(cipher.update(data) + cipher.final)
     end
 
@@ -19,7 +20,7 @@ module Encryptor
 
       cipher = OpenSSL::Cipher::Cipher.new(CIPHER)
       cipher.decrypt
-      cipher.pkcs5_keyivgen(PASS)
+      cipher.pkcs5_keyivgen(PASS, SALT)
       cipher.update(Base64.decode64(data)) + cipher.final
     end
 
