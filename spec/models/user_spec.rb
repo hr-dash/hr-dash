@@ -45,6 +45,7 @@ describe User, type: :model do
     it { is_expected.to validate_length_of(:name).is_at_most(32) }
     it { is_expected.to validate_presence_of(:employee_code) }
     it { is_expected.to validate_uniqueness_of(:employee_code) }
+    it { is_expected.to validate_presence_of(:encrypted_email) }
     it { is_expected.to validate_presence_of(:entry_date) }
     it { is_expected.to validate_presence_of(:gender) }
 

@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
 
   validates :name, length: { maximum: 32 }, presence: true
   validates :employee_code, presence: true, uniqueness: true
+  validates :encrypted_email, presence: true
   validates :entry_date, presence: true
   validates :beginner_flg, inclusion: { in: [true, false] }
   validates :gender, presence: true
