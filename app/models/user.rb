@@ -6,7 +6,7 @@
 #  name                   :string
 #  group_id               :integer
 #  employee_code          :string
-#  email                  :string
+#  encrypted_email        :string           not null
 #  entry_date             :date
 #  beginner_flg           :boolean
 #  deleted_at             :datetime
@@ -21,10 +21,16 @@
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :inet
 #  last_sign_in_ip        :inet
+#  failed_attempts        :integer          default(0), not null
+#  unlock_token           :string
+#  locked_at              :datetime
 #  gender                 :integer          default(0), not null
 #
 
 class User < ActiveRecord::Base
+  include Encryptor
+  encrypted_columns :email
+
   PASSWORD_REGEX = %r|\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d#$%&@'()\/\*\+\.=-]{8,72}+\z|
 
   has_one :user_profile, dependent: :destroy
@@ -36,6 +42,7 @@ class User < ActiveRecord::Base
 
   validates :name, length: { maximum: 32 }, presence: true
   validates :employee_code, presence: true, uniqueness: true
+  validates :encrypted_email, presence: true
   validates :entry_date, presence: true
   validates :beginner_flg, inclusion: { in: [true, false] }
   validates :gender, presence: true
@@ -49,6 +56,10 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable
+
+  def self.find_for_database_authentication(warden_conditions)
+    find_by(encrypted_email: encrypt(warden_conditions[:email]))
+  end
 
   def report_registrable_months
     months = []

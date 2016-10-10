@@ -26,7 +26,6 @@ ActiveAdmin.register User do
     column :group
     column :gender, :gender_i18n
     column :employee_code
-    column :email
     column :entry_date
     column :beginner_flg
     column :deleted_at

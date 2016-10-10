@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :name
       t.belongs_to :group, index: true
       t.string :employee_code
-      t.string :email
+      t.string :encrypted_email, null: false
       t.date :entry_date
       t.boolean :beginner_flg
       t.datetime :deleted_at

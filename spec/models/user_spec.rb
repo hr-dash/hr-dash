@@ -6,7 +6,7 @@
 #  name                   :string
 #  group_id               :integer
 #  employee_code          :string
-#  email                  :string
+#  encrypted_email        :string           not null
 #  entry_date             :date
 #  beginner_flg           :boolean
 #  deleted_at             :datetime
@@ -21,6 +21,9 @@
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :inet
 #  last_sign_in_ip        :inet
+#  failed_attempts        :integer          default(0), not null
+#  unlock_token           :string
+#  locked_at              :datetime
 #  gender                 :integer          default(0), not null
 #
 
@@ -42,7 +45,7 @@ describe User, type: :model do
     it { is_expected.to validate_length_of(:name).is_at_most(32) }
     it { is_expected.to validate_presence_of(:employee_code) }
     it { is_expected.to validate_uniqueness_of(:employee_code) }
-    it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.to validate_presence_of(:encrypted_email) }
     it { is_expected.to validate_presence_of(:entry_date) }
     it { is_expected.to validate_presence_of(:gender) }
 
