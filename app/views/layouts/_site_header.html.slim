@@ -40,4 +40,6 @@ header.site-header.bg-primary.col-xs-2
             li
               = link_to 'パスワード変更', password_reset_sessions_path, data: { confirm: 'パスワードを変更しますか？一旦、ログアウトします。' }
             li
+              = link_to 'お問い合わせ', '#', 'data-toggle' => 'modal', 'data-target' => '#new_inquiry'
+            li
               = link_to 'ログアウト', destroy_sessions_path, method: :delete
