@@ -13,11 +13,11 @@ ActiveAdmin.register Inquiry do
     id_column
     column :user
     column :body do |inquiry|
-      div { inquiry.body.first(15) }
+      div { inquiry.body.try!(:first, 15) }
     end
     column :referer
     column :admin_memo do |inquiry|
-      div { inquiry.admin_memo.first(15) }
+      div { inquiry.admin_memo.try!(:first, 15) }
     end
     column :created_at do |inquiry|
       div { inquiry.created_at.to_date }
