@@ -24,6 +24,7 @@ ja:
         body: テキスト
       inquiry:
         body: 内容
+        admin_memo: 管理用メモ
       monthly_report:
         project_summary: プロジェクト概要
         monthly_report_tags: 使用した技術

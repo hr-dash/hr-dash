@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20161009101808) do
     t.string   "referer"
     t.string   "user_agent"
     t.string   "session_id"
+    t.text     "admin_memo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

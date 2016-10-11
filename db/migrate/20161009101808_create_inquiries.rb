@@ -6,6 +6,7 @@ class CreateInquiries < ActiveRecord::Migration
       t.string :referer
       t.string :user_agent
       t.string :session_id
+      t.text :admin_memo
 
       t.timestamps null: false
     end

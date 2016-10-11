@@ -8,6 +8,7 @@
 #  referer    :string
 #  user_agent :string
 #  session_id :string
+#  admin_memo :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
