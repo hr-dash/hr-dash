@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
 
+  resources :inquiries, only: [:create]
   resources :groups, only: [:index]
   resources :monthly_report_comments, only: [:create, :edit, :update, :destroy]
 

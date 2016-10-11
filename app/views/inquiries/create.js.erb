@@ -1,0 +1,11 @@
+<% if @inquiry.valid? %>
+  $('#inquiry-error').hide();
+  $('#inquiry_body').val('');
+  alert('投稿ありがとうございました！');
+  $('#new_inquiry').modal('hide');
+<% else %>
+  error = $('#inquiry-error')
+  error.show();
+  <% flash = { error: @inquiry.errors.full_messages } %>
+  error.html('<%= j (render 'layouts/flash_messages', flash: flash) %>');
+<% end %>
