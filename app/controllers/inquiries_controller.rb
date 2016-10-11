@@ -8,7 +8,7 @@ class InquiriesController < ApplicationController
     end
 
     if @inquiry.save
-      # send email
+      Mailer::Inquiry.create(@inquiry).deliver_now
     end
   end
 

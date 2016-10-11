@@ -1,0 +1,14 @@
+p = @title
+
+
+p = "【お問い合わせID】 #{@inquiry.id}"
+
+p 本文
+p -----------------
+pre = @inquiry.body
+p -----------------
+
+p = "【送信時刻】 #{@inquiry.created_at}"
+p = "【Referer】 #{@inquiry.referer}"
+p = "【UserAgent】 #{@inquiry.user_agent}"
+p = "【SessionId】 #{@inquiry.session_id}"
