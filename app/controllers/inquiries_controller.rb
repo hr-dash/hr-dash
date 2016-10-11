@@ -1,18 +1,19 @@
 class InquiriesController < ApplicationController
   def create
-    @inquiry = Inquiry.new(permitted_params) do |i|
-      i.user = current_user
-      i.referer = request.headers['HTTP_REFERER']
-      i.user_agent = request.headers['HTTP_USER_AGENT']
-      i.session_id = session.id
-    end
+    @inquiry = Inquiry.new(permitted_params) { |i| i.user = current_user }
+    assign_request_info(@inquiry)
 
-    if @inquiry.save
-      Mailer::Inquiry.create(@inquiry).deliver_now
-    end
+    Mailer::Inquiry.create(@inquiry).deliver_now if @inquiry.save
   end
 
   private
+
+  def assign_request_info(inquiry)
+    inquiry.referer = request.headers['HTTP_REFERER']
+    inquiry.user_agent = request.headers['HTTP_USER_AGENT']
+    inquiry.session_id = session.id
+    inquiry
+  end
 
   def permitted_params
     params.require(:inquiry).permit(:body)
