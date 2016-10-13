@@ -30,7 +30,6 @@ ja:
         next_month_goals: 来月の目標
         target_month: 対象月
         shipped_at: 公開日
-        status: ステータス
       monthly_report_comment:
         comment: コメント
       monthly_working_process:

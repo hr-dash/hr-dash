@@ -65,7 +65,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def assign_relational_params(report)
-    report.status = params[:wip] ? :wip : :shipped
+    report.shipped! unless params[:wip]
     report.monthly_working_processes = working_processes(report)
     report.tags = monthly_report_tags
   end
@@ -123,7 +123,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def monthly_report_notify(shipped_at_was)
-    return if @monthly_report.wip? || shipped_at_was.present?
+    return if shipped_at_was.present?
     Notify.monthly_report_registration(@monthly_report.user.id, @monthly_report.id).deliver_now
   end
 end

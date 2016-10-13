@@ -11,7 +11,7 @@
           - if @monthly_report.shipped?
             span.label.label-success.monthly-report-status 登録済
           -else
-            span.label.label-info.monthly-report-status 下書き中
+            span.label.label-info.monthly-report-status 下書き
           = "#{@monthly_report.target_month.strftime("%Y年%m月")}の月報"
         .col-xs-2
           - if @monthly_report.next_month

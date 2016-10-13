@@ -5,7 +5,6 @@
 #  id               :integer          not null, primary key
 #  user_id          :integer          not null
 #  target_month     :date             not null
-#  status           :integer          not null
 #  shipped_at       :datetime
 #  project_summary  :text
 #  business_content :text
@@ -26,13 +25,13 @@ RSpec.describe MonthlyReport, type: :model do
       it { is_expected.to validate_length_of(:next_month_goals).is_at_most(5000) }
     end
 
-    context 'when status is wip' do
+    context 'when report is wip' do
       subject { build(:monthly_report) }
       it { is_expected.to be_valid }
       it_behaves_like 'common validations'
     end
 
-    context 'when status is shipped' do
+    context 'when report is shipped' do
       subject { build(:shipped_montly_report) }
       it { is_expected.to be_valid }
       it_behaves_like 'common validations'
@@ -102,20 +101,6 @@ RSpec.describe MonthlyReport, type: :model do
     end
   end
 
-  describe 'Callbacks' do
-    describe '#log_shipped_at' do
-      context 'wip' do
-        let(:report) { create(:monthly_report) }
-        it { expect(report.shipped_at).to be nil }
-      end
-
-      context 'shipped' do
-        let(:report) { create(:shipped_montly_report) }
-        it { expect(report.shipped_at).not_to be nil }
-      end
-    end
-  end
-
   describe '.of_latest_month_registered_by' do
     let(:user) { create(:user) }
 
@@ -163,6 +148,47 @@ RSpec.describe MonthlyReport, type: :model do
     context 'exist last month report' do
       before { create(:shipped_montly_report, target_month: report.target_month.last_month, user: user) }
       it { expect { subject }.not_to raise_error }
+    end
+  end
+
+  describe '#shipped!' do
+    let(:report) { build(:monthly_report) }
+
+    context 'wip' do
+      it { expect(report.shipped_at).to be nil }
+    end
+
+    context 'shipped' do
+      before { report.shipped! }
+
+      context 'at first time' do
+        it { expect(report.shipped_at).not_to be nil }
+      end
+
+      context 'after second time' do
+        let(:tomorrow) { Time.current.tomorrow }
+
+        before do
+          Timecop.freeze(tomorrow) do
+            report.shipped!
+          end
+        end
+
+        it { expect(report.shipped_at).not_to be nil }
+        it { expect(report.shipped_at).not_to eq tomorrow }
+      end
+    end
+  end
+
+  describe '#shipped?' do
+    context 'wip' do
+      let(:report) { build(:monthly_report, :wip) }
+      it { expect(report).not_to be_shipped }
+    end
+
+    context 'shipped' do
+      let(:report) { build(:monthly_report, :shipped) }
+      it { expect(report).to be_shipped }
     end
   end
 end

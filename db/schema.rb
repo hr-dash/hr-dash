@@ -83,7 +83,6 @@ ActiveRecord::Schema.define(version: 20160428131101) do
   create_table "monthly_reports", force: :cascade do |t|
     t.integer  "user_id",          null: false
     t.date     "target_month",     null: false
-    t.integer  "status",           null: false
     t.datetime "shipped_at"
     t.text     "project_summary"
     t.text     "business_content"

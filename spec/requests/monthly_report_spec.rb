@@ -219,7 +219,8 @@ describe MonthlyReportsController, type: :request do
     let(:report_params) { attributes_for(:monthly_report, :shipped) }
     let(:tag_params) { 'Ruby,Rails' }
     let(:process_params) { [build(:monthly_working_process).process] }
-    let(:user_report) { MonthlyReport.find_by(report_params, user: report.user) }
+    let(:find_params) { report_params.reject { |k, _| k == :shipped_at } }
+    let(:user_report) { MonthlyReport.find_by(find_params, user: report.user) }
     let(:patch_params) do
       {
         monthly_report: report_params.merge(monthly_report_tags: tag_params),
