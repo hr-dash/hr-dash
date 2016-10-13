@@ -27,7 +27,7 @@ describe PasswordResetsController, type: :feature do
   describe '#update' do
     let(:user) { create(:user) }
     let!(:original_token) { user.send_reset_password_instructions }
-    let(:new_password) { Faker::Internet.password }
+    let(:new_password) { generate_random_password }
     let(:password_confirmation) { new_password }
     let(:token) { original_token }
 
@@ -50,7 +50,7 @@ describe PasswordResetsController, type: :feature do
     end
 
     context 'differ between new_password and its confirmation' do
-      let(:password_confirmation) { Faker::Internet.password }
+      let(:password_confirmation) { generate_random_password }
       it { expect(user.reload.reset_password_token).not_to be nil }
       it { expect(page.body).to have_content('パスワードの入力が一致しません') }
     end
