@@ -3,6 +3,7 @@ ja:
     models:
       group: グループ
       help_text: ヘルプテキスト
+      inquiry: 問い合わせ
       monthly_report: 月報
       monthly_report_comment: 月報コメント
       monthly_report_tag: 月報タグ
@@ -21,6 +22,9 @@ ja:
         help_type: 種類
         target: 対象
         body: テキスト
+      inquiry:
+        body: 内容
+        admin_memo: 管理用メモ
       monthly_report:
         project_summary: プロジェクト概要
         monthly_report_tags: 使用した技術

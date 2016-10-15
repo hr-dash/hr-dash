@@ -54,6 +54,10 @@ html, body, .site-body, .site-container, .site-header, .header-menu {
   margin-bottom: 50px;
 }
 
+.modal-dialog {
+  z-index: 1500;
+}
+
 /* markdown-preview */
 .markdown-editor {
   .nav-tabs a {

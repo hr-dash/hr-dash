@@ -1,5 +1,5 @@
 require 'rails_helper'
-RSpec.describe Notify, type: :mailer do
+RSpec.describe Mailer::Notify, type: :mailer do
   let!(:report) { create(:monthly_report, :with_comments, :with_tags) }
   let(:user) { create(:user) }
   let(:from) { 'test@example.com' }
@@ -9,7 +9,7 @@ RSpec.describe Notify, type: :mailer do
   end
 
   describe 'monthly_report_registration' do
-    let(:mail) { Notify.monthly_report_registration(user.id, report.id) }
+    let(:mail) { Mailer::Notify.monthly_report_registration(user.id, report.id) }
     let(:name) { user.name }
     let(:target_at) { report.target_month.strftime('%Y年%m月') }
     let(:title) { "#{name}が#{target_at}の月報を登録しました" }

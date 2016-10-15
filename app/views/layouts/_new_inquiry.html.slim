@@ -1,0 +1,12 @@
+= form_for Inquiry.new, remote: true, html: { class: 'modal fade' } do |f|
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h3 お問い合わせフォーム
+        p お問い合わせや不具合に関する報告、要望等を投稿してください。
+      .modal-body
+        = f.text_area :body, rows: 8
+        #inquiry-error style="display: none;"
+      .modal-footer
+        button.btn.btn-default data-dismiss="modal" 閉じる
+        = f.button '投稿', class: 'btn btn-success', data: { disable_with: '投稿中...' }
