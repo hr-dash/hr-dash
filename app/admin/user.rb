@@ -73,6 +73,13 @@ ActiveAdmin.register User do
     @user.assign_attributes(password_params)
 
     if @user.save
+      ActiveAdminActionLog.create do |log|
+        log.user = current_user
+        log.resource = resource
+        log.path = resource_path
+        log.action = action_name
+      end
+
       redirect_to action: :index
     else
       flash[:error] = @user.errors.full_messages
