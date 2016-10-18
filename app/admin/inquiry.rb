@@ -24,4 +24,22 @@ ActiveAdmin.register Inquiry do
     end
     actions
   end
+
+  show do
+    attributes_table do
+      row :id
+      row :user
+      row :body do |inquiry|
+        pre { inquiry.body }
+      end
+      row :referer
+      row :user_agent
+      row :session_id
+      row :admin_memo do |inquiry|
+        pre { inquiry.admin_memo }
+      end
+      row :created_at
+      row :updated_at
+    end
+  end
 end
