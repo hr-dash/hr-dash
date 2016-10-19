@@ -32,7 +32,7 @@ header.site-header.bg-primary.col-xs-2
             span.glyphicon.glyphicon-user aria-hidden="true"
             span = " #{current_user.name}"
           ul.dropdown-menu
-            - if current_user.admin?
+            - if current_user.admin? || current_user.operator?
               li
                 = link_to '管理画面へ', admin_root_path
             li
