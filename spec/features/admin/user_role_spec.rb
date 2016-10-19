@@ -42,4 +42,15 @@ describe 'Admin::UserRole', type: :feature do
     it { expect(page).not_to have_content(user.name) }
     it { expect { role.reload }.to raise_error(ActiveRecord::RecordNotFound) }
   end
+
+  describe 'cannot access if operator' do
+    let(:operator) { create(:user) }
+
+    before do
+      login(operator, operator: true)
+      visit admin_users_path
+    end
+
+    it { expect(current_path).to eq admin_root_path }
+  end
 end

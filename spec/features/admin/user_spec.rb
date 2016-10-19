@@ -48,4 +48,15 @@ describe 'Admin::User', type: :feature do
     it { expect(page_title).to have_content('ユーザー') }
     it { expect(other_user.reload.valid_password?(new_password)).to be true }
   end
+
+  describe 'cannot access if operator' do
+    let(:operator) { create(:user) }
+
+    before do
+      login(operator, operator: true)
+      visit admin_users_path
+    end
+
+    it { expect(current_path).to eq admin_root_path }
+  end
 end
