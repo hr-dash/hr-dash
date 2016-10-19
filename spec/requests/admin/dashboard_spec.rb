@@ -19,7 +19,7 @@ describe Admin::DashboardController, type: :request do
     end
 
     context 'not admin user' do
-      let!(:user_role) { } # don't create user_role
+      let!(:user_role) {} # don't create user_role
       it { expect(response).to have_http_status :redirect }
       it { expect(response.body).not_to match 'ダッシュボード' }
     end
