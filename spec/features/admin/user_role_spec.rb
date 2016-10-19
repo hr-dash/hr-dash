@@ -22,7 +22,7 @@ describe 'Admin::UserRole', type: :feature do
     before do
       visit new_admin_user_role_path
       select new_user.name, from: 'ユーザー'
-      check 'user_role_admin'
+      select '管理者', from: 'ロール'
       click_on 'Create ロール'
     end
 

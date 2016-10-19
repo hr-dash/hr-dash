@@ -13,8 +13,16 @@ ActiveAdmin.register UserRole do
     selectable_column
     id_column
     column :user
-    column :admin
+    column :role
     column :updated_at
     actions
+  end
+
+  form do |f|
+    f.inputs do
+      f.input :user
+      f.input :role, as: :select, collection: UserRole.roles_i18n.invert
+    end
+    f.actions
   end
 end
