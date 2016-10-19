@@ -4,10 +4,11 @@
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer
-#  admin      :boolean          default(FALSE), not null
+#  role       :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+
 describe UserRole, type: :model do
   describe 'Relations' do
     it { is_expected.to belong_to :user }
@@ -18,5 +19,7 @@ describe UserRole, type: :model do
 
     it { is_expected.to be_valid }
     it { is_expected.to validate_presence_of(:user) }
+    it { is_expected.to validate_presence_of(:role) }
+    it { is_expected.to define_enum_for(:role) }
   end
 end

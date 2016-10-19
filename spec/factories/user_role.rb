@@ -1,10 +1,14 @@
 FactoryGirl.define do
   factory :user_role do
     association :user
-    admin false
+    role { UserRole.roles.values.sample }
 
     trait :admin do
-      admin true
+      role { UserRole.roles[:admin] }
+    end
+
+    trait :operator do
+      role { UserRole.roles[:operator] }
     end
   end
 end

@@ -138,9 +138,9 @@ ActiveRecord::Schema.define(version: 20161009101808) do
 
   create_table "user_roles", force: :cascade do |t|
     t.integer  "user_id"
-    t.boolean  "admin",      default: false, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "role",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "user_roles", ["user_id"], name: "index_user_roles_on_user_id", using: :btree
