@@ -22,7 +22,7 @@ describe 'Admin::UserRole', type: :feature do
     before do
       visit new_admin_user_role_path
       select new_user.name, from: 'ユーザー'
-      check 'user_role_admin'
+      select '管理者', from: 'ロール'
       click_on 'Create ロール'
     end
 
@@ -41,5 +41,16 @@ describe 'Admin::UserRole', type: :feature do
     it { expect(current_path).to eq admin_user_roles_path }
     it { expect(page).not_to have_content(user.name) }
     it { expect { role.reload }.to raise_error(ActiveRecord::RecordNotFound) }
+  end
+
+  describe 'cannot access if operator' do
+    let(:operator) { create(:user) }
+
+    before do
+      login(operator, operator: true)
+      visit admin_users_path
+    end
+
+    it { expect(current_path).to eq admin_root_path }
   end
 end

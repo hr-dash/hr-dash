@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_admin_user!
-    redirect_to :root unless current_user.admin?
+    redirect_to :root unless current_user.admin? || current_user.operator?
   end
 
   def basic_auth_for_admin

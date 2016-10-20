@@ -40,7 +40,7 @@ ja:
         process: 担当業務
       user_role:
         user: ユーザー
-        admin: 管理者
+        role: ロール
       tag:
         status: 状態
         name: 名前
@@ -88,3 +88,7 @@ ja:
         b: B型
         ab: AB型
         o: O型
+    user_role:
+      role:
+        admin: 管理者
+        operator: 運用者
