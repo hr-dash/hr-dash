@@ -13,4 +13,15 @@ module RequestHelpers
 
     login_as user
   end
+
+  # see: http://qiita.com/saboyutaka/items/cafc2b69ae52f605c8fd
+  def wait_for_ajax
+    Timeout.timeout(Capybara.default_wait_time) do
+      loop until finished_all_ajax_requests?
+    end
+  end
+
+  def finished_all_ajax_requests?
+    page.evaluate_script('jQuery.active').zero?
+  end
 end
