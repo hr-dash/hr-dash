@@ -29,5 +29,5 @@ else
                      employee_code: 'x',
                      entry_date: Date.today,
                      beginner_flg: true)
-  UserRole.create(user: user, admin: true)
+  UserRole.create(user: user, role: :admin)
 end
