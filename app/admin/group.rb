@@ -1,4 +1,5 @@
 ActiveAdmin.register Group do
+  menu parent: 'グループ'
   csv_importable
   active_admin_action_log
   permit_params { Group.column_names }

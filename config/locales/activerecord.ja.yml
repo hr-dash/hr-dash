@@ -2,6 +2,7 @@ ja:
   activerecord: &activerecord
     models:
       group: グループ
+      group_assignment: グループ割当
       help_text: ヘルプテキスト
       inquiry: 問い合わせ
       monthly_report: 月報
