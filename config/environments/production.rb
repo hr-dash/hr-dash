@@ -80,4 +80,6 @@ Rails.application.configure do
   # ActionMailerの設定
   config.action_mailer.default_url_options = { :host => ENV['MAILER_DEFAULT_HOST'] }
   config.action_mailer.default_options = { from: "システム管理者 <#{ENV['MAILER_FROM']}>" }
+
+  config.cache_store = :redis_store, ENV['REDIS_URL'], { expires_in: 30.minutes }
 end
