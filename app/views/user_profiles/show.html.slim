@@ -16,7 +16,7 @@
           tr
             th グループ
             td 
-              = @profile.user.group&.name
+              = @profile.user.groups.map { |g| "【#{g.name}】" }.join
           tr
             th 社員番号
             td

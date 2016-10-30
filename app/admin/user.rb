@@ -4,12 +4,12 @@ ActiveAdmin.register User do
                  after_batch_import: ->(file) { User.last(file.csv_lines.size).each(&:create_profile) }
   active_admin_action_log
   actions :all, except: [:destroy]
-  permit_params :name, :group_id, :employee_code, :email, :entry_date, :beginner_flg,
+  permit_params :name, :employee_code, :email, :entry_date, :beginner_flg,
                 :deleted_at, :password, :password_confirmation, :gender
 
   controller do
     def scoped_collection
-      super.includes :group
+      super.includes :groups
     end
 
     private
@@ -23,7 +23,6 @@ ActiveAdmin.register User do
     selectable_column
     id_column
     column :name
-    column :group
     column :gender, :gender_i18n
     column :employee_code
     column :entry_date
@@ -36,7 +35,6 @@ ActiveAdmin.register User do
   end
 
   filter :name
-  filter :group
   filter :gender, as: :select, collection: User.genders
   filter :employee_code
   filter :email
@@ -49,7 +47,6 @@ ActiveAdmin.register User do
   form do |f|
     f.inputs 'User Details' do
       f.input :name
-      f.input :group
       f.input :gender, as: :select, collection: User.genders.keys
       f.input :employee_code
       f.input :email

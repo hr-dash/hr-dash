@@ -6,9 +6,9 @@
     .container
       = search_form_for @q, { class: 'form-horizontal' } do |f|
         .form-group
-          = f.label :user_group_id_eq, 'グループ', class: 'control-label col-xs-2'
+          = f.label :user_groups_id_eq, 'グループ', class: 'control-label col-xs-2'
           .col-xs-10
-            = f.select :user_group_id_eq, options_for_select(Group.pluck(:name, :id), selected: @q.user_group_id_eq), { include_blank: true }, class: 'form-control'
+            = f.select :user_groups_id_eq, options_for_select(Group.pluck(:name, :id), selected: @q.user_groups_id_eq), { include_blank: true }, class: 'form-control'
         .form-group
           = f.label :user_name_cont, '氏名', class: 'control-label col-xs-2'
           .col-xs-10

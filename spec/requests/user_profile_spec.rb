@@ -10,7 +10,7 @@ describe UserProfilesController, type: :request do
         it { expect(response).to have_http_status :success }
         it { expect(response).to render_template 'user_profiles/show' }
         it { expect(response.body).to match user.name }
-        it { expect(response.body).to match user.group.name }
+        it { expect(response.body).to match user.groups.first.name }
         it { expect(response.body).to match user.employee_code.to_s }
         it { expect(response.body).to match user.email }
         it { expect(response.body).to match user.entry_date.to_s }
@@ -37,8 +37,8 @@ describe UserProfilesController, type: :request do
         it { expect(response.body).not_to match 'プロフィール編集' }
       end
 
-      context 'without group_id' do
-        let(:user) { create(:user, group_id: nil) }
+      context 'not belongs to group' do
+        let(:user) { create(:user, group_size: 0) }
         before { get user_profile_path(user.user_profile) }
         it { expect(response).to have_http_status :success }
         it { expect(response).to render_template 'user_profiles/show' }
