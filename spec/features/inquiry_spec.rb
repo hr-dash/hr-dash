@@ -13,7 +13,7 @@ describe InquiriesController, type: :feature do
       page.execute_script %{ $('#new_inquiry').modal('show') }
       find('#inquiry_body').set(body)
       find('button.btn-success').trigger('click')
-      sleep 0.1
+      wait_for_ajax
     end
 
     context 'success' do

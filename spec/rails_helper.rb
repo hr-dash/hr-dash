@@ -63,19 +63,20 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  # Setting for DatabaseRewinder
-  config.before :suite do
-    DatabaseRewinder.clean_all
-  end
-
-  config.after :each do
-    DatabaseRewinder.clean
-  end
-
   # Setting for Devise
   config.include RequestHelpers, type: :request
   config.include RequestHelpers, type: :feature
 
   config.include Helpers
   config.include Capybara::DSL
+
+  # Setting for DatabaseRewinder
+  config.before :suite do
+    DatabaseRewinder.clean_all
+  end
+
+  config.after(:each, js: true) { wait_for_ajax }
+  config.after :each do
+    DatabaseRewinder.clean
+  end
 end
