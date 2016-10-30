@@ -37,6 +37,7 @@
   if the directory already exists, remove it before execution.
 1. `bundle exec rake db:create`
 1. `bundle exec rake db:migrate`
+1. `.env` で環境変数をセットアップ
 1. `bundle exec rake db:seed`
 1. `bundle exec rails s`
 1. open http://localhost:3000
