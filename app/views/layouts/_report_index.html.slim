@@ -1,11 +1,8 @@
 .list-group
-  - cache @monthly_reports do
-    - @monthly_reports.each do |report|
-      a.list-group-item href=(monthly_report_path(report))
-        = Array(report.user.group).map { |g| "【#{g.name}G】" }.join
-        = "#{report.user.name} - #{report.target_month.strftime("%Y年%m月")}分"
-        - tags = report.monthly_report_tags.order('monthly_report_tags.id')
-        - tags.first(3).each do |tag|
-          - cache tag do
-            span.badge = tag.name
-
+  - @monthly_reports.each do |report|
+    a.list-group-item href=(monthly_report_path(report))
+      = Array(report.user.group).map { |g| "【#{g.name}G】" }.join
+      = "#{report.user.name} - #{report.target_month.strftime("%Y年%m月")}分"
+      - tags = report.monthly_report_tags.order('monthly_report_tags.id')
+      - tags.first(3).each do |tag|
+        span.badge = tag.name
