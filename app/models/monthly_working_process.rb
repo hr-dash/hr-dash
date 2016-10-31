@@ -2,26 +2,38 @@
 #
 # Table name: monthly_working_processes
 #
-#  id                :integer          not null, primary key
-#  monthly_report_id :integer
-#  process           :integer          not null
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
+#  id                     :integer          not null, primary key
+#  monthly_report_id      :integer
+#  process_definition     :boolean          default(FALSE), not null
+#  process_design         :boolean          default(FALSE), not null
+#  process_implementation :boolean          default(FALSE), not null
+#  process_test           :boolean          default(FALSE), not null
+#  process_operation      :boolean          default(FALSE), not null
+#  process_analysis       :boolean          default(FALSE), not null
+#  process_training       :boolean          default(FALSE), not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
 #
 
 class MonthlyWorkingProcess < ActiveRecord::Base
+  Processes = self.column_names.select { |c| c.match /\Aprocess_/ }
+
   belongs_to :monthly_report
 
-  enum process: {
-    definition: 0,
-    design: 1,
-    implementation: 2,
-    test: 3,
-    operation: 4,
-    analysis: 5,
-    training: 6,
-  }
-
   validates :monthly_report, presence: true
-  validates :process, presence: true
+  Processes.each do |column|
+    validates column, inclusion: { in: [true, false] }
+  end
+
+  def processes
+    Processes.reduce({}) do |hash, process|
+      hash.merge!({ process => self.send(process) })
+    end
+  end
+
+  def self.search_conditions
+    Processes.map do |process|
+      "monthly_working_process_#{process}_eq".to_sym
+    end
+  end
 end

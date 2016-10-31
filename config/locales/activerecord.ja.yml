@@ -29,7 +29,7 @@ ja:
       monthly_report:
         project_summary: プロジェクト概要
         monthly_report_tags: 使用した技術
-        monthly_working_processes: 担当した工程
+        monthly_working_process: 担当した工程
         business_content: 業務内容
         looking_back: 今月の振り返り
         next_month_goals: 来月の目標
@@ -38,7 +38,13 @@ ja:
       monthly_report_comment:
         comment: コメント
       monthly_working_process:
-        process: 担当業務
+        process_definition: 要件定義
+        process_design: 設計
+        process_implementation: 実装
+        process_test: テスト
+        process_operation: 運用保守
+        process_analysis: 分析
+        process_training: 研修
       user_role:
         user: ユーザー
         role: ロール
@@ -64,15 +70,6 @@ ja:
   activemodel:
     <<: activerecord
   enums:
-    monthly_working_process:
-      process:
-        definition: 要件定義
-        design: 設計
-        implementation: 実装
-        test: テスト
-        operation: 運用保守
-        analysis: 分析
-        training: 研修
     tag:
       status:
         unfixed: 未定
