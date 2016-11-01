@@ -50,8 +50,9 @@
             class: 'btn btn-success btn-lg btn-block',
             role: 'button'
 
-h2 Comments
-- @monthly_report.comments.order(:created_at).each do |comment|
-  == render 'monthly_reports/comment', comment: comment
+- if @monthly_report.shipped?
+  h2 コメント
+  - @monthly_report.comments.order(:created_at).each do |comment|
+    == render 'monthly_reports/comment', comment: comment
 
-== render 'monthly_reports/new_comment', comment: @monthly_report.comments.new, attr: 'new-comment'
+  == render 'monthly_reports/new_comment', comment: @monthly_report.comments.new, attr: 'new-comment'
