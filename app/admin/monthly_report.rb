@@ -44,9 +44,10 @@ ActiveAdmin.register MonthlyReport do
           div { tag.name }
         end
       end
-      row :monthly_working_processes do |report|
-        report.monthly_working_processes.each do |process|
-          div { process.process_i18n }
+      row :monthly_working_process do |report|
+        report.monthly_working_process.processes.each do |k, v|
+          next unless v
+          div { I18n.t "activerecord.attributes.monthly_working_process.#{k}" }
         end
       end
       row :created_at

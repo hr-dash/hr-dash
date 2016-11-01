@@ -84,7 +84,9 @@ describe MonthlyReportsController, type: :request do
 
   describe '#create POST /monthly_reports' do
     let(:report_params) { attributes_for(:monthly_report) }
-    let(:process_params) { [build(:monthly_working_process).process] }
+    let(:process_params) do
+      build(:monthly_working_process).processes.select { |_, v| v }.map { |k, _| k }
+    end
     let(:tag_params) { 'Ruby,Rails' }
     let(:user_report) { MonthlyReport.find_by(user: user) }
 
@@ -147,19 +149,21 @@ describe MonthlyReportsController, type: :request do
         }
       end
       before { post monthly_reports_path, post_params }
-      subject { user_report.monthly_working_processes }
+      subject { user_report.monthly_working_process }
 
       context 'valid' do
-        let(:process_params) { build(:monthly_working_process).process }
+        let(:processes) { build(:monthly_working_process).processes }
+        let(:process_params) do
+          processes.select { |_, v| v }.map { |k, _| k }
+        end
         it { expect(response).to have_http_status :redirect }
-        it { expect(subject.size).to eq 1 }
-        it { expect(subject.first.process).to eq process_params }
+        it { expect(subject.processes).to eq processes }
       end
 
       context 'invalid' do
         let(:process_params) { 'invalid_process' }
         it { expect(response).to have_http_status :redirect }
-        it { expect(subject.size).to eq 0 }
+        it { expect(subject.processes.values).not_to be_a(MonthlyWorkingProcess) }
       end
     end
   end
@@ -218,7 +222,9 @@ describe MonthlyReportsController, type: :request do
   describe '#update PATCH /monthly_report/:id' do
     let(:report_params) { attributes_for(:monthly_report, :shipped) }
     let(:tag_params) { 'Ruby,Rails' }
-    let(:process_params) { [build(:monthly_working_process).process] }
+    let(:process_params) do
+      build(:monthly_working_process).processes.select { |_, v| v }.map { |k, _| k }
+    end
     let(:find_params) { report_params.reject { |k, _| k == :shipped_at } }
     let(:user_report) { MonthlyReport.find_by(find_params, user: report.user) }
     let(:patch_params) do

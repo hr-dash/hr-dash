@@ -1,6 +1,6 @@
 class MonthlyReportsController < ApplicationController
   def index
-    references = [{ user: :groups }, { monthly_report_tags: :tag }]
+    references = [{ user: :groups }, :monthly_working_process, { monthly_report_tags: :tag }]
     @q = MonthlyReport.includes(references).ransack(search_params)
     @monthly_reports = @q.result(distinct: true).released.order('shipped_at desc').page params[:page]
   end
@@ -44,6 +44,7 @@ class MonthlyReportsController < ApplicationController
     @monthly_report.assign_attributes(permitted_params)
     assign_relational_params(@monthly_report)
     shipped_at_was = @monthly_report.shipped_at_was
+
     if @monthly_report.save
       monthly_report_notify(shipped_at_was)
       redirect_to @monthly_report
@@ -66,16 +67,20 @@ class MonthlyReportsController < ApplicationController
 
   def assign_relational_params(report)
     report.shipped! unless params[:wip]
-    report.monthly_working_processes = working_processes(report)
+    report.monthly_working_process = working_processes(report)
     report.tags = monthly_report_tags
   end
 
-  def working_processes(monthly_report)
-    return [] if params[:working_process].blank?
+  def working_processes(report)
+    processes_params = Array(params[:working_process])
+    process = report.monthly_working_process || MonthlyWorkingProcess.new(monthly_report: report)
 
-    params[:working_process]
-      .select { |process| MonthlyWorkingProcess.processes.keys.include?(process) }
-      .map { |process| MonthlyWorkingProcess.new(monthly_report: monthly_report, process: process) }
+    process.attributes = MonthlyWorkingProcess::Processes.reduce({}) do |hash, key|
+      value = processes_params.include?(key)
+      hash.merge!({ key => value })
+    end
+
+    process
   end
 
   def monthly_report_tags
@@ -112,12 +117,15 @@ class MonthlyReportsController < ApplicationController
     return unless params[:q]
     params[:q][:tags_name_in] = params[:q][:tags_name_in].split(',')
 
+    process_conditions = MonthlyWorkingProcess::Processes.map do |process|
+      "monthly_working_process_#{process}_eq".to_sym
+    end
+
     search_conditions = [
       :user_groups_id_eq,
       :user_name_cont,
       tags_name_in: [],
-      monthly_working_processes_process_in: [],
-    ]
+    ].concat(process_conditions)
 
     params.require(:q).permit(search_conditions)
   end
