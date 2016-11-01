@@ -3,8 +3,8 @@ describe MonthlyReportsController, type: :feature do
 
   describe '#index GET /monthly_reports' do
     describe 'sort by shipped_at desc' do
-      let!(:today) { create(:monthly_report, :with_tags, :with_working_processes, shipped_at: Date.today) }
-      let!(:yesterday) { create(:monthly_report, :with_tags, :with_working_processes, shipped_at: Date.yesterday) }
+      let!(:today) { create(:monthly_report, :with_tags, shipped_at: Date.today) }
+      let!(:yesterday) { create(:monthly_report, :with_tags, shipped_at: Date.yesterday) }
       let(:first_report) { find('#report_index').first('a') }
 
       before { visit monthly_reports_path }
