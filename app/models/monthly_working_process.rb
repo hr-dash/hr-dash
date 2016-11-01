@@ -16,7 +16,7 @@
 #
 
 class MonthlyWorkingProcess < ActiveRecord::Base
-  Processes = self.column_names.select { |c| c.match /\Aprocess_/ }
+  Processes = column_names.select { |c| c.match(/\Aprocess_/) }
 
   belongs_to :monthly_report
 
@@ -27,7 +27,7 @@ class MonthlyWorkingProcess < ActiveRecord::Base
 
   def processes
     Processes.reduce({}) do |hash, process|
-      hash.merge!({ process => self.send(process) })
+      hash.merge!(process => self[process])
     end
   end
 end

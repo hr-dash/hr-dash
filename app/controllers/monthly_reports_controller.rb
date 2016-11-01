@@ -77,7 +77,7 @@ class MonthlyReportsController < ApplicationController
 
     process.attributes = MonthlyWorkingProcess::Processes.reduce({}) do |hash, key|
       value = processes_params.include?(key)
-      hash.merge!({ key => value })
+      hash.merge!(key => value)
     end
 
     process
@@ -117,10 +117,6 @@ class MonthlyReportsController < ApplicationController
     return unless params[:q]
     params[:q][:tags_name_in] = params[:q][:tags_name_in].split(',')
 
-    process_conditions = MonthlyWorkingProcess::Processes.map do |process|
-      "monthly_working_process_#{process}_eq".to_sym
-    end
-
     search_conditions = [
       :user_groups_id_eq,
       :user_name_cont,
@@ -128,6 +124,12 @@ class MonthlyReportsController < ApplicationController
     ].concat(process_conditions)
 
     params.require(:q).permit(search_conditions)
+  end
+
+  def process_conditions
+    MonthlyWorkingProcess::Processes.map do |process|
+      "monthly_working_process_#{process}_eq".to_sym
+    end
   end
 
   def monthly_report_notify(shipped_at_was)
