@@ -30,10 +30,4 @@ class MonthlyWorkingProcess < ActiveRecord::Base
       hash.merge!({ process => self.send(process) })
     end
   end
-
-  def self.search_conditions
-    Processes.map do |process|
-      "monthly_working_process_#{process}_eq".to_sym
-    end
-  end
 end
