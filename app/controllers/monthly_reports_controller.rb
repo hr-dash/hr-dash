@@ -124,6 +124,6 @@ class MonthlyReportsController < ApplicationController
 
   def monthly_report_notify(shipped_at_was)
     return if shipped_at_was.present?
-    Mailer::Notify.monthly_report_registration(@monthly_report.user.id, @monthly_report.id).deliver_now
+    Mailer::Notify.monthly_report_registration(current_user.id, @monthly_report.id).deliver_now
   end
 end
