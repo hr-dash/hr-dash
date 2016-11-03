@@ -2,7 +2,6 @@ class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
       t.string :name
-      t.belongs_to :group, index: true
       t.string :employee_code
       t.string :encrypted_email, null: false
       t.date :entry_date

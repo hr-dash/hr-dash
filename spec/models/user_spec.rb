@@ -4,7 +4,6 @@
 #
 #  id                     :integer          not null, primary key
 #  name                   :string
-#  group_id               :integer
 #  employee_code          :string
 #  encrypted_email        :string           not null
 #  entry_date             :date
@@ -29,7 +28,8 @@
 
 describe User, type: :model do
   describe 'Relations' do
-    it { is_expected.to belong_to :group }
+    it { is_expected.to have_many :groups }
+    it { is_expected.to have_many :group_assignments }
     it { is_expected.to have_many :monthly_reports }
     it { is_expected.to have_many :monthly_report_comments }
     it { is_expected.to have_one :user_profile }

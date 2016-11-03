@@ -14,6 +14,7 @@
 describe Group, type: :model do
   describe 'Relations' do
     it { is_expected.to have_many :users }
+    it { is_expected.to have_many :group_assignments }
   end
 
   describe 'Validations' do

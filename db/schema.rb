@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161009101808) do
+ActiveRecord::Schema.define(version: 20161028173116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,16 @@ ActiveRecord::Schema.define(version: 20161009101808) do
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
+
+  create_table "group_assignments", force: :cascade do |t|
+    t.integer  "group_id",   null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "group_assignments", ["group_id"], name: "index_group_assignments_on_group_id", using: :btree
+  add_index "group_assignments", ["user_id"], name: "index_group_assignments_on_user_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "name",        null: false
@@ -147,7 +157,6 @@ ActiveRecord::Schema.define(version: 20161009101808) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
-    t.integer  "group_id"
     t.string   "employee_code"
     t.string   "encrypted_email",                     null: false
     t.date     "entry_date"
@@ -171,10 +180,11 @@ ActiveRecord::Schema.define(version: 20161009101808) do
   end
 
   add_index "users", ["encrypted_email"], name: "index_users_on_encrypted_email", unique: true, using: :btree
-  add_index "users", ["group_id"], name: "index_users_on_group_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "active_admin_action_logs", "users"
+  add_foreign_key "group_assignments", "groups"
+  add_foreign_key "group_assignments", "users"
   add_foreign_key "monthly_working_processes", "monthly_reports"
   add_foreign_key "user_profiles", "users"
 end

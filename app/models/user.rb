@@ -4,7 +4,6 @@
 #
 #  id                     :integer          not null, primary key
 #  name                   :string
-#  group_id               :integer
 #  employee_code          :string
 #  encrypted_email        :string           not null
 #  entry_date             :date
@@ -35,7 +34,8 @@ class User < ActiveRecord::Base
 
   has_one :user_profile, dependent: :destroy
   has_one :role, class_name: 'UserRole', dependent: :destroy
-  belongs_to :group
+  has_many :groups, through: :group_assignments, dependent: :destroy
+  has_many :group_assignments
   has_many :monthly_reports
   has_many :monthly_report_comments
   delegate :admin?, to: :role, allow_nil: true

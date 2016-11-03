@@ -16,7 +16,7 @@ RSpec.describe Mailer::Notify, type: :mailer do
     let(:mail_body) { mail.body.encoded.split(/\r\n/).map { |i| Base64.decode64(i) }.join }
     it { expect { mail.deliver_now }.to change { ActionMailer::Base.deliveries.count }.from(0).to(1) }
     it { expect(mail.subject).to eq(title) }
-    it { expect(mail.to).to include(user.group.email) }
+    it { expect(mail.to).to eq user.groups.map(&:email) }
     it { expect(mail.from[0]).to eq(from) }
     it { expect(mail_body).to match(report.project_summary) }
     it { expect(mail_body.force_encoding('UTF-8').scrub).to match(user.name) }

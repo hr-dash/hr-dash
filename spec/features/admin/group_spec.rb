@@ -1,7 +1,8 @@
 describe 'Admin::Group', type: :feature do
   before { login(admin: true) }
   let(:group) { create(:group) }
-  let!(:user) { create(:user, group: group) }
+  let(:user) { create(:user) }
+  let!(:assignment) { create(:group_assignment, group: group, user: user) }
   let(:page_title) { find('#page_title') }
 
   describe '#index' do

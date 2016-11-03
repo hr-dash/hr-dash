@@ -12,7 +12,8 @@
 #
 
 class Group < ActiveRecord::Base
-  has_many :users
+  has_many :users, through: :group_assignments, dependent: :destroy
+  has_many :group_assignments
 
   validates :name, presence: true
   validates :email, presence: true, format: { with: /\A[^@]+@[^@]+\z/ }
