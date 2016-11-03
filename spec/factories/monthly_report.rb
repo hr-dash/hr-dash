@@ -7,6 +7,10 @@ FactoryGirl.define do
     looking_back { Faker::Lorem.paragraph }
     next_month_goals { Faker::Lorem.paragraph }
 
+    after(:build) do |report|
+      report.monthly_working_process = build(:monthly_working_process, monthly_report: report)
+    end
+
     trait :wip do
       shipped_at { nil }
     end
@@ -39,12 +43,6 @@ FactoryGirl.define do
       end
     end
 
-    trait :with_working_processes do
-      after(:build) do |report|
-        report.monthly_working_processes << build(:monthly_working_process, monthly_report: report)
-      end
-    end
-
-    factory :shipped_montly_report, traits: [:shipped, :with_tags, :with_working_processes]
+    factory :shipped_montly_report, traits: [:shipped, :with_tags]
   end
 end

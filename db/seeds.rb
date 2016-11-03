@@ -21,7 +21,7 @@ if Rails.env.development?
 
   FactoryGirl.create(:user, email: 'testuser@example.com', password: 'Passw0rd')
 
-  5.times { FactoryGirl.create(:monthly_report, :shipped, :with_tags, :with_comments, :with_working_processes) }
+  5.times { FactoryGirl.create(:monthly_report, :shipped, :with_tags, :with_comments) }
 else
   user = User.create(name: 'admin',
                      email: 'test@example.com',

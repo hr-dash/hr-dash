@@ -19,7 +19,7 @@ class MonthlyReport < ActiveRecord::Base
   has_many :comments, class_name: 'MonthlyReportComment', dependent: :destroy
   has_many :monthly_report_tags, dependent: :destroy
   has_many :tags, through: :monthly_report_tags
-  has_many :monthly_working_processes, dependent: :destroy
+  has_one :monthly_working_process, dependent: :destroy
 
   validates :user, presence: true
   validates :target_month, presence: true
@@ -36,7 +36,7 @@ class MonthlyReport < ActiveRecord::Base
     validates :looking_back, presence: true
     validates :next_month_goals, presence: true
     validates :monthly_report_tags, presence: true
-    validates :monthly_working_processes, presence: true
+    validates :monthly_working_process, presence: true
   end
 
   validates_associated :monthly_report_tags
@@ -74,7 +74,7 @@ class MonthlyReport < ActiveRecord::Base
                       .attributes
                       .select { |key, _| contents.include? key }
                       .merge('tags' => prev_month.tags,
-                             'monthly_working_processes' => prev_month.monthly_working_processes))
+                             'monthly_working_process' => prev_month.monthly_working_process))
     self
   end
 

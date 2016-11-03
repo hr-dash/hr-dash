@@ -23,13 +23,13 @@
         = f.hidden_field :monthly_report_tags, id: :monthly_report_tags_input, class: 'form-control'
         == render 'layouts/monthly_report_tags', tags: monthly_report.monthly_report_tags.map(&:name), placeholder: placeholders[:tags]
     .form-group
-      = f.label :monthly_working_processes, class: 'control-label col-xs-3'
+      = f.label :monthly_working_process, class: 'control-label col-xs-3'
       .col-xs-9.btn-group data-toggle="buttons"
-        - MonthlyWorkingProcess.processes.each do |key, value|
-          - working_process = monthly_report.monthly_working_processes.find { |mwp| mwp.process == key } || MonthlyWorkingProcess.new(process: value)
-          label.btn.btn-default class=('active' if !working_process.new_record?)
-            = check_box_tag "working_process[]", key, !working_process.new_record?, autocomplete: "off"
-            span = working_process.process_i18n
+        - MonthlyWorkingProcess::PROCESSES.each do |process|
+          - value = !!monthly_report.monthly_working_process.try!(process)
+          label.btn.btn-default class=('active' if value)
+            = check_box_tag "working_process[]", process, value, autocomplete: "off"
+            span = t "activerecord.attributes.monthly_working_process.#{process}"
     .form-group
       = f.label :business_content, class: 'control-label col-xs-3'
       .col-xs-9

@@ -26,10 +26,12 @@
           label.col-xs-3.control-label = t "#{attr}.monthly_report_tags"
           .col-xs-9.form-control-static
             = render 'layouts/monthly_report_tags_show', tags: @monthly_report.tags, prefix: :report
-          label.col-xs-3.control-label = t "#{attr}.monthly_working_processes"
+          - process_attr = 'activerecord.attributes.monthly_working_process'
+          label.col-xs-3.control-label = t "#{attr}.monthly_working_process"
           .col-xs-9.form-control-static.btn-group
-            - @monthly_report.monthly_working_processes.map(&:process_i18n).each do |p|
-              .btn.btn-default = p
+            - @monthly_report.monthly_working_process.processes.select.each do |key, value|
+              - next unless value
+              .btn.btn-default = t "#{process_attr}.#{key}"
           label.col-xs-3.control-label = t "#{attr}.business_content"
           .col-xs-9.form-control-static
             = render 'layouts/markdown_view', content: @monthly_report.business_content
@@ -48,8 +50,9 @@
             class: 'btn btn-success btn-lg btn-block',
             role: 'button'
 
-h2 Comments
-- @monthly_report.comments.order(:created_at).each do |comment|
-  == render 'monthly_reports/comment', comment: comment
+- if @monthly_report.shipped?
+  h2 コメント
+  - @monthly_report.comments.order(:created_at).each do |comment|
+    == render 'monthly_reports/comment', comment: comment
 
-== render 'monthly_reports/new_comment', comment: @monthly_report.comments.new, attr: 'new-comment'
+  == render 'monthly_reports/new_comment', comment: @monthly_report.comments.new, attr: 'new-comment'

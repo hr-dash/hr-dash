@@ -13,7 +13,11 @@ Rails.application.routes.draw do
     resources :password_resets, only: [:new, :create, :edit, :update]
   end
 
-  ActiveAdmin.routes(self)
+  begin
+    ActiveAdmin.routes(self)
+  rescue ActiveAdmin::DatabaseHitDuringLoad => e
+    puts "#{e.class} has occurred."
+  end
 
   resources :inquiries, only: [:create]
   resources :groups, only: [:index]

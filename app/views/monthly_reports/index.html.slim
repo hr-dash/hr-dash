@@ -19,13 +19,13 @@
             = f.hidden_field :tags_name_in, id: :monthly_report_tags_input, class: 'form-control'
             == render 'layouts/monthly_report_tags', tags: @q.tags_name_in, placeholder: placeholders[:tags]
         .form-group
-          = f.label :monthly_working_processes_process_in, '担当した工程', class: 'control-label col-xs-2'
+          = f.label :monthly_working_process, '担当した工程', class: 'control-label col-xs-2'
           .col-xs-10.btn-group data-toggle="buttons"
-            - MonthlyWorkingProcess.processes.each do |key, value|
-              - working_process = MonthlyWorkingProcess.new(process: value)
-              label.btn.btn-default class=('active' if @q.monthly_working_processes_process_in.try!(:include?, value))
-                = f.check_box :monthly_working_processes_process_in, { multiple: true, autocomplete: "off" }, value, nil
-                span = working_process.process_i18n
+            - MonthlyWorkingProcess::PROCESSES.each do |process|
+              - column = "monthly_working_process_#{process}_eq"
+              label.btn.btn-default class=('active' if @q.send(column))
+                = f.check_box column, { autocomplete: "off" }, true, nil
+                span = t "activerecord.attributes.monthly_working_process.#{process}"
         .form-group
           .col-xs-10.col-xs-offset-2
             = f.button '検索', class: 'btn btn-default'

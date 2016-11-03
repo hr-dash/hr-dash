@@ -40,7 +40,7 @@ RSpec.describe MonthlyReport, type: :model do
       it { is_expected.to validate_presence_of(:business_content) }
       it { is_expected.to validate_presence_of(:looking_back) }
       it { is_expected.to validate_presence_of(:next_month_goals) }
-      it { is_expected.to validate_presence_of(:monthly_working_processes) }
+      it { is_expected.to validate_presence_of(:monthly_working_process) }
       it { is_expected.to validate_presence_of(:monthly_report_tags) }
     end
 
@@ -73,7 +73,7 @@ RSpec.describe MonthlyReport, type: :model do
     it { is_expected.to have_many :comments }
     it { is_expected.to have_many :monthly_report_tags }
     it { is_expected.to have_many :tags }
-    it { is_expected.to have_many :monthly_working_processes }
+    it { is_expected.to have_one :monthly_working_process }
 
     describe 'Comments' do
       let!(:report) { create(:monthly_report, :with_comments, comment_size: 3) }

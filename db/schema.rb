@@ -119,9 +119,15 @@ ActiveRecord::Schema.define(version: 20161028173116) do
 
   create_table "monthly_working_processes", force: :cascade do |t|
     t.integer  "monthly_report_id"
-    t.integer  "process",           null: false
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.boolean  "process_definition",     default: false, null: false
+    t.boolean  "process_design",         default: false, null: false
+    t.boolean  "process_implementation", default: false, null: false
+    t.boolean  "process_test",           default: false, null: false
+    t.boolean  "process_operation",      default: false, null: false
+    t.boolean  "process_analysis",       default: false, null: false
+    t.boolean  "process_training",       default: false, null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
   end
 
   add_index "monthly_working_processes", ["monthly_report_id"], name: "index_monthly_working_processes_on_monthly_report_id", using: :btree
