@@ -75,7 +75,7 @@ class MonthlyReportsController < ApplicationController
     processes_params = Array(params[:working_process])
     process = report.monthly_working_process || MonthlyWorkingProcess.new(monthly_report: report)
 
-    process.attributes = MonthlyWorkingProcess::Processes.reduce({}) do |hash, key|
+    process.attributes = MonthlyWorkingProcess::PROCESSES.reduce({}) do |hash, key|
       value = processes_params.include?(key)
       hash.merge!(key => value)
     end
@@ -127,7 +127,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def process_conditions
-    MonthlyWorkingProcess::Processes.map do |process|
+    MonthlyWorkingProcess::PROCESSES.map do |process|
       "monthly_working_process_#{process}_eq".to_sym
     end
   end

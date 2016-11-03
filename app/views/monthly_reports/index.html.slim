@@ -21,7 +21,7 @@
         .form-group
           = f.label :monthly_working_process, '担当した工程', class: 'control-label col-xs-2'
           .col-xs-10.btn-group data-toggle="buttons"
-            - MonthlyWorkingProcess::Processes.each do |process|
+            - MonthlyWorkingProcess::PROCESSES.each do |process|
               - column = "monthly_working_process_#{process}_eq"
               label.btn.btn-default class=('active' if @q.send(column))
                 = f.check_box column, { autocomplete: "off" }, true, nil

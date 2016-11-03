@@ -25,7 +25,7 @@
     .form-group
       = f.label :monthly_working_process, class: 'control-label col-xs-3'
       .col-xs-9.btn-group data-toggle="buttons"
-        - MonthlyWorkingProcess::Processes.each do |process|
+        - MonthlyWorkingProcess::PROCESSES.each do |process|
           - value = !!monthly_report.monthly_working_process.try!(process)
           label.btn.btn-default class=('active' if value)
             = check_box_tag "working_process[]", process, value, autocomplete: "off"

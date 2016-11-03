@@ -16,7 +16,7 @@ ActiveAdmin.register MonthlyWorkingProcess do
       user = process.monthly_report.user
       div { link_to user.name, admin_user_path(user) }
     end
-    MonthlyWorkingProcess::Processes.each do |key|
+    MonthlyWorkingProcess::PROCESSES.each do |key|
       column I18n.t "activerecord.attributes.monthly_working_process.#{key}" do |process|
         process[key]
       end

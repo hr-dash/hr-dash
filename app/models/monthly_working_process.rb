@@ -16,17 +16,17 @@
 #
 
 class MonthlyWorkingProcess < ActiveRecord::Base
-  Processes = column_names.select { |c| c.match(/\Aprocess_/) }
+  PROCESSES = column_names.select { |c| c.match(/\Aprocess_/) }
 
   belongs_to :monthly_report
 
   validates :monthly_report, presence: true
-  Processes.each do |column|
+  PROCESSES.each do |column|
     validates column, inclusion: { in: [true, false] }
   end
 
   def processes
-    Processes.reduce({}) do |hash, process|
+    PROCESSES.reduce({}) do |hash, process|
       hash.merge!(process => self[process])
     end
   end
