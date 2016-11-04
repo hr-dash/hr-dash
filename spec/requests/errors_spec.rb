@@ -1,10 +1,13 @@
 describe ErrorsController, type: :request do
+  after { ActionMailer::Base.deliveries.clear }
+
   describe '404' do
     context 'ActionController::RoutingError' do
       before { get '/page_not_found' }
 
       it { expect(response).to have_http_status :not_found }
       it { expect(response).to render_template('errors/404') }
+      it { expect(ActionMailer::Base.deliveries.size).to eq(0) }
     end
 
     context 'ActiveRecord::RecordNotFound' do
@@ -15,6 +18,7 @@ describe ErrorsController, type: :request do
 
       it { expect(response).to have_http_status :not_found }
       it { expect(response).to render_template('errors/404') }
+      it { expect(ActionMailer::Base.deliveries.size).to eq(0) }
     end
   end
 
@@ -27,6 +31,7 @@ describe ErrorsController, type: :request do
 
       it { expect(response).to have_http_status :error }
       it { expect(response).to render_template('errors/500') }
+      it { expect(ActionMailer::Base.deliveries.size).to eq(1) }
     end
   end
 end
