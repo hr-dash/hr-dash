@@ -14,6 +14,7 @@ class ErrorsController < ActionController::Base
 
   def render_internal_server_error(exception = nil)
     if exception
+      Mailer::Error.create(exception, current_user, request).deliver_now
       logger.info "Rendering 500 with exception: #{exception.message}"
     end
     render template: 'errors/500', status: 500
