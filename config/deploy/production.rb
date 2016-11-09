@@ -33,6 +33,11 @@
 set :rails_env, :production
 set :unicorn_rack_env, :production
 
+set :default_env, {
+  # RAILS_ENV=productionのassets:precompile等に使用
+  # 実際にセッション等の暗号化に使われるキーはサーバー側で設定
+  SECRET_KEY_BASE: # set secret key base
+}
 
 
 # Custom SSH Options
