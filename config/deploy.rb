@@ -5,7 +5,7 @@ set :application, 'hr-dash'
 set :repo_url, 'https://github.com/hr-dash/hr-dash.git'
 
 set :rbenv_ruby, '2.3.1'
-set :rbenv_path, '/usr/local/rbenv'
+set :rbenv_path, '/usr/local/opt/rbenv'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)}"
 set :bundle_jobs, 2
 
@@ -29,10 +29,10 @@ ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 # set :pty, true
 
 # Default value for :linked_files is []
-# set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml', '.env')
 
 # Default value for linked_dirs is []
-# set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'public/system')
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -40,7 +40,22 @@ ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
+# Settings for capistrano-unicorn
+set :unicorn_pid, "#{shared_path}/tmp/pids/unicorn.pid"
+
 namespace :deploy do
+  desc 'Upload config files'
+  task :upload do
+    on roles(:app) do |host|
+      if test "[ ! -d #{shared_path}/config ]"
+        execute "mkdir -p #{shared_path}/config"
+      end
+      upload!("config/database.yml.#{fetch(:rails_env)}", "#{shared_path}/config/database.yml")
+      upload!("config/secrets.yml.#{fetch(:rails_env)}", "#{shared_path}/config/secrets.yml")
+      upload!(".env.#{fetch(:rails_env)}", "#{shared_path}/.env")
+    end
+  end
+  before :starting, 'deploy:upload'
 
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
@@ -50,5 +65,4 @@ namespace :deploy do
       # end
     end
   end
-
 end

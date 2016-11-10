@@ -13,6 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //
+//= require jquery
+//= require jquery_ujs
+
 // Peek
 //= require peek
 //= require peek/views/rblineprof
