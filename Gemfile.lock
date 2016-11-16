@@ -84,6 +84,13 @@ GEM
       actionpack
       activesupport (>= 3.0.0)
       rspec
+    aws-sdk-core (2.6.19)
+      jmespath (~> 1.0)
+    aws-sdk-rails (1.0.1)
+      aws-sdk-resources (~> 2)
+      railties (>= 3)
+    aws-sdk-resources (2.6.19)
+      aws-sdk-core (= 2.6.19)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -204,6 +211,7 @@ GEM
     jbuilder (2.3.2)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
+    jmespath (1.3.1)
     jquery-rails (4.0.4)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -428,6 +436,7 @@ DEPENDENCIES
   activerecord-cause
   annotate
   autodoc
+  aws-sdk-rails
   benchmark-ips
   better_errors
   binding_of_caller
