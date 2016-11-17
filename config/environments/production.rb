@@ -78,6 +78,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # ActionMailerの設定
+  config.action_mailer.delivery_method = :aws_sdk
   config.action_mailer.default_url_options = { :host => ENV['MAILER_DEFAULT_HOST'] }
   config.action_mailer.default_options = { from: "システム管理者 <#{ENV['MAILER_FROM']}>" }
 end
