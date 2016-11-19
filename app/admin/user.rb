@@ -64,7 +64,8 @@ ActiveAdmin.register User do
   collection_action :import_csv, method: :post do
     unless params[:csv]
       flash[:error] = 'CSVファイルを指定してください'
-      redirect_to :back && return
+      redirect_to :back
+      return
     end
 
     users = []
