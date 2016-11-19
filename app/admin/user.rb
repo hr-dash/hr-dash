@@ -1,7 +1,5 @@
 ActiveAdmin.register User do
   menu parent: 'ユーザー'
-  csv_importable validate: false,
-                 after_batch_import: ->(file) { User.last(file.csv_lines.size).each(&:create_profile) }
   active_admin_action_log
   actions :all, except: [:destroy]
   permit_params :name, :employee_code, :email, :entry_date, :beginner_flg,
@@ -55,6 +53,39 @@ ActiveAdmin.register User do
       f.input :deleted_at, as: :datepicker
     end
     f.actions
+  end
+
+  action_item :import_users, only: :index do
+    link_to 'ユーザーをインポートする', input_csv_admin_users_path
+  end
+
+  collection_action :input_csv, method: :get
+
+  collection_action :import_csv, method: :post do
+    unless params[:csv]
+      flash[:error] = 'CSVファイルを指定してください'
+      redirect_to :back and return
+    end
+
+    users = []
+    errors = []
+    CSV.table(params[:csv].tempfile, encoding: 'sjis').each do |line|
+      user = User.new(line.to_h)
+      if user.valid?
+        users << user
+      else
+        errors += user.errors.full_messages
+      end
+    end
+
+    if errors.blank?
+      users.each(&:save!)
+      flash[:success] = "#{users.size}名のユーザーがインポートされました"
+      redirect_to action: :index
+    else
+      flash[:error] = errors.join(' ')
+      redirect_to :back
+    end
   end
 
   action_item :change_password, only: [:edit, :show] do
