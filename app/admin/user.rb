@@ -70,12 +70,14 @@ ActiveAdmin.register User do
 
     users = []
     errors = []
+    index = 1 # CSVヘッダー行
     CSV.table(params[:csv].tempfile, encoding: 'sjis').each do |line|
+      index += 1
       user = User.new(line.to_h)
       if user.valid?
         users << user
       else
-        errors += user.errors.full_messages
+        errors += user.errors.full_messages.map { |msg| "(#{index}行目)#{msg}" }
       end
     end
 
