@@ -1,0 +1,8 @@
+= form_tag import_csv_admin_users_path, method: :post, multipart: true, html: { class: 'formastic' } do
+  fieldset.inputs
+    legend
+      span インポートするCSVを指定
+    ol = file_field_tag :csv
+  fieldset.actions
+    ol = submit_tag 'インポートする'
+

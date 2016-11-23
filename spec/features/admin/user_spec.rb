@@ -33,6 +33,41 @@ describe 'Admin::User', type: :feature do
     it { expect(current_path).to eq admin_user_path(user) }
   end
 
+  describe '#import_csv' do
+    before { visit input_csv_admin_users_path }
+
+    context 'no input csv file' do
+      before { click_on 'インポートする' }
+
+      it { expect(current_path).to eq input_csv_admin_users_path }
+      it { expect(page).to have_content('CSVファイルを指定してください') }
+    end
+
+    context 'input valid csv file' do
+      let(:file) { File.join(fixture_path, 'users.csv') }
+      let(:yamada) { User.find_by(name: '山田 太郎') }
+      let(:suzuki) { User.find_by(name: '鈴木 花子') }
+
+      before do
+        attach_file 'csv', file
+        click_on 'インポートする'
+      end
+
+      it { expect(current_path).to eq admin_users_path }
+      it { expect(page).to have_content('2名のユーザーがインポートされました') }
+      it { expect(yamada).to be_present }
+      it { expect(yamada.email).to eq 'yamada.taro@example.com' }
+      it { expect(yamada.gender).to eq 'male' }
+      it { expect(yamada.beginner_flg).to eq true }
+      it { expect(yamada.user_profile).to be_present }
+      it { expect(suzuki).to be_present }
+      it { expect(suzuki.email).to eq 'suzuki.hanako@example.com' }
+      it { expect(suzuki.gender).to eq 'female' }
+      it { expect(suzuki.beginner_flg).to eq false }
+      it { expect(suzuki.user_profile).to be_present }
+    end
+  end
+
   describe '#update_password' do
     let(:other_user) { create(:user) }
     let(:new_password) { generate_random_password }
