@@ -59,10 +59,12 @@ describe 'Admin::User', type: :feature do
       it { expect(yamada.email).to eq 'yamada.taro@example.com' }
       it { expect(yamada.gender).to eq 'male' }
       it { expect(yamada.beginner_flg).to eq true }
+      it { expect(yamada.user_profile).to be_present }
       it { expect(suzuki).to be_present }
       it { expect(suzuki.email).to eq 'suzuki.hanako@example.com' }
       it { expect(suzuki.gender).to eq 'female' }
       it { expect(suzuki.beginner_flg).to eq false }
+      it { expect(suzuki.user_profile).to be_present }
     end
   end
 
