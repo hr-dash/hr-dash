@@ -133,7 +133,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def monthly_report_notify(shipped_at_was)
-    return if shipped_at_was.present?
+    return if shipped_at_was.present? || params[:wip]
     Mailer::Notify.monthly_report_registration(current_user.id, @monthly_report.id).deliver_now
   end
 end
