@@ -134,7 +134,7 @@ describe MonthlyReportsController, type: :request do
 
       context 'registered as wip' do
         let(:post_params) { { monthly_report: report_params, wip: true } }
-        subject { post monthly_reports_path, post_params }
+        before { post monthly_reports_path, post_params }
         it { expect(ActionMailer::Base.deliveries.size).to eq(0) }
       end
     end
