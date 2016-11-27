@@ -16,4 +16,8 @@ class Tag < ActiveRecord::Base
   validates :name, length: { maximum: 32 }, presence: true, format: { with: VALID_NAME_REGEX }
 
   enum status: { unfixed: 0, fixed: 1 }
+
+  def self.find_or_initialize_by_name_ignore_case(name)
+    Tag.where('LOWER(name) = LOWER(?)', name).first || Tag.new(name: name)
+  end
 end
