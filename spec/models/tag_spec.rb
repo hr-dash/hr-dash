@@ -46,4 +46,27 @@ describe Tag, type: :model do
       end
     end
   end
+
+  describe '.find_or_initialize_by_name_ignore_case' do
+    let!(:tag) { create(:tag, name: 'Ruby') }
+    subject { Tag.find_or_initialize_by_name_ignore_case(name) }
+
+    context 'exactly match' do
+      let(:name) { 'Ruby' }
+      it { is_expected.to eq tag }
+      it { is_expected.not_to be_new_record }
+    end
+
+    context 'match in ignore case' do
+      let(:name) { 'ruby' }
+      it { is_expected.to eq tag }
+      it { is_expected.not_to be_new_record }
+    end
+
+    context 'not match' do
+      let(:name) { 'Rails' }
+      it { is_expected.not_to eq tag }
+      it { is_expected.to be_new_record }
+    end
+  end
 end
