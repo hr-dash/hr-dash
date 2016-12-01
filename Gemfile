@@ -68,6 +68,7 @@ group :development, :test do
   gem 'bullet'
 
   gem 'rspec-rails'
+  gem 'rspec_rake'
   gem 'factory_girl_rails'
   gem 'faker'
 end
