@@ -5,6 +5,18 @@ ActiveAdmin.register Group do
   permit_params { Group.column_names }
   actions :all, except: [:destroy]
 
+  index do
+    id_column
+    column :name
+    column :email
+    column :description
+    column :deleted_at
+    actions do |group|
+      br
+      link_to '割当を編集', edit_group_assign_admin_group_path(group)
+    end
+  end
+
   show do
     attributes_table do
       row :id
@@ -31,5 +43,13 @@ ActiveAdmin.register Group do
       f.input :deleted_at, as: :datepicker
     end
     f.actions
+  end
+
+  action_item :group_assign, only: [:show, :edit] do
+    link_to 'グループ割当を編集する', edit_group_assign_admin_group_path(group)
+  end
+
+  member_action :edit_group_assign, method: :get do
+    @group = resource
   end
 end
