@@ -38,6 +38,7 @@ gem 'newrelic_rpm'
 gem 'peek'
 gem 'peek-rblineprof'
 gem 'dotenv-rails'
+gem 'whenever'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
