@@ -52,4 +52,16 @@ ActiveAdmin.register Group do
   member_action :edit_group_assign, method: :get do
     @group = resource
   end
+
+  member_action :update_group_assign, method: :post do
+    @group = resource
+    @group.users = User.where(id: params[:user_ids])
+
+    if @group.save
+      redirect_to action: :show
+    else
+      flash[:error] = @group.errors.full_messages
+      redirect_to :back
+    end
+  end
 end
