@@ -6,6 +6,6 @@ describe Whenever do
   end
 
   describe 'EndOfMonthNotice' do
-    it { expect(whenever).to schedule_rake('end_of_month_notice:execute').every('0 0 25 * *').at('18:00 pm') }
+    it { expect(whenever).to schedule_rake('end_of_month_notice:execute').every('0 18 25 * *') }
   end
 end

@@ -18,6 +18,6 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-every '0 0 25 * *', at: '18:00 pm' do
+every '0 18 25 * *' do
   rake 'end_of_month_notice:execute'
 end
