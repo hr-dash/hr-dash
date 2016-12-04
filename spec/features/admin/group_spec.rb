@@ -46,4 +46,19 @@ describe 'Admin::Group', type: :feature do
     it { expect(page).to have_content(new_description) }
     it { expect(group.reload.description).to eq new_description }
   end
+
+  describe '#update_group_assign' do
+    let!(:another_user) { create(:user) }
+    before do
+      visit edit_group_assign_admin_group_path(group)
+      check "user_id_#{another_user.id}"
+      uncheck "user_id_#{user.id}"
+      click_on '更新する'
+    end
+
+    it { expect(page_title).to have_content(group.name) }
+    it { expect(current_path).to eq admin_group_path(group) }
+    it { expect(group.users).to include(another_user) }
+    it { expect(group.users).not_to include(user) }
+  end
 end
