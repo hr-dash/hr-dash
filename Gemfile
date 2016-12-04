@@ -96,4 +96,5 @@ group :test do
   gem 'shoulda-matchers'
   gem 'timecop'
   gem 'poltergeist'
+  gem 'shoulda-whenever'
 end
