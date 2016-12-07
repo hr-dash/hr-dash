@@ -142,7 +142,7 @@ ActiveAdmin.register User do
   end
 
   action_item :delete_monthly_report, only: :show do
-    if !user.active_for_authentication?
+    unless user.active_for_authentication?
       link_to('月報を削除する',
               delete_monthly_report_admin_user_path(user),
               method: :delete,
