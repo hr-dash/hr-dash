@@ -55,9 +55,21 @@ ActiveAdmin.register Group do
 
   member_action :update_group_assign, method: :post do
     @group = resource
+    users_before = @group.users.map(&:name)
+
     @group.users = User.where(id: params[:user_ids])
 
     if @group.save
+      users_after = @group.users.map(&:name)
+
+      ActiveAdminActionLog.create do |log|
+        log.user = current_user
+        log.resource = resource
+        log.path = resource_path
+        log.action = action_name
+        log.changes_log = { 'users' => [users_before, users_after] }
+      end
+
       redirect_to action: :show
     else
       flash[:error] = @group.errors.full_messages
