@@ -15,6 +15,15 @@ ActiveAdmin.register User do
     def password_params
       params.require(:user).permit(:password, :password_confirmation)
     end
+
+    def action_log(user:, resource:, path:, action:)
+      ActiveAdminActionLog.create do |log|
+        log.user = user
+        log.resource = resource
+        log.path = path
+        log.action = action
+      end
+    end
   end
 
   index do
@@ -104,17 +113,40 @@ ActiveAdmin.register User do
     @user.assign_attributes(password_params)
 
     if @user.save
-      ActiveAdminActionLog.create do |log|
-        log.user = current_user
-        log.resource = resource
-        log.path = resource_path
-        log.action = action_name
-      end
+      action_log(user: current_user,
+                 resource: resource,
+                 path: resource_path,
+                 action: action_name)
 
       redirect_to action: :index
     else
       flash[:error] = @user.errors.full_messages
       redirect_to :back
+    end
+  end
+
+  member_action :delete_monthly_report, method: :delete do
+    monthly_reports = resource.monthly_reports
+    if !resource.active_for_authentication? && monthly_reports.destroy_all
+      action_log(user: current_user,
+                 resource: resource,
+                 path: resource_path,
+                 action: action_name)
+
+      flash[:success] = '月報を削除しました'
+    else
+      flash[:error] = '月報の削除に失敗しました'
+    end
+
+    redirect_to :back
+  end
+
+  action_item :delete_monthly_report, only: :show do
+    unless user.active_for_authentication?
+      link_to('月報を削除する',
+              delete_monthly_report_admin_user_path(user),
+              method: :delete,
+              data: { confirm: '本当に削除してもよろしいですか？' })
     end
   end
 end
