@@ -14,5 +14,11 @@ module Mailer
       @title = "#{@user.name}が#{@report.target_month.strftime('%Y年%m月')}の月報を登録しました"
       mail(to: @user.groups.map(&:email), subject: @title)
     end
+
+    def report_registrable_to
+      @domain = ENV['MAILER_DEFAULT_HOST']
+      title = '[お知らせ]今月の月報が登録可能になりました。'
+      mail(to: ENV['MAILING_LIST_TO_ALL_USER'], subject: title)
+    end
   end
 end

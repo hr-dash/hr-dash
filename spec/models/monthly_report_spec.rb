@@ -105,7 +105,7 @@ RSpec.describe MonthlyReport, type: :model do
     let(:user) { create(:user) }
 
     context 'when reprot exists' do
-      let(:last_month_1st_day) { user.report_registrable_to.beginning_of_month }
+      let(:last_month_1st_day) { User.report_registrable_to.beginning_of_month }
       let!(:monthly_report) { create(:monthly_report, user: user, target_month: last_month_1st_day) }
       let(:latest_report) { MonthlyReport.of_latest_month_registered_by user }
 
