@@ -12,4 +12,9 @@ $ ->
     preview = content.find('.content-md-preview')
     preview.html(marked(text))
 
+  $('.markdown-view').each (i, view) ->
+    text = $(view).find('textarea').val()
+    body = $(view).find('.markdown-body')
+    body.html(marked(text))
+
   hljs.initHighlightingOnLoad()
