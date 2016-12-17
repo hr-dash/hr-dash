@@ -195,7 +195,6 @@ GEM
     formtastic_i18n (0.4.1)
     get_process_mem (0.2.1)
     git-version-bump (0.15.1)
-    github-markdown (0.6.9)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     has_scope (0.6.0)
@@ -459,7 +458,6 @@ DEPENDENCIES
   enum_help
   factory_girl_rails
   faker
-  github-markdown
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
