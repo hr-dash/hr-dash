@@ -11,5 +11,6 @@
           span.glyphicon.glyphicon-pencil aria-hidden="true" 　
           = hidden_field_tag :comment_id, comment.id
   .panel-body
-    .markdown-body
-      = markdown(comment.comment).html_safe
+    .markdown-view
+      textarea.hidden = comment.comment
+      .markdown-body
