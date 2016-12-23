@@ -1,0 +1,29 @@
+<%= @title %>
+
+【送信時刻】 <%= Time.current %>
+
+【リクエスト】
+<% if @request %>
+RequestURI: <%= @request.env["REQUEST_URI"] %>
+RequestMethod: <%= @request.env["REQUEST_METHOD"] %>
+Referer: <%= @request.referer %>
+UserAgent: <%= @request.user_agent %>
+<% else %>
+なし
+<% end %>
+
+【ログインユーザー】
+<% if @user %>
+ID: <%= @user.id %>
+NAME: <%= @user.name %>
+<% else %>
+なし
+<% end %>
+
+【エラーメッセージ】
+<%= @exception.class %>
+<%= @exception.message %>
+-----------------
+<%= @exception.backtrace.join("\n") %>
+-----------------
+

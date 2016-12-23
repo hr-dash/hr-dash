@@ -4,7 +4,7 @@
 
 氏名: <%= @user.name %>
 
-<%= @report.target_month.strftime('%Y年%m月') %> の業務報告
+<%= @report.target_month.strftime('%Y年%m月') %>の業務報告
 -------------------------------------------------------------
 【プロジェクト概要】
 <%= simple_format(h(@report.project_summary)) %>
