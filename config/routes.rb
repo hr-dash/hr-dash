@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   root to: 'monthly_reports#index', constraints: Constraints::PageCount
 
+  resources :announcements, only: [:index]
   resources :user_profiles, only: [:show, :edit, :update]
   resources 'monthly_reports', except: :destroy, constraints: Constraints::PageCount do
     collection do
