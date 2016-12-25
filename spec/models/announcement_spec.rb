@@ -19,4 +19,17 @@ describe Announcement, type: :model do
     it { is_expected.to validate_presence_of(:body) }
     it { is_expected.to validate_presence_of(:published_date) }
   end
+
+  describe '.published' do
+    let(:date) { Time.current.to_date }
+    let!(:today) { create(:announcement, published_date: date) }
+    let!(:yesterday) { create(:announcement, published_date: date.yesterday) }
+    let!(:tomorrow) { create(:announcement, published_date: date.tomorrow) }
+
+    subject { described_class.published }
+
+    it { expect(subject.size).to eq 2 }
+    it { expect(subject.first).to eq today }
+    it { expect(subject).not_to include(tomorrow) }
+  end
 end

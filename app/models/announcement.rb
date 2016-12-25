@@ -14,4 +14,8 @@ class Announcement < ActiveRecord::Base
   validates :title, presence: true
   validates :body, presence: true
   validates :published_date, presence: true
+
+  def self.published
+    where('published_date <= ?', Time.current.to_date).order('published_date desc')
+  end
 end
