@@ -1,0 +1,17 @@
+# == Schema Information
+#
+# Table name: announcements
+#
+#  id             :integer          not null, primary key
+#  title          :string           not null
+#  body           :text             not null
+#  published_date :date             not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
+class Announcement < ActiveRecord::Base
+  validates :title, presence: true
+  validates :body, presence: true
+  validates :published_date, presence: true
+end
