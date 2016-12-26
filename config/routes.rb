@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   resources :groups, only: [:index]
   resources :monthly_report_comments, only: [:create, :edit, :update, :destroy]
 
-  root to: 'monthly_reports#index', constraints: Constraints::PageCount
+  root to: 'root#index'
 
   resources :announcements, only: [:index]
   resources :user_profiles, only: [:show, :edit, :update]
