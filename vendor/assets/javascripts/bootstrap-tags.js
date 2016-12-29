@@ -422,7 +422,7 @@
                     return $(document).mouseup(function(e) {
                         var container;
                         container = _this.$(".tags-suggestion-list");
-                        if (container.has(e.target).length === 0) {
+                        if (container.has(e.target).length === 0 && !$(e.target).hasClass("tags-suggestion-list")) {
                             return _this.hideSuggestions();
                         }
                     });
