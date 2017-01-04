@@ -69,6 +69,12 @@ html, body, .site-body, .site-container, .site-header, .header-menu {
   }
 }
 
+.markdown-view {
+  .markdown-body {
+    padding-top: 1em;
+  }
+}
+
 /* alert message */
 .alert {
   margin-bottom: 10px;
