@@ -59,6 +59,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
   def self.find_for_database_authentication(warden_conditions)
+    return if warden_conditions[:email].blank?
     find_by(encrypted_email: encrypt(warden_conditions[:email]))
   end
 
