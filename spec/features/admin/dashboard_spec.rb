@@ -9,7 +9,7 @@ describe 'Admin::Dashboard', type: :feature do
       before { visit admin_root_path }
       it { expect(title).to have_content('ダッシュボード') }
       it { expect(page).to have_content('最新の月報') }
-      it { expect(page).to have_content('未登録タグ') }
+      it { expect(page).to have_content('最新の未登録タグ') }
     end
 
     context 'monthly_reports' do

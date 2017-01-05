@@ -28,7 +28,7 @@ ActiveAdmin.register_page 'Dashboard' do
 
     columns do
       column do
-        panel '未登録タグ', id: :unfixed_tags do
+        panel '最新の未登録タグ', id: :unfixed_tags do
           unfixed_tags = Tag.unfixed.order(created_at: :desc).limit(DISPLAY_UNFIXED_TAG_LIMIT)
           if unfixed_tags.present?
             table_for unfixed_tags do
