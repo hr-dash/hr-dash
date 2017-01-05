@@ -7,7 +7,7 @@ module Encryptor
 
   module ClassMethods
     def encrypt(data)
-      return unless data
+      return if data.blank?
 
       cipher = OpenSSL::Cipher::Cipher.new(CIPHER)
       cipher.encrypt
