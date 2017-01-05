@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_action :store_current_location, unless: :devise_controller?
   before_action :authenticate_user!
 
   def current_user
@@ -18,5 +19,12 @@ class ApplicationController < ActionController::Base
     authenticate_or_request_with_http_basic do |username, password|
       username == ENV['BASIC_AUTH_USERNAME'] && password == ENV['BASIC_AUTH_PASSWORD']
     end
+  end
+
+  private
+
+  def store_current_location
+    return if current_user
+    store_location_for(:user, request.url)
   end
 end
