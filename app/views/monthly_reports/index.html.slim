@@ -32,5 +32,5 @@
 .page-content
   h3 = @q.conditions.empty? ? '最新の月報一覧' : '検索結果'
   #report_index
-    == render partial: 'layouts/report_index'
+    == render partial: 'layouts/report_index', locals: { monthly_reports: @monthly_reports }
   = paginate @monthly_reports
