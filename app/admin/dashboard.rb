@@ -9,10 +9,10 @@ ActiveAdmin.register_page 'Dashboard' do
         column max_width: '45%', min_width: '45%' do
           panel "最新の月報 【#{group.name}グループ】" do
             reports = MonthlyReport
-              .includes(:user)
-              .where(user_id: group.users)
-              .order(created_at: :desc)
-              .limit(DISPLAY_MONTHLY_REPORT_LIMIT)
+                      .includes(:user)
+                      .where(user_id: group.users)
+                      .order(created_at: :desc)
+                      .limit(DISPLAY_MONTHLY_REPORT_LIMIT)
 
             table_for reports do
               column(:id) { |r| link_to(r.id, admin_monthly_report_path(r)) }
