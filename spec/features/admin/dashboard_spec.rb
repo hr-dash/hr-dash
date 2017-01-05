@@ -4,10 +4,13 @@ describe 'Admin::Dashboard', type: :feature do
   end
 
   describe '#index GET /admin' do
-    before { visit admin_root_path }
-    let(:title) { find('#page_title') }
-    it { expect(title).to have_content('ダッシュボード') }
-    it { expect(page).to have_content('未登録タグ') }
+    context 'visit dashboard' do
+      let(:title) { find('#page_title') }
+      before { visit admin_root_path }
+      it { expect(title).to have_content('ダッシュボード') }
+      it { expect(page).to have_content('最新の月報') }
+      it { expect(page).to have_content('未登録タグ') }
+    end
 
     context 'monthly_reports' do
       let!(:report) { create(:monthly_report) }
