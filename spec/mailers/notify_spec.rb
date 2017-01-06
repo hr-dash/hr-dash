@@ -12,7 +12,7 @@ RSpec.describe Mailer::Notify, type: :mailer do
     let(:mail) { Mailer::Notify.monthly_report_registration(user.id, report.id) }
     let(:name) { user.name }
     let(:target_at) { report.target_month.strftime('%Y年%m月') }
-    let(:title) { "#{name}が#{target_at}の月報を登録しました" }
+    let(:title) { "【Dash】#{name}が#{target_at}の月報を登録しました" }
     let(:mail_body) { mail.body.raw_source }
     it { expect { mail.deliver_now }.to change { ActionMailer::Base.deliveries.count }.from(0).to(1) }
     it { expect(mail.subject).to eq(title) }
