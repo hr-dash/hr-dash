@@ -6,7 +6,7 @@ module Mailer
       @request = request
 
       @title = "#{exception.class} が発生しました"
-      mail(to: ENV['SYSTEM_MAIL'], subject: @title)
+      mail(to: ENV['SYSTEM_MAIL'], subject: mail_subject(@title))
     end
   end
 end

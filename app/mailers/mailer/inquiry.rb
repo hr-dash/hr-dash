@@ -5,7 +5,7 @@ module Mailer
       user = inquiry.user
       @title = "#{user.name}（USER_ID: #{user.id}）さんからお問い合わせが届きました"
 
-      mail(to: ENV['SYSTEM_MAIL'], subject: @title)
+      mail(to: ENV['SYSTEM_MAIL'], subject: mail_subject(@title))
     end
   end
 end
