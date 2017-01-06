@@ -22,6 +22,7 @@ RSpec.describe Mailer::Notify, type: :mailer do
     it { expect(mail_body).to match(user.name) }
     it { expect(mail_body).to match("#{target_at}の業務報告") }
     it { expect(mail_body).to match("#{monthly_report_path(report)}") }
+    it { expect(mail_body).to match('Dash') }
 
     context 'if user does not belong to group' do
       let(:user) { create(:user, group_size: 0) }
