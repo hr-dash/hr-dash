@@ -11,15 +11,20 @@ module Mailer
 
     def monthly_report_commented(comment_id)
       @comment = MonthlyReportComment.find(comment_id)
-      report = @comment.monthly_report
-
-      target_users = report.related_users - [@comment.user]
+      target_users = monthly_report_commented_targets(@comment)
       return if target_users.blank?
 
+      report = @comment.monthly_report
       report_name = "#{report.user.name}さんの月報（#{report.target_month.strftime('%Y年%m月')}）"
       @title = "#{@comment.user.name}さんが#{report_name}にコメントしました"
 
       mail(to: target_users.map(&:email), subject: mail_subject(@title))
+    end
+
+    private
+
+    def monthly_report_commented_targets(comment)
+      comment.monthly_report.related_users - [comment.user]
     end
   end
 end
