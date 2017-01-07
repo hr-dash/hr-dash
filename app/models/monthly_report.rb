@@ -86,6 +86,13 @@ class MonthlyReport < ActiveRecord::Base
     shipped_at.present?
   end
 
+  def related_users
+    users = [user]
+    users += comments.map(&:user)
+
+    users.uniq
+  end
+
   private
 
   def target_month_registrable_term
