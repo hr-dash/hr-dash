@@ -8,6 +8,7 @@ describe MonthlyReportCommentsController, type: :feature do
     let(:comment) { build(:monthly_report_comment) }
 
     before do
+      ActionMailer::Base.deliveries.clear
       visit monthly_report_path(report)
       find('#monthly_report_comment_comment').set(comment.comment)
       click_on 'Comment'
@@ -16,6 +17,19 @@ describe MonthlyReportCommentsController, type: :feature do
     it { expect(current_path).to eq monthly_report_path(report) }
     it { expect(user.monthly_report_comments.size).to eq 1 }
     it { expect(user.monthly_report_comments.first.comment).to eq comment.comment }
+
+    describe 'notification mail' do
+      subject { ActionMailer::Base.deliveries.count }
+
+      context 'comment user is report user' do
+        let(:user) { report.user }
+        it { is_expected.to eq 0 }
+      end
+
+      context 'comment user is not report user' do
+        it { is_expected.to eq 1 }
+      end
+    end
   end
 
   describe '#update PATCH /monthly_report_comments/:id', js: true do
