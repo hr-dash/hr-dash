@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161224000946) do
+ActiveRecord::Schema.define(version: 20170107145744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,15 +112,16 @@ ActiveRecord::Schema.define(version: 20161224000946) do
   end
 
   create_table "monthly_reports", force: :cascade do |t|
-    t.integer  "user_id",          null: false
-    t.date     "target_month",     null: false
+    t.integer  "user_id",                      null: false
+    t.date     "target_month",                 null: false
     t.datetime "shipped_at"
     t.text     "project_summary"
     t.text     "business_content"
     t.text     "looking_back"
     t.text     "next_month_goals"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "comments_count",   default: 0, null: false
   end
 
   add_index "monthly_reports", ["target_month"], name: "index_monthly_reports_on_target_month", using: :btree
