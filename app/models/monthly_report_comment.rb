@@ -13,6 +13,7 @@
 class MonthlyReportComment < ActiveRecord::Base
   belongs_to :user
   belongs_to :monthly_report
+  counter_culture :monthly_report, column_name: 'comments_count'
 
   validates :user, presence: true
   validates :monthly_report, presence: true

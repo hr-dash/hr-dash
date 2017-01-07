@@ -12,6 +12,7 @@
 #  next_month_goals :text
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  comments_count   :integer          default(0), not null
 #
 
 RSpec.describe MonthlyReport, type: :model do
