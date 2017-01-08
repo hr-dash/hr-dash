@@ -87,6 +87,7 @@ group :development do
   gem 'capistrano-safe-deploy-to', '~> 1.1.1'
   gem 'capistrano3-unicorn'
   gem 'capistrano3-nginx'
+  gem 'rails_real_favicon'
 end
 
 group :test do
