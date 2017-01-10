@@ -6,7 +6,7 @@ module Mailer
       return unless @user.groups.present?
 
       @title = "#{@user.name}が#{@report.target_month.strftime('%Y年%m月')}の月報を登録しました"
-      mail(to: @user.groups.map(&:email), subject: @title)
+      mail(to: @user.groups.map(&:email), subject: mail_subject(@title))
     end
   end
 end
