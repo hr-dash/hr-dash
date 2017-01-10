@@ -6,6 +6,6 @@ describe Whenever do
   end
 
   describe 'Notice report registrable' do
-    it { expect(whenever).to schedule_rake('notifer:report_registrable').every('0 12 23-27 * *') }
+    it { expect(whenever).to schedule_rake('notifer:report_registrable').every('0 12 24-27 * *') }
   end
 end

@@ -6,7 +6,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def user
-    @target_year = (params[:target_year] || current_user.report_registrable_to.year).to_i
+    @target_year = (params[:target_year] || Date.current.year).to_i
     @report_user = User.find(params[:user_id])
     @monthly_reports = user_reports_in_year(@target_year, @report_user)
   end
