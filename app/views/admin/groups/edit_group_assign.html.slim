@@ -1,0 +1,13 @@
+= form_tag update_group_assign_admin_group_path(@group), html: { class: 'formastic' } do |f|
+  fieldset.inputs
+    legend
+      span = "#{@group.name} グループの割当を編集"
+    ol
+      li
+        - group_user_ids = @group.users.map(&:id)
+        - User.all.each do |user|
+          = check_box_tag 'user_ids[]', user.id, group_user_ids.include?(user.id), id: "user_id_#{user.id}"
+          span = user.name
+          span = "　"
+  fieldset.actions
+    ol = submit_tag '更新する'

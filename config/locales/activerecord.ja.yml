@@ -1,6 +1,7 @@
 ja:
   activerecord: &activerecord
     models:
+      announcement: お知らせ
       group: グループ
       group_assignment: グループ割当
       help_text: ヘルプテキスト
@@ -14,6 +15,10 @@ ja:
       user: ユーザー
       user_profile: プロフィール
     attributes:
+      announcement:
+        title: タイトル
+        body: 本文
+        published_date: 公開日
       group:
         name: 名前
         email: メールアドレス

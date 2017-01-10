@@ -69,7 +69,32 @@ html, body, .site-body, .site-container, .site-header, .header-menu {
   }
 }
 
+.markdown-view {
+  .markdown-body {
+    padding-top: 1em;
+  }
+}
+
 /* alert message */
 .alert {
   margin-bottom: 10px;
+}
+
+/* monthly-report-index */
+.monthly-report-index {
+  .pull-right {
+    .tag {
+      margin-left: 0.5em;
+    }
+
+    .comments_count {
+      display: inline-block;
+      width: 3.5em;
+      padding-left: 1em;
+
+      .glyphicon {
+        margin-right: 0.3em;
+      }
+    }
+  }
 }

@@ -4,12 +4,13 @@
     = link_to comment.updated_at, monthly_report_path(comment.monthly_report, anchor: "comment-#{comment.id}")
     - if comment.user == current_user
       .pull-right
-        = content_tag :a, href: monthly_report_comment_path(comment), 'data-method' => :delete, 'data-confirm' => 'コメントを削除して宜しいですか？'
+        = content_tag :a, href: monthly_report_comment_path(comment), class: :monthly_report_comment_destroy, 'data-method' => :delete, 'data-confirm' => 'コメントを削除して宜しいですか？'
           span.glyphicon.glyphicon-remove aria-hidden="true"
       .pull-right
         = content_tag :div, class: :monthly_report_comment_edit, style: 'cursor: pointer'
           span.glyphicon.glyphicon-pencil aria-hidden="true" 　
           = hidden_field_tag :comment_id, comment.id
   .panel-body
-    .markdown-body
-      = markdown(comment.comment).html_safe
+    .markdown-view
+      textarea.hidden = comment.comment
+      .markdown-body

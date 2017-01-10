@@ -1,8 +1,10 @@
 describe PasswordResetsController, type: :feature do
   describe '#create' do
+    let(:email) { user.email }
+
     before do
       visit new_password_reset_path
-      fill_in 'email', with: user.email
+      fill_in 'email', with: email
       click_on 'Submit'
     end
 
@@ -20,6 +22,11 @@ describe PasswordResetsController, type: :feature do
 
     context 'request by not_registered_user' do
       let(:user) { build(:user) }
+      it { expect(page.body).to have_content('有効なメールアドレスではありません') }
+    end
+
+    context 'request by email blank' do
+      let(:email) { '' }
       it { expect(page.body).to have_content('有効なメールアドレスではありません') }
     end
   end

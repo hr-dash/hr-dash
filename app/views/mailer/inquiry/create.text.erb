@@ -1,0 +1,14 @@
+<%= @title %>
+
+
+【お問い合わせID】 <%= @inquiry.id %>
+
+本文
+-----------------
+<%= @inquiry.body %>
+-----------------
+
+【送信時刻】 <%= @inquiry.created_at %>
+【Referer】 <%= @inquiry.referer %>
+【UserAgent】 <%= @inquiry.user_agent %>
+【SessionId】 <%= @inquiry.session_id %>

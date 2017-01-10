@@ -12,6 +12,7 @@
 #  next_month_goals :text
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  comments_count   :integer          default(0), not null
 #
 
 class MonthlyReport < ActiveRecord::Base
@@ -84,6 +85,13 @@ class MonthlyReport < ActiveRecord::Base
 
   def shipped?
     shipped_at.present?
+  end
+
+  def related_users
+    users = [user]
+    users += comments.map(&:user)
+
+    users.uniq
   end
 
   private

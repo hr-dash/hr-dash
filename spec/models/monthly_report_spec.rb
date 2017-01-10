@@ -12,6 +12,7 @@
 #  next_month_goals :text
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  comments_count   :integer          default(0), not null
 #
 
 RSpec.describe MonthlyReport, type: :model do
@@ -189,6 +190,32 @@ RSpec.describe MonthlyReport, type: :model do
     context 'shipped' do
       let(:report) { build(:monthly_report, :shipped) }
       it { expect(report).to be_shipped }
+    end
+  end
+
+  describe '#related_users' do
+    let(:report) { create(:monthly_report, :shipped, :with_tags, user: user) }
+    let(:user) { create(:user) }
+    let(:comment_user1) { create(:user) }
+    let(:comment_user2) { create(:user) }
+    subject { report.related_users }
+
+    context 'only report user' do
+      it { is_expected.to match_array([user]) }
+    end
+
+    context 'commented one user' do
+      before { create(:monthly_report_comment, monthly_report: report, user: comment_user1) }
+      it { is_expected.to match_array([user, comment_user1]) }
+    end
+
+    context 'commented two user and one commented twice' do
+      before do
+        2.times { create(:monthly_report_comment, monthly_report: report, user: comment_user1) }
+        create(:monthly_report_comment, monthly_report: report, user: comment_user2)
+      end
+
+      it { is_expected.to match_array([user, comment_user1, comment_user2]) }
     end
   end
 end

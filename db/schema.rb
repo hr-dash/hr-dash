@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161028173116) do
+ActiveRecord::Schema.define(version: 20170107145744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,14 @@ ActiveRecord::Schema.define(version: 20161028173116) do
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
+
+  create_table "announcements", force: :cascade do |t|
+    t.string   "title",          null: false
+    t.text     "body",           null: false
+    t.date     "published_date", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
 
   create_table "group_assignments", force: :cascade do |t|
     t.integer  "group_id",   null: false
@@ -104,15 +112,16 @@ ActiveRecord::Schema.define(version: 20161028173116) do
   end
 
   create_table "monthly_reports", force: :cascade do |t|
-    t.integer  "user_id",          null: false
-    t.date     "target_month",     null: false
+    t.integer  "user_id",                      null: false
+    t.date     "target_month",                 null: false
     t.datetime "shipped_at"
     t.text     "project_summary"
     t.text     "business_content"
     t.text     "looking_back"
     t.text     "next_month_goals"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "comments_count",   default: 0, null: false
   end
 
   add_index "monthly_reports", ["target_month"], name: "index_monthly_reports_on_target_month", using: :btree

@@ -1,0 +1,7 @@
+- provide :page_title, "お知らせ"
+
+.page-content
+  #announcement_index
+    == render partial: 'layouts/announcement_index', locals: { announcements: @announcements }
+  = paginate @announcements
+
