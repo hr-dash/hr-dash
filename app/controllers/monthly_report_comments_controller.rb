@@ -4,6 +4,8 @@ class MonthlyReportCommentsController < ApplicationController
     comment.user = current_user
 
     if comment.save
+      mail = Mailer::Notify.monthly_report_commented(comment.id)
+      mail.deliver_now if mail.present?
       redirect_to comment_path(comment)
     else
       flash_errors(comment)
