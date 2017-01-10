@@ -1,8 +1,12 @@
-.list-group
+.list-group.monthly-report-index
   - monthly_reports.each do |report|
     a.list-group-item href=(monthly_report_path(report))
       = report.user.groups.map { |g| "【#{g.name}G】" }.join
       = "#{report.user.name} - #{report.target_month.strftime("%Y年%m月")}分"
       - tags = report.monthly_report_tags.order('monthly_report_tags.id')
-      - tags.first(3).each do |tag|
-        span.badge = tag.name
+      .pull-right
+        - tags.first(3).each do |tag|
+          span.tag.label.label-success = "#{tag.name} "
+        span.comments_count
+          span.glyphicon.glyphicon-comment aria-hidden="true"
+          span = report.comments_count
