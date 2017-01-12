@@ -2,7 +2,6 @@ require 'rails_helper'
 RSpec.describe Mailer::Notify, type: :mailer do
   let!(:report) { create(:monthly_report, :with_comments, :with_tags) }
   let(:user) { create(:user) }
-  let(:from) { 'test@example.com' }
 
   before(:all) do
     ActionMailer::Base.deliveries.clear
@@ -17,7 +16,6 @@ RSpec.describe Mailer::Notify, type: :mailer do
     it { expect { mail.deliver_now }.to change { ActionMailer::Base.deliveries.count }.from(0).to(1) }
     it { expect(mail.subject).to eq(title) }
     it { expect(mail.to).to eq user.groups.map(&:email) }
-    it { expect(mail.from[0]).to eq(from) }
     it { expect(mail_body).to match(report.project_summary) }
     it { expect(mail_body).to match(user.name) }
     it { expect(mail_body).to match("#{target_at}の業務報告") }
@@ -28,5 +26,12 @@ RSpec.describe Mailer::Notify, type: :mailer do
       let(:user) { create(:user, group_size: 0) }
       it { expect { mail.deliver_now }.not_to change { ActionMailer::Base.deliveries.count } }
     end
+  end
+
+  describe 'registrable_to_monthly_report' do
+    let(:mail) { Mailer::Notify.report_registrable_to }
+    it { expect { mail.deliver_now }.to change { ActionMailer::Base.deliveries.count }.from(0).to(1) }
+    it { expect(mail.to).to eq [ENV['MAILING_LIST_TO_ALL_USER']] }
+    it { expect(mail.body).to match('/monthly_reports/new') }
   end
 end

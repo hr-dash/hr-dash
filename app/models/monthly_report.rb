@@ -46,7 +46,7 @@ class MonthlyReport < ActiveRecord::Base
   scope :released, -> { where.not(shipped_at: nil) }
 
   def self.of_latest_month_registered_by(user)
-    user.monthly_reports.find_by(target_month: user.report_registrable_to.beginning_of_month)
+    user.monthly_reports.find_by(target_month: User.report_registrable_to.beginning_of_month)
   end
 
   def registrable_term?

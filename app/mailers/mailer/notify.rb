@@ -9,6 +9,11 @@ module Mailer
       mail(to: @user.groups.map(&:email), subject: mail_subject(@title))
     end
 
+    def report_registrable_to
+      title = '[お知らせ]今月の月報が登録可能になりました。'
+      mail(to: ENV['MAILING_LIST_TO_ALL_USER'], subject: mail_subject(title))
+    end
+
     def monthly_report_commented(comment_id)
       @comment = MonthlyReportComment.find(comment_id)
       target_users = monthly_report_commented_targets(@comment)

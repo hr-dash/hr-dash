@@ -58,24 +58,26 @@ class User < ActiveRecord::Base
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
-  def self.find_for_database_authentication(warden_conditions)
-    find_by(encrypted_email: encrypt(warden_conditions[:email]))
+  class << self
+    def find_for_database_authentication(warden_conditions)
+      find_by(encrypted_email: encrypt(warden_conditions[:email]))
+    end
+
+    def report_registrable_to
+      Time.current.since(5.days).last_month.to_date
+    end
   end
 
   def report_registrable_months
     months = []
     month = report_registrable_from
 
-    while month <= report_registrable_to
+    while month <= User.report_registrable_to
       months << month
       month = month.next_month
     end
 
     months
-  end
-
-  def report_registrable_to
-    Time.current.since(5.days).last_month.to_date
   end
 
   def create_profile

@@ -8,6 +8,7 @@ set :rbenv_ruby, '2.3.1'
 set :rbenv_path, '/usr/local/opt/rbenv'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)}"
 set :bundle_jobs, 2
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 
 # Default branch is :master
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp

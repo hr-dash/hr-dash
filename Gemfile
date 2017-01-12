@@ -38,6 +38,7 @@ gem 'newrelic_rpm'
 gem 'peek'
 gem 'peek-rblineprof'
 gem 'dotenv-rails'
+gem 'whenever'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -95,4 +96,5 @@ group :test do
   gem 'shoulda-matchers'
   gem 'timecop'
   gem 'poltergeist'
+  gem 'shoulda-whenever'
 end
