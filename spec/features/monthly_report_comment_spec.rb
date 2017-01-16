@@ -51,14 +51,12 @@ describe MonthlyReportCommentsController, type: :feature do
     it { expect(report.comments.first.comment).to eq after_comment.comment }
   end
 
-  describe '#destroy DELETE /monthly_report_comments/:id', js: true do
+  describe '#destroy DELETE /monthly_report_comments/:id' do
     let!(:comment) { create(:monthly_report_comment, monthly_report: report, user: user) }
 
     before do
       visit monthly_report_path(report)
-      accept_confirm do
-        find("#comment-#{comment.id} .monthly_report_comment_destroy").click
-      end
+      find("#comment-#{comment.id} .monthly_report_comment_destroy").click
     end
 
     it { expect(current_path).to eq monthly_report_path(report) }
