@@ -12,9 +12,6 @@
 
 //= require jquery
 //= require jquery_ujs
-//
-//= require jquery
-//= require jquery_ujs
 
 // Peek
 //= require peek
@@ -25,6 +22,6 @@
 //= require marked.min
 //= require highlight.pack
 //= require bootstrap-tags
-//= require bootstrap-hover-dropdown.min
+//= require main/bootstrap-hover-dropdown.min
 
-//= require_tree .
+//= require_tree ./main
