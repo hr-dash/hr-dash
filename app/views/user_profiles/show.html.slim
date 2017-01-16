@@ -9,8 +9,8 @@
           = @profile.user.name
       - if current_user == @profile.user
         .edit-profile
-          = link_to('プロフィール編集', edit_user_profile_path(@profile))
-      = link_to 'このユーザーの月報を閲覧', user_monthly_reports_path(@profile.user), class: 'pull-right'
+          = link_to('プロフィール編集', edit_user_profile_path(@profile), class: 'text-info')
+      = link_to 'このユーザーの月報を閲覧', user_monthly_reports_path(@profile.user), class: 'pull-right text-info'
       table.table
         tbody
           tr
