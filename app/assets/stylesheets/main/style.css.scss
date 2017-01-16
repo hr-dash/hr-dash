@@ -70,7 +70,11 @@ html, body, .site-body, .site-container, .site-header, .header-menu {
   }
 
   .markdown-content {
+    border: 1px solid #ccc;
+    border-radius: 4px;
     border-top: none;
+    padding: 2rem 2rem 1rem 2rem;
+
   }
 }
 
