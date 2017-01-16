@@ -103,6 +103,15 @@ html, body, .site-body, .site-container, .site-header, .header-menu {
     }
   }
 }
+
+/* group page */
+.group-tab-content {
+  .tab-pane {
+    border: 1px solid #ccc;
+    padding: 1rem;
+  }
+}
+
 /* inquiry form */
 .new-inquiry {
   textarea {
