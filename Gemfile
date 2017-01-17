@@ -26,6 +26,7 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'enum_help'
 gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin_addons'
 gem 'active_admin_import', github: "activeadmin-plugins/active_admin_import"
 gem 'aws-sdk-rails'
 gem 'counter_culture', '~> 1.0'
