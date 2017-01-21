@@ -5,8 +5,9 @@
     - date_str = date.strftime('%Y/%m/%d')
     a.list-group-item.announcement-link data-target=(id)
       = "#{date_str}　#{announcement.title}"
-      - if date > Time.current.to_date.ago(7.days)
-        span.label.label-primary.right New
+      .pull-right
+        - if date > Time.current.to_date.ago(7.days)
+          span.label.label-primary New
     .modal.fade id=(id)
       .modal-dialog
         .modal-content
@@ -15,6 +16,6 @@
           .modal-body
             == render partial: 'layouts/markdown_view', locals: { content: announcement.body }
           .modal-footer
-            span.left = "#{date_str} に公開"
+            span.pull-left = "#{date_str} に公開"
             button.btn.btn-default type="button" data-dismiss="modal" 閉じる
 

@@ -2,10 +2,10 @@
   h3 お知らせ
   #announcement_index
     == render partial: 'layouts/announcement_index', locals: { announcements: @announcements }
-    = link_to 'お知らせ一覧はこちら', announcements_path, class: 'right'
+    = link_to 'お知らせ一覧はこちら', announcements_path, class: 'pull-right text-info'
 
 .page-content.clearfix
   h3 最近投稿された月報
   #report_index
     == render partial: 'layouts/report_index', locals: { monthly_reports: @monthly_reports }
-    = link_to '月報一覧はこちら', monthly_reports_path, class: 'right'
+    = link_to '月報一覧はこちら', monthly_reports_path, class: 'pull-right text-info'
