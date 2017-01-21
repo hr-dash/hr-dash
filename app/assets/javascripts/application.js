@@ -21,6 +21,7 @@
 //= require bootstrap.min
 //= require marked.min
 //= require emojify.min
+//= require jquery.textcomplete.min
 //= require highlight.pack
 //= require bootstrap-tags
 //= require main/bootstrap-hover-dropdown.min
