@@ -1,4 +1,4 @@
-- provide :page_title, @report_user.name
+- provide :page_title, (link_to @report_user.name, user_profile_path(@report_user))
 
 .page-content
   h3 = "#{@target_year}年の月報"
