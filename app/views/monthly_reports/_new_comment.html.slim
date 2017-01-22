@@ -3,9 +3,9 @@
     = f.hidden_field :monthly_report_id
     ul.nav.nav-tabs
       li.tab-md-write.active
-        = link_to 'Write', "##{attr}-write", "data-toggle" => "tab"
+        = link_to 'Write', "##{attr}-write", "data-toggle" => "tab", class: 'text-info'
       li.tab-md-preview
-        = link_to 'Preview', "##{attr}-preview", "data-toggle" => "tab"
+        = link_to 'Preview', "##{attr}-preview", "data-toggle" => "tab", class: 'text-info'
       li.pull-right
         = f.button 'Comment', class: 'btn btn-success'
 
@@ -14,6 +14,6 @@
           = f.text_area :comment, rows: 5, class: 'form-control', maxlength: 3000
           p
             span = 'You can use '
-            a href='https://help.github.com/articles/github-flavored-markdown' target='_blank' GFM
+            a.text-info href='https://help.github.com/articles/github-flavored-markdown' target='_blank' GFM
             span = ' except for HTML.'
       .tab-pane.content-md-preview.markdown-body id=("#{attr}-preview")

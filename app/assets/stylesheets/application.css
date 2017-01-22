@@ -12,6 +12,6 @@
  *
  *= require peek
  *= require peek/views/rblineprof
- *= require_tree .
+ *= require_tree ./main
  *= require_self
  */

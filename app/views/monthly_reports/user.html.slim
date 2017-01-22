@@ -4,8 +4,8 @@
   h3 = "#{@target_year}年の月報"
   - next_year = @target_year + 1
   - prev_year = @target_year - 1
-  = link_to "<< #{prev_year}年", user_monthly_reports_path(@report_user, target_year: prev_year)
-  = link_to "#{next_year}年 >>", user_monthly_reports_path(@report_user, target_year: next_year), class: 'pull-right'
+  = link_to "<< #{prev_year}年", user_monthly_reports_path(@report_user, target_year: prev_year), class: 'text-info'
+  = link_to "#{next_year}年 >>", user_monthly_reports_path(@report_user, target_year: next_year), class: 'pull-right text-info'
   #report_index
     table.table
       thead

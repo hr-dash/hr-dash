@@ -54,6 +54,11 @@ html, body, .site-body, .site-container, .site-header, .header-menu {
   margin-bottom: 50px;
 }
 
+/* page-footer */
+.page-footer {
+  height: 5rem;
+}
+
 .modal-dialog {
   z-index: 1500;
 }
@@ -65,7 +70,11 @@ html, body, .site-body, .site-container, .site-header, .header-menu {
   }
 
   .markdown-content {
+    border: 1px solid #ccc;
+    border-radius: 4px;
     border-top: none;
+    padding: 2rem 2rem 1rem 2rem;
+
   }
 }
 
@@ -96,5 +105,22 @@ html, body, .site-body, .site-container, .site-header, .header-menu {
         margin-right: 0.3em;
       }
     }
+  }
+}
+
+/* group page */
+.group-tab-content {
+  .tab-pane {
+    border: 1px solid #ccc;
+    padding: 1rem;
+  }
+}
+
+/* inquiry form */
+.new-inquiry {
+  textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 3px;
   }
 }

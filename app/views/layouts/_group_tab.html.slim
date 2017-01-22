@@ -3,7 +3,7 @@ div.row.group-tab
     ul.nav.nav-pills.nav-stacked
       - groups.each_with_index do |group, index|
         li class="#{'active' if index == 0}"
-          a href="##{group.id}" data-toggle="tab" = "#{group.name} G"
+          a.text-info href="##{group.id}" data-toggle="tab" = "#{group.name} G"
   .col-md-9.tab-content.group-tab-content
     - groups.each_with_index do |group, index|
       .tab-pane.row class="#{'active' if index == 0}" id="#{group.id}"
@@ -13,5 +13,5 @@ div.row.group-tab
         .col-md-5
           h5 メンバー
           - group.users.each do |user|
-            p = link_to user.name, user_profile_path(user.user_profile)
+            p = link_to user.name, user_profile_path(user.user_profile), class: 'text-info'
   
