@@ -1,6 +1,6 @@
 .panel.panel-default id=("comment-#{comment.id}")
   .panel-heading.monthly-report-panel-header
-    = link_to comment.user.name, user_profile_path(comment.user) 
+    = link_to comment.user.name, user_profile_path(comment.user), class: 'text-info' 
     span = " commented "
     = link_to comment.updated_at, monthly_report_path(comment.monthly_report, anchor: "comment-#{comment.id}"), class: 'text-info'
     - if comment.user == current_user
