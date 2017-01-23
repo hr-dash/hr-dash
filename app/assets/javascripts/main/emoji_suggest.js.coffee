@@ -1,5 +1,5 @@
 $ ->
-  img_path = "<%= image_path('/assets/emoji/') %>"
+  img_path = '/images/emoji/'
 
   emojify.setConfig({
     img_dir: img_path

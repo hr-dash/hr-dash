@@ -8,7 +8,7 @@ $ ->
   })
 
   emojify.setConfig({
-    img_dir: "<%= image_path('/assets/emoji/') %>"
+    img_dir: '/images/emoji/'
   })
 
   rickDom = new RickDOM()
