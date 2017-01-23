@@ -83,6 +83,36 @@ describe 'Admin::User', type: :feature do
     it { expect(other_user.reload.valid_password?(new_password)).to be true }
   end
 
+  describe '#delete_monthly_report', js: true do
+    let!(:report) { create(:monthly_report, :with_comments, :with_tags, user: target_user) }
+
+    context 'retired user reports' do
+      let(:target_user) { create(:user, deleted_at: Time.current) }
+      let(:tags) { MonthlyReportTag.where(monthly_report_id: report.id) }
+      let(:comments) { MonthlyReportComment.where(monthly_report_id: report.id) }
+      let(:working_process) { MonthlyWorkingProcess.where(monthly_report_id: report.id) }
+      before do
+        visit admin_user_path(target_user)
+        accept_confirm { click_link('月報を削除する') }
+      end
+
+      it { expect(page).to have_content('月報を削除する') }
+      it { expect(target_user.monthly_reports).to be_empty }
+      it { expect(tags).to be_empty }
+      it { expect(comments).to be_empty }
+      it { expect(working_process).to be_blank }
+    end
+
+    context 'not retired user reports' do
+      let(:target_user) { create(:user) }
+      before do
+        visit admin_user_path(target_user)
+      end
+
+      it { expect(page).not_to have_content('月報を削除する') }
+    end
+  end
+
   describe 'cannot access if operator' do
     let(:operator) { create(:user) }
 
