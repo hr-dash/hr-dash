@@ -1,4 +1,2 @@
-= "Error: 500"
-= render partial: 'layouts/new_inquiry'
-br
-= button_tag 'お問い合わせ', class: 'btn btn-success', 'data-toggle' => 'modal', 'data-target' => '#new_inquiry'
+- provide :error_status, '500'
+- provide :error_message, 'Internal Server Error'
