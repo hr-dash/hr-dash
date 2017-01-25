@@ -12,7 +12,7 @@ class MonthlyReportsController < ApplicationController
   end
 
   def show
-    @monthly_report = MonthlyReport.includes(comments: { user: :user_profile}).find(params[:id])
+    @monthly_report = MonthlyReport.includes(comments: { user: :user_profile }).find(params[:id])
   end
 
   def new
