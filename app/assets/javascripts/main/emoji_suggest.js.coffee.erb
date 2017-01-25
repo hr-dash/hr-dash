@@ -5,7 +5,7 @@ $ ->
     img_dir: img_path
   })
 
-  emojies = <%= Dir.glob('public/images/emoji/*').map{ |v| File.basename(v,'.png') } %>
+  emojies = <%= Dir.glob("#{Rails.public_path}/images/emoji/*").map{ |v| File.basename(v,'.png') } %>
   
   $('.markdown-content textarea').textcomplete [ {
     match: /\B:([\-+\w]*)$/
