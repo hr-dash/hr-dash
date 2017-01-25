@@ -4,7 +4,7 @@
     グループに割当てるユーザー
     <br />
     <% all_users = User.all.map { |user| [user.name, user.id] } %>
-    <%= select_tag 'user_ids[]', options_for_select(all_users, selected: group_users.map(&:id)), multiple: true %>
+    <%= select_tag 'user_ids[]', options_for_select(all_users, selected: group_users.map(&:id)), id: :group_assign_form, multiple: true %>
   </label>
 </li>
 </ol>

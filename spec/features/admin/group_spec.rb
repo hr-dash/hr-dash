@@ -51,7 +51,7 @@ describe 'Admin::Group', type: :feature do
     let!(:another_user) { create(:user) }
     before do
       visit edit_group_assign_admin_group_path(group)
-      find('#s2id_user_ids_').find('.select2-search-choice-close').click
+      find('#s2id_group_assign_form').find('.select2-search-choice-close').click
       page.execute_script "$('option[value=#{another_user.id}]').attr('selected', true)"
       find('input[name=commit]').trigger('click')
       sleep 0.4
