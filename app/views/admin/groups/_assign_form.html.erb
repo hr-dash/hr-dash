@@ -3,7 +3,7 @@
   <label for="group_assign_form">
     グループに割当てるユーザー
     <br />
-    <% all_users = User.all.map { |user| [user.name, user.id] } %>
+    <% all_users = User.pluck(:name, :id) %>
     <%= select_tag 'user_ids[]', options_for_select(all_users, selected: group_users.map(&:id)), id: :group_assign_form, multiple: true %>
   </label>
 </li>
