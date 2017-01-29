@@ -84,6 +84,26 @@ describe User, type: :model do
     it { expect(profile).to be_present }
   end
 
+  describe '.active' do
+    let!(:user) { create(:user, deleted_at: deleted_at) }
+    subject { described_class.active.present? }
+
+    context 'when deleted_at is nil' do
+      let(:deleted_at) { nil }
+      it { is_expected.to eq true }
+    end
+
+    context 'when deleted_at is future' do
+      let(:deleted_at) { Time.current.tomorrow }
+      it { is_expected.to eq true }
+    end
+
+    context 'when deleted_at is past' do
+      let(:deleted_at) { Time.current.yesterday }
+      it { is_expected.to eq false }
+    end
+  end
+
   describe '#report_registrable_months' do
     let(:entry_date) { Date.new(2016, 1, 1) }
     let(:user) { create(:user, entry_date: entry_date) }
