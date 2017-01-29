@@ -1,5 +1,5 @@
 describe MonthlyReportsController, type: :request do
-  let!(:report) { create(:shipped_montly_report, :with_comments) }
+  let!(:report) { create(:shipped_monthly_report, :with_comments) }
   let(:user) { create(:user) }
   before { login user }
 
@@ -192,7 +192,7 @@ describe MonthlyReportsController, type: :request do
 
     context 'valid' do
       context 'If monthly report on the last month has been registered' do
-        let!(:prev_monthly_report) { create(:shipped_montly_report) }
+        let!(:prev_monthly_report) { create(:shipped_monthly_report) }
         let(:params) { { target_month: prev_monthly_report.target_month.next_month.beginning_of_month } }
         before do
           login prev_monthly_report.user

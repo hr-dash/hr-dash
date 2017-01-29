@@ -43,6 +43,6 @@ FactoryGirl.define do
       end
     end
 
-    factory :shipped_montly_report, traits: [:shipped, :with_tags]
+    factory :shipped_monthly_report, traits: [:shipped, :with_tags]
   end
 end

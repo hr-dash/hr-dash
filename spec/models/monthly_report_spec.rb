@@ -33,7 +33,7 @@ RSpec.describe MonthlyReport, type: :model do
     end
 
     context 'when report is shipped' do
-      subject { build(:shipped_montly_report) }
+      subject { build(:shipped_monthly_report) }
       it { is_expected.to be_valid }
       it_behaves_like 'common validations'
 
@@ -147,7 +147,7 @@ RSpec.describe MonthlyReport, type: :model do
     end
 
     context 'exist last month report' do
-      before { create(:shipped_montly_report, target_month: report.target_month.last_month, user: user) }
+      before { create(:shipped_monthly_report, target_month: report.target_month.last_month, user: user) }
       it { expect { subject }.not_to raise_error }
     end
   end
