@@ -5,7 +5,7 @@
     .panel-heading.monthly-report-panel-header
       .panel-title.row
         .col-xs-2
-          - if @monthly_report.prev_month
+          - if @monthly_report.prev_month.try(:browseable?, current_user)
             a.btn.btn-default.btn-xs.monthly-report-panel-button href=(monthly_report_path(@monthly_report.prev_month)) role="button" 先月
         .col-xs-8.monthly-report-panel-date 
           - if @monthly_report.shipped?
@@ -14,7 +14,7 @@
             span.label.label-info.monthly-report-status 下書き
           = "#{@monthly_report.target_month.strftime("%Y年%m月")}の月報"
         .col-xs-2
-          - if @monthly_report.next_month
+          - if @monthly_report.next_month.try(:browseable?, current_user)
             a.btn.btn-default.btn-xs.monthly-report-panel-button.pull-right href=(monthly_report_path(@monthly_report.next_month)) role="button" 来月
     .panel-body
       form.form-horizontal

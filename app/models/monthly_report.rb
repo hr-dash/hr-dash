@@ -95,6 +95,10 @@ class MonthlyReport < ActiveRecord::Base
     users.uniq
   end
 
+  def browseable?(other_user)
+    shipped? || user == other_user
+  end
+
   private
 
   def target_month_registrable_term

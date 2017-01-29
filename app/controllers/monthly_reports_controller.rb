@@ -13,6 +13,7 @@ class MonthlyReportsController < ApplicationController
 
   def show
     @monthly_report = MonthlyReport.includes(comments: { user: :user_profile }).find(params[:id])
+    fail(Forbidden, 'can not see wip reports of other users') unless browseable?(@monthly_report)
   end
 
   def new
@@ -60,6 +61,10 @@ class MonthlyReportsController < ApplicationController
   end
 
   private
+
+  def browseable?(monthly_report)
+    monthly_report.browseable?(current_user)
+  end
 
   def flash_errors(monthly_report)
     flash.now[:error] = monthly_report.errors.full_messages

@@ -28,10 +28,36 @@ describe MonthlyReportsController, type: :request do
   end
 
   describe '#show GET /monthly_reports/:id' do
-    before { get monthly_report_path(report) }
-    it { expect(response).to have_http_status :success }
-    it { expect(response).to render_template('monthly_reports/show') }
-    it { expect(response.body).to match report.user.name }
+    context 'my report registered as shipped' do
+      let(:report) { create(:shipped_monthly_report, user: user) }
+      before { get monthly_report_path(report) }
+      it { expect(response).to have_http_status :ok }
+      it { expect(response).to render_template('monthly_reports/show') }
+      it { expect(response.body).to match report.user.name }
+    end
+
+    context 'my report registered as wip' do
+      let(:report) { create(:monthly_report, :wip, user: user) }
+      before { get monthly_report_path(report) }
+      it { expect(response).to have_http_status :ok }
+      it { expect(response).to render_template('monthly_reports/show') }
+      it { expect(response.body).to match report.user.name }
+    end
+
+    context 'report registered as shipped by other user' do
+      let(:other_report) { create(:shipped_monthly_report) }
+      before { get monthly_report_path(other_report) }
+      it { expect(response).to have_http_status :ok }
+      it { expect(response).to render_template 'monthly_reports/show' }
+      it { expect(response.body).to match other_report.user.name }
+    end
+
+    context 'report registered as wip by other user' do
+      let(:other_report) { create(:monthly_report, :wip) }
+      before { get monthly_report_path(other_report) }
+      it { expect(response).to have_http_status :forbidden }
+      it { expect(response).to render_template 'errors/403' }
+    end
   end
 
   describe '#new GET /monthly_reports/new' do

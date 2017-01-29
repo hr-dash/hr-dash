@@ -218,4 +218,20 @@ RSpec.describe MonthlyReport, type: :model do
       it { is_expected.to match_array([user, comment_user1, comment_user2]) }
     end
   end
+
+  describe '#browseable?' do
+    subject { report.browseable?(user) }
+    let(:user) { create(:user) }
+
+    context 'related user' do
+      let(:report) { create(:monthly_report, user: user) }
+      it { is_expected.to eq true }
+    end
+
+    context 'no related user' do
+      let(:report) { create(:monthly_report, user: other_user) }
+      let(:other_user) { create(:user) }
+      it { is_expected.to eq false }
+    end
+  end
 end
