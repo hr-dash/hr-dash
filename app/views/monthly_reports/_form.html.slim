@@ -1,6 +1,7 @@
 .page-content.well
   - if params[:action] == 'new' && monthly_report.prev_month
-    = button_to '先月の月報をコピー', { action: 'copy' }, params: { target_month: monthly_report.target_month }, method: 'get'
+    #prev_month_report_copy
+      = link_to '先月の月報をコピー', { action: 'copy', target_month: monthly_report.target_month }, class: 'btn btn-default'
 
   = form_for monthly_report, html: { class: 'form-horizontal' } do |f|
     - placeholders = HelpText.placeholders(:monthly_report)
