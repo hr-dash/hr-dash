@@ -3,8 +3,8 @@
     a.list-group-item href=(monthly_report_path(report))
       = report.user.groups.map { |g| "【#{g.name}G】" }.join
       = "#{report.user.name} - #{report.target_month.strftime("%Y年%m月")}分"
-      small#monthly-report-shipped-at.text-muted
-        = "投稿日:#{report.shipped_at.strftime("%Y-%m-%d")}"
+      small.monthly-report-shipped-at.text-muted
+        = "投稿日: #{report.shipped_at.strftime("%Y-%m-%d")}"
       - tags = report.monthly_report_tags.order('monthly_report_tags.id')
       .pull-right
         - tags.first(3).each do |tag|
