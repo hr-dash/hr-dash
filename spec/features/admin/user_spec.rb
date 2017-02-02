@@ -17,30 +17,26 @@ describe 'Admin::User', type: :feature do
   end
 
   describe '#create' do
-    let(:new_user) { User.last }
-    let(:name) { Faker::Name.name }
-    let(:gender) { User.genders.keys.sample }
-    let(:employee_code) { '1234567' }
-    let(:email) { 'yamada.taro@example.com' }
-    let(:entry_date) { Time.current.strftime('%Y-%m-%d') }
-    let(:beginner_flg) { [true, false].sample }
+    let(:user_params) { build(:user) }
+    let(:created_user) { User.last }
     before do
       visit new_admin_user_path
-      fill_in '名前', with: name
-      select gender, from: '性別'
-      fill_in '社員番号', with: employee_code
-      fill_in 'メールアドレス', with: email
-      fill_in '入社日', with: entry_date
-      check 'user_beginner_flg' if beginner_flg
+      fill_in '名前', with: user_params.name
+      select user_params.gender, from: '性別'
+      fill_in '社員番号', with: user_params.employee_code
+      fill_in 'メールアドレス', with: user_params.email
+      fill_in '入社日', with: user_params.entry_date
+      check 'user_beginner_flg' if user_params.beginner_flg
       click_on 'Create ユーザー'
     end
 
-    it { expect(current_path).to eq admin_user_path(new_user) }
-    it { expect(new_user.name).to eq name }
-    it { expect(new_user.gender).to eq gender }
-    it { expect(new_user.employee_code).to eq employee_code }
-    it { expect(new_user.email).to eq email }
-    it { expect(new_user.beginner_flg).to eq beginner_flg }
+    it { expect(current_path).to eq admin_user_path(created_user) }
+    it { expect(user_params.name).to eq created_user.name }
+    it { expect(user_params.gender).to eq created_user.gender }
+    it { expect(user_params.employee_code).to eq created_user.employee_code }
+    it { expect(user_params.email).to eq created_user.email }
+    it { expect(user_params.entry_date).to eq created_user.entry_date }
+    it { expect(user_params.beginner_flg).to eq created_user.beginner_flg }
   end
 
   describe '#update' do
