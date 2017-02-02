@@ -44,6 +44,7 @@ class MonthlyReport < ActiveRecord::Base
 
   scope :year, ->(year) { where(target_month: (Time.zone.local(year))..(Time.zone.local(year).end_of_year)) }
   scope :released, -> { where.not(shipped_at: nil) }
+  scope :latest, -> { where(target_month: User.report_registrable_to.beginning_of_month) }
 
   def self.of_latest_month_registered_by(user)
     user.monthly_reports.find_by(target_month: User.report_registrable_to.beginning_of_month)
