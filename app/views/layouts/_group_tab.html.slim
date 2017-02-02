@@ -12,6 +12,6 @@ div.row.group-tab
           = simple_format(h(group.description))
         .col-md-5
           h5 メンバー
-          - group.users.each do |user|
+          - group.users.active.each do |user|
             p = link_to user.name, user_profile_path(user.user_profile), class: 'text-info'
   

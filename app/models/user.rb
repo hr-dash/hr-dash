@@ -58,6 +58,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
+  scope :active, -> { where('deleted_at IS NULL OR deleted_at > ?', Time.current) }
+
   class << self
     def find_for_database_authentication(warden_conditions)
       find_by(encrypted_email: encrypt(warden_conditions[:email]))
