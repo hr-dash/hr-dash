@@ -1,0 +1,18 @@
+<ol>
+<li>
+  <label for="group_assign_form">
+    グループに割当てるユーザー
+    <br />
+    <% all_users = User.pluck(:name, :id) %>
+    <%= select_tag 'user_ids[]', options_for_select(all_users, selected: group_users.map(&:id)), id: :group_assign_form, multiple: true %>
+  </label>
+</li>
+</ol>
+
+<script>
+$(function() {
+  $('#group_assign_form').select2({
+    placeholder: 'ユーザーを選択'
+  });
+});
+</script>

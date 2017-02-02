@@ -47,13 +47,14 @@ describe 'Admin::Group', type: :feature do
     it { expect(group.reload.description).to eq new_description }
   end
 
-  describe '#update_group_assign' do
+  describe '#update_group_assign', js: true do
     let!(:another_user) { create(:user) }
     before do
       visit edit_group_assign_admin_group_path(group)
-      check "user_id_#{another_user.id}"
-      uncheck "user_id_#{user.id}"
-      click_on '更新する'
+      find('#s2id_group_assign_form').find('.select2-search-choice-close').click
+      page.execute_script "$('option[value=#{another_user.id}]').attr('selected', true)"
+      find('input[name=commit]').trigger('click')
+      sleep 0.4
     end
 
     it { expect(page_title).to have_content(group.name) }
