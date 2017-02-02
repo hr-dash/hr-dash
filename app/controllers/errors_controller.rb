@@ -3,6 +3,7 @@ class ErrorsController < ActionController::Base
 
   rescue_from StandardError, with: :render_internal_server_error
   rescue_from ActionController::NotImplemented, with: :render_not_implemented
+  rescue_from ApplicationController::Forbidden, with: :render_forbidden
   rescue_from ActionController::RoutingError, with: :render_not_found
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   rescue_from ActionController::MethodNotAllowed, with: :render_method_not_allowed
@@ -10,6 +11,11 @@ class ErrorsController < ActionController::Base
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
   rescue_from ActiveRecord::RecordNotSaved, with: :render_unprocessable_entity
   rescue_from ActionController::InvalidAuthenticityToken, with: :render_unprocessable_entity
+
+  def render_forbidden(exception = nil)
+    log_error(exception)
+    render template: 'errors/403', status: 403
+  end
 
   def render_not_found(exception = nil)
     log_error(exception)

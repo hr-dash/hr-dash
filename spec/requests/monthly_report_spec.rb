@@ -1,5 +1,5 @@
 describe MonthlyReportsController, type: :request do
-  let!(:report) { create(:shipped_montly_report, :with_comments) }
+  let!(:report) { create(:shipped_monthly_report, :with_comments) }
   let(:user) { create(:user) }
   before { login user }
 
@@ -28,10 +28,36 @@ describe MonthlyReportsController, type: :request do
   end
 
   describe '#show GET /monthly_reports/:id' do
-    before { get monthly_report_path(report) }
-    it { expect(response).to have_http_status :success }
-    it { expect(response).to render_template('monthly_reports/show') }
-    it { expect(response.body).to match report.user.name }
+    context 'my report registered as shipped' do
+      let(:report) { create(:shipped_monthly_report, user: user) }
+      before { get monthly_report_path(report) }
+      it { expect(response).to have_http_status :ok }
+      it { expect(response).to render_template('monthly_reports/show') }
+      it { expect(response.body).to match report.user.name }
+    end
+
+    context 'my report registered as wip' do
+      let(:report) { create(:monthly_report, :wip, user: user) }
+      before { get monthly_report_path(report) }
+      it { expect(response).to have_http_status :ok }
+      it { expect(response).to render_template('monthly_reports/show') }
+      it { expect(response.body).to match report.user.name }
+    end
+
+    context 'report registered as shipped by other user' do
+      let(:other_report) { create(:shipped_monthly_report) }
+      before { get monthly_report_path(other_report) }
+      it { expect(response).to have_http_status :ok }
+      it { expect(response).to render_template 'monthly_reports/show' }
+      it { expect(response.body).to match other_report.user.name }
+    end
+
+    context 'report registered as wip by other user' do
+      let(:other_report) { create(:monthly_report, :wip) }
+      before { get monthly_report_path(other_report) }
+      it { expect(response).to have_http_status :forbidden }
+      it { expect(response).to render_template 'errors/403' }
+    end
   end
 
   describe '#new GET /monthly_reports/new' do
@@ -192,7 +218,7 @@ describe MonthlyReportsController, type: :request do
 
     context 'valid' do
       context 'If monthly report on the last month has been registered' do
-        let!(:prev_monthly_report) { create(:shipped_montly_report) }
+        let!(:prev_monthly_report) { create(:shipped_monthly_report) }
         let(:params) { { target_month: prev_monthly_report.target_month.next_month.beginning_of_month } }
         before do
           login prev_monthly_report.user
