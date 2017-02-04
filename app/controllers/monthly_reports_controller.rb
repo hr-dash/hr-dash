@@ -120,7 +120,7 @@ class MonthlyReportsController < ApplicationController
 
   def search_params
     return unless params[:q]
-    params[:q][:tags_name_in] = params[:q][:tags_name_in].split(',')
+    params[:q][:tags_name_in] = params[:q][:tags_name_in]&.split(',')&.flatten
 
     search_conditions = [
       :user_groups_id_eq,
