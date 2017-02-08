@@ -43,7 +43,7 @@ describe MonthlyReportCommentsController, type: :feature do
 
       form = find("#edit_monthly_report_comment_#{comment.id}")
       form.find('textarea').set(after_comment.comment)
-      form.click_on 'Comment'
+      form.click_on 'Update'
     end
 
     it { expect(current_path).to eq monthly_report_path(report) }
