@@ -10,5 +10,9 @@ FactoryGirl.define do
     trait :fixed do
       status Tag.statuses[:fixed]
     end
+
+    trait :ignored do
+      status Tag.statuses[:ignored]
+    end
   end
 end

@@ -43,4 +43,28 @@ describe 'Admin::Tag', type: :feature do
     it { expect(page).to have_content(new_name) }
     it { expect(tag.reload.name).to eq new_name }
   end
+
+  describe 'batch_action', js: true do
+    let!(:tag) { create(:tag, :unfixed) }
+
+    before do
+      visit admin_tags_path
+      check "batch_action_item_#{tag.id}"
+      click_on '一括操作'
+    end
+
+    context 'fixedにする' do
+      before { click_on '選択した行をfixedにする' }
+
+      it { expect(page).to have_content('1個のタグをfixedにしました') }
+      it { expect(tag.reload).to be_fixed }
+    end
+
+    context 'ignoredにする' do
+      before { click_on '選択した行をignoredにする' }
+
+      it { expect(page).to have_content('1個のタグをignoredにしました') }
+      it { expect(tag.reload).to be_ignored }
+    end
+  end
 end

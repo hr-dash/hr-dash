@@ -12,4 +12,14 @@ ActiveAdmin.register Tag do
     end
     f.actions
   end
+
+  batch_action 'fixedにする' do |ids|
+    Tag.where(id: ids).each(&:fixed!)
+    redirect_to collection_path, notice: "#{ids.size}個のタグをfixedにしました"
+  end
+
+  batch_action 'ignoredにする' do |ids|
+    Tag.where(id: ids).each(&:ignored!)
+    redirect_to collection_path, notice: "#{ids.size}個のタグをignoredにしました"
+  end
 end
