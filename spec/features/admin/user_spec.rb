@@ -17,7 +17,26 @@ describe 'Admin::User', type: :feature do
   end
 
   describe '#create' do
-    pending
+    let(:user_params) { build(:user) }
+    let(:created_user) { User.last }
+    before do
+      visit new_admin_user_path
+      fill_in '名前', with: user_params.name
+      select user_params.gender, from: '性別'
+      fill_in '社員番号', with: user_params.employee_code
+      fill_in 'メールアドレス', with: user_params.email
+      fill_in '入社日', with: user_params.entry_date
+      check 'user_beginner_flg' if user_params.beginner_flg
+      click_on 'Create ユーザー'
+    end
+
+    it { expect(current_path).to eq admin_user_path(created_user) }
+    it { expect(user_params.name).to eq created_user.name }
+    it { expect(user_params.gender).to eq created_user.gender }
+    it { expect(user_params.employee_code).to eq created_user.employee_code }
+    it { expect(user_params.email).to eq created_user.email }
+    it { expect(user_params.entry_date).to eq created_user.entry_date }
+    it { expect(user_params.beginner_flg).to eq created_user.beginner_flg }
   end
 
   describe '#update' do
@@ -81,6 +100,36 @@ describe 'Admin::User', type: :feature do
     it { expect(current_path).to eq admin_users_path }
     it { expect(page_title).to have_content('ユーザー') }
     it { expect(other_user.reload.valid_password?(new_password)).to be true }
+  end
+
+  describe '#delete_monthly_report', js: true do
+    let!(:report) { create(:monthly_report, :with_comments, :with_tags, user: target_user) }
+
+    context 'retired user reports' do
+      let(:target_user) { create(:user, deleted_at: Time.current) }
+      let(:tags) { MonthlyReportTag.where(monthly_report_id: report.id) }
+      let(:comments) { MonthlyReportComment.where(monthly_report_id: report.id) }
+      let(:working_process) { MonthlyWorkingProcess.where(monthly_report_id: report.id) }
+      before do
+        visit admin_user_path(target_user)
+        accept_confirm { click_link('月報を削除する') }
+      end
+
+      it { expect(page).to have_content('月報を削除する') }
+      it { expect(target_user.monthly_reports).to be_blank }
+      it { expect(tags).to be_blank }
+      it { expect(comments).to be_blank }
+      it { expect(working_process).to be_blank }
+    end
+
+    context 'not retired user reports' do
+      let(:target_user) { create(:user) }
+      before do
+        visit admin_user_path(target_user)
+      end
+
+      it { expect(page).not_to have_content('月報を削除する') }
+    end
   end
 
   describe 'cannot access if operator' do
