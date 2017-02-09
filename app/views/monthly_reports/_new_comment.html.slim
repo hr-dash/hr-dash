@@ -7,10 +7,7 @@
       li.tab-md-preview
         = link_to 'Preview', "##{attr}-preview", "data-toggle" => "tab", class: 'text-info'
       li.pull-right
-        - if comment.user == current_user
-          = f.button 'Update', class: 'btn btn-success'
-        - else
-          = f.button 'Comment', class: 'btn btn-success'
+        = f.button 'Comment', class: 'btn btn-success'
 
     .tab-content.markdown-content
       .tab-pane.active id=("#{attr}-write")
