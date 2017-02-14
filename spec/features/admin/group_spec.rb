@@ -62,4 +62,37 @@ describe 'Admin::Group', type: :feature do
     it { expect(group.users).to include(another_user) }
     it { expect(group.users).not_to include(user) }
   end
+
+  describe '#import_csv' do
+    before { visit import_admin_groups_path }
+
+    context 'no input csv file' do
+      before { find('input[type=submit]').click }
+
+      it { expect(current_path).to eq do_import_admin_groups_path }
+      it { expect(page).to have_content('インポートするファイルを選択してください') }
+    end
+
+    context 'input valid csv file' do
+      let(:file) { File.join(fixture_path, 'groups.csv') }
+      let(:yamada) { Group.find_by(name: '山田') }
+      let(:suzuki) { Group.find_by(name: '鈴木') }
+
+      before do
+        attach_file 'active_admin_import_model_file', file
+        find('input[type=submit]').click
+      end
+
+      it { expect(current_path).to eq import_admin_groups_path }
+      it { expect(page).to have_content('2つのグループのインポートに成功しました') }
+      it { expect(yamada).to be_present }
+      it { expect(yamada.name).to eq '山田' }
+      it { expect(yamada.email).to eq 'yamada.group@example.com' }
+      it { expect(yamada.description).to eq '山田グループ' }
+      it { expect(suzuki).to be_present }
+      it { expect(suzuki.name).to eq '鈴木' }
+      it { expect(suzuki.email).to eq 'suzuki.group@example.com' }
+      it { expect(suzuki.description).to eq '鈴木グループ' }
+    end
+  end
 end
