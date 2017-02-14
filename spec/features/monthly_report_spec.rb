@@ -13,13 +13,12 @@ describe MonthlyReportsController, type: :feature do
 
     describe 'search', js: true do
       context 'by tag name' do
-        let!(:report) { create(:monthly_report, :shipped, :with_tags, tag_size: 1) }
-        let!(:tag) { report.tags.first }
+        let!(:tag) { create(:tag) }
         let(:url) { URI.parse(current_url) }
         let(:query) { URI.decode(url.query) }
 
         before do
-          create_list(:monthly_report, 10, :shipped, tags: report.tags)
+          create_list(:monthly_report, 11, :shipped, tags: [tag])
           visit monthly_reports_path
           find('#monthly_report_tags_input').set(tag.name)
           click_button '検索'
