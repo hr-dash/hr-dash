@@ -26,7 +26,7 @@ describe 'Admin::Group', type: :feature do
       fill_in '名前', with: new_group.name
       fill_in 'メールアドレス', with: new_group.email
       fill_in '説明', with: new_group.description
-      click_on 'Create グループ'
+      click_on 'グループを作成'
     end
 
     it { expect(page_title).to have_content(new_group.name) }
@@ -38,7 +38,7 @@ describe 'Admin::Group', type: :feature do
     before do
       visit edit_admin_group_path(group)
       fill_in '説明', with: new_description
-      click_on 'Update グループ'
+      click_on 'グループを更新'
     end
 
     it { expect(page_title).to have_content(group.name) }

@@ -24,7 +24,7 @@ describe 'Admin::HelpText', type: :feature do
     before do
       visit edit_admin_help_text_path(help_text)
       fill_in 'テキスト', with: new_body
-      click_on 'Update ヘルプテキスト'
+      click_on 'ヘルプテキストを更新'
     end
 
     it { expect(page_title).to have_content("##{help_text.id}") }

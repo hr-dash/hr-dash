@@ -23,7 +23,7 @@ describe 'Admin::MonthlyReportComment', type: :feature do
     before do
       visit edit_admin_monthly_report_comment_path(comment)
       fill_in 'コメント', with: new_comment
-      click_on 'Update 月報コメント'
+      click_on '月報コメントを更新'
     end
 
     it { expect(page).to have_content(new_comment) }
