@@ -73,8 +73,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rails-controller-testing'
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
 end
 
 group :development do
@@ -91,6 +89,7 @@ group :development do
   gem 'capistrano3-nginx'
   gem 'rails_real_favicon'
   gem 'listen'
+  gem 'web-console', '~> 2.0'
 end
 
 group :test do
