@@ -111,7 +111,7 @@ describe MonthlyReportsController, type: :request do
     let(:user_report) { MonthlyReport.find_by(user: user) }
 
     context 'valid' do
-      before { post monthly_reports_path, post_params }
+      before { post monthly_reports_path, params: post_params }
       context 'registered as wip' do
         let(:post_params) { { monthly_report: report_params, wip: true } }
         it { expect(response).to have_http_status :redirect }
@@ -133,7 +133,7 @@ describe MonthlyReportsController, type: :request do
 
     context 'invalid' do
       let(:post_params) { { monthly_report: report_params.except('target_month') } }
-      before { post monthly_reports_path, post_params }
+      before { post monthly_reports_path, params: post_params }
       it { expect(response).to have_http_status :success }
       it { expect(response).to render_template('monthly_reports/new') }
       it { expect(user_report.present?).to eq false }
@@ -148,13 +148,13 @@ describe MonthlyReportsController, type: :request do
             working_process: process_params,
           }
         end
-        subject { post monthly_reports_path, post_params }
+        subject { post monthly_reports_path, params: post_params }
         it { expect { subject }.to change { ActionMailer::Base.deliveries.size }.by(1) }
       end
 
       context 'registered as wip' do
         let(:post_params) { { monthly_report: report_params, wip: true } }
-        before { post monthly_reports_path, post_params }
+        before { post monthly_reports_path, params: post_params }
         it { expect(ActionMailer::Base.deliveries.size).to eq(0) }
       end
     end
@@ -168,7 +168,7 @@ describe MonthlyReportsController, type: :request do
           wip: true,
         }
       end
-      before { post monthly_reports_path, post_params }
+      before { post monthly_reports_path, params: post_params }
       subject { user_report.monthly_working_process }
 
       context 'valid' do

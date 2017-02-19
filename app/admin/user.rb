@@ -73,7 +73,7 @@ ActiveAdmin.register User do
   collection_action :import_csv, method: :post do
     unless params[:csv]
       flash[:error] = 'CSVファイルを指定してください'
-      redirect_to :back
+      redirect_back(fallback_location: admin_root_path)
       return
     end
 
@@ -96,7 +96,7 @@ ActiveAdmin.register User do
       redirect_to action: :index
     else
       flash[:error] = errors.join(' ')
-      redirect_to :back
+      redirect_back(fallback_location: admin_root_path)
     end
   end
 
@@ -121,7 +121,7 @@ ActiveAdmin.register User do
       redirect_to action: :index
     else
       flash[:error] = @user.errors.full_messages
-      redirect_to :back
+      redirect_back(fallback_location: admin_root_path)
     end
   end
 
@@ -138,7 +138,7 @@ ActiveAdmin.register User do
       flash[:error] = '月報の削除に失敗しました'
     end
 
-    redirect_to :back
+    redirect_back(fallback_location: admin_root_path)
   end
 
   action_item :delete_monthly_report, only: :show do
