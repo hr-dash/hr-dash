@@ -30,7 +30,7 @@ ActiveAdmin.register UserProfile do
       row :id
       row :user
       row :self_introduction
-      row('血液型') { |r| r.blood_type_i18n }
+      row('血液型', &:blood_type_i18n)
       row :birthday
       row :created_at
       row :updated_at

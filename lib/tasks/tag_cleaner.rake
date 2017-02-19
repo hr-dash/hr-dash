@@ -3,7 +3,7 @@ namespace :tag_cleaner do
   task :delete_unused_tags, ['exec_flag'] => :environment do |_, args|
     Tag.unfixed.each do |tag|
       tags = MonthlyReportTag.where(tag: tag)
-      next if tags.size > 0
+      next unless tags.empty?
       puts "Unused tag: #{tag.name}"
       tag.destroy if args.exec_flag
     end

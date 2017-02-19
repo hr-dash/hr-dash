@@ -16,7 +16,7 @@
 #
 
 class MonthlyWorkingProcess < ActiveRecord::Base
-  PROCESSES = column_names.select { |c| c.match(/\Aprocess_/) }
+  PROCESSES = column_names.select { |c| c.start_with?('process_') }
 
   belongs_to :monthly_report
 
