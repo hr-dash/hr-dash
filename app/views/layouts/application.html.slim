@@ -3,7 +3,7 @@ body
   .site-body.container-fluid
     .site-container.row
       = render partial: 'layouts/site_header'
-      .col-xs-8.col-xs-offset-3
+      .col-sm-8.col-sm-offset-3
         - title = yield(:page_title)
         - if title.present?
           .page-header

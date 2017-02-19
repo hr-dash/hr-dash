@@ -1,4 +1,4 @@
-header.site-header.bg-primary.col-xs-2
+header.site-header.bg-primary.col-sm-2.hidden-xs
   .header-menu.center-block
     .header-menu-title
       a href="#{root_path}"
@@ -7,3 +7,18 @@ header.site-header.bg-primary.col-xs-2
       = render partial: 'layouts/header_main_menus'
     ul.nav.nav-pills.nav-stacked.header-menu-bottom.dropup
       = render partial: 'layouts/header_user_menus'
+
+- # for smartphone
+.visible-xs-block
+  nav.navbar.navbar-default role="navigation"
+    .navbar-header
+      button.navbar-toggle.collapsed data-toggle="collapse" data-target="#navHeader" type="button"
+        span.sr-only メニュー
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand.navbar-brand-center href="#{root_path}" = Dash.name
+    #navHeader.collapse.navbar-collapse
+      ul.nav.navbar-nav.navbar-right
+        = render partial: 'layouts/header_main_menus'
+        = render partial: 'layouts/header_user_menus'
