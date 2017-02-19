@@ -1,0 +1,16 @@
+li.dropdown
+  a.lead.bg-primary.dropdown-toggle data-toggle="dropdown" aria-expanded="false"
+    span.glyphicon.glyphicon-user aria-hidden="true"
+    span = " #{current_user.name}"
+  ul.dropdown-menu
+    - if current_user.admin? || current_user.operator?
+      li.hidden-xs
+        = link_to '管理画面へ', admin_root_path
+    li
+      = link_to 'プロフィール', user_profile_path(current_user.user_profile)
+    li
+      = link_to 'パスワード変更', password_reset_sessions_path, data: { confirm: 'パスワードを変更しますか？一旦、ログアウトします。' }
+    li
+      = link_to 'お問い合わせ', '#', 'data-toggle' => 'modal', 'data-target' => '#new_inquiry'
+    li
+      = link_to 'ログアウト', destroy_sessions_path, method: :delete
