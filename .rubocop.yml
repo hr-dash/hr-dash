@@ -10,7 +10,9 @@ Metrics/LineLength:
   Max: 128
 
 Metrics/BlockLength:
-  Enabled: false
+  Exclude:
+    - spec/**/*
+    - app/admin/**/*
 
 TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
