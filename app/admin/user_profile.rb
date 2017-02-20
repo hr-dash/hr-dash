@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ActiveAdmin.register UserProfile do
   menu parent: 'ユーザー'
   active_admin_action_log

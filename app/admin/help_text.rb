@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ActiveAdmin.register HelpText do
   active_admin_action_log
   permit_params { HelpText.column_names }

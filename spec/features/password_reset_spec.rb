@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 describe PasswordResetsController, type: :feature do
   describe '#create' do
     let(:email) { user.email }

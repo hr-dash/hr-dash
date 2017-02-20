@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ActiveAdmin.register_page 'Dashboard' do
   DISPLAY_MONTHLY_REPORT_LIMIT = 10
   DISPLAY_UNFIXED_TAG_LIMIT = 10

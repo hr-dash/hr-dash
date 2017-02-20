@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Mailer
   class Inquiry < ApplicationMailer
     def create(inquiry)

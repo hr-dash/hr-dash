@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Mailer
   class Error < ApplicationMailer
     def create(exception, user, request)

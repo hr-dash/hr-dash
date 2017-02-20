@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Mailer
   class Notify < ApplicationMailer
     def monthly_report_registration(user_id, monthly_report_id)

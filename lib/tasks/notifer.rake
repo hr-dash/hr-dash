@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :notifer do
   desc 'Send email notification if user can register monthly report.'
   task report_registrable: :environment do

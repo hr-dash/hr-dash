@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ActiveAdmin.register MonthlyWorkingProcess do
   menu parent: '月報'
   active_admin_action_log

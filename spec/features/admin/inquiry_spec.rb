@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 describe 'Admin::Inquiry', type: :feature do
   before { login(admin: true) }
   let!(:inquiry) { create(:inquiry) }

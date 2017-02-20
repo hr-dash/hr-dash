@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class UserProfilesController < ApplicationController
   def show
     @profile = UserProfile.find(params[:id])

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 describe InquiriesController, type: :feature do
   let(:user) { create(:user) }
   before { login user }

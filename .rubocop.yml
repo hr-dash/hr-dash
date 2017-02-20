@@ -18,10 +18,6 @@ TrailingCommaInArguments:
 TrailingCommaInLiteral:
   EnforcedStyleForMultiline: comma
 
-# frozen string literal を付けていなくても警告しない
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
 AllCops:
   Exclude:
     - db/schema.rb

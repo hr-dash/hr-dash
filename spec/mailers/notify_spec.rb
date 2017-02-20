@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 RSpec.describe Mailer::Notify, type: :mailer do
   let!(:report) { create(:monthly_report, :with_comments, :with_tags) }
