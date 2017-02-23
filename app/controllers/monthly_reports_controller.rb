@@ -1,4 +1,6 @@
 class MonthlyReportsController < ApplicationController
+  before_action :assign_saved_report, only: [:edit, :update]
+
   def index
     references = [{ user: :groups }, :monthly_working_process, { monthly_report_tags: :tag }]
     @q = MonthlyReport.includes(references).ransack(search_params)
@@ -37,13 +39,9 @@ class MonthlyReportsController < ApplicationController
   end
 
   def edit
-    @monthly_report = current_user.monthly_reports.includes(monthly_report_tags: :tag).find params[:id]
-    @saved_shipped_at = @monthly_report.shipped_at
   end
 
   def update
-    @monthly_report = current_user.monthly_reports.find(params[:id])
-    @saved_shipped_at = @monthly_report.shipped_at
     @monthly_report.assign_attributes(permitted_params)
     assign_relational_params(@monthly_report)
     shipped_at_was = @monthly_report.shipped_at_was
@@ -63,6 +61,11 @@ class MonthlyReportsController < ApplicationController
   end
 
   private
+
+  def assign_saved_report
+    @monthly_report = current_user.monthly_reports.includes(monthly_report_tags: :tag).find params[:id]
+    @saved_shipped_at = @monthly_report.shipped_at
+  end
 
   def browseable?(monthly_report)
     monthly_report.browseable?(current_user)
