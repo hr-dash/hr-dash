@@ -38,10 +38,12 @@ class MonthlyReportsController < ApplicationController
 
   def edit
     @monthly_report = current_user.monthly_reports.includes(monthly_report_tags: :tag).find params[:id]
+    @saved_shipped_at = @monthly_report.shipped_at
   end
 
   def update
     @monthly_report = current_user.monthly_reports.find(params[:id])
+    @saved_shipped_at = @monthly_report.shipped_at
     @monthly_report.assign_attributes(permitted_params)
     assign_relational_params(@monthly_report)
     shipped_at_was = @monthly_report.shipped_at_was
