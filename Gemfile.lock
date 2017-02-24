@@ -532,7 +532,7 @@ DEPENDENCIES
   poltergeist
   pry
   rack_session_access
-  rails (~> 5.0.0)
+  rails (~> 5.0.1)
   rails-controller-testing
   rails-erd
   rails_real_favicon
