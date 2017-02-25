@@ -13,4 +13,4 @@ li.dropdown
     li
       = link_to 'お問い合わせ', '#', 'data-toggle' => 'modal', 'data-target' => '#new_inquiry'
     li
-      = link_to 'ログアウト', destroy_sessions_path, method: :delete
+      = link_to 'ログアウト', destroy_sessions_path, method: :delete, class: 'logout_link'

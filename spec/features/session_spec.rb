@@ -71,7 +71,7 @@ describe SessionsController, type: :feature do
     before do
       login user
       visit root_path
-      click_on 'ログアウト'
+      find('.header-menu .logout_link').click
     end
 
     it { expect(page).to have_http_status :success }
