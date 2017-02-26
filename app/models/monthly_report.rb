@@ -99,6 +99,17 @@ class MonthlyReport < ActiveRecord::Base
     shipped? || user == other_user
   end
 
+  def self.target_month_select_options
+    return [] if MonthlyReport.released.blank?
+    options = []
+    month = MonthlyReport.released.minimum(:target_month)
+    while month <= MonthlyReport.released.maximum(:target_month)
+      options << [month.strftime('%Y年%m月'), month]
+      month = month.next_month
+    end
+    options
+  end
+
   private
 
   def target_month_registrable_term

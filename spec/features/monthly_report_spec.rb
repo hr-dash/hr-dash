@@ -30,6 +30,26 @@ describe MonthlyReportsController, type: :feature do
         it { expect(query).to include "q[tags_name_in][]=#{tag.name}" }
       end
     end
+
+    context 'by target_month' do
+      let(:url) { URI.parse(current_url) }
+      let(:query) { URI.decode(url.query) }
+      let!(:user1) { create(:user, entry_date: 6.months.ago) }
+      let(:month1) { 1.months.ago.beginning_of_month }
+      let(:month2) { 2.months.ago.beginning_of_month }
+      let!(:report1) { create(:monthly_report, :shipped, :with_tags, user: user1, target_month: month1) }
+      let!(:report2) { create(:monthly_report, :shipped, :with_tags, user: user1, target_month: month2) }
+
+      before do
+        visit monthly_reports_path
+        select report1.target_month.strftime('%Y年%m月'), from: 'q[target_month_eq]'
+        click_button '検索'
+      end
+
+      it { expect(current_path).to eq monthly_reports_path }
+      it { expect(query).to include "q[target_month_eq]=#{report1.target_month}" }
+      it { expect(query).not_to include "q[target_month_eq]=#{report2.target_month}" }
+    end
   end
 
   describe '#show GET /monthly_reports/:id' do

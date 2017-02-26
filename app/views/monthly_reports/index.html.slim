@@ -27,6 +27,10 @@
                 = f.check_box column, { autocomplete: "off" }, true, nil
                 span = t "activerecord.attributes.monthly_working_process.#{process}"
         .form-group
+          = f.label :target_month_eq, '対象月', class: 'control-label col-xs-2'
+          .col-xs-10
+            = f.select :target_month_eq, options_for_select(MonthlyReport.target_month_select_options), { include_blank: true }, class: 'form-control'
+        .form-group
           .col-xs-10.col-xs-offset-2
             = f.button '検索', class: 'btn btn-default'
 .page-content
