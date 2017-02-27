@@ -101,13 +101,16 @@ class MonthlyReport < ActiveRecord::Base
 
   def self.target_month_select_options
     return [] if MonthlyReport.released.blank?
-    options = []
-    month = MonthlyReport.released.minimum(:target_month)
-    while month <= MonthlyReport.released.maximum(:target_month)
-      options << [month.strftime('%Y年%m月'), month]
-      month = month.next_month
+    first_month = MonthlyReport.released.minimum(:target_month)
+    last_month = MonthlyReport.released.maximum(:target_month)
+    all_months(first_month, last_month).map{ |month| [month.strftime('%Y年%m月'), month] }
+  end
+
+  def self.all_months(first_month, last_month)
+    loop.each_with_object([first_month]) do |_, days|
+      nm = days.last.next_month
+      nm > last_month ? (break days) : days << nm
     end
-    options
   end
 
   private
