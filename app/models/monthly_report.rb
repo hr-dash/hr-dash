@@ -103,7 +103,7 @@ class MonthlyReport < ActiveRecord::Base
     return [] if MonthlyReport.released.blank?
     first_month = MonthlyReport.released.minimum(:target_month)
     last_month = MonthlyReport.released.maximum(:target_month)
-    all_months(first_month, last_month).map{ |month| [month.strftime('%Y年%m月'), month] }
+    all_months(first_month, last_month).map { |month| [month.strftime('%Y年%m月'), month] }
   end
 
   def self.all_months(first_month, last_month)
