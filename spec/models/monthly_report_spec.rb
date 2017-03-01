@@ -234,4 +234,15 @@ RSpec.describe MonthlyReport, type: :model do
       it { is_expected.to eq false }
     end
   end
+
+  describe 'target_month_select_options' do
+    let!(:user1) { create(:user, entry_date: 6.months.ago) }
+    let(:month1) { 1.months.ago.beginning_of_month }
+    let(:month2) { 2.months.ago.beginning_of_month }
+    let!(:report1) { create(:monthly_report, :shipped, :with_tags, user: user1, target_month: month1) }
+    let!(:report2) { create(:monthly_report, :shipped, :with_tags, user: user1, target_month: month2) }
+
+    subject { MonthlyReport.target_month_select_options }
+    it { is_expected.to eq [[month2.strftime('%Y年%m月'), month2.to_date], [month1.strftime('%Y年%m月'), month1.to_date]] }
+  end
 end
