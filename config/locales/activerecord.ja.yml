@@ -50,6 +50,8 @@ ja:
         process_operation: 運用保守
         process_analysis: 分析
         process_training: 研修
+        process_structure: 構築
+        process_trouble: 障害対応
       user_role:
         user: ユーザー
         role: ロール

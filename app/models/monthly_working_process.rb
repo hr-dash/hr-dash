@@ -12,6 +12,8 @@
 #  process_operation      :boolean          default(FALSE), not null
 #  process_analysis       :boolean          default(FALSE), not null
 #  process_training       :boolean          default(FALSE), not null
+#  process_structure      :boolean          default(FALSE), not null
+#  process_trouble        :boolean          default(FALSE), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #

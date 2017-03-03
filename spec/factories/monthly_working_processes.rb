@@ -12,6 +12,8 @@
 #  process_operation      :boolean          default(FALSE), not null
 #  process_analysis       :boolean          default(FALSE), not null
 #  process_training       :boolean          default(FALSE), not null
+#  process_structure      :boolean          default(FALSE), not null
+#  process_trouble        :boolean          default(FALSE), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -25,5 +27,7 @@ FactoryGirl.define do
     process_test { [true, false].sample }
     process_operation { [true, false].sample }
     process_training { [true, false].sample }
+    process_structure { [true, false].sample }
+    process_trouble { [true, false].sample }
   end
 end
