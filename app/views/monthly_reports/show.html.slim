@@ -27,13 +27,14 @@
           label.col-sm-3.control-label = t "#{attr}.monthly_report_tags"
           .col-sm-9.form-control-static
             = render 'layouts/monthly_report_tags_show', tags: @monthly_report.tags, prefix: :report
-          - process_attr = 'activerecord.attributes.monthly_working_process'
         .form-group
+          - process_attr = 'activerecord.attributes.monthly_working_process'
           label.col-sm-3.control-label = t "#{attr}.monthly_working_process"
           .col-sm-9.form-control-static.btn-group
             - @monthly_report.monthly_working_process.processes.select.each do |key, value|
               - next unless value
-              .btn.btn-default = t "#{process_attr}.#{key}"
+              - url = monthly_reports_path("q[monthly_working_process_#{key}_eq]" => true)
+              a.btn.btn-default href=(url) = t "#{process_attr}.#{key}"
         .form-group
           label.col-sm-3.control-label = t "#{attr}.business_content"
           .col-sm-9.form-control-static
