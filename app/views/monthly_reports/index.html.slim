@@ -24,7 +24,7 @@
             == render 'layouts/monthly_report_tags', tags: @q.tags_name_in, placeholder: placeholders[:tags]
         .form-group
           = f.label :monthly_working_process, '担当した工程', class: 'control-label col-xs-2'
-          .col-xs-10.btn-group data-toggle="buttons"
+          .col-xs-10.btn-group.btn-group-sm data-toggle="buttons"
             - MonthlyWorkingProcess::PROCESSES.each do |process|
               - column = "monthly_working_process_#{process}_eq"
               label.btn.btn-default class=('active' if @q.send(column))
