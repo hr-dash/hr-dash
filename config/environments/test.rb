@@ -54,4 +54,5 @@ Rails.application.configure do
 
   # ActionMailerの設定
   config.action_mailer.default_options = { from: 'test@example.com' }
+  # config.web_console.development_only = false
 end
