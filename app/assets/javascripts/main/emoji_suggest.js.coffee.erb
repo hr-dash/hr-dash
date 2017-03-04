@@ -11,7 +11,7 @@ $ ->
     match: /\B:([\-+\w]*)$/
     search: (term, callback) ->
       callback $.map(emojies, (emoji) ->
-        if emoji.indexOf(term) == 0 then emoji else null
+        if emoji.indexOf(term) != -1 then emoji else null
       )
       return
     template: (value) ->
