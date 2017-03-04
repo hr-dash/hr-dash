@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.0.2'
 # Use Postgresql as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
@@ -88,7 +88,6 @@ group :development do
   gem 'capistrano3-unicorn'
   gem 'capistrano3-nginx'
   gem 'rails_real_favicon'
-  gem 'listen'
   gem 'web-console', '~> 2.0'
 end
 
