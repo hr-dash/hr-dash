@@ -4,9 +4,10 @@ module RequestHelpers
   def login(user = nil, admin: false, operator: false)
     user ||= FactoryGirl.create(:user)
 
-    if admin
+    case
+    when admin
       FactoryGirl.create(:user_role, :admin, user: user)
-    elsif operator
+    when operator
       FactoryGirl.create(:user_role, :operator, user: user)
     end
 
