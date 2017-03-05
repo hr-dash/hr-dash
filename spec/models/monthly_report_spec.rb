@@ -235,7 +235,7 @@ RSpec.describe MonthlyReport, type: :model do
     end
   end
 
-  describe 'target_month_select_options' do
+  describe '.target_month_select_options' do
     let!(:user1) { create(:user, entry_date: 6.months.ago) }
     let(:month1) { 1.months.ago.beginning_of_month.to_date }
     let(:month2) { 2.months.ago.beginning_of_month.to_date }
@@ -246,7 +246,7 @@ RSpec.describe MonthlyReport, type: :model do
     it { is_expected.to eq [[month2.strftime('%Y年%m月'), month2], [month1.strftime('%Y年%m月'), month1]] }
   end
 
-  describe 'all_months' do
+  describe '.all_months' do
     let!(:user1) { create(:user, entry_date: 6.months.ago) }
     let(:month1) { 1.months.ago.beginning_of_month.to_date }
     let(:month2) { 2.months.ago.beginning_of_month.to_date }
