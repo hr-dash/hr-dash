@@ -100,9 +100,10 @@ class MonthlyReport < ActiveRecord::Base
   end
 
   def self.target_month_select_options
-    return [] if MonthlyReport.released.blank?
-    first_month = MonthlyReport.released.minimum(:target_month)
-    last_month = MonthlyReport.released.maximum(:target_month)
+    released_reports = MonthlyReport.released
+    return [] if released_reports.blank?
+    first_month = released_reports.minimum(:target_month)
+    last_month = released_reports.maximum(:target_month)
     all_months(first_month, last_month).map { |month| [month.strftime('%Y年%m月'), month] }
   end
 
