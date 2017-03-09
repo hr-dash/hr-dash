@@ -116,7 +116,7 @@ describe 'Admin::User', type: :feature do
         accept_confirm { click_link('月報を削除する') }
       end
 
-      xit { expect(page).to have_content('月報を削除する') }
+      it { expect(page).to have_content('月報を削除する') }
       it { expect(target_user.monthly_reports).to be_blank }
       it { expect(tags).to be_blank }
       it { expect(comments).to be_blank }
