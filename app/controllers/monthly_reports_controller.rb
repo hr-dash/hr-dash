@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class MonthlyReportsController < ApplicationController
   before_action :assign_saved_report, only: [:edit, :update]
 

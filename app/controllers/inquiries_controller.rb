@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class InquiriesController < ApplicationController
   def create
     @inquiry = Inquiry.new(permitted_params) { |i| i.user = current_user }

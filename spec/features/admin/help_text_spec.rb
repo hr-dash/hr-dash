@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 describe 'Admin::HelpText', type: :feature do
   before { login(admin: true) }
   let!(:help_text) { create(:help_text) }

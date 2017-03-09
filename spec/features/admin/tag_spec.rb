@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 describe 'Admin::Tag', type: :feature do
   before { login(admin: true) }
   let!(:tag) { create(:tag) }

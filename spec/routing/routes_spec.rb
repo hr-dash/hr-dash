@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 describe 'Routing', type: :routing do
   describe '/monthly_reports/?page=:page' do
     let(:page_count_limit) { Constraints::PageCount::PAGE_COUNT_LIMIT }

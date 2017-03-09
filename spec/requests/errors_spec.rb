@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 describe ErrorsController, type: :request do
   after { ActionMailer::Base.deliveries.clear }
 

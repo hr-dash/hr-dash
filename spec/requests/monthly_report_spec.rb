@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 describe MonthlyReportsController, type: :request do
   let!(:report) { create(:shipped_monthly_report, :with_comments) }
   let(:user) { create(:user) }

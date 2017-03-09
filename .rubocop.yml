@@ -10,17 +10,15 @@ Metrics/LineLength:
   Max: 128
 
 Metrics/BlockLength:
-  Enabled: false
+  Exclude:
+    - spec/**/*
+    - app/admin/**/*
 
 TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
 
 TrailingCommaInLiteral:
   EnforcedStyleForMultiline: comma
-
-# frozen string literal を付けていなくても警告しない
-Style/FrozenStringLiteralComment:
-  Enabled: false
 
 AllCops:
   Exclude:

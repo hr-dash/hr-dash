@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ActiveAdmin.register GroupAssignment do
   menu parent: 'グループ'
   active_admin_action_log

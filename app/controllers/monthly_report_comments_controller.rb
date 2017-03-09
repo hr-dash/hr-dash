@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class MonthlyReportCommentsController < ApplicationController
   def create
     comment = MonthlyReportComment.new(permitted_params)
