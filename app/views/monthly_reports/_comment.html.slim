@@ -2,7 +2,7 @@
   .panel-heading.monthly-report-panel-header
     = link_to comment.user.name, user_profile_path(comment.user.user_profile), class: 'text-info' 
     = ' さんが '
-    = link_to comment.updated_at, monthly_report_path(comment.monthly_report.id, anchor: "comment-#{comment.id}"), class: 'text-info'
+    = link_to comment.updated_at, monthly_report_path(comment.monthly_report_id, anchor: "comment-#{comment.id}"), class: 'text-info'
     = ' にコメント '
     - if comment.user == current_user
       .pull-right
