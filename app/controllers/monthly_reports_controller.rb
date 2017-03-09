@@ -39,8 +39,7 @@ class MonthlyReportsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @monthly_report.assign_attributes(permitted_params)
