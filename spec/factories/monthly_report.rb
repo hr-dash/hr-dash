@@ -2,7 +2,7 @@
 FactoryGirl.define do
   factory :monthly_report do
     association :user
-    target_month { Faker::Date.between(6.months.ago, 1.months.ago).beginning_of_month }
+    target_month { Faker::Date.between(6.months.ago, 2.months.ago).beginning_of_month }
     project_summary { Faker::Lorem.paragraph }
     business_content { Faker::Lorem.paragraph }
     looking_back { Faker::Lorem.paragraph }
