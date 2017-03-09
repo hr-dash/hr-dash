@@ -100,6 +100,21 @@ class MonthlyReport < ActiveRecord::Base
     shipped? || user == other_user
   end
 
+  def self.target_month_select_options
+    released_reports = MonthlyReport.released
+    return [] if released_reports.blank?
+    first_month = released_reports.minimum(:target_month)
+    last_month = released_reports.maximum(:target_month)
+    all_months(first_month, last_month).map { |month| [month.strftime('%Y年%m月'), month] }
+  end
+
+  def self.all_months(first_month, last_month)
+    loop.each_with_object([first_month]) do |_, days|
+      nm = days.last.next_month
+      nm > last_month ? (break days) : days << nm
+    end
+  end
+
   private
 
   def target_month_registrable_term

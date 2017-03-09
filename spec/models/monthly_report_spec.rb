@@ -235,4 +235,28 @@ RSpec.describe MonthlyReport, type: :model do
       it { is_expected.to eq false }
     end
   end
+
+  describe '.target_month_select_options' do
+    let!(:user1) { create(:user, entry_date: 6.months.ago) }
+    let(:month1) { 1.months.ago.beginning_of_month.to_date }
+    let(:month2) { 2.months.ago.beginning_of_month.to_date }
+    let!(:report1) { create(:monthly_report, :shipped, :with_tags, user: user1, target_month: month1) }
+    let!(:report2) { create(:monthly_report, :shipped, :with_tags, user: user1, target_month: month2) }
+
+    subject { MonthlyReport.target_month_select_options }
+    it { is_expected.to eq [[month2.strftime('%Y年%m月'), month2], [month1.strftime('%Y年%m月'), month1]] }
+  end
+
+  describe '.all_months' do
+    let!(:user1) { create(:user, entry_date: 6.months.ago) }
+    let(:month1) { 1.months.ago.beginning_of_month.to_date }
+    let(:month2) { 2.months.ago.beginning_of_month.to_date }
+    let(:month3) { 3.months.ago.beginning_of_month.to_date }
+    let(:month4) { 4.months.ago.beginning_of_month.to_date }
+    let!(:report1) { create(:monthly_report, :shipped, :with_tags, user: user1, target_month: month1) }
+    let!(:report2) { create(:monthly_report, :shipped, :with_tags, user: user1, target_month: month4) }
+
+    subject { MonthlyReport.all_months(month4, month1) }
+    it { is_expected.to eq [month4, month3, month2, month1] }
+  end
 end

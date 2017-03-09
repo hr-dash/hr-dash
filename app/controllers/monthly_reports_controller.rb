@@ -131,6 +131,7 @@ class MonthlyReportsController < ApplicationController
     search_conditions = [
       :user_groups_id_eq,
       :user_name_cont,
+      :target_month_eq,
       tags_name_in: [],
     ].concat(process_conditions)
 
