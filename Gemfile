@@ -89,6 +89,7 @@ group :development do
   gem 'capistrano3-nginx'
   gem 'rails_real_favicon'
   gem 'web-console', '~> 2.0'
+  gem 'listen'
 end
 
 group :test do
