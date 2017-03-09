@@ -30,6 +30,32 @@ html, body, .site-body, .site-container, .site-header, .header-menu {
   margin-bottom: 50px;
 }
 
+/* for smartphone global nav */
+.navbar-toggle {
+  z-index: 2;
+}
+
+.navbar-brand-center {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  text-align: center;
+  margin: auto;
+  font-size: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .navbar-brand-center {
+    margin-left: 0 !important;
+  }
+}
+
+/* iOS safari対策 ref: http://qiita.com/pompopo/items/3f8b95464987f8206d34 */
+a[data-toggle="dropdown"], a[data-toggle="collapse"] {
+  cursor: pointer;
+}
+
 /* login-page */
 .login-container {
   position: relative;

@@ -1,0 +1,22 @@
+li.dropdown
+  a.lead.bg-primary.dropdown-toggle data-toggle="dropdown" aria-expanded="false"
+    span.glyphicon.glyphicon-th-list aria-hidden="true"
+    span  月報
+  ul.dropdown-menu
+    li
+      = link_to "トップ", monthly_reports_path
+    li
+      = link_to "マイ月報", user_monthly_reports_path(current_user)
+    li
+      - latest_month_report = MonthlyReport.of_latest_month_registered_by current_user
+      - if latest_month_report
+        = link_to "月報編集", edit_monthly_report_path(latest_month_report)
+      - else
+        = link_to "月報登録", new_monthly_report_path
+li.dropdown.hidden-xs
+  a.lead.bg-primary.dropdown-toggle data-toggle="dropdown" aria-expanded="false"
+    span.glyphicon.glyphicon-th-list aria-hidden="true"
+    span  グループ
+  ul.dropdown-menu
+    li
+      = link_to "トップ", groups_path

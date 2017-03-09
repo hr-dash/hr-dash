@@ -7,47 +7,47 @@
     - placeholders = HelpText.placeholders(:monthly_report)
     - hints = HelpText.hints(:monthly_report)
     .form-group
-      = f.label :target_month, class: 'control-label col-xs-3'
-      .col-xs-9
+      = f.label :target_month, class: 'control-label col-sm-3'
+      .col-sm-9
         select#monthly_report_target_month.form-control onchange='location.href=this.selectedOptions[0].getAttribute("href")'
           - current_user.report_registrable_months.each do |m|
             - report = current_user.monthly_reports.find_or_initialize_by(target_month: m)
             - path = report.new_record? ? new_monthly_report_path(target_month: m) : edit_monthly_report_path(report)
             option value=(m) href=(path) selected=(true if monthly_report.target_month == m) = m.strftime('%Y年%m月')
     .form-group
-      = f.label :project_summary, class: 'control-label col-xs-3'
-      .col-xs-9
+      = f.label :project_summary, class: 'control-label col-sm-3'
+      .col-sm-9
         == render 'layouts/markdown_editor', attr: :project_summary, form: f, placeholder: placeholders[:project_summary]
     .form-group
-      = f.label :monthly_report_tags, class: 'control-label col-xs-3'
-      .col-xs-9
+      = f.label :monthly_report_tags, class: 'control-label col-sm-3'
+      .col-sm-9
         = f.hidden_field :monthly_report_tags, id: :monthly_report_tags_input, class: 'form-control'
         == render 'layouts/monthly_report_tags', tags: monthly_report.monthly_report_tags.map(&:name), placeholder: placeholders[:tags]
     .form-group
-      = f.label :monthly_working_process, class: 'control-label col-xs-3'
-      .col-xs-9.btn-group data-toggle="buttons"
+      = f.label :monthly_working_process, class: 'control-label col-sm-3'
+      .col-sm-9.btn-group data-toggle="buttons"
         - MonthlyWorkingProcess::PROCESSES.each do |process|
           - value = !!monthly_report.monthly_working_process.try!(process)
           label.btn.btn-default class=('active' if value)
             = check_box_tag "working_process[]", process, value, autocomplete: "off"
             span = t "activerecord.attributes.monthly_working_process.#{process}"
     .form-group
-      = f.label :business_content, class: 'control-label col-xs-3'
-      .col-xs-9
+      = f.label :business_content, class: 'control-label col-sm-3'
+      .col-sm-9
         == render 'layouts/markdown_editor', attr: :business_content, form: f, placeholder: placeholders[:business_content]
     .form-group
-      = label_tag :this_month_goals, '今月の目標', class: 'control-label col-xs-3'
-      .col-xs-9
+      = label_tag :this_month_goals, '今月の目標', class: 'control-label col-sm-3'
+      .col-sm-9
         .form-control-static
           - this_month_goals = monthly_report.this_month_goals.presence || hints[:this_month_goals]
           = render 'layouts/markdown_view', content: this_month_goals
     .form-group
-      = f.label :looking_back, class: 'control-label col-xs-3'
-      .col-xs-9
+      = f.label :looking_back, class: 'control-label col-sm-3'
+      .col-sm-9
         == render 'layouts/markdown_editor', attr: :looking_back, form: f, placeholder: placeholders[:looking_back]
     .form-group
-      = f.label :next_month_goals, class: 'control-label col-xs-3'
-      .col-xs-9
+      = f.label :next_month_goals, class: 'control-label col-sm-3'
+      .col-sm-9
         == render 'layouts/markdown_editor', attr: :next_month_goals, form: f, placeholder: placeholders[:next_month_goals]
     = f.hidden_field :target_month
     - if @saved_shipped_at

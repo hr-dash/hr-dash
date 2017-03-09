@@ -1,45 +1,24 @@
-header.site-header.bg-primary.col-xs-2
+header.site-header.bg-primary.col-sm-2.hidden-xs
   .header-menu.center-block
     .header-menu-title
       a href="#{root_path}"
         h1.bg-primary = Dash.name
     ul.nav.nav-pills.nav-stacked
-      li.dropdown
-        a.lead.bg-primary.dropdown-toggle data-toggle="dropdown" aria-expanded="false"
-          span.glyphicon.glyphicon-th-list aria-hidden="true"
-          span  月報
-        ul.dropdown-menu
-          li
-            = link_to "トップ", monthly_reports_path
-          li
-            = link_to "マイ月報", user_monthly_reports_path(current_user)
-          li
-            - latest_month_report = MonthlyReport.of_latest_month_registered_by current_user
-            - if latest_month_report
-              = link_to "月報編集", edit_monthly_report_path(latest_month_report)
-            - else
-              = link_to "月報登録", new_monthly_report_path
-      li.dropdown
-        a.lead.bg-primary.dropdown-toggle data-toggle="dropdown" aria-expanded="false"
-          span.glyphicon.glyphicon-th-list aria-hidden="true"
-          span  グループ
-        ul.dropdown-menu
-          li
-            = link_to "トップ", groups_path
+      = render partial: 'layouts/header_main_menus'
     ul.nav.nav-pills.nav-stacked.header-menu-bottom.dropup
-        li.dropdown
-          a.lead.bg-primary.dropdown-toggle data-toggle="dropdown" aria-expanded="false"
-            span.glyphicon.glyphicon-user aria-hidden="true"
-            span = " #{current_user.name}"
-          ul.dropdown-menu
-            - if current_user.admin? || current_user.operator?
-              li
-                = link_to '管理画面へ', admin_root_path
-            li
-              = link_to 'プロフィール', user_profile_path(current_user.user_profile)
-            li
-              = link_to 'パスワード変更', password_reset_sessions_path, data: { confirm: 'パスワードを変更しますか？一旦、ログアウトします。' }
-            li
-              = link_to 'お問い合わせ', '#', 'data-toggle' => 'modal', 'data-target' => '#new_inquiry'
-            li
-              = link_to 'ログアウト', destroy_sessions_path, method: :delete
+      = render partial: 'layouts/header_user_menus'
+
+- # for smartphone
+.visible-xs-block
+  nav.navbar.navbar-default role="navigation"
+    .navbar-header
+      button.navbar-toggle.collapsed data-toggle="collapse" data-target="#navHeader" type="button"
+        span.sr-only メニュー
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand.navbar-brand-center href="#{root_path}" = Dash.name
+    #navHeader.collapse.navbar-collapse
+      ul.nav.navbar-nav.navbar-right
+        = render partial: 'layouts/header_main_menus'
+        = render partial: 'layouts/header_user_menus'
