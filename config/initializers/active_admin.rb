@@ -140,7 +140,7 @@ ActiveAdmin.setup do |config|
   # You can add before, after and around filters to all of your
   # Active Admin resources and pages from here.
   #
-  config.before_filter :basic_auth_for_admin
+  config.before_action :basic_auth_for_admin
 
   # == Localize Date/Time Format
   #

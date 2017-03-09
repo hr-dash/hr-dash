@@ -23,7 +23,7 @@ describe 'Admin::Tag', type: :feature do
       visit new_admin_tag_path
       fill_in '名前', with: new_tag.name
       select 'fixed', from: 'tag_status'
-      click_on 'Create タグ'
+      click_on 'タグを作成'
     end
 
     it { expect(page_title).to have_content(new_tag.name) }
@@ -35,7 +35,7 @@ describe 'Admin::Tag', type: :feature do
     before do
       visit edit_admin_tag_path(tag)
       fill_in '名前', with: new_name
-      click_on 'Update タグ'
+      click_on 'タグを更新'
     end
 
     it { expect(page_title).to have_content(new_name) }

@@ -15,7 +15,7 @@ class MonthlyReportsController < ApplicationController
 
   def show
     @monthly_report = MonthlyReport.includes(comments: { user: :user_profile }).find(params[:id])
-    fail(Forbidden, 'can not see wip reports of other users') unless browseable?(@monthly_report)
+    raise(Forbidden, 'can not see wip reports of other users') unless browseable?(@monthly_report)
   end
 
   def new

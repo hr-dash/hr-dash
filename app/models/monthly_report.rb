@@ -70,7 +70,7 @@ class MonthlyReport < ActiveRecord::Base
   end
 
   def set_prev_monthly_report!
-    fail ActiveRecord::RecordNotFound unless prev_month
+    raise ActiveRecord::RecordNotFound unless prev_month
     contents = %w(project_summary business_content looking_back next_month_goals)
     assign_attributes(prev_month
                       .attributes

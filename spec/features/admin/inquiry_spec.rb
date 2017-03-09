@@ -23,7 +23,7 @@ describe 'Admin::Inquiry', type: :feature do
     before do
       visit edit_admin_inquiry_path(inquiry)
       fill_in '管理用メモ', with: new_admin_memo
-      click_on 'Update 問い合わせ'
+      click_on '問い合わせを更新'
     end
 
     it { expect(page_title).to have_content("問い合わせ ##{inquiry.id}") }

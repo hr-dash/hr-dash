@@ -23,7 +23,7 @@ describe 'Admin::MonthlyReportTag', type: :feature do
     before do
       visit edit_admin_monthly_report_tag_path(report_tag)
       select new_tag.name, from: 'monthly_report_tag_tag_id'
-      click_on 'Update 月報タグ'
+      click_on '月報タグを更新'
     end
 
     it { expect(page).to have_content(new_tag.name) }

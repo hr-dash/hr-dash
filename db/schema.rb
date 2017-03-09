@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -25,25 +24,23 @@ ActiveRecord::Schema.define(version: 20170107145744) do
     t.text     "changes_log"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.index ["resource_id", "resource_type"], name: "index_active_admin_action_logs_on_resource_id_and_resource_type", using: :btree
+    t.index ["user_id"], name: "index_active_admin_action_logs_on_user_id", using: :btree
   end
-
-  add_index "active_admin_action_logs", ["resource_id", "resource_type"], name: "index_active_admin_action_logs_on_resource_id_and_resource_type", using: :btree
-  add_index "active_admin_action_logs", ["user_id"], name: "index_active_admin_action_logs_on_user_id", using: :btree
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
     t.text     "body"
     t.string   "resource_id",   null: false
     t.string   "resource_type", null: false
-    t.integer  "author_id"
     t.string   "author_type"
+    t.integer  "author_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
   end
-
-  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
-  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
-  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "announcements", force: :cascade do |t|
     t.string   "title",          null: false
@@ -58,10 +55,9 @@ ActiveRecord::Schema.define(version: 20170107145744) do
     t.integer  "user_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_group_assignments_on_group_id", using: :btree
+    t.index ["user_id"], name: "index_group_assignments_on_user_id", using: :btree
   end
-
-  add_index "group_assignments", ["group_id"], name: "index_group_assignments_on_group_id", using: :btree
-  add_index "group_assignments", ["user_id"], name: "index_group_assignments_on_user_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "name",        null: false
@@ -79,9 +75,8 @@ ActiveRecord::Schema.define(version: 20170107145744) do
     t.text     "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["category", "help_type"], name: "index_help_texts_on_category_and_help_type", using: :btree
   end
-
-  add_index "help_texts", ["category", "help_type"], name: "index_help_texts_on_category_and_help_type", using: :btree
 
   create_table "inquiries", force: :cascade do |t|
     t.integer  "user_id",    null: false
@@ -92,9 +87,8 @@ ActiveRecord::Schema.define(version: 20170107145744) do
     t.text     "admin_memo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_inquiries_on_user_id", using: :btree
   end
-
-  add_index "inquiries", ["user_id"], name: "index_inquiries_on_user_id", using: :btree
 
   create_table "monthly_report_comments", force: :cascade do |t|
     t.integer  "user_id",           null: false
@@ -122,9 +116,8 @@ ActiveRecord::Schema.define(version: 20170107145744) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.integer  "comments_count",   default: 0, null: false
+    t.index ["target_month"], name: "index_monthly_reports_on_target_month", using: :btree
   end
-
-  add_index "monthly_reports", ["target_month"], name: "index_monthly_reports_on_target_month", using: :btree
 
   create_table "monthly_working_processes", force: :cascade do |t|
     t.integer  "monthly_report_id"
@@ -137,18 +130,16 @@ ActiveRecord::Schema.define(version: 20170107145744) do
     t.boolean  "process_training",       default: false, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.index ["monthly_report_id"], name: "index_monthly_working_processes_on_monthly_report_id", using: :btree
   end
-
-  add_index "monthly_working_processes", ["monthly_report_id"], name: "index_monthly_working_processes_on_monthly_report_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.integer  "status",     default: 0, null: false
     t.string   "name",                   null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.index ["name"], name: "index_tags_on_name", using: :btree
   end
-
-  add_index "tags", ["name"], name: "index_tags_on_name", using: :btree
 
   create_table "user_profiles", force: :cascade do |t|
     t.integer  "user_id",                       null: false
@@ -157,18 +148,16 @@ ActiveRecord::Schema.define(version: 20170107145744) do
     t.date     "birthday"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.index ["user_id"], name: "index_user_profiles_on_user_id", unique: true, using: :btree
   end
-
-  add_index "user_profiles", ["user_id"], name: "index_user_profiles_on_user_id", unique: true, using: :btree
 
   create_table "user_roles", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "role",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_roles_on_user_id", using: :btree
   end
-
-  add_index "user_roles", ["user_id"], name: "index_user_roles_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -192,10 +181,9 @@ ActiveRecord::Schema.define(version: 20170107145744) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.integer  "gender",                 default: 0,  null: false
+    t.index ["encrypted_email"], name: "index_users_on_encrypted_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["encrypted_email"], name: "index_users_on_encrypted_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "active_admin_action_logs", "users"
   add_foreign_key "group_assignments", "groups"

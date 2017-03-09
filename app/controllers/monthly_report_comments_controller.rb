@@ -9,7 +9,7 @@ class MonthlyReportCommentsController < ApplicationController
       redirect_to comment_path(comment)
     else
       flash_errors(comment)
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
   end
 
@@ -24,7 +24,7 @@ class MonthlyReportCommentsController < ApplicationController
       redirect_to comment_path(comment)
     else
       flash_errors(comment)
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     end
   end
 

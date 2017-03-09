@@ -23,7 +23,7 @@ describe 'Admin::UserProfile', type: :feature do
     before do
       visit edit_admin_user_profile_path(profile)
       fill_in '自己紹介', with: new_introduction
-      click_on 'Update プロフィール'
+      click_on 'プロフィールを更新'
     end
 
     it { expect(page_title).to have_content("##{profile.id}") }

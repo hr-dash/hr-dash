@@ -84,4 +84,8 @@ RSpec.configure do |config|
   config.after :each do
     DatabaseRewinder.clean
   end
+
+  config.include ::Rails::Controller::Testing::TestProcess, type: :request
+  config.include ::Rails::Controller::Testing::TemplateAssertions, type: :request
+  config.include ::Rails::Controller::Testing::Integration, type: :request
 end

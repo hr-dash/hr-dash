@@ -9,8 +9,18 @@ AsciiComments:
 Metrics/LineLength:
   Max: 128
 
-TrailingComma:
+Metrics/BlockLength:
+  Enabled: false
+
+TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
+
+TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
+
+# frozen string literal を付けていなくても警告しない
+Style/FrozenStringLiteralComment:
+  Enabled: false
 
 AllCops:
   Exclude:

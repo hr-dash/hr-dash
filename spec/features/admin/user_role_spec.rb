@@ -23,7 +23,7 @@ describe 'Admin::UserRole', type: :feature do
       visit new_admin_user_role_path
       select new_user.name, from: 'ユーザー'
       select '管理者', from: 'ロール'
-      click_on 'Create ロール'
+      click_on 'ロールを作成'
     end
 
     it { expect(page).to have_content(new_user.name) }

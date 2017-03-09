@@ -54,7 +54,7 @@ class ErrorsController < ActionController::Base
   end
 
   def show
-    fail env['action_dispatch.exception']
+    raise request.env['action_dispatch.exception']
   end
 
   private

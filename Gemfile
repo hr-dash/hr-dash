@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.7'
+gem 'rails', '~> 5.0.2'
 # Use Postgresql as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
@@ -28,6 +28,7 @@ gem 'enum_help'
 gem 'activeadmin', github: 'activeadmin'
 gem 'activeadmin_addons'
 gem 'active_admin_import', github: "activeadmin-plugins/active_admin_import"
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'aws-sdk-rails'
 gem 'counter_culture', '~> 1.0'
 gem 'slim'
@@ -55,8 +56,6 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
@@ -73,6 +72,7 @@ group :development, :test do
   gem 'rspec_rake'
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'rails-controller-testing'
 end
 
 group :development do
@@ -88,6 +88,8 @@ group :development do
   gem 'capistrano3-unicorn'
   gem 'capistrano3-nginx'
   gem 'rails_real_favicon'
+  gem 'web-console', '~> 2.0'
+  gem 'listen'
 end
 
 group :test do

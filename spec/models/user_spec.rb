@@ -80,7 +80,7 @@ describe User, type: :model do
 
   describe 'After create' do
     let(:user) { create(:user) }
-    let(:profile) { UserProfile.find_by(user_id: user) }
+    let(:profile) { UserProfile.find_by(user: user) }
     it { expect(profile).to be_present }
   end
 

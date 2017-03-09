@@ -22,7 +22,7 @@ class UserProfilesController < ApplicationController
 
   def permitted_params
     params.require(:user_profile)
-      .permit(:self_introduction, :blood_type, :birthday)
+          .permit(:self_introduction, :blood_type, :birthday)
   end
 
   def valid_profile_params

@@ -22,7 +22,7 @@ describe 'Admin::MonthlyReport', type: :feature do
     before do
       visit edit_admin_monthly_report_path(report)
       fill_in 'プロジェクト概要', with: new_summary
-      click_on 'Update 月報'
+      click_on '月報を更新'
     end
 
     it { expect(page).to have_content(new_summary) }

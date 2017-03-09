@@ -12,7 +12,7 @@ Dir.glob("#{Rails.root}/db/seeds/*.yml").each do |yaml_filename|
   klass = File.basename(yaml_filename, '.yml').classify.constantize
 
   File.open(yaml_filename) do |load_target_yaml|
-    YAML.load(load_target_yaml).each { |record| klass.create!(record) }
+    YAML.safe_load(load_target_yaml).each { |record| klass.create!(record) }
   end
 end
 

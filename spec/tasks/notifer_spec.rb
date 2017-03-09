@@ -1,7 +1,7 @@
 describe 'notifer' do
   describe 'report_registrable' do
     let(:task) { Rake::Task['notifer:report_registrable'] }
-    let(:freeze) { -> (day) { Timecop.freeze(Time.new(year, month, day, 0, 0, 0, '+00:00')) } }
+    let(:freeze) { ->(day) { Timecop.freeze(Time.new(year, month, day, 0, 0, 0, '+00:00')) } }
     let(:year) { 2017 }
 
     before do

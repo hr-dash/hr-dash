@@ -24,7 +24,7 @@ class PasswordResetsController < Devise::PasswordsController
 
     if user.errors.present?
       flash[:error] = user.errors.full_messages
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     else
       flash[:success] = 'パスワードが変更されました。'
       redirect_to new_session_path
