@@ -91,6 +91,21 @@ class User < ActiveRecord::Base
     super && (deleted_at.nil? || deleted_at > Time.current)
   end
 
+  def self.entry_date_select_options
+    active_users = User.active
+    return [] if active_users.blank?
+    first_month = active_users.minimum(:entry_date).beginning_of_month
+    last_month = active_users.maximum(:entry_date).beginning_of_month
+    all_months(first_month, last_month).map { |month| [month.strftime('%Y年%m月'), month] }
+  end
+
+  def self.all_months(first_month, last_month)
+    loop.each_with_object([first_month]) do |_, days|
+      nm = days.last.next_month
+      nm > last_month ? (break days) : days << nm
+    end
+  end
+
   private
 
   def report_registrable_from
