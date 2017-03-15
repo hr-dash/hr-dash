@@ -25,7 +25,7 @@
           = f.label :user_entry_date_gteq, '入社日', class: 'control-label col-xs-2'
           .col-xs-10
             = f.select :user_entry_date_gteq,
-                options_for_select(User.entry_date_select_options, selected: @q.user_entry_date_eq),
+                options_for_select(User.entry_date_select_options, selected: @q.user_entry_date_gteq),
                 { include_blank: true },
                 class: 'form-control'
         .form-group
