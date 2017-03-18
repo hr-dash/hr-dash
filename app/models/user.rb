@@ -25,7 +25,7 @@
 #  failed_attempts        :integer          default(0), not null
 #  unlock_token           :string
 #  locked_at              :datetime
-#  gender                 :integer          default(0), not null
+#  gender                 :integer          default("gender_unknown"), not null
 #
 
 class User < ApplicationRecord
@@ -40,6 +40,7 @@ class User < ApplicationRecord
   has_many :group_assignments
   has_many :monthly_reports
   has_many :monthly_report_comments
+  has_many :articles
   delegate :admin?, to: :role, allow_nil: true
   delegate :operator?, to: :role, allow_nil: true
 
