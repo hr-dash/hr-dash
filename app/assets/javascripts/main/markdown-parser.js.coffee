@@ -27,3 +27,6 @@ $ ->
     emojify.run(view)
 
   hljs.initHighlightingOnLoad()
+
+  # 他サイトへのリンクはtarget _blank指定
+  $("a[href^='http']:not([href*='" + location.hostname + "'])").attr('target', '_blank')
