@@ -2,6 +2,7 @@
 
 [
   ActiveAdminActionLog,
+  Article,
   User,
   Group,
   MonthlyReport,
@@ -25,6 +26,7 @@ if Rails.env.development?
   FactoryGirl.create(:user, email: 'testuser@example.com', password: 'Passw0rd')
 
   5.times { FactoryGirl.create(:monthly_report, :shipped, :with_tags, :with_comments) }
+  5.times { FactoryGirl.create(:article, :shipped, :with_tags, :with_comments) }
   10.times { |i| FactoryGirl.create(:announcement, published_date: Time.current.ago(i.days)) }
 else
   user = User.create(name: 'admin',
