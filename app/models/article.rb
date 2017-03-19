@@ -25,6 +25,7 @@ class Article < ApplicationRecord
   with_options if: :shipped? do
     validates :title, presence: true
     validates :body, presence: true
+    validates :article_tags, presence: true
   end
 
   private
