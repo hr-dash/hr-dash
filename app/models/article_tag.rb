@@ -15,5 +15,6 @@ class ArticleTag < ApplicationRecord
   belongs_to :tag
   delegate :name, to: :tag
 
-  validates :tag_id, numericality: { only_integer: true }, presence: true
+  validates :article, presence: true
+  validates :tag, presence: true
 end
