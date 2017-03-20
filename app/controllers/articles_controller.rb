@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class ArticlesController < ApplicationController
+  before_action :assign_saved_article, only: [:edit, :update]
+
   def index
     references = [:user, { article_tags: :tag }]
     @articles = Article.includes(references).released.order('shipped_at desc').page params[:page]
@@ -30,11 +32,34 @@ class ArticlesController < ApplicationController
 
   def edit; end
 
-  def update; end
+  def update
+    @article.assign_attributes(permitted_params)
+    assign_relational_params(@article)
 
-  def destroy; end
+    if @article.save
+      redirect_to @article
+    else
+      flash_errors(@article)
+      render :edit
+    end
+  end
+
+  def destroy
+    @article = Article.find(params[:id])
+    if @article.destroy
+      redirect_to :articles
+    else
+      flash_errors(@article)
+      render @article
+    end
+  end
 
   private
+
+  def assign_saved_article
+    @article = current_user.articles.includes(article_tags: :tag).find(params[:id])
+    @saved_shipped_at = @article.shipped_at
+  end
 
   def permitted_params
     params.require(:article).permit(
