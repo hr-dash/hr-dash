@@ -28,9 +28,15 @@ class Article < ApplicationRecord
     validates :article_tags, presence: true
   end
 
-  private
+  def shipped!
+    self.shipped_at = Time.now
+  end
 
   def shipped?
     shipped_at.present?
+  end
+
+  def browseable?(access_user)
+    shipped? || user == access_user
   end
 end
