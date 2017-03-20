@@ -1,0 +1,18 @@
+- provide :page_title, @article.title
+.well.well-sm style='overflow:hidden'
+  - if @article.tags.size > 0
+    = render 'layouts/monthly_report_tags_show', tags: @article.tags, prefix: :article
+  - else
+    = 'タグ未登録'
+.panel-group
+  .panel.panel-default
+    - if current_user == @article.user
+      .panel-heading
+        .panel-title
+          - if @article.shipped?
+            span.label.label-success.article-status 公開済
+          - else
+            span.label.label-info.article-status 下書き
+    .panel-body
+      = render 'layouts/markdown_view', content: @article.body
+
