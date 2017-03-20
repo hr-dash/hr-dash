@@ -28,6 +28,8 @@ class Article < ApplicationRecord
     validates :article_tags, presence: true
   end
 
+  scope :released, -> { where.not(shipped_at: nil) }
+
   def shipped!
     self.shipped_at = Time.now
   end
