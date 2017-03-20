@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 class ArticlesController < ApplicationController
+  def index
+    references = [:user, { article_tags: :tag }]
+    @articles = Article.includes(references).released.order('shipped_at desc').page params[:page]
+  end
+
   def show
     @article = Article.includes(comments: { user: :user_profile }).find(params[:id])
     raise(Forbidden, 'can not see wip articles of other users') unless browseable?(@article)
@@ -23,6 +28,12 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def edit; end
+
+  def update; end
+
+  def destroy; end
+
   private
 
   def permitted_params
@@ -42,10 +53,10 @@ class ArticlesController < ApplicationController
   end
 
   def article_tags
-    tags = params[:article][:article_tags]&.split(',')&.map do |name|
+    tags = params[:article][:article_tags].try!(:split, ',').try!(:map) do |name|
       tag = Tag.find_or_initialize_by_name_ignore_case(name.strip)
       tag.save ? tag : nil
-    end&.compact
+    end.try!(:compact)
 
     tags || []
   end
