@@ -151,22 +151,9 @@ a[data-toggle="dropdown"], a[data-toggle="collapse"] {
   }
 }
 
+/* article */
 .article-index {
-  .pull-right {
-    .tag {
-      margin-left: 0.5em;
-    }
-
-    .comments_count {
-      display: inline-block;
-      width: 3.5em;
-      padding-left: 1em;
-
-      .glyphicon {
-        margin-right: 0.3em;
-      }
-    }
-  }
+  @extend .monthly-report-index
 }
 
 .article-show {
