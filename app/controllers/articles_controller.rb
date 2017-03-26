@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class ArticlesController < ApplicationController
   before_action :assign_saved_article, only: [:edit, :update]
+  delegate :browseable?, to: :@article
 
   def index
     references = [:user, { article_tags: :tag }]
@@ -9,7 +10,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.includes(comments: { user: :user_profile }).find(params[:id])
-    raise(Forbidden, 'can not see wip articles of other users') unless browseable?(@article)
+    raise(Forbidden, 'can not see wip articles of other users') unless browseable?(current_user)
   end
 
   def new
@@ -84,9 +85,5 @@ class ArticlesController < ApplicationController
     end.try!(:compact)
 
     tags || []
-  end
-
-  def browseable?(article)
-    article.browseable?(current_user)
   end
 end
