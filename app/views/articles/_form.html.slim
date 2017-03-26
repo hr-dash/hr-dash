@@ -9,7 +9,7 @@
       = f.label :article_tags, class: 'control-label col-sm-3'
       .col-sm-9
         = f.hidden_field :article_tags, id: :article_tags_input, class: 'form-control'
-        == render 'layouts/article_tags', tags: article.article_tags.map(&:name), placeholder: placeholders[:tags]
+        == render 'layouts/content_tags', tags: article.article_tags.map(&:name), placeholder: placeholders[:tags], content_name: 'article'
     .form-group
       = f.label :body, class: 'control-label col-sm-3'
       .col-sm-9
@@ -17,5 +17,5 @@
     - if @saved_shipped_at
       = f.button 'Update （記事を更新）', class: 'btn btn-lg btn-success btn-block'
     - else
-      = f.button 'Save as WIP （下書き保存）', name: :wip, class: 'btn btn-lg btn-info btn-block'
+      /= f.button 'Save as WIP （下書き保存）', name: :wip, class: 'btn btn-lg btn-info btn-block'
       = f.button 'Ship（保存して公開）', class: 'btn btn-lg btn-success btn-block'
