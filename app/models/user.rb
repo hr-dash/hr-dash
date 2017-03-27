@@ -96,14 +96,7 @@ class User < ActiveRecord::Base
     return [] if active_users.blank?
     first_month = active_users.minimum(:entry_date).beginning_of_month
     last_month = active_users.maximum(:entry_date).beginning_of_month
-    all_months(first_month, last_month).map { |month| [month.strftime('%Y年%m月'), month] }
-  end
-
-  def self.all_months(first_month, last_month)
-    loop.each_with_object([first_month]) do |_, days|
-      nm = days.last.next_month
-      nm > last_month ? (break days) : days << nm
-    end
+    ApplicationController.helpers.all_months(first_month, last_month).map { |month| [month.strftime('%Y年%m月'), month] }
   end
 
   private

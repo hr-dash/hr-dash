@@ -188,15 +188,6 @@ describe User, type: :model do
     it { is_expected.to eq [[first_2m_ago.strftime('%Y年%m月'), first_2m_ago], [first_1m_ago.strftime('%Y年%m月'), first_1m_ago]] }
   end
 
-  describe '.all_months' do
-    let(:date_1m_ago) { 1.months.ago.to_date.beginning_of_month }
-    let(:date_2m_ago) { 2.months.ago.to_date.beginning_of_month }
-    let(:date_3m_ago) { 3.months.ago.to_date.beginning_of_month }
-
-    subject { User.all_months(date_3m_ago, date_1m_ago) }
-    it { is_expected.to eq [date_3m_ago, date_2m_ago, date_1m_ago] }
-  end
-
   pending 'To merge a branch of Dev/262 use same class for date' do
     describe '.report_registrable_to' do
       let(:entry_date) { Date.new(2016, 1, 1) }
