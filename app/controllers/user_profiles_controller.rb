@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 class UserProfilesController < ApplicationController
   def index
-    references = [{ user: :groups }]
-    @q = UserProfile.includes(references).ransack(search_params)
+    @q = UserProfile.includes(user: :groups).ransack(search_params)
     @user_profiles = @q.result.page params[:page]
   end
 
@@ -43,7 +42,7 @@ class UserProfilesController < ApplicationController
     if q[:user_entry_date_gteq].present?
       params[:q][:user_entry_date_lteq] = q[:user_entry_date_gteq].to_date.end_of_month
     end
-    conditions = [:user_name_cont, :self_introduction_cont, :blood_type_eq, :user_entry_date_gteq, :user_entry_date_lteq]
+    conditions = [:user_name_cont, :self_introduction_cont, :user_entry_date_gteq, :user_entry_date_lteq]
     params.require(:q).permit(conditions)
   end
 end

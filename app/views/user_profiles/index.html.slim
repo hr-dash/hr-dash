@@ -1,4 +1,4 @@
-- provide :page_title, "ユーザートップ"
+- provide :page_title, "プロフィールトップ"
 - placeholders = HelpText.placeholders(:user_profile)
 - blood_types = [["A型", 1], ["B型", 2], ["AB型", 3], ["O型", 4]]
 
@@ -15,13 +15,6 @@
           .col-xs-10
             = f.search_field :self_introduction_cont, class: 'form-control'
         .form-group
-          = f.label :blood_type_eq, '血液型', class: 'control-label col-xs-2'
-          .col-xs-10
-            = f.select :blood_type_eq,
-                options_for_select(blood_types, selected: @q.blood_type_eq),
-                { include_blank: true },
-                class: 'form-control'
-        .form-group
           = f.label :user_entry_date_gteq, '入社日', class: 'control-label col-xs-2'
           .col-xs-10
             = f.select :user_entry_date_gteq,
@@ -32,7 +25,7 @@
           .col-xs-10.col-xs-offset-2
             = f.button '検索', class: 'btn btn-default'
 .page-content
-  h3 = @q.conditions.empty? ? 'ユーザー一覧' : '検索結果'
+  h3 = @q.conditions.empty? ? 'プロフィール一覧' : '検索結果'
   #report_index
     == render partial: 'layouts/user_profile_index', locals: { user_profiles: @user_profiles }
   = paginate @user_profiles
