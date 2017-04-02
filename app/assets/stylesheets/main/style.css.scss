@@ -156,6 +156,15 @@ a[data-toggle="dropdown"], a[data-toggle="collapse"] {
   @extend .monthly-report-index
 }
 
+.article-user {
+  .btn-sm {
+    margin-bottom: 0.5em;
+    a {
+      color: #fff;
+    }
+  }
+}
+
 .article-show {
   .pull-right {
     .glyphicon {
