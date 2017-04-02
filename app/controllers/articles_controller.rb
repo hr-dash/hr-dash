@@ -17,6 +17,16 @@ class ArticlesController < ApplicationController
     @articles = current_user.articles.includes(article_tags: :tag).wip.order(created_at: :desc).page params[:page]
   end
 
+  def user
+    @articles = Article.users(params[:user_id]).released.order('shipped_at desc').page params[:page]
+    @article_user = @articles.first.user
+  end
+
+  def drafts
+    @articles = Article.users(params[:user_id]).wip.order('created_at desc').page params[:page]
+    forbidden_other_user(@articles.first)
+  end
+
   def show
     @article = Article.includes(comments: :user).find(params[:id])
     raise(Forbidden, 'can not see wip articles of other users') unless @article.browseable?(current_user)
