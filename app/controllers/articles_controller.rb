@@ -8,6 +8,16 @@ class ArticlesController < ApplicationController
     @articles = Article.includes(references).released.order('shipped_at desc').page params[:page]
   end
 
+  def user
+    @articles = Article.users(params[:user_id]).released.order('shipped_at desc').page params[:page]
+    @article_user = @articles.first.user
+  end
+
+  def drafts
+    @articles = Article.users(params[:user_id]).wip.order('created_at desc').page params[:page]
+    forbidden_other_user(@articles.first)
+  end
+
   def show
     @article = Article.includes(comments: :user).find(params[:id])
     forbidden_other_user(@article)

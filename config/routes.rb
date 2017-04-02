@@ -34,7 +34,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :articles
+  resources :articles, constraints: Constraints::PageCount do
+    collection do
+      get 'users/:user_id', action: :user, as: :user, user_id: /\d{,6}/
+      get 'users/:user_id/drafts', action: :drafts, as: :drafts, user_id: /\d{,6}/
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

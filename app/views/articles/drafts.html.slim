@@ -1,0 +1,10 @@
+- provide :page_title, '下書き中の記事一覧'
+.article-user
+  .btn.btn-success.btn-sm
+    = link_to '公開済みの記事一覧へ', user_articles_path(current_user)
+
+  .page-content
+    #article-index
+      .list-group.article-index
+        == render partial: 'layouts/article_index', collection: @articles,as: 'article'
+    = paginate @articles

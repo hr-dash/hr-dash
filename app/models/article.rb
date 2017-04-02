@@ -29,6 +29,8 @@ class Article < ApplicationRecord
   end
 
   scope :released, -> { where.not(shipped_at: nil) }
+  scope :wip, -> { where(shipped_at: nil) }
+  scope :users, ->(id) { includes(article_tags: :tag).where(user: id) }
 
   def shipped!
     self.shipped_at = Time.now
