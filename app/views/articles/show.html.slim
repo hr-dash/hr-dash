@@ -19,6 +19,8 @@
              a.glyphicon.glyphicon-remove data-toggle="modal" data-target="#article-confirm"
     .panel-body
       = render 'layouts/markdown_view', content: @article.body
+  .pull-right.article-user-link
+    = link_to "#{@article.user.name}さんの記事一覧へ", user_articles_path(@article.user.id)
 .modal.fade#article-confirm
   .modal-dialog
     .modal-content
