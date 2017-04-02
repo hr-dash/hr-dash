@@ -165,6 +165,16 @@ a[data-toggle="dropdown"], a[data-toggle="collapse"] {
   }
 }
 
+.article-user-link {
+  margin-top: 0.5em;
+  a {
+    color: #000;
+    &:hover {
+      color: #3a87ad;
+    }
+  }
+}
+
 .article-show {
   .pull-right {
     .glyphicon {
