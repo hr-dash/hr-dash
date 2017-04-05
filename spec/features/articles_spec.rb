@@ -14,6 +14,34 @@ describe ArticlesController, type: :feature do
     end
   end
 
+  describe '#user GET /articles/users/:user_id' do
+    let!(:today) { create(:article, :with_tags, user: user, shipped_at: Date.today) }
+    let!(:yesterday) { create(:article, :with_tags, user: user, shipped_at: Date.yesterday) }
+    let(:first_report) { find('#article_index').first('a') }
+    let(:title) { find('.page-header') }
+    let(:btn) { find('.btn.btn-info').first('a') }
+
+    before { visit user_articles_path(user) }
+
+    it { expect(first_report[:href]).to eq article_path(today) }
+    it { expect(btn).to have_content '下書き中の記事一覧へ' }
+    it { expect(title).to have_content "#{user.name}さんの記事一覧" }
+  end
+
+  describe '#drafts GET /articles/users/:user_id/drafts' do
+    let!(:today) { create(:article, :with_tags, user: user) }
+    let!(:yesterday) { create(:article, :with_tags, user: user) }
+    let(:first_report) { find('#article_index').first('a') }
+    let(:title) { find('.page-header') }
+    let(:btn) { find('.article-user').first('div') }
+
+    before { visit drafts_articles_path(user) }
+
+    it { expect(first_report[:href]).to eq article_path(yesterday) }
+    it { expect(btn).to have_content '公開済みの記事一覧へ' }
+    it { expect(title).to have_content '下書き中の記事一覧' }
+  end
+
   describe '#create POST /articles', js: true do
     before { visit new_article_path }
 
@@ -70,6 +98,18 @@ describe ArticlesController, type: :feature do
     it { expect(title).to have_content 'すごいH本を読んでみた' }
     it { expect(tags).to have_content 'Haskell' }
     it { expect(body).to have_content 'Haskellすごーい、たのしー！' }
+  end
+
+  describe '#destroy DELETE /article/:id', js: true do
+    let!(:article) { create(:shipped_article, user: user) }
+    before do
+      visit article_path(article)
+      find('a.glyphicon-remove').click
+      click_on 'はい'
+    end
+
+    it { expect(page).to have_content '記事を削除しました' }
+    it { expect(current_path).to eq '/articles' }
   end
 
   describe '#show GET /artices/:id' do
