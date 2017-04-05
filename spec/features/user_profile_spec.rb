@@ -6,6 +6,8 @@ describe UserProfilesController, type: :feature do
     context 'by user_name' do
       let(:url) { URI.parse(current_url) }
       let(:query) { URI.decode(url.query) }
+      let!(:user) { create(:user, name: '山崎真宏', entry_date: 1.months.ago) }
+      let!(:user_profile) { create(:user_profile, user: user) }
 
       before do
         visit user_profiles_path
@@ -14,13 +16,15 @@ describe UserProfilesController, type: :feature do
       end
 
       it { expect(current_path).to eq user_profiles_path }
-      it { expect(query).to include 'q[user_name_cont]=山崎真宏' }
-      it { expect(query).not_to include 'q[user_name_cont]=やまざきまさひろ' }
+      it { expect(page).to have_selector 'div', text: '山崎真宏' }
+      it { expect(page).not_to have_selector 'div', text: 'やまざきまさひろ' }
     end
 
     context 'by self_introduction' do
       let(:url) { URI.parse(current_url) }
       let(:query) { URI.decode(url.query) }
+      let!(:user) { create(:user, name: '山崎真宏', entry_date: 1.months.ago) }
+      let!(:user_profile) { create(:user_profile, user: user, self_introduction: 'Rubyが得意です。') }
 
       before do
         visit user_profiles_path
@@ -29,23 +33,8 @@ describe UserProfilesController, type: :feature do
       end
 
       it { expect(current_path).to eq user_profiles_path }
-      it { expect(query).to include 'q[self_introduction_cont]=Ruby' }
-      it { expect(query).not_to include 'q[self_introduction_cont]=Java' }
-    end
-
-    context 'by blood_type' do
-      let(:url) { URI.parse(current_url) }
-      let(:query) { URI.decode(url.query) }
-
-      before do
-        visit user_profiles_path
-        select 'A型', from: 'q[blood_type_eq]'
-        click_button '検索'
-      end
-
-      it { expect(current_path).to eq user_profiles_path }
-      it { expect(query).to include 'q[blood_type_eq]=1' }
-      it { expect(query).not_to include 'q[blood_type_eq]=2' }
+      it { expect(page).to have_selector 'div', text: '山崎真宏' }
+      it { expect(page).not_to have_selector 'div', text: 'やまざきまさひろ' }
     end
 
     context 'by user_entry_date' do
@@ -63,8 +52,8 @@ describe UserProfilesController, type: :feature do
       end
 
       it { expect(current_path).to eq user_profiles_path }
-      it { expect(query).to include "q[user_entry_date_gteq]=#{first_1m_ago.to_date}" }
-      it { expect(query).not_to include "q[user_entry_date_gteq]=#{first_2m_ago.to_date}" }
+      it { expect(page).to have_selector 'small', text: first_1m_ago.strftime('%Y年%m月') }
+      it { expect(page).not_to have_selector 'small', text: first_2m_ago.strftime('%Y年%m月') }
     end
   end
 end
