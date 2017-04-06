@@ -62,6 +62,8 @@ group :development, :test do
   gem 'spring-commands-rspec'
 
   gem 'pry'
+  gem 'pry-rails'
+  gem 'pry-byebug'
   gem 'rubocop'
   gem 'reek'
   gem 'annotate'
