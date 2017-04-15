@@ -21,7 +21,7 @@
           = f.label :tags_name_in, '使用した技術', class: 'control-label col-xs-2'
           .col-xs-10
             = f.hidden_field :tags_name_in, id: :monthly_report_tags_input, class: 'form-control'
-            == render 'layouts/content_tags', tags: @q.tags_name_in, placeholder: placeholders[:tags], content_name: 'monthly_report'
+            == render 'layouts/document_tags', tags: @q.tags_name_in, placeholder: placeholders[:tags], type: 'monthly_report'
         .form-group
           = f.label :monthly_working_process, '担当した工程', class: 'control-label col-xs-2'
           .col-xs-10.btn-group.btn-group-sm data-toggle="buttons"
