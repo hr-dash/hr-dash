@@ -28,12 +28,11 @@ class Article < ApplicationRecord
     validates :article_tags, presence: true
   end
 
-  scope :released, -> { where.not(shipped_at: nil) }
+  scope :shipped, -> { where.not(shipped_at: nil) }
   scope :wip, -> { where(shipped_at: nil) }
-  scope :users, ->(id) { includes(article_tags: :tag).where(user: id) }
 
-  def shipped!
-    self.shipped_at = Time.now
+  def ship
+    self.shipped_at ||= Time.current
   end
 
   def shipped?
