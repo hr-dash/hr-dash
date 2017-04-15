@@ -17,16 +17,6 @@ class ArticlesController < ApplicationController
     @articles = current_user.articles.includes(article_tags: :tag).wip.order(created_at: :desc).page params[:page]
   end
 
-  def user
-    @articles = Article.users(params[:user_id]).released.order('shipped_at desc').page params[:page]
-    @article_user = @articles.first.user
-  end
-
-  def drafts
-    @articles = Article.users(params[:user_id]).wip.order('created_at desc').page params[:page]
-    forbidden_other_user(@articles.first)
-  end
-
   def show
     @article = Article.includes(comments: :user).find(params[:id])
     raise(Forbidden, 'can not see wip articles of other users') unless @article.browseable?(current_user)
@@ -42,7 +32,12 @@ class ArticlesController < ApplicationController
       assign_relational_params(article)
     end
 
-    save_and_render(:new)
+    if @article.save
+      redirect_to @article
+    else
+      flash_errors(@article)
+      render :new
+    end
   end
 
   def edit; end
@@ -50,7 +45,13 @@ class ArticlesController < ApplicationController
   def update
     @article.assign_attributes(permitted_params)
     assign_relational_params(@article)
-    save_and_render(:edit)
+
+    if @article.save
+      redirect_to @article
+    else
+      flash_errors(@article)
+      render :edit
+    end
   end
 
   def destroy
@@ -66,19 +67,6 @@ class ArticlesController < ApplicationController
   end
 
   private
-
-  def forbidden_other_user(article)
-    raise(Forbidden, 'can not see wip articles of other users') unless article.browseable?(current_user)
-  end
-
-  def save_and_render(action)
-    if @article.save
-      redirect_to @article
-    else
-      flash_errors(@article)
-      render action
-    end
-  end
 
   def assign_saved_article
     @article = current_user.articles.includes(article_tags: :tag).find(params[:id])
