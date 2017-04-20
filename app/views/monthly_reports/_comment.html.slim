@@ -4,6 +4,7 @@
     = ' さんが '
     = link_to comment.updated_at, monthly_report_path(comment.monthly_report_id, anchor: "comment-#{comment.id}"), class: 'text-info'
     = ' にコメント '
+    == render 'likes/like', likable: comment
     - if comment.user == current_user
       .pull-right
         = content_tag :a, href: monthly_report_comment_path(comment), class: 'monthly_report_comment_destroy text-muted', 'data-method' => :delete, 'data-confirm' => 'コメントを削除して宜しいですか？'

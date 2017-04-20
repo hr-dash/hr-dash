@@ -56,6 +56,7 @@
             edit_monthly_report_path(@monthly_report),
             class: 'btn btn-success btn-lg btn-block',
             role: 'button'
+== render 'likes/like', likable: @monthly_report
 
 - if @monthly_report.shipped?
   h2 コメント
