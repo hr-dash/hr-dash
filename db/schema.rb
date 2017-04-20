@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170303143632) do
+ActiveRecord::Schema.define(version: 20170418130444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20170303143632) do
     t.text     "body"
     t.string   "resource_id",   null: false
     t.string   "resource_type", null: false
-    t.string   "author_type"
     t.integer  "author_id"
+    t.string   "author_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
@@ -90,6 +90,15 @@ ActiveRecord::Schema.define(version: 20170303143632) do
     t.index ["user_id"], name: "index_inquiries_on_user_id", using: :btree
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.string   "likable_type"
+    t.integer  "likable_id"
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["likable_type", "likable_id"], name: "index_likes_on_likable_type_and_likable_id", using: :btree
+  end
+
   create_table "monthly_report_comments", force: :cascade do |t|
     t.integer  "user_id",           null: false
     t.text     "comment"
@@ -128,10 +137,10 @@ ActiveRecord::Schema.define(version: 20170303143632) do
     t.boolean  "process_operation",      default: false, null: false
     t.boolean  "process_analysis",       default: false, null: false
     t.boolean  "process_training",       default: false, null: false
-    t.boolean  "process_structure",      default: false, null: false
-    t.boolean  "process_trouble",        default: false, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.boolean  "process_structure",      default: false, null: false
+    t.boolean  "process_trouble",        default: false, null: false
     t.index ["monthly_report_id"], name: "index_monthly_working_processes_on_monthly_report_id", using: :btree
   end
 
