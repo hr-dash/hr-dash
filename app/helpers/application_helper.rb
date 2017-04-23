@@ -16,7 +16,7 @@ module ApplicationHelper
 
   def all_months(first_month, last_month)
     diff = Month(last_month) - Month(first_month)
-    return [first_month] if diff == 0
+    return [first_month] if diff.zero?
     (1..diff).each_with_object([first_month]) do |_, days|
       days << days.last.next_month
     end
