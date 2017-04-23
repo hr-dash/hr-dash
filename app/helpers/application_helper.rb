@@ -15,9 +15,10 @@ module ApplicationHelper
   end
 
   def all_months(first_month, last_month)
-    loop.each_with_object([first_month]) do |_, days|
-      nm = days.last.next_month
-      nm > last_month ? (break) : days << nm
+    diff = Month(last_month) - Month(first_month)
+    return [first_month] if diff = 0
+    (1..diff).each_with_object([first_month]) do |_, days|
+      days << days.last.next_month
     end
   end
 end
