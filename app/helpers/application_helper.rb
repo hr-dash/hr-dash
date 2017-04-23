@@ -15,6 +15,9 @@ module ApplicationHelper
   end
 
   def all_months(first_month, last_month)
-    (first_month..last_month).select { |day| day == day.beginning_of_month }
+    loop.each_with_object([first_month]) do |_, days|
+      nm = days.last.next_month
+      nm > last_month ? (break) : days << nm
+    end
   end
 end
