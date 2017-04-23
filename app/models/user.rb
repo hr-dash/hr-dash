@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
     return [] if active_users.blank?
     first_month = active_users.minimum(:entry_date).beginning_of_month
     last_month = active_users.maximum(:entry_date).beginning_of_month
-    ApplicationController.helpers.all_months(first_month, last_month).map { |month| [month.strftime('%Y年%m月'), month] }
+    ApplicationController.helpers.all_months_select_options(first_month, last_month)
   end
 
   private
