@@ -41,6 +41,7 @@ class User < ApplicationRecord
   has_many :monthly_reports
   has_many :monthly_report_comments
   has_many :articles
+  has_many :article_comments
   delegate :admin?, to: :role, allow_nil: true
   delegate :operator?, to: :role, allow_nil: true
 

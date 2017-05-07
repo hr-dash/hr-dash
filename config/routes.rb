@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       get 'users/:user_id/drafts', action: :drafts, as: :drafts, user_id: /\d{,6}/
     end
   end
+  resources :article_comments, only: [:create, :edit, :update, :destroy]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

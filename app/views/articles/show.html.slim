@@ -31,4 +31,9 @@
         = link_to 'はい', article_path(@article), method: :delete,
           class: 'btn btn-danger'
         button.btn.btn-default type="button" data-dismiss="modal" 閉じる
+- if @article.shipped?
+  h2 コメント
+  - @article.comments.order(:created_at).each do |comment|
+    == render 'articles/comment', comment: comment
 
+  == render 'articles/new_comment', comment: @article.comments.new, attr: 'new-comment'
