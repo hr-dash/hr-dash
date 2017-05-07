@@ -14,6 +14,7 @@
 class ArticleComment < ApplicationRecord
   belongs_to :user
   belongs_to :article
+  counter_culture :article, column_name: 'comments_count'
 
   validates :user, presence: true
   validates :article, presence: true
