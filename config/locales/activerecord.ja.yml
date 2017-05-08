@@ -15,6 +15,8 @@ ja:
       user: ユーザー
       user_profile: プロフィール
       article: 記事
+      article_comment: 記事コメント
+      article_tag: 記事タグ
     attributes:
       announcement:
         title: タイトル
@@ -79,6 +81,13 @@ ja:
         title: タイトル
         article_tags: タグ
         body: 本文
+        shipped_at: 公開日
+      article_comment:
+        article: 記事
+        comment: コメント
+      article_tag:
+        article: 記事
+        tag: タグ
   activemodel:
     <<: activerecord
   enums:
