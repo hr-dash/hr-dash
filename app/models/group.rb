@@ -12,7 +12,7 @@
 #  updated_at  :datetime         not null
 #
 
-class Group < ActiveRecord::Base
+class Group < ApplicationRecord
   has_many :users, through: :group_assignments, dependent: :destroy
   has_many :group_assignments
 

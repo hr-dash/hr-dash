@@ -18,7 +18,7 @@
 #  updated_at             :datetime         not null
 #
 
-class MonthlyWorkingProcess < ActiveRecord::Base
+class MonthlyWorkingProcess < ApplicationRecord
   PROCESSES = column_names.select { |c| c.start_with?('process_') }
 
   belongs_to :monthly_report

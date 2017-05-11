@@ -14,7 +14,7 @@
 #  updated_at :datetime         not null
 #
 
-class Inquiry < ActiveRecord::Base
+class Inquiry < ApplicationRecord
   belongs_to :user
 
   validates :user, presence: true

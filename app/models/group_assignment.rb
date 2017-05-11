@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #
 
-class GroupAssignment < ActiveRecord::Base
+class GroupAssignment < ApplicationRecord
   belongs_to :group
   belongs_to :user
 

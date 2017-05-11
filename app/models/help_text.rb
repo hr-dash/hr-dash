@@ -12,7 +12,7 @@
 #  updated_at :datetime         not null
 #
 
-class HelpText < ActiveRecord::Base
+class HelpText < ApplicationRecord
   validates :category, presence: true
   validates :help_type, presence: true
   validates :target, presence: true
