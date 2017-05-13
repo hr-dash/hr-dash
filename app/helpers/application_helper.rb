@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require 'month'
+
 module ApplicationHelper
   def alert_class_for(flash_type)
     types = {
