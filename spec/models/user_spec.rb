@@ -178,7 +178,7 @@ describe User, type: :model do
     end
   end
 
-  describe '.entry_date_select_options' do
+  describe '.entry_date_select_options_from' do
     let!(:junior_user) { create(:user, entry_date: 1.months.ago) }
     let!(:senior_user) { create(:user, entry_date: 2.months.ago) }
     let(:one_month_ago_sdate) { 1.months.ago.beginning_of_month.to_date }
@@ -186,8 +186,20 @@ describe User, type: :model do
     let(:one_month_ago) { 1.months.ago.beginning_of_month.to_date.strftime('%Y年%m月') }
     let(:two_month_ago) { 2.months.ago.beginning_of_month.to_date.strftime('%Y年%m月') }
 
-    subject { User.entry_date_select_options }
+    subject { User.entry_date_select_options_from }
     it { is_expected.to eq [[two_month_ago, two_month_ago_sdate], [one_month_ago, one_month_ago_sdate]] }
+  end
+
+  describe '.entry_date_select_options_to' do
+    let!(:junior_user) { create(:user, entry_date: 1.months.ago) }
+    let!(:senior_user) { create(:user, entry_date: 2.months.ago) }
+    let(:one_month_ago_edate) { 1.months.ago.end_of_month.to_date }
+    let(:two_month_ago_edate) { 2.months.ago.end_of_month.to_date }
+    let(:one_month_ago) { 1.months.ago.end_of_month.to_date.strftime('%Y年%m月') }
+    let(:two_month_ago) { 2.months.ago.end_of_month.to_date.strftime('%Y年%m月') }
+
+    subject { User.entry_date_select_options_to }
+    it { is_expected.to eq [[two_month_ago, two_month_ago_edate], [one_month_ago, one_month_ago_edate]] }
   end
 
   pending 'To merge a branch of Dev/262 use same class for date' do
