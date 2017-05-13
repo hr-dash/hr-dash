@@ -179,13 +179,15 @@ describe User, type: :model do
   end
 
   describe '.entry_date_select_options' do
-    let!(:user_1m_ago) { create(:user, entry_date: 1.months.ago) }
-    let!(:user_2m_ago) { create(:user, entry_date: 2.months.ago) }
-    let(:first_1m_ago) { 1.months.ago.beginning_of_month.to_date }
-    let(:first_2m_ago) { 2.months.ago.beginning_of_month.to_date }
+    let!(:junior_user) { create(:user, entry_date: 1.months.ago) }
+    let!(:senior_user) { create(:user, entry_date: 2.months.ago) }
+    let(:one_month_ago_sdate) { 1.months.ago.beginning_of_month.to_date }
+    let(:two_month_ago_sdate) { 2.months.ago.beginning_of_month.to_date }
+    let(:one_month_ago) { 1.months.ago.beginning_of_month.to_date.strftime('%Y年%m月') }
+    let(:two_month_ago) { 2.months.ago.beginning_of_month.to_date.strftime('%Y年%m月') }
 
     subject { User.entry_date_select_options }
-    it { is_expected.to eq [[first_2m_ago.strftime('%Y年%m月'), first_2m_ago], [first_1m_ago.strftime('%Y年%m月'), first_1m_ago]] }
+    it { is_expected.to eq [[two_month_ago, two_month_ago_sdate], [one_month_ago, one_month_ago_sdate]] }
   end
 
   pending 'To merge a branch of Dev/262 use same class for date' do

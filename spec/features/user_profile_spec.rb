@@ -42,18 +42,18 @@ describe UserProfilesController, type: :feature do
       let(:query) { URI.decode(url.query) }
       let!(:user) { create(:user, entry_date: 1.months.ago) }
       let!(:user_profile) { create(:user_profile, user: user) }
-      let!(:first_1m_ago) { 1.months.ago.beginning_of_month }
-      let!(:first_2m_ago) { 2.months.ago.beginning_of_month }
+      let!(:one_month_ago) { 1.months.ago.beginning_of_month.strftime('%Y年%m月') }
+      let!(:two_month_ago) { 2.months.ago.beginning_of_month.strftime('%Y年%m月') }
 
       before do
         visit user_profiles_path
-        select first_1m_ago.strftime('%Y年%m月'), from: '入社日'
+        select one_month_ago, from: '入社日'
         click_button '検索'
       end
 
       it { expect(current_path).to eq user_profiles_path }
-      it { expect(page).to have_selector 'small', text: first_1m_ago.strftime('%Y年%m月') }
-      it { expect(page).not_to have_selector 'small', text: first_2m_ago.strftime('%Y年%m月') }
+      it { expect(page).to have_selector 'small', text: one_month_ago }
+      it { expect(page).not_to have_selector 'small', text: two_month_ago }
     end
   end
 end
