@@ -17,7 +17,7 @@ module ApplicationHelper
   end
 
   def all_months(first_month, last_month, end_of_month_flg = false)
-    months = (Month.new(first_month.year, first_month.month)..Month.new(last_month.year, last_month.month))
+    months = Month(first_month)..Month(last_month)
     end_of_month_flg ? months.map(&:end_date) : months.map(&:start_date)
   end
 end

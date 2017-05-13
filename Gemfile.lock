@@ -270,6 +270,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
+    month (1.2.0)
     multi_json (1.12.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -525,6 +526,7 @@ DEPENDENCIES
   kaminari
   listen
   meta_request
+  month
   newrelic_rpm
   peek
   peek-rblineprof
