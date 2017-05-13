@@ -91,12 +91,20 @@ class User < ActiveRecord::Base
     super && (deleted_at.nil? || deleted_at > Time.current)
   end
 
-  def self.entry_date_select_options
+  def self.entry_date_select_options_from
     active_users = User.active
     return [] if active_users.blank?
     first_month = active_users.minimum(:entry_date).beginning_of_month
     last_month = active_users.maximum(:entry_date).beginning_of_month
     ApplicationController.helpers.all_months_select_options(first_month, last_month)
+  end
+
+  def self.entry_date_select_options_to
+    active_users = User.active
+    return [] if active_users.blank?
+    first_month = active_users.minimum(:entry_date).end_of_month
+    last_month = active_users.maximum(:entry_date).end_of_month
+    ApplicationController.helpers.all_months_select_options(first_month, last_month, true)
   end
 
   private
