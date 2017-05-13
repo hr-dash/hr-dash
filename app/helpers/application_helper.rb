@@ -17,6 +17,6 @@ module ApplicationHelper
   end
 
   def all_months(first_month, last_month)
-    (Month(first_month)..Month(last_month)).map(&:start_date)
+    (Month.new(first_month.year, first_month.month)..Month.new(last_month.year, last_month.month)).map(&:start_date)
   end
 end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'date'
 
 class Month
@@ -13,15 +14,14 @@ class Month
     9 => :September,
     10 => :October,
     11 => :November,
-    12 => :December
-  }
+    12 => :December,
+  }.freeze
 
   def initialize(year, number)
-    unless NAMES.has_key?(number)
-      raise ArgumentError, 'invalid month number'
-    end
+    raise ArgumentError, 'invalid month number' unless NAMES.key?(number)
 
-    @year, @number = year, number
+    @year = year
+    @number = number
 
     freeze
   end
@@ -29,7 +29,7 @@ class Month
   attr_reader :year, :number
 
   def to_s
-    "#@year-#{@number.to_s.rjust(2, '0')}"
+    "#{@year}-#{@number.to_s.rjust(2, '0')}"
   end
 
   def name
@@ -46,51 +46,34 @@ class Month
     [@year, @number].hash
   end
 
-  def eql?(object)
-    object.class == self.class && object.hash == self.hash
+  def eql?(other)
+    other.class == self.class && other.hash == hash
   end
 
-  def <=>(month)
-    if @year == month.year
-      @number <=> month.number
-    else
-      @year <=> month.year
-    end
+  def <=>(other)
+    return @number <=> other.number if @year == other.year
+    @year <=> other.year
   end
 
   include Comparable
 
   def next
-    if @number == 12
-      self.class.new(@year + 1, 1)
-    else
-      self.class.new(@year, @number + 1)
-    end
+    return self.class.new(@year + 1, 1) if @number == 12
+    self.class.new(@year, @number + 1)
   end
 
-  alias_method :succ, :next
+  alias succ next
 
   def step(limit, step = 1)
     raise ArgumentError if step.zero?
 
-    unless block_given?
-      return enum_for(:step, limit, step)
-    end
+    return enum_for(:step, limit, step) unless block_given?
 
     month = self
 
-    if step > 0
-      until month > limit
-        yield month
-
-        month += step
-      end
-    else
-      until month < limit
-        yield month
-
-        month += step
-      end
+    until step.positive? ? month > limit : month < limit
+      yield month
+      month += step
     end
   end
 
@@ -102,25 +85,22 @@ class Month
     step(min, -1, &block)
   end
 
-  def +(number)
-    a, b = (@number - 1 + number).divmod(12)
+  def +(other)
+    a, b = (@number - 1 + other).divmod(12)
 
     self.class.new(@year + a, b + 1)
   end
 
-  def -(object)
-    if object.is_a?(Integer)
-      self + (-object)
-    else
-      (year * 12 + @number) - (object.year * 12 + object.number)
-    end
+  def -(other)
+    return self - other if other.is_a?(Integer)
+    (year * 12 + @number) - (other.year * 12 + other.number)
   end
 
   def include?(date)
     @year == date.year && @number == date.month
   end
 
-  alias_method :===, :include?
+  alias === include?
 
   def start_date
     Date.new(@year, @number, 1)
@@ -131,7 +111,7 @@ class Month
   end
 
   def dates
-    start_date .. end_date
+    start_date..end_date
   end
 
   def length
@@ -140,22 +120,8 @@ class Month
 end
 
 def Month.parse(string)
-  if string =~ /\A(\d{4})-(\d{2})\z/
-    Month.new($1.to_i, $2.to_i)
-  else
-    raise ArgumentError, 'invalid month'
-  end
-end
-
-def Month(object)
-  case object
-  when Month
-    object
-  when Integer
-    Month(Time.at(object))
-  else
-    Month.new(object.year, object.month)
-  end
+  raise ArgumentError, 'invalid month' unless string =~ /\A(\d{4})-(\d{2})\z/
+  Month.new(Regexp.last_match[1].to_i, Regexp.last_match[2].to_i)
 end
 
 class Month
