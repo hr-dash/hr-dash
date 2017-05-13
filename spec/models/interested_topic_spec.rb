@@ -1,6 +1,19 @@
 # frozen_string_literal: true
+# == Schema Information
+#
+# Table name: interested_topics
+#
+#  id              :integer          not null, primary key
+#  user_profile_id :integer          not null
+#  tag_id          :integer          not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 require 'rails_helper'
 
-RSpec.describe InterestedTopic, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe InterestedTopic, type: :model do
+  it { expect(subject).to respond_to(:id) }
+  it { expect(subject).to respond_to(:user_profile_id) }
+  it { expect(subject).to respond_to(:tag_id) }
 end
