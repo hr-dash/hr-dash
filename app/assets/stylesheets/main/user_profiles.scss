@@ -5,3 +5,17 @@ h2.profile-heading {
 div.edit-profile {
   text-align: right;
 }
+
+table.table tr {
+  th {
+    width: 25%;
+  }
+
+  td {
+    width: 75%;
+  }
+}
+
+#interested-tag-list .tag {
+  margin: 2px;
+}
