@@ -105,7 +105,7 @@ class MonthlyReport < ActiveRecord::Base
     return [] if released_reports.blank?
     first_month = released_reports.minimum(:target_month)
     last_month = released_reports.maximum(:target_month)
-    ApplicationController.helpers.all_months_select_options(first_month, last_month)
+    ApplicationController.helpers.all_months_begin_select_options(first_month, last_month)
   end
 
   private

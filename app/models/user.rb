@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
     return [] if active_users.blank?
     first_month = active_users.minimum(:entry_date).beginning_of_month
     last_month = active_users.maximum(:entry_date).beginning_of_month
-    ApplicationController.helpers.all_months_select_options(first_month, last_month)
+    ApplicationController.helpers.all_months_begin_select_options(first_month, last_month)
   end
 
   def self.entry_date_select_options_to
@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
     return [] if active_users.blank?
     first_month = active_users.minimum(:entry_date).end_of_month
     last_month = active_users.maximum(:entry_date).end_of_month
-    ApplicationController.helpers.all_months_select_options(first_month, last_month, true)
+    ApplicationController.helpers.all_months_end_select_options(first_month, last_month)
   end
 
   private

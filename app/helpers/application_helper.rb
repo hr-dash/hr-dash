@@ -12,12 +12,11 @@ module ApplicationHelper
     types[flash_type.to_sym]
   end
 
-  def all_months_select_options(first_month, last_month, end_of_month_flg = false)
-    all_months(first_month, last_month, end_of_month_flg).map { |month| [month.strftime('%Y年%m月'), month] }
+  def all_months_begin_select_options(first_month, last_month)
+    (Month(first_month)..Month(last_month)).map(&:start_date).map { |month| [month.strftime('%Y年%m月'), month] }
   end
 
-  def all_months(first_month, last_month, end_of_month_flg = false)
-    months = Month(first_month)..Month(last_month)
-    end_of_month_flg ? months.map(&:end_date) : months.map(&:start_date)
+  def all_months_end_select_options(first_month, last_month)
+    (Month(first_month)..Month(last_month)).map(&:end_date).map { |month| [month.strftime('%Y年%m月'), month] }
   end
 end
