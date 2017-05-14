@@ -18,7 +18,17 @@ class Tag < ActiveRecord::Base
 
   enum status: { unfixed: 0, fixed: 1, ignored: 2 }
 
-  def self.find_or_initialize_by_name_ignore_case(name)
-    Tag.where('LOWER(name) = LOWER(?)', name).first || Tag.new(name: name)
+  class << self
+    def find_or_initialize_by_name_ignore_case(name)
+      Tag.where('LOWER(name) = LOWER(?)', name).first || Tag.new(name: name)
+    end
+
+    def import_tags_by_name(tag_names)
+      return [] if tag_names.blank?
+      tags = tag_names.map { |name| find_or_initialize_by_name_ignore_case(name) }
+      saved, unsaved = tags.partition { |tag| tag[:id].present? }
+      import(unsaved, syncronize: unsaved)
+      saved + unsaved
+    end
   end
 end

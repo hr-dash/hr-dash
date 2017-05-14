@@ -94,12 +94,8 @@ class MonthlyReportsController < ApplicationController
   end
 
   def monthly_report_tags
-    tags = params[:monthly_report][:monthly_report_tags].try!(:split, ',').try!(:map) do |name|
-      tag = Tag.find_or_initialize_by_name_ignore_case(name.strip)
-      tag.save ? tag : nil # 許容できないタグは無視
-    end.try!(:compact)
-
-    tags || []
+    tag_names = params[:monthly_report][:monthly_report_tags].try!(:split, ',')
+    Tag.import_tags_by_name(tag_names)
   end
 
   def user_reports_in_year(year, report_user)

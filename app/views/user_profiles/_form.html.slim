@@ -18,6 +18,12 @@
         = f.text_field :birthday, class: 'form-control'
 
     .form-group
+      = f.label :interested_topics, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = f.hidden_field :interested_topics, id: :interested_topics_input, class: 'form-control'
+        == render 'shared/tag_field', tags: profile.interested_topics.map(&:name), placeholder: '例） Java + <Enter>', attr: :interested_topics
+
+    .form-group
       = f.label :self_introduction, class: 'col-sm-2 control-label'
       .col-sm-10
         = f.text_area :self_introduction, class: 'form-control'

@@ -13,4 +13,6 @@
 class InterestedTopic < ApplicationRecord
   belongs_to :user_profile
   belongs_to :tag
+
+  delegate :name, to: :tag
 end
