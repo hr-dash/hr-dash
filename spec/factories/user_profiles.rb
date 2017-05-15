@@ -19,4 +19,16 @@ FactoryGirl.define do
     blood_type { UserProfile.blood_types.keys.sample }
     birthday { Faker::Date.between(100.years.ago, Date.today) }
   end
+
+  trait :with_tags do
+    transient do
+      tag_size 3
+    end
+
+    after(:build) do |profile, evaluator|
+      evaluator.tag_size.times do
+        profile.interested_topics << build(:interested_topics, user_profile: profile)
+      end
+    end
+  end
 end

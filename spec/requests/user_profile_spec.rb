@@ -38,6 +38,19 @@ describe UserProfilesController, type: :request do
         it { expect(response.body).not_to match 'プロフィール編集' }
       end
 
+      context 'with tags' do
+        let(:tag_params) { { name: 'Ruby on Rails' } }
+        let(:user) do
+          create(:user) do |u|
+            u.user_profile.tags.create(tag_params)
+          end
+        end
+
+        before { get user_profile_path(user.user_profile) }
+        it_behaves_like 'profile is displayed'
+        it { expect(response.body).to match 'Ruby on Rails' }
+      end
+
       context 'not belongs to group' do
         let(:user) { create(:user, group_size: 0) }
         before { get user_profile_path(user.user_profile) }
@@ -99,8 +112,9 @@ describe UserProfilesController, type: :request do
   end
 
   describe '#update PATCH /user_profiles/:id' do
-    let(:new_profile) { attributes_for(:user_profile) }
-    let(:patch_params) { { user_profile: new_profile } }
+    let(:new_profile) { attributes_for(:user_profile, :with_tags) }
+    let(:tag_params) { 'Ruby,Rails' }
+    let(:patch_params) { { user_profile: new_profile.merge(interested_topics: tag_params) } }
 
     context 'valid' do
       before do
@@ -108,10 +122,12 @@ describe UserProfilesController, type: :request do
       end
 
       context 'valid_params' do
+        let(:actual_tag_names) { profile.tags.map(&:name) }
         before { patch user_profile_path(profile, patch_params) }
 
         it { expect(response).to have_http_status :redirect }
         it { expect(response).to redirect_to user_profile_path(user.user_profile) }
+        it { expect(actual_tag_names).to match_array(tag_params.split(',')) }
       end
 
       context 'invalid_params' do

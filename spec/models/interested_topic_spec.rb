@@ -10,8 +10,6 @@
 #  updated_at      :datetime         not null
 #
 
-require 'rails_helper'
-
 describe InterestedTopic, type: :model do
   it { expect(subject).to respond_to(:id) }
   it { expect(subject).to respond_to(:user_profile_id) }

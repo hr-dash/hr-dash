@@ -12,7 +12,7 @@
 
 FactoryGirl.define do
   factory :interested_topic do
-    user_profile_id 1
-    tag_id 1
+    association :user_profile
+    association :tag
   end
 end
