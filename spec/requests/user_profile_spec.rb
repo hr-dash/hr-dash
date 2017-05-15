@@ -112,7 +112,7 @@ describe UserProfilesController, type: :request do
   end
 
   describe '#update PATCH /user_profiles/:id' do
-    let(:new_profile) { attributes_for(:user_profile, :with_tags) }
+    let(:new_profile) { attributes_for(:user_profile) }
     let(:tag_params) { 'Ruby,Rails' }
     let(:patch_params) { { user_profile: new_profile.merge(interested_topics: tag_params) } }
 
