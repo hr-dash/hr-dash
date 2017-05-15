@@ -26,7 +26,7 @@
         .form-group
           label.col-sm-3.control-label = t "#{attr}.monthly_report_tags"
           .col-sm-9.form-control-static
-            = render 'layouts/monthly_report_tags_show', tags: @monthly_report.tags, prefix: :report
+            = render 'shared/tags', tags: @monthly_report.tags, prefix: :report
         .form-group
           - process_attr = 'activerecord.attributes.monthly_working_process'
           label.col-sm-3.control-label = t "#{attr}.monthly_working_process"

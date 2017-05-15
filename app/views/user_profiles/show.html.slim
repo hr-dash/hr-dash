@@ -44,7 +44,7 @@
           tr
             th 興味のある技術
             td
-              = render 'layouts/monthly_report_tags_show', tags: @profile.tags, prefix: :interested
+              = render 'shared/tags', tags: @profile.tags, prefix: :interested
     section
       h2.profile-heading 自己紹介
       pre
