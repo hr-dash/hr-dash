@@ -14,6 +14,7 @@ ja:
       tag: タグ
       user: ユーザー
       user_profile: プロフィール
+      interested_topic: 興味のある技術
     attributes:
       announcement:
         title: タイトル
