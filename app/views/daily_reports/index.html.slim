@@ -1,0 +1,60 @@
+- provide :page_title, "日報トップ"
+/調べる
+- placeholders = HelpText.placeholders(:daily_report)
+
+.page-content
+  .jumbotron
+    .container
+      = search_form_for @q, { class: 'form-horizontal' } do |f|
+        .form-group
+          = f.label :user_groups_id_eq, 'グループ', class: 'control-label col-xs-2'
+          .col-xs-10
+            = f.select :user_groups_id_eq, options_for_select(Group.active.pluck(:name, :id), selected: @q.user_groups_id_eq), { include_blank: true }, class: 'form-control'
+        .form-group
+          = f.label :user_name_cont, '氏名', class: 'control-label col-xs-2'
+          .col-xs-10
+            = f.search_field :user_name_cont, class: 'form-control'
+        .form-group
+          = f.label :target_date_gteq, '対象日', class: 'control-label col-xs-2'
+          .col-xs-2.target-date-select-form
+            = select_tag "year_start",
+                options_for_select(DailyReport.year_select_options, selected: @q.target_date_gteq.try(:year)),
+                { include_blank: true , class: 'form-control' }
+          .col-xs-1.control-label.target-date-description = "年"
+          .col-xs-2.target-date-select-form
+            = select_tag "month_start",
+                options_for_select(DailyReport.month_select_options, selected: @q.target_date_gteq.try(:month)),
+                { include_blank: true , class: 'form-control' }
+          .col-xs-1.control-label.target-date-description = "月"
+          .col-xs-2.target-date-select-form
+            = select_tag "day_start",
+                options_for_select(DailyReport.day_select_options, selected: @q.target_date_gteq.try(:day)),
+                { include_blank: true , class: 'form-control' }
+          .col-xs-1.control-label.target-date-description = "日"
+          .col-xs-1.control-label.target-date-description = "から"
+        .form-group
+          .col-xs-2
+          .col-xs-2.target-date-select-form
+            = select_tag "year_end",
+                options_for_select(DailyReport.year_select_options, selected: @q.target_date_lteq.try(:year)),
+                { include_blank: true , class: 'form-control' }
+          .col-xs-1.control-label.target-date-description = "年"
+          .col-xs-2.target-date-select-form
+            = select_tag "month_end",
+                options_for_select(DailyReport.month_select_options, selected: @q.target_date_lteq.try(:month)),
+                { include_blank: true , class: 'form-control' }
+          .col-xs-1.control-label.target-date-description = "月"
+          .col-xs-2.target-date-select-form
+            = select_tag "day_end",
+                options_for_select(DailyReport.day_select_options, selected: @q.target_date_lteq.try(:day)),
+                { include_blank: true , class: 'form-control' }
+          .col-xs-1.control-label.target-date-description = "日"
+          .col-xs-1.control-label.target-date-description = "まで"
+        .form-group
+          .col-xs-10.col-xs-offset-2
+            = f.button '検索', class: 'btn btn-default'
+.page-content
+  h3 = @q.conditions.empty? ? '最新の日報一覧' : '検索結果'
+  #report_index
+    == render partial: 'layouts/daily_report_index', locals: { daily_reports: @daily_reports }
+  = paginate @daily_reports

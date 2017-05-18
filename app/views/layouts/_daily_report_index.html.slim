@@ -1,0 +1,13 @@
+.list-group.daily-report-index
+  - daily_reports.each do |report|
+    a.list-group-item href=(daily_report_path(report))
+      = report.user.groups.map { |g| "【#{g.name}G】" }.join
+      = "#{report.user.name} - #{report.target_date.strftime("%Y年%m月%d日")}分"
+      br.visible-xs-block
+      .visible-xs-inline 　
+      small.daily-report-shipped-at.text-muted.hidden-xs
+        = "投稿日: #{report.shipped_at.strftime("%Y-%m-%d")}"
+      .pull-right
+        span.comments_count
+          span.glyphicon.glyphicon-comment aria-hidden="true"
+          span = report.comments_count

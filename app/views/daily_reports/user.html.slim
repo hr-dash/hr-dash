@@ -1,0 +1,23 @@
+- provide :page_title, (link_to @report_user.name, user_profile_path(@report_user.user_profile), class: 'text-profile-link')
+
+.page-content
+  h3 = "#{@target_year}年#{@target_month}月の日報"
+  - next_year  = @target_month.to_i == 12 ? @target_year + 1 : @target_year
+  - prev_year  = @target_month.to_i == 1  ? @target_year - 1 : @target_year
+  - next_month = @target_month.to_i == 12 ? 1  : @target_month + 1
+  - prev_month = @target_month.to_i == 1  ? 12 : @target_month - 1
+  = link_to "<< #{prev_year}年#{prev_month}月", user_daily_reports_path(@report_user, target_year: prev_year, target_month: prev_month), class: 'text-info'
+  = link_to "#{next_year}年#{next_month}月 >>", user_daily_reports_path(@report_user, target_year: next_year, target_month: next_month), class: 'pull-right text-info'
+  #report_index
+    table.table
+      thead
+        tr
+          th 対象日
+          th ステータス
+          th リンク
+      tbody
+        - @daily_reports.each do |report|
+          - if @report_user == current_user
+            == render partial: 'layouts/my_daily_report', locals: { report: report }
+          - else
+            == render partial: 'layouts/user_daily_report', locals: { report: report }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170303143632) do
+ActiveRecord::Schema.define(version: 20170526135756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,26 @@ ActiveRecord::Schema.define(version: 20170303143632) do
     t.date     "published_date", null: false
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+  end
+
+  create_table "daily_report_comments", force: :cascade do |t|
+    t.integer  "user_id",         null: false
+    t.text     "comment"
+    t.integer  "daily_report_id", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "daily_reports", force: :cascade do |t|
+    t.integer  "user_id",                      null: false
+    t.date     "target_date",                  null: false
+    t.datetime "shipped_at"
+    t.text     "business_content"
+    t.text     "looking_back"
+    t.integer  "comments_count",   default: 0, null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["target_date"], name: "index_daily_reports_on_target_date", using: :btree
   end
 
   create_table "group_assignments", force: :cascade do |t|
@@ -128,10 +148,10 @@ ActiveRecord::Schema.define(version: 20170303143632) do
     t.boolean  "process_operation",      default: false, null: false
     t.boolean  "process_analysis",       default: false, null: false
     t.boolean  "process_training",       default: false, null: false
-    t.boolean  "process_structure",      default: false, null: false
-    t.boolean  "process_trouble",        default: false, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.boolean  "process_structure",      default: false, null: false
+    t.boolean  "process_trouble",        default: false, null: false
     t.index ["monthly_report_id"], name: "index_monthly_working_processes_on_monthly_report_id", using: :btree
   end
 

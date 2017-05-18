@@ -1,0 +1,41 @@
+- provide :page_title,  (link_to @daily_report.user.name, user_profile_path(@daily_report.user.user_profile), class: 'text-profile-link')
+
+.panel-group
+  .panel.panel-default
+    .panel-heading.daily-report-panel-header
+      .panel-title.row
+        .col-xs-2
+          - if @daily_report.prev_date.try(:browseable?, current_user)
+            a.btn.btn-default.btn-xs href=(daily_report_path(@daily_report.prev_date)) role="button" 前日
+        .col-xs-8.daily-report-panel-date
+          - if @daily_report.shipped?
+            span.label.label-success.daily-report-status 登録済
+          -else
+            span.label.label-info.daily-report-status 下書き
+          = "#{@daily_report.target_date.strftime("%Y年%m月%d日")}の日報"
+        .col-xs-2
+          - if @daily_report.next_date.try(:browseable?, current_user)
+            a.btn.btn-default.btn-xs.daily-report-panel-button.pull-right href=(daily_report_path(@daily_report.next_date)) role="button" 翌日
+    .panel-body
+      form.form-horizontal
+        - attr = 'activerecord.attributes.daily_report'
+        .form-group
+          label.col-sm-3.control-label = t "#{attr}.business_content"
+          .col-sm-9.form-control-static
+            = render 'layouts/markdown_view', content: @daily_report.business_content
+        .form-group
+          label.col-sm-3.control-label = t "#{attr}.looking_back"
+          .col-sm-9.form-control-static
+            = render 'layouts/markdown_view', content: @daily_report.looking_back
+- if @daily_report.user == current_user
+  = link_to '編集',
+            edit_daily_report_path(@daily_report),
+            class: 'btn btn-success btn-lg btn-block',
+            role: 'button'
+
+- if @daily_report.shipped?
+  h2 コメント
+  - @daily_report.comments.order(:created_at).each do |comment|
+    == render 'daily_reports/comment', comment: comment
+
+  == render 'daily_reports/new_comment', comment: @daily_report.comments.new, attr: 'new-comment'

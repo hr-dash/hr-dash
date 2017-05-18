@@ -1,0 +1,11 @@
+tr
+  th = "#{report.target_date.month}月#{report.target_date.day}日"
+  - if report.shipped_at
+      th
+        span.label.label-success 登録済
+      th
+        = link_to '閲覧', daily_report_path(report), class: 'btn btn-sm btn-default'
+  - else
+    th
+      span.label.label-warning 未登録
+    th

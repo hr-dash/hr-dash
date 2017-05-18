@@ -1,0 +1,18 @@
+.panel.panel-default id=("comment-#{comment.id}")
+  .panel-heading.daily-report-panel-header
+    = link_to comment.user.name, user_profile_path(comment.user.user_profile), class: 'text-info' 
+    = ' さんが '
+    = link_to comment.updated_at, daily_report_path(comment.daily_report_id, anchor: "comment-#{comment.id}"), class: 'text-info'
+    = ' にコメント '
+    - if comment.user == current_user
+      .pull-right
+        = content_tag :a, href: daily_report_comment_path(comment), class: 'daily_report_comment_destroy text-muted', 'data-method' => :delete, 'data-confirm' => 'コメントを削除して宜しいですか？'
+          span.glyphicon.glyphicon-remove aria-hidden="true"
+      .pull-right
+        = content_tag :div, class: :daily_report_comment_edit, style: 'cursor: pointer'
+          span.glyphicon.glyphicon-pencil aria-hidden="true" 　
+          = hidden_field_tag :comment_id, comment.id
+  .panel-body
+    .markdown-view
+      textarea.hidden = comment.comment
+      .markdown-body
