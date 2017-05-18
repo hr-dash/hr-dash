@@ -89,4 +89,8 @@ RSpec.configure do |config|
   config.include ::Rails::Controller::Testing::TestProcess, type: :request
   config.include ::Rails::Controller::Testing::TemplateAssertions, type: :request
   config.include ::Rails::Controller::Testing::Integration, type: :request
+
+  config.define_derived_metadata do |metadata|
+    metadata[:aggregate_failures] = true unless metadata.key?(:aggregate_failures)
+  end
 end
