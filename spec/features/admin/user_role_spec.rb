@@ -7,10 +7,12 @@ describe 'Admin::UserRole', type: :feature do
 
   describe '#index' do
     before { visit admin_user_roles_path }
-    it { expect(page_title).to have_content('ロール') }
-    it { expect(page).to have_content(user.name) }
-    it { expect(page).to have_content('作成する') }
-    it { expect(page).to have_css('.delete_link') }
+    it 'should open the index page' do
+      expect(page_title).to have_content('ロール')
+      expect(page).to have_content(user.name)
+      expect(page).to have_content('作成する')
+      expect(page).to have_css('.delete_link')
+    end
   end
 
   describe '#show' do
@@ -27,8 +29,10 @@ describe 'Admin::UserRole', type: :feature do
       click_on 'ロールを作成'
     end
 
-    it { expect(page).to have_content(new_user.name) }
-    it { expect(current_path).to eq admin_user_role_path(new_user.role) }
+    it 'should create the new user role' do
+      expect(page).to have_content(new_user.name)
+      expect(current_path).to eq admin_user_role_path(new_user.role)
+    end
   end
 
   describe '#destroy', js: true do
@@ -39,9 +43,11 @@ describe 'Admin::UserRole', type: :feature do
       end
     end
 
-    it { expect(current_path).to eq admin_user_roles_path }
-    it { expect(page).not_to have_content(user.name) }
-    it { expect { role.reload }.to raise_error(ActiveRecord::RecordNotFound) }
+    it 'should destroy the user role' do
+      expect(current_path).to eq admin_user_roles_path
+      expect(page).not_to have_content(user.name)
+      expect { role.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    end
   end
 
   describe 'cannot access if operator' do

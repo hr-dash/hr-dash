@@ -7,16 +7,20 @@ describe 'Admin::UserProfile', type: :feature do
 
   describe '#index' do
     before { visit admin_user_profiles_path }
-    it { expect(page_title).to have_content('プロフィール') }
-    it { expect(page).to have_content(user.name) }
-    it { expect(page).not_to have_content('作成する') }
-    it { expect(page).not_to have_css('.delete_link') }
+    it 'should open the index page' do
+      expect(page_title).to have_content('プロフィール')
+      expect(page).to have_content(user.name)
+      expect(page).not_to have_content('作成する')
+      expect(page).not_to have_css('.delete_link')
+    end
   end
 
   describe '#show' do
     before { visit admin_user_profile_path(profile) }
-    it { expect(page_title).to have_content("##{profile.id}") }
-    it { expect(page).to have_content(profile.blood_type_i18n) }
+    it 'should open the show page' do
+      expect(page_title).to have_content("##{profile.id}")
+      expect(page).to have_content(profile.blood_type_i18n)
+    end
   end
 
   describe '#update' do
@@ -27,9 +31,11 @@ describe 'Admin::UserProfile', type: :feature do
       click_on 'プロフィールを更新'
     end
 
-    it { expect(page_title).to have_content("##{profile.id}") }
-    it { expect(current_path).to eq admin_user_profile_path(profile) }
-    it { expect(page).to have_content(new_introduction) }
-    it { expect(profile.reload.self_introduction).to eq new_introduction }
+    it 'should update introduction of user profile' do
+      expect(page_title).to have_content("##{profile.id}")
+      expect(current_path).to eq admin_user_profile_path(profile)
+      expect(page).to have_content(new_introduction)
+      expect(profile.reload.self_introduction).to eq new_introduction
+    end
   end
 end

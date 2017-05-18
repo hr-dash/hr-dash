@@ -17,12 +17,14 @@ describe 'Admin::HelpText', type: :feature do
 
   describe '#index' do
     before { visit admin_active_admin_action_logs_path }
-    it { expect(page_title).to have_content('Active Admin Action Logs') }
-    it { expect(page).to have_content(user.name) }
-    it { expect(page).to have_content('Group') }
-    it { expect(page).to have_content(new_group.name) }
-    it { expect(page).not_to have_content('作成する') }
-    it { expect(page).not_to have_css('.delete_link') }
+    it 'should open the index page' do
+      expect(page_title).to have_content('Active Admin Action Logs')
+      expect(page).to have_content(user.name)
+      expect(page).to have_content('Group')
+      expect(page).to have_content(new_group.name)
+      expect(page).not_to have_content('作成する')
+      expect(page).not_to have_css('.delete_link')
+    end
   end
 
   describe '#show' do
@@ -33,10 +35,12 @@ describe 'Admin::HelpText', type: :feature do
       find("#active_admin_action_log_#{log.id}").find('.view_link').click
     end
 
-    it { expect(page_title).to have_content("##{log.id}") }
-    it { expect(page).to have_content(user.name) }
-    it { expect(page).to have_content(log.resource_type) }
-    it { expect(page).to have_content(log.path) }
-    it { expect(page).to have_content(log.action) }
+    it 'should open the show page' do
+      expect(page_title).to have_content("##{log.id}")
+      expect(page).to have_content(user.name)
+      expect(page).to have_content(log.resource_type)
+      expect(page).to have_content(log.path)
+      expect(page).to have_content(log.action)
+    end
   end
 end

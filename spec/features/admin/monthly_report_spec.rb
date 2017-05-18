@@ -7,10 +7,12 @@ describe 'Admin::MonthlyReport', type: :feature do
 
   describe '#index' do
     before { visit admin_monthly_reports_path }
-    it { expect(page_title).to have_content('月報') }
-    it { expect(page).to have_content(user.name) }
-    it { expect(page).to have_content(report.shipped_at) }
-    it { expect(page).not_to have_css('.delete_link') }
+    it 'should open the index page' do
+      expect(page_title).to have_content('月報')
+      expect(page).to have_content(user.name)
+      expect(page).to have_content(report.shipped_at)
+      expect(page).not_to have_css('.delete_link')
+    end
   end
 
   describe '#show' do
@@ -26,8 +28,10 @@ describe 'Admin::MonthlyReport', type: :feature do
       click_on '月報を更新'
     end
 
-    it { expect(page).to have_content(new_summary) }
-    it { expect(current_path).to eq admin_monthly_report_path(report) }
-    it { expect(report.reload.project_summary).to eq new_summary }
+    it 'should update the monthly report' do
+      expect(page).to have_content(new_summary)
+      expect(current_path).to eq admin_monthly_report_path(report)
+      expect(report.reload.project_summary).to eq new_summary
+    end
   end
 end

@@ -6,17 +6,21 @@ describe 'Admin::Inquiry', type: :feature do
 
   describe '#index' do
     before { visit admin_inquiries_path }
-    it { expect(page_title).to have_content('問い合わせ') }
-    it { expect(page).to have_content(inquiry.referer) }
-    it { expect(page).to have_content('編集') }
-    it { expect(page).not_to have_css('.delete_link') }
+    it 'should open the index page' do
+      expect(page_title).to have_content('問い合わせ')
+      expect(page).to have_content(inquiry.referer)
+      expect(page).to have_content('編集')
+      expect(page).not_to have_css('.delete_link')
+    end
   end
 
   describe '#show' do
     before { visit admin_inquiry_path(inquiry) }
-    it { expect(page_title).to have_content("問い合わせ ##{inquiry.id}") }
-    it { expect(page).to have_content(inquiry.user.name) }
-    it { expect(page).to have_content(inquiry.body) }
+    it 'should open the show page' do
+      expect(page_title).to have_content("問い合わせ ##{inquiry.id}")
+      expect(page).to have_content(inquiry.user.name)
+      expect(page).to have_content(inquiry.body)
+    end
   end
 
   describe '#update' do
@@ -27,9 +31,11 @@ describe 'Admin::Inquiry', type: :feature do
       click_on '問い合わせを更新'
     end
 
-    it { expect(page_title).to have_content("問い合わせ ##{inquiry.id}") }
-    it { expect(current_path).to eq admin_inquiry_path(inquiry) }
-    it { expect(page).to have_content(new_admin_memo) }
-    it { expect(inquiry.reload.admin_memo).to eq new_admin_memo }
+    it 'should update the inquiry' do
+      expect(page_title).to have_content("問い合わせ ##{inquiry.id}")
+      expect(current_path).to eq admin_inquiry_path(inquiry)
+      expect(page).to have_content(new_admin_memo)
+      expect(inquiry.reload.admin_memo).to eq new_admin_memo
+    end
   end
 end
