@@ -307,6 +307,7 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.5)
       pry (>= 0.9.10)
+    puma (3.8.2)
     rack (2.0.1)
     rack-contrib (1.2.0)
       rack (>= 0.9.1)
@@ -538,6 +539,7 @@ DEPENDENCIES
   pry
   pry-byebug
   pry-rails
+  puma
   rack_session_access
   rails (~> 5.0.2)
   rails-controller-testing
@@ -564,4 +566,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.14.3
+   1.14.6

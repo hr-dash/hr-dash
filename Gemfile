@@ -92,6 +92,7 @@ group :development do
   gem 'rails_real_favicon'
   gem 'web-console', '~> 2.0'
   gem 'listen'
+  gem 'puma'
 end
 
 group :test do
