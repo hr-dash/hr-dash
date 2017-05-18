@@ -37,8 +37,7 @@ class UserProfilesController < ApplicationController
   end
 
   def search_params
-    q = params[:q]
-    return unless q
+    return unless params[:q]
     conditions = [:user_name_cont, :self_introduction_cont, :user_entry_date_gteq, :user_entry_date_lteq]
     params.require(:q).permit(conditions)
   end
