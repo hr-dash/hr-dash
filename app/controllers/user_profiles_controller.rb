@@ -38,6 +38,12 @@ class UserProfilesController < ApplicationController
 
   def search_params
     return unless params[:q]
+    if params[:entry_year_start].present? && params[:entry_month_start].present?
+      params[:q][:user_entry_date_gteq] = Date.new(params[:entry_year_start].to_i, params[:entry_month_start].to_i, 1)
+    end
+    if params[:entry_year_end].present? && params[:entry_month_end].present?
+      params[:q][:user_entry_date_lteq] = Date.new(params[:entry_year_end].to_i, params[:entry_month_end].to_i, 1).end_of_month
+    end
     conditions = [:user_name_cont, :self_introduction_cont, :user_entry_date_gteq, :user_entry_date_lteq]
     params.require(:q).permit(conditions)
   end
