@@ -178,28 +178,30 @@ describe User, type: :model do
     end
   end
 
-  describe '.entry_date_select_options_from' do
-    let!(:junior_user) { create(:user, entry_date: 1.months.ago) }
-    let!(:senior_user) { create(:user, entry_date: 2.months.ago) }
-    let(:one_month_ago_sdate) { 1.months.ago.beginning_of_month.to_date }
-    let(:two_month_ago_sdate) { 2.months.ago.beginning_of_month.to_date }
-    let(:one_month_ago) { 1.months.ago.beginning_of_month.to_date.strftime('%Y年%m月') }
-    let(:two_month_ago) { 2.months.ago.beginning_of_month.to_date.strftime('%Y年%m月') }
+  describe '.entry_year_select_options' do
+    let!(:junior_user) { create(:user, entry_date: Date.new(2016, 6, 15)) }
+    let!(:senior_user) { create(:user, entry_date: Date.new(2014, 4, 15)) }
 
-    subject { User.entry_date_select_options_from }
-    it { is_expected.to eq [[two_month_ago, two_month_ago_sdate], [one_month_ago, one_month_ago_sdate]] }
+    subject { User.entry_year_select_options }
+    it { is_expected.to eq [*(2014..2016)].map { |y| [y, y] } }
   end
 
-  describe '.entry_date_select_options_to' do
-    let!(:junior_user) { create(:user, entry_date: 1.months.ago) }
-    let!(:senior_user) { create(:user, entry_date: 2.months.ago) }
-    let(:one_month_ago_edate) { 1.months.ago.end_of_month.to_date }
-    let(:two_month_ago_edate) { 2.months.ago.end_of_month.to_date }
-    let(:one_month_ago) { 1.months.ago.end_of_month.to_date.strftime('%Y年%m月') }
-    let(:two_month_ago) { 2.months.ago.end_of_month.to_date.strftime('%Y年%m月') }
+  describe '.entry_month_select_options' do
+    context 'when the range of entry year is 1 year' do
+      let!(:junior_user) { create(:user, entry_date: Date.new(2016, 6, 15)) }
+      let!(:senior_user) { create(:user, entry_date: Date.new(2016, 4, 15)) }
 
-    subject { User.entry_date_select_options_to }
-    it { is_expected.to eq [[two_month_ago, two_month_ago_edate], [one_month_ago, one_month_ago_edate]] }
+      subject { User.entry_month_select_options }
+      it { is_expected.to eq [*(4..6)].map { |m| [m, m] } }
+    end
+
+    context 'when the range of entry year is over 2 years' do
+      let!(:junior_user) { create(:user, entry_date: Date.new(2016, 6, 15)) }
+      let!(:senior_user) { create(:user, entry_date: Date.new(2014, 4, 15)) }
+
+      subject { User.entry_month_select_options }
+      it { is_expected.to eq [*(1..12)].map { |m| [m, m] } }
+    end
   end
 
   pending 'To merge a branch of Dev/262 use same class for date' do

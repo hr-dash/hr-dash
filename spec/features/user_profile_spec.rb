@@ -40,51 +40,47 @@ describe UserProfilesController, type: :feature do
     context 'by user_entry_date_from' do
       let(:url) { URI.parse(current_url) }
       let(:query) { URI.decode(url.query) }
-      let!(:junior_user) { create(:user, entry_date: 1.months.ago) }
-      let!(:middle_user) { create(:user, entry_date: 2.months.ago) }
-      let!(:senior_user) { create(:user, entry_date: 3.months.ago) }
+      let!(:junior_user) { create(:user, entry_date: Date.new(2016, 4, 1)) }
+      let!(:middle_user) { create(:user, entry_date: Date.new(2015, 4, 1)) }
+      let!(:senior_user) { create(:user, entry_date: Date.new(2014, 4, 1)) }
       let!(:junior_user_profile) { create(:user_profile, user: junior_user) }
       let!(:middle_user_profile) { create(:user_profile, user: middle_user) }
       let!(:senior_user_profile) { create(:user_profile, user: senior_user) }
-      let!(:one_month_ago) { 1.months.ago.beginning_of_month.strftime('%Y年%m月') }
-      let!(:two_months_ago) { 2.months.ago.beginning_of_month.strftime('%Y年%m月') }
-      let!(:three_months_ago) { 3.months.ago.beginning_of_month.strftime('%Y年%m月') }
 
       before do
         visit user_profiles_path
-        select two_months_ago, from: 'q_user_entry_date_gteq'
+        select 2015, from: 'entry_year_start'
+        select 3, from: 'entry_month_start'
         click_button '検索'
       end
 
       it { expect(current_path).to eq user_profiles_path }
-      it { expect(page).to have_selector 'small', text: one_month_ago }
-      it { expect(page).to have_selector 'small', text: two_months_ago }
-      it { expect(page).not_to have_selector 'small', text: three_months_ago }
+      it { expect(page).to have_selector 'small', text: "2016年04月01日入社" }
+      it { expect(page).to have_selector 'small', text: "2015年04月01日入社" }
+      it { expect(page).not_to have_selector 'small', text: "2014年04月01日入社" }
     end
 
     context 'by user_entry_date_to' do
       let(:url) { URI.parse(current_url) }
       let(:query) { URI.decode(url.query) }
-      let!(:junior_user) { create(:user, entry_date: 1.months.ago) }
-      let!(:middle_user) { create(:user, entry_date: 2.months.ago) }
-      let!(:senior_user) { create(:user, entry_date: 3.months.ago) }
+      let!(:junior_user) { create(:user, entry_date: Date.new(2016, 4, 1)) }
+      let!(:middle_user) { create(:user, entry_date: Date.new(2015, 4, 1)) }
+      let!(:senior_user) { create(:user, entry_date: Date.new(2014, 4, 1)) }
       let!(:junior_user_profile) { create(:user_profile, user: junior_user) }
       let!(:middle_user_profile) { create(:user_profile, user: middle_user) }
       let!(:senior_user_profile) { create(:user_profile, user: senior_user) }
-      let!(:one_month_ago) { 1.months.ago.beginning_of_month.strftime('%Y年%m月') }
-      let!(:two_months_ago) { 2.months.ago.beginning_of_month.strftime('%Y年%m月') }
-      let!(:three_months_ago) { 3.months.ago.beginning_of_month.strftime('%Y年%m月') }
 
       before do
         visit user_profiles_path
-        select two_months_ago, from: 'q_user_entry_date_lteq'
+        select 2015, from: 'entry_year_end'
+        select 6, from: 'entry_month_end'
         click_button '検索'
       end
 
       it { expect(current_path).to eq user_profiles_path }
-      it { expect(page).not_to have_selector 'small', text: one_month_ago }
-      it { expect(page).to have_selector 'small', text: two_months_ago }
-      it { expect(page).to have_selector 'small', text: three_months_ago }
+      it { expect(page).not_to have_selector 'small', text: "2016年04月01日入社" }
+      it { expect(page).to have_selector 'small', text: "2015年04月01日入社" }
+      it { expect(page).to have_selector 'small', text: "2014年04月01日入社" }
     end
   end
 end
