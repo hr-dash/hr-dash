@@ -55,9 +55,9 @@ describe UserProfilesController, type: :feature do
       end
 
       it { expect(current_path).to eq user_profiles_path }
-      it { expect(page).to have_selector 'small', text: "2016年04月01日入社" }
-      it { expect(page).to have_selector 'small', text: "2015年04月01日入社" }
-      it { expect(page).not_to have_selector 'small', text: "2014年04月01日入社" }
+      it { expect(page).to have_selector 'small', text: '2016年04月01日入社' }
+      it { expect(page).to have_selector 'small', text: '2015年04月01日入社' }
+      it { expect(page).not_to have_selector 'small', text: '2014年04月01日入社' }
     end
 
     context 'by user_entry_date_to' do
@@ -78,9 +78,9 @@ describe UserProfilesController, type: :feature do
       end
 
       it { expect(current_path).to eq user_profiles_path }
-      it { expect(page).not_to have_selector 'small', text: "2016年04月01日入社" }
-      it { expect(page).to have_selector 'small', text: "2015年04月01日入社" }
-      it { expect(page).to have_selector 'small', text: "2014年04月01日入社" }
+      it { expect(page).not_to have_selector 'small', text: '2016年04月01日入社' }
+      it { expect(page).to have_selector 'small', text: '2015年04月01日入社' }
+      it { expect(page).to have_selector 'small', text: '2014年04月01日入社' }
     end
   end
 end

@@ -2,7 +2,7 @@
 class UserProfilesController < ApplicationController
   def index
     @q = UserProfile.includes(user: :groups).ransack(search_params)
-    @user_profiles = @q.result.page params[:page]
+    @user_profiles = @q.result(distinct: true).page params[:page]
   end
 
   def show
@@ -38,13 +38,21 @@ class UserProfilesController < ApplicationController
 
   def search_params
     return unless params[:q]
-    if params[:entry_year_start].present? && params[:entry_month_start].present?
-      params[:q][:user_entry_date_gteq] = Date.new(params[:entry_year_start].to_i, params[:entry_month_start].to_i, 1)
-    end
-    if params[:entry_year_end].present? && params[:entry_month_end].present?
-      params[:q][:user_entry_date_lteq] = Date.new(params[:entry_year_end].to_i, params[:entry_month_end].to_i, 1).end_of_month
-    end
+    set_user_entry_date
     conditions = [:user_name_cont, :self_introduction_cont, :user_entry_date_gteq, :user_entry_date_lteq]
     params.require(:q).permit(conditions)
+  end
+
+  def set_user_entry_date
+    set_user_entry_date_start if params[:entry_year_start].present? && params[:entry_month_start].present?
+    set_user_entry_date_end   if params[:entry_year_end].present? && params[:entry_month_end].present?
+  end
+
+  def set_user_entry_date_start
+    params[:q][:user_entry_date_gteq] = Date.new(params[:entry_year_start].to_i, params[:entry_month_start].to_i, 1)
+  end
+
+  def set_user_entry_date_end
+    params[:q][:user_entry_date_lteq] = Date.new(params[:entry_year_end].to_i, params[:entry_month_end].to_i, 1).end_of_month
   end
 end
