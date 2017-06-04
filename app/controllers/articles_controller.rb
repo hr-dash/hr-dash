@@ -9,9 +9,8 @@ class ArticlesController < ApplicationController
   end
 
   def user
-    user = User.find(params[:user_id])
-    @articles = user.articles.includes(article_tags: :tag).shipped.order(shipped_at: :desc).page params[:page]
-    @article_user = @articles.first.user
+    @article_user = User.find(params[:user_id])
+    @articles = @article_user.articles.includes(article_tags: :tag).shipped.order(shipped_at: :desc).page params[:page]
   end
 
   def drafts
