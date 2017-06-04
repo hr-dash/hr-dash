@@ -1,0 +1,13 @@
+- provide :page_title, (link_to "#{@article_user.name}さんの記事一覧", user_profile_path(@article_user.user_profile), class: 'text-profile-link')
+.article-user
+  - if @article_user == current_user
+    .btn.btn-info.btn-sm
+      = link_to '下書き中の記事一覧へ', drafts_articles_path(current_user)
+  .page-content
+    #article_index
+      .list-group.article-index
+        - if @articles.present?
+          == render partial: 'layouts/article_index', collection: @articles, as: 'article'
+        - else
+          p 公開中の記事はありません
+    = paginate @articles

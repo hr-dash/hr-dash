@@ -22,6 +22,8 @@ li.dropdown
       = link_to "トップ", articles_path
     li
       = link_to "新規投稿", new_article_path
+    li
+      = link_to "自分の記事一覧", user_articles_path(current_user)
 li.dropdown.hidden-xs
   a.lead.bg-primary.dropdown-toggle data-toggle="dropdown" aria-expanded="false"
     span.glyphicon.glyphicon-th-list aria-hidden="true"

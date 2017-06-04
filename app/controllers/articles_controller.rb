@@ -2,16 +2,24 @@
 class ArticlesController < ApplicationController
   before_action :assign_placeholders, only: [:new, :create, :edit, :update]
   before_action :assign_saved_article, only: [:edit, :update]
-  delegate :browseable?, to: :@article
 
   def index
     references = [:user, { article_tags: :tag }]
-    @articles = Article.includes(references).released.order('shipped_at desc').page params[:page]
+    @articles = Article.includes(references).shipped.order(shipped_at: :desc).page params[:page]
+  end
+
+  def user
+    @article_user = User.find(params[:user_id])
+    @articles = @article_user.articles.includes(article_tags: :tag).shipped.order(shipped_at: :desc).page params[:page]
+  end
+
+  def drafts
+    @articles = current_user.articles.includes(article_tags: :tag).wip.order(created_at: :desc).page params[:page]
   end
 
   def show
     @article = Article.includes(comments: :user).find(params[:id])
-    raise(Forbidden, 'can not see wip articles of other users') unless browseable?(current_user)
+    raise(Forbidden, 'can not see wip articles of other users') unless @article.browseable?(current_user)
   end
 
   def new
@@ -47,8 +55,10 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
+    @article = current_user.articles.find(params[:id])
+
     if @article.destroy
+      flash[:notice] = '記事を削除しました'
       redirect_to :articles
     else
       flash_errors(@article)
@@ -74,7 +84,7 @@ class ArticlesController < ApplicationController
   end
 
   def assign_relational_params(article)
-    article.shipped! unless params[:wip]
+    article.ship unless params[:wip]
     article.tags = article_tags
   end
 
