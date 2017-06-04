@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 class ArticlesController < ApplicationController
+  before_action :assign_placeholders, only: [:new, :create, :edit, :update]
   before_action :assign_saved_article, only: [:edit, :update]
   delegate :browseable?, to: :@article
 
@@ -9,7 +10,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.includes(comments: { user: :user_profile }).find(params[:id])
+    @article = Article.includes(comments: :user).find(params[:id])
     raise(Forbidden, 'can not see wip articles of other users') unless browseable?(current_user)
   end
 
@@ -59,7 +60,6 @@ class ArticlesController < ApplicationController
 
   def assign_saved_article
     @article = current_user.articles.includes(article_tags: :tag).find(params[:id])
-    @saved_shipped_at = @article.shipped_at
   end
 
   def permitted_params
@@ -85,5 +85,9 @@ class ArticlesController < ApplicationController
     end.try!(:compact)
 
     tags || []
+  end
+
+  def assign_placeholders
+    @placeholders = HelpText.placeholders(:article)
   end
 end

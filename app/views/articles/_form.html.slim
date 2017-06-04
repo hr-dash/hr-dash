@@ -1,6 +1,5 @@
 .page-content.well
   = form_for article, html: { class: 'form-horizontal' } do |f|
-    - placeholders = HelpText.placeholders(:article)
     .form-group
       = f.label :title, class: 'control-label col-sm-3'
       .col-sm-9
@@ -14,7 +13,7 @@
       = f.label :body, class: 'control-label col-sm-3'
       .col-sm-9
         == render 'layouts/markdown_editor', rows: 40, attr: :body, form: f, placeholder: placeholders[:body]
-    - if @saved_shipped_at
+    - if article.shipped_at
       = f.button 'Update （記事を更新）', class: 'btn btn-lg btn-success btn-block'
     - else
       /= f.button 'Save as WIP （下書き保存）', name: :wip, class: 'btn btn-lg btn-info btn-block'
