@@ -5,6 +5,7 @@ class CreateArticles < ActiveRecord::Migration[5.0]
       t.string :title
       t.text :body
       t.datetime :shipped_at
+      t.integer :comments_count, null: false, default: 0
 
       t.timestamps
     end
