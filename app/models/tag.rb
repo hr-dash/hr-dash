@@ -4,7 +4,7 @@
 # Table name: tags
 #
 #  id         :integer          not null, primary key
-#  status     :integer          default(0), not null
+#  status     :integer          default("unfixed"), not null
 #  name       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

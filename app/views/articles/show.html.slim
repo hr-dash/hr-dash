@@ -1,0 +1,32 @@
+- provide :page_title, @article.title
+.well.well-sm style='overflow:hidden'
+  - if @article.tags.size > 0
+    = render 'layouts/monthly_report_tags_show', tags: @article.tags, prefix: :article
+  - else
+    = 'タグ未登録'
+.panel-group.article-show
+  .panel.panel-default
+    - if current_user == @article.user
+      .panel-heading
+        .panel-title
+          - if @article.shipped?
+            span.label.label-success.article-status 公開済
+          - else
+            span.label.label-info.article-status 下書き
+          .pull-right
+             = link_to '', edit_article_path(@article),
+               class: 'glyphicon glyphicon-pencil'
+             a.glyphicon.glyphicon-remove data-toggle="modal" data-target="#article-confirm"
+    .panel-body
+      = render 'layouts/markdown_view', content: @article.body
+.modal.fade#article-confirm
+  .modal-dialog
+    .modal-content
+      .modal-header
+        .modal-title 記事を削除
+      .modal-body 本当にこの記事を削除しますか?
+      .modal-footer
+        = link_to 'はい', article_path(@article), method: :delete,
+          class: 'btn btn-danger'
+        button.btn.btn-default type="button" data-dismiss="modal" 閉じる
+

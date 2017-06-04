@@ -1,0 +1,15 @@
+a.list-group-item href=(article_path(article))
+  = action_name == 'index' ? "#{article.user.name} " : ''
+  br.visible-xs-block
+  .visible-xs-inline 　
+  small.article-shipped-at.text-muted.hidden-xs
+    = "投稿日: #{article.shipped_at.strftime("%Y-%m-%d")}" unless action_name == 'drafts'
+  - tags = article.article_tags.order('article_tags.id')
+  .pull-right
+    - tags.first(3).each do |tag|
+      span.tag.label.label-success = "#{tag.name} "
+    /span.comments_count
+      span.glyphicon.glyphicon-comment aria-hidden="true"
+      span = '0' 
+  br
+  = article.title

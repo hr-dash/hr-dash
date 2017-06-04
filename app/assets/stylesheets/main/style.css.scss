@@ -150,3 +150,20 @@ a[data-toggle="dropdown"], a[data-toggle="collapse"] {
     border-radius: 3px;
   }
 }
+
+/* article */
+.article-index {
+  @extend .monthly-report-index
+}
+
+.article-show {
+  .pull-right {
+    .glyphicon {
+      margin: 0 0.3em;
+    }
+  }
+}
+
+a.glyphicon {
+  color: #000;
+}

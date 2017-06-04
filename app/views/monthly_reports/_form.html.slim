@@ -17,12 +17,12 @@
     .form-group
       = f.label :project_summary, class: 'control-label col-sm-3'
       .col-sm-9
-        == render 'layouts/markdown_editor', attr: :project_summary, form: f, placeholder: placeholders[:project_summary]
+        == render 'layouts/markdown_editor', rows: 5, attr: :project_summary, form: f, placeholder: placeholders[:project_summary]
     .form-group
       = f.label :monthly_report_tags, class: 'control-label col-sm-3'
       .col-sm-9
         = f.hidden_field :monthly_report_tags, id: :monthly_report_tags_input, class: 'form-control'
-        == render 'layouts/monthly_report_tags', tags: monthly_report.monthly_report_tags.map(&:name), placeholder: placeholders[:tags]
+        == render 'layouts/content_tags', tags: monthly_report.monthly_report_tags.map(&:name), placeholder: placeholders[:tags], content_name: 'monthly_report'
     .form-group
       = f.label :monthly_working_process, class: 'control-label col-sm-3'
       .col-sm-9.btn-group data-toggle="buttons"
@@ -34,7 +34,7 @@
     .form-group
       = f.label :business_content, class: 'control-label col-sm-3'
       .col-sm-9
-        == render 'layouts/markdown_editor', attr: :business_content, form: f, placeholder: placeholders[:business_content]
+        == render 'layouts/markdown_editor', rows: 5, attr: :business_content, form: f, placeholder: placeholders[:business_content]
     .form-group
       = label_tag :this_month_goals, '今月の目標', class: 'control-label col-sm-3'
       .col-sm-9
@@ -44,11 +44,11 @@
     .form-group
       = f.label :looking_back, class: 'control-label col-sm-3'
       .col-sm-9
-        == render 'layouts/markdown_editor', attr: :looking_back, form: f, placeholder: placeholders[:looking_back]
+        == render 'layouts/markdown_editor', rows: 5, attr: :looking_back, form: f, placeholder: placeholders[:looking_back]
     .form-group
       = f.label :next_month_goals, class: 'control-label col-sm-3'
       .col-sm-9
-        == render 'layouts/markdown_editor', attr: :next_month_goals, form: f, placeholder: placeholders[:next_month_goals]
+        == render 'layouts/markdown_editor', rows: 5, attr: :next_month_goals, form: f, placeholder: placeholders[:next_month_goals]
     = f.hidden_field :target_month
     - if @saved_shipped_at
       = f.button 'Update（月報を更新）', class: 'btn btn-lg btn-success btn-block'
