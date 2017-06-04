@@ -3,12 +3,12 @@
     .form-group
       = f.label :title, class: 'control-label col-sm-3'
       .col-sm-9
-        = f.text_field :title, class: 'form-control', placeholder: placeholders[:title]
+        = f.text_field :title, class: 'form-control', placeholder: @placeholders[:title]
     .form-group
       = f.label :article_tags, class: 'control-label col-sm-3'
       .col-sm-9
         = f.hidden_field :article_tags, id: :article_tags_input, class: 'form-control'
-        == render 'layouts/content_tags', tags: article.article_tags.map(&:name), placeholder: placeholders[:tags], content_name: 'article'
+        == render 'layouts/content_tags', tags: article.article_tags.map(&:name), placeholder: @placeholders[:tags], content_name: 'article'
     .form-group
       = f.label :body, class: 'control-label col-sm-3'
       .col-sm-9
