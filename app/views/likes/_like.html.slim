@@ -1,0 +1,15 @@
+div class="btn-like btn-#{likable.class} btn-id-#{likable.id}"
+  - if likable.liked_by?(current_user)
+    = button_to unlike_path(likable_type: likable.class, likable_id: likable),
+        method: :delete,
+        class: "btn btn-success",
+        remote: true do
+      span.glyphicon.glyphicon-ok 
+        = "いいね済み"
+  - else
+    = button_to like_path(likable_type: likable.class, likable_id: likable),
+        method: :post,
+        class: "btn btn-success",
+        remote: true do
+      span.glyphicon.glyphicon-thumbs-up
+        = "いいね！"

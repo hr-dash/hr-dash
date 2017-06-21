@@ -33,6 +33,9 @@ Rails.application.routes.draw do
       get :copy
     end
   end
+
+  match 'like', to: 'likes#create', via: :post
+  match 'unlike', to: 'likes#destroy', via: :delete
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

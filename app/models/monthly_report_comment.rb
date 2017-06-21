@@ -15,6 +15,8 @@ class MonthlyReportComment < ApplicationRecord
   belongs_to :user
   belongs_to :monthly_report
   counter_culture :monthly_report, column_name: 'comments_count'
+  has_many :likes, as: :likable
+  include Liked
 
   validates :user, presence: true
   validates :monthly_report, presence: true

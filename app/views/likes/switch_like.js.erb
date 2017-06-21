@@ -1,0 +1,4 @@
+<% selector = ".btn-#{@likable.class}.btn-id-#{@likable.id}" %>
+$("<%= selector %>").html(
+  "<%= j(render partial: 'likes/like', locals: { likable: @likable })%>"
+);

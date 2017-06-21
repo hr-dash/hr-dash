@@ -21,6 +21,8 @@ class MonthlyReport < ApplicationRecord
   has_many :comments, class_name: 'MonthlyReportComment', dependent: :delete_all
   has_many :monthly_report_tags, dependent: :destroy
   has_many :tags, through: :monthly_report_tags
+  has_many :likes, as: :likable
+  include Liked
   has_one :monthly_working_process, dependent: :destroy
 
   validates :user, presence: true
