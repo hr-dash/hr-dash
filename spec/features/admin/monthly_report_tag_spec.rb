@@ -9,9 +9,11 @@ describe 'Admin::MonthlyReportTag', type: :feature do
 
   describe '#index' do
     before { visit admin_monthly_report_tags_path }
-    it { expect(page_title).to have_content('月報タグ') }
-    it { expect(page).to have_content(tag.name) }
-    it { expect(page).to have_css('.delete_link') }
+    it 'should open the index page' do
+      expect(page_title).to have_content('月報タグ')
+      expect(page).to have_content(tag.name)
+      expect(page).to have_css('.delete_link')
+    end
   end
 
   describe '#show' do
@@ -27,9 +29,11 @@ describe 'Admin::MonthlyReportTag', type: :feature do
       click_on '月報タグを更新'
     end
 
-    it { expect(page).to have_content(new_tag.name) }
-    it { expect(current_path).to eq admin_monthly_report_tag_path(report_tag) }
-    it { expect(report_tag.reload.tag).to eq new_tag }
+    it 'should update the monthly report tag' do
+      expect(page).to have_content(new_tag.name)
+      expect(current_path).to eq admin_monthly_report_tag_path(report_tag)
+      expect(report_tag.reload.tag).to eq new_tag
+    end
   end
 
   describe '#destroy', js: true do
@@ -40,8 +44,10 @@ describe 'Admin::MonthlyReportTag', type: :feature do
       end
     end
 
-    it { expect(current_path).to eq admin_monthly_report_tags_path }
-    it { expect(page).not_to have_content(tag.name) }
-    it { expect { report_tag.reload }.to raise_error(ActiveRecord::RecordNotFound) }
+    it 'should destroy the monthly report tag' do
+      expect(current_path).to eq admin_monthly_report_tags_path
+      expect(page).not_to have_content(tag.name)
+      expect { report_tag.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    end
   end
 end

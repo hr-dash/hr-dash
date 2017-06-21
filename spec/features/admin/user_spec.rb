@@ -6,15 +6,19 @@ describe 'Admin::User', type: :feature do
 
   describe '#index' do
     before { visit admin_users_path }
-    it { expect(page_title).to have_content('ユーザ') }
-    it { expect(page).to have_content(user.name) }
-    it { expect(page).not_to have_css('.delete_link') }
+    it 'should open the index page' do
+      expect(page_title).to have_content('ユーザ')
+      expect(page).to have_content(user.name)
+      expect(page).not_to have_css('.delete_link')
+    end
   end
 
   describe '#show' do
     before { visit admin_user_path(user) }
-    it { expect(page_title).to have_content(user.name) }
-    it { expect(page).to have_content('PW変更') }
+    it 'should open the show page' do
+      expect(page_title).to have_content(user.name)
+      expect(page).to have_content('PW変更')
+    end
   end
 
   describe '#create' do
@@ -31,13 +35,15 @@ describe 'Admin::User', type: :feature do
       click_on 'ユーザーを作成'
     end
 
-    it { expect(current_path).to eq admin_user_path(created_user) }
-    it { expect(user_params.name).to eq created_user.name }
-    it { expect(user_params.gender).to eq created_user.gender }
-    it { expect(user_params.employee_code).to eq created_user.employee_code }
-    it { expect(user_params.email).to eq created_user.email }
-    it { expect(user_params.entry_date).to eq created_user.entry_date }
-    it { expect(user_params.beginner_flg).to eq created_user.beginner_flg }
+    it 'should create the new user' do
+      expect(current_path).to eq admin_user_path(created_user)
+      expect(user_params.name).to eq created_user.name
+      expect(user_params.gender).to eq created_user.gender
+      expect(user_params.employee_code).to eq created_user.employee_code
+      expect(user_params.email).to eq created_user.email
+      expect(user_params.entry_date).to eq created_user.entry_date
+      expect(user_params.beginner_flg).to eq created_user.beginner_flg
+    end
   end
 
   describe '#update' do
@@ -48,9 +54,11 @@ describe 'Admin::User', type: :feature do
       click_on 'ユーザーを更新'
     end
 
-    it { expect(page_title).to have_content(new_name) }
-    it { expect(user.reload.name).to eq new_name }
-    it { expect(current_path).to eq admin_user_path(user) }
+    it 'should update the user' do
+      expect(page_title).to have_content(new_name)
+      expect(user.reload.name).to eq new_name
+      expect(current_path).to eq admin_user_path(user)
+    end
   end
 
   describe '#import_csv' do
@@ -59,8 +67,10 @@ describe 'Admin::User', type: :feature do
     context 'no input csv file' do
       before { click_on 'インポートする' }
 
-      it { expect(current_path).to eq input_csv_admin_users_path }
-      it { expect(page).to have_content('CSVファイルを指定してください') }
+      it 'should import csv' do
+        expect(current_path).to eq input_csv_admin_users_path
+        expect(page).to have_content('CSVファイルを指定してください')
+      end
     end
 
     context 'input valid csv file' do
@@ -73,18 +83,20 @@ describe 'Admin::User', type: :feature do
         click_on 'インポートする'
       end
 
-      it { expect(current_path).to eq admin_users_path }
-      it { expect(page).to have_content('2名のユーザーがインポートされました') }
-      it { expect(yamada).to be_present }
-      it { expect(yamada.email).to eq 'yamada.taro@example.com' }
-      it { expect(yamada.gender).to eq 'male' }
-      it { expect(yamada.beginner_flg).to eq true }
-      it { expect(yamada.user_profile).to be_present }
-      it { expect(suzuki).to be_present }
-      it { expect(suzuki.email).to eq 'suzuki.hanako@example.com' }
-      it { expect(suzuki.gender).to eq 'female' }
-      it { expect(suzuki.beginner_flg).to eq false }
-      it { expect(suzuki.user_profile).to be_present }
+      it 'should import user from csv' do
+        expect(current_path).to eq admin_users_path
+        expect(page).to have_content('2名のユーザーがインポートされました')
+        expect(yamada).to be_present
+        expect(yamada.email).to eq 'yamada.taro@example.com'
+        expect(yamada.gender).to eq 'male'
+        expect(yamada.beginner_flg).to eq true
+        expect(yamada.user_profile).to be_present
+        expect(suzuki).to be_present
+        expect(suzuki.email).to eq 'suzuki.hanako@example.com'
+        expect(suzuki.gender).to eq 'female'
+        expect(suzuki.beginner_flg).to eq false
+        expect(suzuki.user_profile).to be_present
+      end
     end
   end
 
@@ -98,9 +110,11 @@ describe 'Admin::User', type: :feature do
       click_on '更新する'
     end
 
-    it { expect(current_path).to eq admin_users_path }
-    it { expect(page_title).to have_content('ユーザー') }
-    it { expect(other_user.reload.valid_password?(new_password)).to be true }
+    it 'should update the password' do
+      expect(current_path).to eq admin_users_path
+      expect(page_title).to have_content('ユーザー')
+      expect(other_user.reload.valid_password?(new_password)).to be true
+    end
   end
 
   describe '#delete_monthly_report', js: true do
@@ -116,11 +130,13 @@ describe 'Admin::User', type: :feature do
         accept_confirm { click_link('月報を削除する') }
       end
 
-      it { expect(page).to have_content('月報を削除する') }
-      it { expect(target_user.monthly_reports).to be_blank }
-      it { expect(tags).to be_blank }
-      it { expect(comments).to be_blank }
-      it { expect(working_process).to be_blank }
+      it 'should delete the monthly report' do
+        expect(page).to have_content('月報を削除する')
+        expect(target_user.monthly_reports).to be_blank
+        expect(tags).to be_blank
+        expect(comments).to be_blank
+        expect(working_process).to be_blank
+      end
     end
 
     context 'not retired user reports' do

@@ -6,16 +6,20 @@ describe 'Admin::Tag', type: :feature do
 
   describe '#index' do
     before { visit admin_tags_path }
-    it { expect(page_title).to have_content('タグ') }
-    it { expect(page).to have_content(tag.name) }
-    it { expect(page).to have_content('作成する') }
-    it { expect(page).not_to have_css('.delete_link') }
+    it 'should open the index page' do
+      expect(page_title).to have_content('タグ')
+      expect(page).to have_content(tag.name)
+      expect(page).to have_content('作成する')
+      expect(page).not_to have_css('.delete_link')
+    end
   end
 
   describe '#show' do
     before { visit admin_tag_path(tag) }
-    it { expect(page_title).to have_content(tag.name) }
-    it { expect(page).to have_content(tag.name) }
+    it 'should open the show page' do
+      expect(page_title).to have_content(tag.name)
+      expect(page).to have_content(tag.name)
+    end
   end
 
   describe '#create' do
@@ -27,8 +31,10 @@ describe 'Admin::Tag', type: :feature do
       click_on 'タグを作成'
     end
 
-    it { expect(page_title).to have_content(new_tag.name) }
-    it { expect(page).to have_content('fixed') }
+    it 'should create the new tag' do
+      expect(page_title).to have_content(new_tag.name)
+      expect(page).to have_content('fixed')
+    end
   end
 
   describe '#update' do
@@ -39,10 +45,12 @@ describe 'Admin::Tag', type: :feature do
       click_on 'タグを更新'
     end
 
-    it { expect(page_title).to have_content(new_name) }
-    it { expect(current_path).to eq admin_tag_path(tag) }
-    it { expect(page).to have_content(new_name) }
-    it { expect(tag.reload.name).to eq new_name }
+    it 'should update the tag' do
+      expect(page_title).to have_content(new_name)
+      expect(current_path).to eq admin_tag_path(tag)
+      expect(page).to have_content(new_name)
+      expect(tag.reload.name).to eq new_name
+    end
   end
 
   describe 'batch_action', js: true do
@@ -57,15 +65,19 @@ describe 'Admin::Tag', type: :feature do
     context 'fixedにする' do
       before { click_on '選択した行をfixedにする' }
 
-      it { expect(page).to have_content('1個のタグをfixedにしました') }
-      it { expect(tag.reload).to be_fixed }
+      it 'should update tag status to fixed' do
+        expect(page).to have_content('1個のタグをfixedにしました')
+        expect(tag.reload).to be_fixed
+      end
     end
 
     context 'ignoredにする' do
       before { click_on '選択した行をignoredにする' }
 
-      it { expect(page).to have_content('1個のタグをignoredにしました') }
-      it { expect(tag.reload).to be_ignored }
+      it 'should update tag status to ignored' do
+        expect(page).to have_content('1個のタグをignoredにしました')
+        expect(tag.reload).to be_ignored
+      end
     end
   end
 end

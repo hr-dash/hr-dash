@@ -8,10 +8,12 @@ describe 'Admin::MonthlyReportComment', type: :feature do
 
   describe '#index' do
     before { visit admin_monthly_report_comments_path }
-    it { expect(page_title).to have_content('月報コメント') }
-    it { expect(page).to have_content(user.name) }
-    it { expect(page).to have_content(comment.comment) }
-    it { expect(page).to have_css('.delete_link') }
+    it 'should open the index page' do
+      expect(page_title).to have_content('月報コメント')
+      expect(page).to have_content(user.name)
+      expect(page).to have_content(comment.comment)
+      expect(page).to have_css('.delete_link')
+    end
   end
 
   describe '#show' do
@@ -27,9 +29,11 @@ describe 'Admin::MonthlyReportComment', type: :feature do
       click_on '月報コメントを更新'
     end
 
-    it { expect(page).to have_content(new_comment) }
-    it { expect(current_path).to eq admin_monthly_report_comment_path(comment) }
-    it { expect(comment.reload.comment).to eq new_comment }
+    it 'should update the monthly report comment' do
+      expect(page).to have_content(new_comment)
+      expect(current_path).to eq admin_monthly_report_comment_path(comment)
+      expect(comment.reload.comment).to eq new_comment
+    end
   end
 
   describe '#destroy', js: true do
@@ -40,8 +44,10 @@ describe 'Admin::MonthlyReportComment', type: :feature do
       end
     end
 
-    it { expect(current_path).to eq admin_monthly_report_comments_path }
-    it { expect(page).not_to have_content(comment.comment) }
-    it { expect { comment.reload }.to raise_error(ActiveRecord::RecordNotFound) }
+    it 'should destroy the monthly report comment' do
+      expect(current_path).to eq admin_monthly_report_comments_path
+      expect(page).not_to have_content(comment.comment)
+      expect { comment.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    end
   end
 end
