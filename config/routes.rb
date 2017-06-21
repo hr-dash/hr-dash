@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   root to: 'root#index'
 
   resources :announcements, only: [:index]
-  resources :user_profiles, only: [:show, :edit, :update]
+  resources :user_profiles, only: [:index, :show, :edit, :update]
   resources 'monthly_reports', except: :destroy, constraints: Constraints::PageCount do
     collection do
       get 'users/:user_id', action: :user, as: :user, user_id: /\d{,6}/, constraints: Constraints::TargetYear

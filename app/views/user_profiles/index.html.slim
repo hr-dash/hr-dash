@@ -1,0 +1,49 @@
+- provide :page_title, "プロフィールトップ"
+- placeholders = HelpText.placeholders(:user_profile)
+
+.page-content
+  .jumbotron
+    .container
+      = search_form_for @q, { class: 'form-horizontal' } do |f|
+        .form-group
+          = f.label :user_name_cont, '氏名', class: 'control-label col-xs-2'
+          .col-xs-10
+            = f.search_field :user_name_cont, class: 'form-control'
+        .form-group
+          = f.label :self_introduction_cont, '自己紹介', class: 'control-label col-xs-2'
+          .col-xs-10
+            = f.search_field :self_introduction_cont, class: 'form-control'
+        .form-group
+          = f.label :user_entry_date_gteq, '入社日', class: 'control-label col-xs-2'
+          .col-xs-2.user-entry-date-select-form
+            = select_tag "entry_year_start",
+                options_for_select(User.entry_year_select_options, selected: @q.user_entry_date_gteq.try(:year)),
+                { include_blank: true , class: 'form-control' }
+          .col-xs-1.control-label.user-entry-date-description = "年"
+          .col-xs-2.user-entry-date-select-form
+            = select_tag "entry_month_start",
+                options_for_select(User.entry_month_select_options, selected: @q.user_entry_date_gteq.try(:month)),
+                { include_blank: true , class: 'form-control' }
+          .col-xs-1.control-label.user-entry-date-description = "月"
+          .col-xs-1.control-label.user-entry-date-description = "から"
+        .form-group
+          .col-xs-2
+          .col-xs-2.user-entry-date-select-form
+            = select_tag "entry_year_end",
+                options_for_select(User.entry_year_select_options, selected: @q.user_entry_date_lteq.try(:year)),
+                { include_blank: true , class: 'form-control' }
+          .col-xs-1.control-label.user-entry-date-description = "年"
+          .col-xs-2.user-entry-date-select-form
+            = select_tag "entry_month_end",
+                options_for_select(User.entry_month_select_options, selected: @q.user_entry_date_lteq.try(:month)),
+                { include_blank: true , class: 'form-control' }
+          .col-xs-1.control-label.user-entry-date-description = "月"
+          .col-xs-1.control-label.user-entry-date-description = "まで"
+        .form-group
+          .col-xs-10.col-xs-offset-2
+            = f.button '検索', class: 'btn btn-default'
+.page-content
+  h3 = @q.conditions.empty? ? 'プロフィール一覧' : '検索結果'
+  #report_index
+    == render partial: 'layouts/user_profile_index', locals: { user_profiles: @user_profiles }
+  = paginate @user_profiles

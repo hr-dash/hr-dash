@@ -91,6 +91,19 @@ class User < ApplicationRecord
     super && (deleted_at.nil? || deleted_at > Time.current)
   end
 
+  def self.entry_year_select_options
+    return [] if User.active.blank?
+    min, max = User.active.pluck(:entry_date).map(&:year).minmax
+    [*(min..max)].map { |y| [y, y] }
+  end
+
+  def self.entry_month_select_options
+    return [*(1..12)].map { |y| [y, y] } if entry_year_select_options.size > 1
+    return [] if User.active.blank?
+    min, max = User.active.pluck(:entry_date).map(&:month).minmax
+    [*(min..max)].map { |m| [m, m] }
+  end
+
   private
 
   def report_registrable_from

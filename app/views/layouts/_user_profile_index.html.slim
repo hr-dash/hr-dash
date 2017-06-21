@@ -1,0 +1,8 @@
+.list-group.monthly-report-index
+  - if user_profiles.present?
+    - user_profiles.each do |profile|
+      a.list-group-item href=(user_profile_path(profile))
+        .row
+          .col-xs-4 = profile.user.groups.map { |g| "【#{g.name}G】" }.join
+          .col-xs-4 = profile.user.name
+          .col-xs-4: small = "#{profile.user.entry_date.strftime('%Y年%m月%d日')}入社"

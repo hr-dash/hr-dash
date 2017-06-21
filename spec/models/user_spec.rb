@@ -178,6 +178,32 @@ describe User, type: :model do
     end
   end
 
+  describe '.entry_year_select_options' do
+    let!(:junior_user) { create(:user, entry_date: Date.new(2016, 6, 15)) }
+    let!(:senior_user) { create(:user, entry_date: Date.new(2014, 4, 15)) }
+
+    subject { User.entry_year_select_options }
+    it { is_expected.to eq [*(2014..2016)].map { |y| [y, y] } }
+  end
+
+  describe '.entry_month_select_options' do
+    context 'when the range of entry year is 1 year' do
+      let!(:junior_user) { create(:user, entry_date: Date.new(2016, 6, 15)) }
+      let!(:senior_user) { create(:user, entry_date: Date.new(2016, 4, 15)) }
+
+      subject { User.entry_month_select_options }
+      it { is_expected.to eq [*(4..6)].map { |m| [m, m] } }
+    end
+
+    context 'when the range of entry year is over 2 years' do
+      let!(:junior_user) { create(:user, entry_date: Date.new(2016, 6, 15)) }
+      let!(:senior_user) { create(:user, entry_date: Date.new(2014, 4, 15)) }
+
+      subject { User.entry_month_select_options }
+      it { is_expected.to eq [*(1..12)].map { |m| [m, m] } }
+    end
+  end
+
   pending 'To merge a branch of Dev/262 use same class for date' do
     describe '.report_registrable_to' do
       let(:entry_date) { Date.new(2016, 1, 1) }

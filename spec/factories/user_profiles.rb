@@ -18,5 +18,6 @@ FactoryGirl.define do
     self_introduction Faker::Lorem.paragraph
     blood_type { UserProfile.blood_types.keys.sample }
     birthday { Faker::Date.between(100.years.ago, Date.today) }
+    initialize_with { UserProfile.find_or_create_by(user_id: user.id) }
   end
 end
