@@ -11,7 +11,7 @@
 #  updated_at        :datetime         not null
 #
 
-class MonthlyReportComment < ActiveRecord::Base
+class MonthlyReportComment < ApplicationRecord
   belongs_to :user
   belongs_to :monthly_report
   counter_culture :monthly_report, column_name: 'comments_count'

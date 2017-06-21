@@ -11,7 +11,7 @@
 #  updated_at     :datetime         not null
 #
 
-class Announcement < ActiveRecord::Base
+class Announcement < ApplicationRecord
   validates :title, presence: true
   validates :body, presence: true
   validates :published_date, presence: true

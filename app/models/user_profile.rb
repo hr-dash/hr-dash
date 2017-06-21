@@ -12,7 +12,7 @@
 #  updated_at        :datetime         not null
 #
 
-class UserProfile < ActiveRecord::Base
+class UserProfile < ApplicationRecord
   belongs_to :user
 
   validates :self_introduction, length: { maximum: 1000 }

@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #
 
-class UserRole < ActiveRecord::Base
+class UserRole < ApplicationRecord
   belongs_to :user
 
   enum role: {

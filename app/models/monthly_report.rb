@@ -16,7 +16,7 @@
 #  comments_count   :integer          default(0), not null
 #
 
-class MonthlyReport < ActiveRecord::Base
+class MonthlyReport < ApplicationRecord
   belongs_to :user
   has_many :comments, class_name: 'MonthlyReportComment', dependent: :delete_all
   has_many :monthly_report_tags, dependent: :destroy

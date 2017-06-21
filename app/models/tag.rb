@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #
 
-class Tag < ActiveRecord::Base
+class Tag < ApplicationRecord
   VALID_NAME_REGEX = /\A(?:[a-zA-Z0-9_\.\+\#\'-]|\p{Blank}|\p{Hiragana}|\p{Katakana}|[ー－]|[一-龠々])+\z/
 
   validates :status, presence: true

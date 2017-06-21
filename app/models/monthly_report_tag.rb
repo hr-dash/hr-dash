@@ -10,7 +10,7 @@
 #  updated_at        :datetime         not null
 #
 
-class MonthlyReportTag < ActiveRecord::Base
+class MonthlyReportTag < ApplicationRecord
   belongs_to :monthly_report
   belongs_to :tag
   delegate :name, to: :tag

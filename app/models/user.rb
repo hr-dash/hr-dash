@@ -27,7 +27,7 @@
 #  gender                 :integer          default(0), not null
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include Encryptor
   encrypted_columns :email
 

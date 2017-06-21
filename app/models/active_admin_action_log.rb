@@ -14,7 +14,7 @@
 #  updated_at    :datetime         not null
 #
 
-class ActiveAdminActionLog < ActiveRecord::Base
+class ActiveAdminActionLog < ApplicationRecord
   belongs_to :user
   belongs_to :resource, polymorphic: true
 
