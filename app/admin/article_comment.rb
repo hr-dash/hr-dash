@@ -29,7 +29,6 @@ ActiveAdmin.register ArticleComment do
     f.semantic_errors
     f.inputs do
       f.input :user
-      f.input :article_id
       f.input :comment
     end
     f.actions

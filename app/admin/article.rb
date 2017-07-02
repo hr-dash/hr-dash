@@ -32,10 +32,11 @@ ActiveAdmin.register Article do
       row :title
       row :body
       row :shipped_at
-      row :article_tags do |article|
-        article.article_tags.each do |tag|
-          div { tag.name }
-        end
+      row :article_tags do
+        resource
+          .tags.pluck(:name)
+          .map { |name| content_tag(:div, name) }
+          .join.html_safe
       end
       row :created_at
       row :updated_at

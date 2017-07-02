@@ -24,7 +24,6 @@ ActiveAdmin.register ArticleTag do
   form do |f|
     f.semantic_errors
     f.inputs do
-      f.input :article_id
       f.input :tag
     end
     f.actions
