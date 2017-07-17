@@ -1,0 +1,12 @@
+<%= @report.target_date.strftime('%Y年%m月%d日') %>の日報が登録されました。
+
+登録日時:  <%= @report.created_at %>
+
+氏名: <%= @user.name %>
+
+<%= @report.target_date.strftime('%Y年%m月%d日') %>の業務報告
+-------------------------------------------------------------
+【業務内容】
+<%= @report.business_content %>
+<%= daily_report_url(@report) %>
+-------------------------------------------------------------

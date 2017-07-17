@@ -1,0 +1,9 @@
+<%= @title %>
+
+---
+<%= truncate(@comment.comment, length: 15) %>
+---
+
+以下からコメントが閲覧できます
+<%= daily_report_url(@comment.daily_report, anchor: "comment-#{@comment.id}") %>
+

@@ -1,0 +1,47 @@
+// Place all the styles related to the monthly_reports controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+div.daily-report-panel-date {
+  text-align: center;
+  span.daily-report-status {
+    margin-right: 5px;
+  }
+}
+div.daily-report-panel-header {
+  padding-top: 15px;
+}
+
+small.daily-report-shipped-at {
+  padding-left: 10px;
+}
+
+#prev_day_report_copy {
+  margin-bottom: 2rem;
+}
+
+.target-date-select-form {
+  padding-right: 0px;
+}
+
+.target-date-description {
+  padding-left: 0px;
+}
+
+/* daily-report-index */
+.daily-report-index {
+  .pull-right {
+    .tag {
+      margin-left: 0.5em;
+    }
+
+    .comments_count {
+      display: inline-block;
+      width: 3.5em;
+      padding-left: 1em;
+
+      .glyphicon {
+        margin-right: 0.3em;
+      }
+    }
+  }
+}

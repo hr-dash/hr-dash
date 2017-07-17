@@ -1,0 +1,14 @@
+= render partial: 'layouts/html_header'
+- error_status = yield(:error_status)
+- error_message = yield(:error_message)
+
+body
+  = render partial: 'layouts/new_inquiry'
+  .container-fluid.error-container
+    .error-body
+      h1.text-center = error_status
+      h3.text-center = error_message
+      .links.row
+        .col-xs-offset-2.col-xs-4
+          a href=(root_path) = button_tag 'トップへ戻る', class: 'btn btn-primary center-block'
+        .col-xs-4 = button_tag 'お問い合わせ', class: 'btn btn-success center-block', 'data-toggle' => 'modal', 'data-target' => '#new_inquiry'

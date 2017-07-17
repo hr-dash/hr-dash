@@ -2,6 +2,14 @@ require_relative 'routes/constraints'
 
 Rails.application.routes.draw do
 
+  resources :daily_report_comments, only: [:create, :edit, :update, :destroy]
+  resources 'daily_reports', except: :destroy, constraints: Constraints::PageCount do
+    collection do
+      get 'users/:user_id', action: :user, as: :user, user_id: /\d{,6}/, constraints: Constraints::TargetMonth
+      get :copy
+    end
+  end
+
   devise_for :users, skip: [:sessions, :password]
   devise_scope :user do
     resources :sessions, only: [:new, :create] do

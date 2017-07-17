@@ -24,7 +24,7 @@
 #  failed_attempts        :integer          default(0), not null
 #  unlock_token           :string
 #  locked_at              :datetime
-#  gender                 :integer          default(0), not null
+#  gender                 :integer          default("gender_unknown"), not null
 #
 
 class User < ApplicationRecord
@@ -39,6 +39,8 @@ class User < ApplicationRecord
   has_many :group_assignments
   has_many :monthly_reports
   has_many :monthly_report_comments
+  has_many :daily_reports
+  has_many :daily_report_comments
   delegate :admin?, to: :role, allow_nil: true
   delegate :operator?, to: :role, allow_nil: true
 
@@ -83,6 +85,27 @@ class User < ApplicationRecord
     months
   end
 
+  def report_registrable_dates
+    [*(entry_date..Date.today)]
+  end
+
+  def selectable_years(target_date)
+    [*(selectable_first_year(target_date)..selectable_last_year(target_date))]
+  end
+
+  def selectable_months(target_date)
+    months = [*(selectable_first_month(target_date)..selectable_last_month(target_date))]
+    target_day = target_date.day
+    return months - [2, 4, 6, 9, 11] if target_day == 31
+    return months - [2] if target_day == 30
+    return months - [2] if target_day == 29 && Date.new(target_date.year).leap?
+    months
+  end
+
+  def selectable_days(target_date)
+    [*(selectable_first_day(target_date)..selectable_last_day(target_date))]
+  end
+
   def create_profile
     UserProfile.create!(user_id: id)
   end
@@ -110,5 +133,29 @@ class User < ApplicationRecord
     end
 
     self.password ||= SecureRandom.base64(8) + required_chars.join
+  end
+
+  def selectable_first_year(target_date)
+    entry_date.strftime('%m%d') <= target_date.strftime('%m%d') ? entry_date.year : entry_date.year + 1
+  end
+
+  def selectable_last_year(target_date)
+    target_date.strftime('%m%d') <= Date.today.strftime('%m%d') ? Date.today.year : Date.today.year - 1
+  end
+
+  def selectable_first_month(target_date)
+    target_date.year == entry_date.year ? entry_date.month : 1
+  end
+
+  def selectable_last_month(target_date)
+    target_date.year == Date.today.year ? Date.today.month : 12
+  end
+
+  def selectable_first_day(target_date)
+    target_date.year == entry_date.year && target_date.month == entry_date.month ? entry_date.day : 1
+  end
+
+  def selectable_last_day(target_date)
+    target_date.year == Date.today.year && target_date.month == Date.today.month ? Date.today.day : target_date.end_of_month.day
   end
 end

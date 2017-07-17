@@ -1,0 +1,18 @@
+.markdown-editor
+  = form_for comment do |f|
+    = f.hidden_field :daily_report_id
+    ul.nav.nav-tabs
+      li.tab-md-write.active
+        = link_to 'Write', "##{attr}-write", "data-toggle" => "tab", class: 'text-info'
+      li.tab-md-preview
+        = link_to 'Preview', "##{attr}-preview", "data-toggle" => "tab", class: 'text-info'
+      li.pull-right
+        = f.button 'Comment', class: 'btn btn-success'
+
+    .tab-content.markdown-content
+      .tab-pane.active id=("#{attr}-write")
+          = f.text_area :comment, rows: 5, class: 'form-control', maxlength: 3000
+          p
+            a.text-info href='https://help.github.com/articles/basic-writing-and-formatting-syntax/' target='_blank' Markdown
+            span = '記法が使えます。'
+      .tab-pane.content-md-preview.markdown-body id=("#{attr}-preview")

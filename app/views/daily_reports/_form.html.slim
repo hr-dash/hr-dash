@@ -1,0 +1,47 @@
+.page-content.well
+  - if params[:action] == 'new' && daily_report.prev_date
+    #prev_day_report_copy
+      = link_to '前日の日報をコピー', { action: 'copy', target_date: daily_report.target_date }, class: 'btn btn-default'
+
+  = form_for daily_report, html: { class: 'form-horizontal' } do |f|
+    .form-group
+      = f.label :target_date, class: 'control-label col-sm-3'
+      = f.hidden_field :target_date, value: daily_report.target_date
+      - report_year  = daily_report.target_date.year
+      - report_month = daily_report.target_date.month
+      - report_day   = daily_report.target_date.day
+      .col-sm-3
+        select#target-year.form-control onchange='location.href=this.selectedOptions[0].getAttribute("href")'
+          - current_user.selectable_years(daily_report.target_date).each do |year|
+            - date  = Date.new(year, report_month, report_day)
+            - report = current_user.daily_reports.find_or_initialize_by(target_date: date)
+            - path = report.new_record? ? new_daily_report_path(target_date: date) : edit_daily_report_path(report)
+            option value=(year) href=(path) selected=(true if daily_report.target_date.year == year) = "#{year}年"
+      .col-sm-3
+        select#target-month.form-control onchange='location.href=this.selectedOptions[0].getAttribute("href")'
+          - current_user.selectable_months(daily_report.target_date).each do |month|
+            - date  = Date.new(report_year, month, report_day)
+            - report = current_user.daily_reports.find_or_initialize_by(target_date: date)
+            - path = report.new_record? ? new_daily_report_path(target_date: date) : edit_daily_report_path(report)
+            option value=(month) href=(path) selected=(true if daily_report.target_date.month == month) = "#{month}月"
+      .col-sm-3
+        select#target-day.form-control onchange='location.href=this.selectedOptions[0].getAttribute("href")'
+          - current_user.selectable_days(daily_report.target_date).each do |day|
+            - date  = Date.new(report_year, report_month, day)
+            - report = current_user.daily_reports.find_or_initialize_by(target_date: date)
+            - path = report.new_record? ? new_daily_report_path(target_date: date) : edit_daily_report_path(report)
+            option value=(day) href=(path) selected=(true if daily_report.target_date.day == day) = "#{day}日"
+    .form-group
+      = f.label :business_content, class: 'control-label col-sm-3'
+      .col-sm-9
+        == render 'layouts/markdown_editor', attr: :business_content, form: f
+    .form-group
+      = f.label :looking_back, class: 'control-label col-sm-3'
+      .col-sm-9
+        == render 'layouts/markdown_editor', attr: :looking_back, form: f
+    = f.hidden_field :target_date
+    - if @saved_shipped_at
+      = f.button 'Update（日報を更新）', class: 'btn btn-lg btn-success btn-block'
+    - else
+      = f.button 'Save as WIP（下書き保存）', name: :wip, class: 'btn btn-lg btn-info btn-block'
+      = f.button 'Ship（保存して公開）', class: 'btn btn-lg btn-success btn-block'

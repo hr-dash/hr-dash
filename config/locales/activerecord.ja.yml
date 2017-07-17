@@ -19,6 +19,11 @@ ja:
         title: タイトル
         body: 本文
         published_date: 公開日
+      daily_report:
+        business_content: 業務内容
+        looking_back: 今日の振り返り
+        target_date: 対象日
+        shipped_at: 公開日
       group:
         name: 名前
         email: メールアドレス
