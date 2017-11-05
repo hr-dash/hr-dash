@@ -39,6 +39,7 @@ class User < ApplicationRecord
   has_many :group_assignments
   has_many :monthly_reports
   has_many :monthly_report_comments
+  has_many :monthly_report_likes
   delegate :admin?, to: :role, allow_nil: true
   delegate :operator?, to: :role, allow_nil: true
 
