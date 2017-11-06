@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :inquiries, only: [:create]
   resources :groups, only: [:index]
   resources :monthly_report_comments, only: [:create, :edit, :update, :destroy]
+  resources :monthly_report_likes, only: [:create, :destroy]
 
   root to: 'root#index'
 
