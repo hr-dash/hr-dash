@@ -101,6 +101,10 @@ class MonthlyReport < ApplicationRecord
     shipped? || user == other_user
   end
 
+  def liked_by_user?(user)
+    likes.find_by(user: user)
+  end
+
   def self.target_month_select_options
     released_reports = MonthlyReport.released
     return [] if released_reports.blank?
