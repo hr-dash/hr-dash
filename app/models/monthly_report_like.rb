@@ -14,6 +14,6 @@ class MonthlyReportLike < ApplicationRecord
   belongs_to :user
   belongs_to :monthly_report
 
-  validates :user, presence: true
+  validates :user, presence: true, uniqueness: { scope: :monthly_report }
   validates :monthly_report, presence: true
 end
