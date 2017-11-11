@@ -32,6 +32,18 @@ FactoryGirl.define do
       end
     end
 
+    trait :with_likes do
+      transient do
+        like_size 3
+      end
+
+      after(:create) do |report, evaluator|
+        evaluator.like_size.times do
+          create(:monthly_report_like, monthly_report: report)
+        end
+      end
+    end
+
     trait :with_tags do
       transient do
         tag_size 3
