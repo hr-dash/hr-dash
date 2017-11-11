@@ -22,13 +22,13 @@ Rails.application.routes.draw do
   resources :inquiries, only: [:create]
   resources :groups, only: [:index]
   resources :monthly_report_comments, only: [:create, :edit, :update, :destroy]
-  resources :monthly_report_likes, only: [:create, :destroy]
 
   root to: 'root#index'
 
   resources :announcements, only: [:index]
   resources :user_profiles, only: [:show, :edit, :update]
   resources 'monthly_reports', except: :destroy, constraints: Constraints::PageCount do
+    resources :monthly_report_likes, only: [:create, :destroy], as: 'likes'
     collection do
       get 'users/:user_id', action: :user, as: :user, user_id: /\d{,6}/, constraints: Constraints::TargetYear
       get :copy

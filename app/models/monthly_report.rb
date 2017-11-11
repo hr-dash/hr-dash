@@ -101,7 +101,7 @@ class MonthlyReport < ApplicationRecord
     shipped? || user == other_user
   end
 
-  def liked_by_user?(user)
+  def find_like_by_user(user)
     likes.find_by(user: user)
   end
 
