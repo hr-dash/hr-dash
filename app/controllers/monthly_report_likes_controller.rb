@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MonthlyReportLikesController < ApplicationController 
+class MonthlyReportLikesController < ApplicationController
   def create
     MonthlyReportLike.create(user: current_user, monthly_report: monthly_report)
     render 'monthly_reports/change_like_status'

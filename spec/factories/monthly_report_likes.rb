@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: monthly_report_likes
@@ -15,4 +16,3 @@ FactoryGirl.define do
     association :monthly_report
   end
 end
-
