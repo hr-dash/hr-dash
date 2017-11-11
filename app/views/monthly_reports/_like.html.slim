@@ -1,17 +1,16 @@
 - like = monthly_report.find_like_by_user(current_user)
-#monthly-report-like-btn
-  - if like
-    = link_to 'Liked',
-              monthly_report_like_path(monthly_report, like),
-              class: 'btn btn-default btn-lg btn-block',
-              method: 'delete',
-              role: 'button',
-              remote: true
-  - else
-    = link_to 'Like!',
-              monthly_report_likes_path(monthly_report),
-              class: 'btn btn-success btn-lg btn-block',
-              method: 'post',
-              role: 'button',
-              remote: true
+- if like
+  = link_to 'Liked',
+            monthly_report_like_path(monthly_report, like),
+            class: 'btn btn-default btn-lg btn-block',
+            method: 'delete',
+            role: 'button',
+            remote: true
+- else
+  = link_to 'Like!',
+            monthly_report_likes_path(monthly_report),
+            class: 'btn btn-success btn-lg btn-block',
+            method: 'post',
+            role: 'button',
+            remote: true
 

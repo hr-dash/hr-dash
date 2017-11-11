@@ -57,7 +57,8 @@
             class: 'btn btn-success btn-lg btn-block',
             role: 'button'
 - else
-  == render 'monthly_reports/like', monthly_report: @monthly_report
+  #monthly-report-like-btn
+    == render 'monthly_reports/like', monthly_report: @monthly_report
 
 - if @monthly_report.shipped?
   h2 コメント
