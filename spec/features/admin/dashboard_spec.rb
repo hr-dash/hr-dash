@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe 'Admin::Dashboard', type: :feature do
   before do
     login(admin: true)

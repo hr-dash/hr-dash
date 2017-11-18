@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: monthly_reports
@@ -72,7 +73,7 @@ class MonthlyReport < ApplicationRecord
 
   def set_prev_monthly_report!
     raise ActiveRecord::RecordNotFound unless prev_month
-    contents = %w(project_summary business_content looking_back next_month_goals)
+    contents = %w[project_summary business_content looking_back next_month_goals]
     assign_attributes(prev_month
                       .attributes
                       .select { |key, _| contents.include? key }

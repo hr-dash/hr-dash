@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe 'Admin::UserRole', type: :feature do
   before { login(admin: true) }
   let(:user) { create(:user) }

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register Group do
   menu parent: 'グループ'
   csv_importable
@@ -46,7 +47,7 @@ ActiveAdmin.register Group do
     f.actions
   end
 
-  action_item :group_assign, only: [:show, :edit] do
+  action_item :group_assign, only: %i[show edit] do
     link_to 'グループ割当を編集する', edit_group_assign_admin_group_path(group)
   end
 

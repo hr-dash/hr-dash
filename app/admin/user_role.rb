@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register UserRole do
   menu parent: 'ユーザー'
   active_admin_action_log

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register Tag do
   csv_importable validate: false
   active_admin_action_log

@@ -1,8 +1,9 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register HelpText do
   active_admin_action_log
   permit_params { HelpText.column_names }
-  actions :all, except: [:new, :create, :destroy]
+  actions :all, except: %i[new create destroy]
 
   index do
     id_column

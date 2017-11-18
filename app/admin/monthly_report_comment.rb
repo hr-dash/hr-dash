@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register MonthlyReportComment do
   menu parent: '月報'
   active_admin_action_log
   permit_params { MonthlyReportComment.column_names }
-  actions :all, except: [:new, :create]
+  actions :all, except: %i[new create]
 
   controller do
     def scoped_collection

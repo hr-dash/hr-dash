@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe Admin::DashboardController, type: :request do
   let(:user) { create :user }
   let!(:user_role) { create :user_role, role, user: user }

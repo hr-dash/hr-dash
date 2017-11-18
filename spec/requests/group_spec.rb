@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe GroupsController, type: :request do
   before { login }
 

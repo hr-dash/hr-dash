@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register ActiveAdminActionLog do
   menu label: 'ログ'
   actions :index, :show

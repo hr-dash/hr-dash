@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register MonthlyReport do
   menu parent: '月報'
   active_admin_action_log
   permit_params { MonthlyReport.column_names }
-  actions :all, except: [:new, :create, :destroy]
+  actions :all, except: %i[new create destroy]
 
   controller do
     def scoped_collection
