@@ -13,6 +13,7 @@
 class MonthlyReportLike < ApplicationRecord
   belongs_to :user
   belongs_to :monthly_report
+  counter_culture :monthly_report, column_name: 'likes_count'
 
   validates :user, presence: true, uniqueness: { scope: :monthly_report }
   validates :monthly_report, presence: true
