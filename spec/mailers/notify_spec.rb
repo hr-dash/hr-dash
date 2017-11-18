@@ -26,7 +26,7 @@ RSpec.describe Mailer::Notify, type: :mailer do
 
     context 'if user does not belong to group' do
       let(:user) { create(:user, group_size: 0) }
-      it { expect { mail.deliver_now }.not_to change { ActionMailer::Base.deliveries.count } }
+      it { expect { mail.deliver_now }.not_to change(ActionMailer::Base.deliveries, :count) }
     end
   end
 

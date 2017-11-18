@@ -17,7 +17,7 @@ describe MonthlyReportsController, type: :feature do
       context 'by tag name' do
         let!(:tag) { create(:tag) }
         let(:url) { URI.parse(current_url) }
-        let(:query) { URI.decode(url.query) }
+        let(:query) { CGI.unescape(url.query) }
 
         before do
           create_list(:monthly_report, 11, :shipped, tags: [tag])
@@ -37,7 +37,7 @@ describe MonthlyReportsController, type: :feature do
 
     context 'by target_month' do
       let(:url) { URI.parse(current_url) }
-      let(:query) { URI.decode(url.query) }
+      let(:query) { CGI.unescape(url.query) }
       let!(:user1) { create(:user, entry_date: 6.months.ago) }
       let(:month1) { 1.months.ago.beginning_of_month }
       let(:month2) { 2.months.ago.beginning_of_month }

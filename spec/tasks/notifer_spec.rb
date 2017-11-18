@@ -22,7 +22,7 @@ describe 'notifer' do
     shared_examples 'not registrable' do |day|
       it "day #{day} is not registrable day." do
         freeze.call(day)
-        expect { task.invoke }.not_to change { ActionMailer::Base.deliveries.count }
+        expect { task.invoke }.not_to change(ActionMailer::Base.deliveries, :count)
       end
     end
 
