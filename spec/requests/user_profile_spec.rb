@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe UserProfilesController, type: :request do
   let(:user) { create :user }
   let(:profile) { user.user_profile }

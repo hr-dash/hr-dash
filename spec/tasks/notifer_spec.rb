@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe 'notifer' do
   describe 'report_registrable' do
     let(:task) { Rake::Task['notifer:report_registrable'] }

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe RootController, type: :feature do
   before { login }
 

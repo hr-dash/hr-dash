@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe SessionsController, type: :feature do
   describe '#new GET /sessions/new' do
     describe 'success' do

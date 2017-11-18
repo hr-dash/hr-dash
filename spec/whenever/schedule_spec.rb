@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe Whenever do
   include Shoulda::Whenever
 
