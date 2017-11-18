@@ -1,5 +1,5 @@
 - like = monthly_report.find_like_by_user(current_user)
-.col-sm-3
+.like-btn
   - if like
     = link_to 'いいね済み',
               monthly_report_like_path(monthly_report, like),
@@ -14,6 +14,6 @@
               method: 'post',
               role: 'button',
               remote: true
-.balloon-left.col-sm-3
-  = monthly_report.likes_count
+.like-count
+  strong = link_to monthly_report.likes_count, '#', class: 'text-info'
 
