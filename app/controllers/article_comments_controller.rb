@@ -14,7 +14,7 @@ class ArticleCommentsController < ApplicationController
   end
 
   def edit
-    render 'articles/new_comment', comment: comment, attr: "edit-comment#{comment.id}"
+    render partial: 'shared/new_comment', locals: { comment: comment, attr: "edit-comment#{comment.id}", hidden: :article_id }
   end
 
   def update

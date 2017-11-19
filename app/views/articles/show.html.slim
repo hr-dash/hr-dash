@@ -35,4 +35,4 @@
   h2 コメント
   == render partial: 'articles/comment', collection: @article.comments.order(:created_at), as: 'comment'
 
-  == render 'articles/new_comment', comment: @article.comments.new, attr: 'new-comment'
+  == render 'shared/new_comment', comment: @article.comments.new, attr: 'new-comment', hidden: :article_id
