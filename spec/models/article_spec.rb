@@ -16,9 +16,11 @@
 RSpec.describe Article, type: :model do
   describe 'Validations' do
     shared_examples 'common validations' do
-      it { is_expected.to validate_presence_of(:user) }
-      it { is_expected.to validate_length_of(:title).is_at_most(100) }
-      it { is_expected.to validate_length_of(:body).is_at_most(5000) }
+      it do
+        is_expected.to validate_presence_of(:user)
+        is_expected.to validate_length_of(:title).is_at_most(100)
+        is_expected.to validate_length_of(:body).is_at_most(5000)
+      end
     end
 
     context 'when article is wip' do
@@ -29,19 +31,22 @@ RSpec.describe Article, type: :model do
 
     context 'when article is shipped' do
       subject { build(:shipped_article) }
-      it { is_expected.to be_valid }
       it_behaves_like 'common validations'
-
-      it { is_expected.to validate_presence_of(:title) }
-      it { is_expected.to validate_presence_of(:body) }
-      it { is_expected.to validate_presence_of(:article_tags) }
+      it do
+        is_expected.to be_valid
+        is_expected.to validate_presence_of(:title)
+        is_expected.to validate_presence_of(:body)
+        is_expected.to validate_presence_of(:article_tags)
+      end
     end
   end
 
   describe 'Relations' do
-    it { is_expected.to belong_to :user }
-    it { is_expected.to have_many :comments }
-    it { is_expected.to have_many :article_tags }
-    it { is_expected.to have_many :tags }
+    it do
+      is_expected.to belong_to :user
+      is_expected.to have_many :comments
+      is_expected.to have_many :article_tags
+      is_expected.to have_many :tags
+    end
   end
 end

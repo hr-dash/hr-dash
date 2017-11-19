@@ -13,14 +13,18 @@
 
 RSpec.describe ArticleTag, type: :model do
   describe 'Relations' do
-    it { is_expected.to belong_to :tag }
-    it { is_expected.to belong_to :article }
+    it do
+      is_expected.to belong_to :tag
+      is_expected.to belong_to :article
+    end
   end
 
   describe 'Validations' do
     subject { build(:article_tag) }
-    it { is_expected.to be_valid }
-    it { is_expected.to validate_presence_of(:tag) }
-    it { is_expected.to validate_presence_of(:article) }
+    it do
+      is_expected.to be_valid
+      is_expected.to validate_presence_of(:tag)
+      is_expected.to validate_presence_of(:article)
+    end
   end
 end
