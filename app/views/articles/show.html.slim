@@ -1,7 +1,7 @@
 - provide :page_title, @article.title
 .well.well-sm style='overflow:hidden'
   - if @article.tags.size > 0
-    = render 'layouts/monthly_report_tags_show', tags: @article.tags, prefix: :article
+    = render 'shared/tags', tags: @article.tags, prefix: :article
   - else
     = 'タグ未登録'
 .panel-group.article-show

@@ -22,7 +22,7 @@
       = f.label :monthly_report_tags, class: 'control-label col-sm-3'
       .col-sm-9
         = f.hidden_field :monthly_report_tags, id: :monthly_report_tags_input, class: 'form-control'
-        == render 'layouts/document_tags', tags: monthly_report.monthly_report_tags.map(&:name), placeholder: placeholders[:tags], type: 'monthly_report'
+        == render 'shared/tag_field', tags: monthly_report.monthly_report_tags.map(&:name), placeholder: placeholders[:tags], attr: 'monthly_report_tags'
     .form-group
       = f.label :monthly_working_process, class: 'control-label col-sm-3'
       .col-sm-9.btn-group data-toggle="buttons"
