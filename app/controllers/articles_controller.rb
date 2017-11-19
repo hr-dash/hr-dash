@@ -2,7 +2,7 @@
 
 class ArticlesController < ApplicationController
   before_action :assign_placeholders, only: %i[new create edit update]
-  before_action :assign_saved_article, only: %i[edit update]
+  before_action :assign_article, only: %i[edit update]
 
   def index
     references = [:user, { article_tags: :tag }]
@@ -30,13 +30,13 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(permitted_params) do |article|
       article.user = current_user
-      assign_relational_params(article)
+      article.assign_relational_params(params[:wip], article_tags)
     end
 
     if @article.save
       redirect_to @article
     else
-      flash_errors(@article)
+      flash_errors
       render :new
     end
   end
@@ -45,12 +45,12 @@ class ArticlesController < ApplicationController
 
   def update
     @article.assign_attributes(permitted_params)
-    assign_relational_params(@article)
+    @article.assign_relational_params(params[:wip], article_tags)
 
     if @article.save
       redirect_to @article
     else
-      flash_errors(@article)
+      flash_errors
       render :edit
     end
   end
@@ -62,14 +62,14 @@ class ArticlesController < ApplicationController
       flash[:notice] = 'ノートを削除しました'
       redirect_to :articles
     else
-      flash_errors(@article)
+      flash_errors
       render @article
     end
   end
 
   private
 
-  def assign_saved_article
+  def assign_article
     @article = current_user.articles.includes(article_tags: :tag).find(params[:id])
   end
 
@@ -80,15 +80,11 @@ class ArticlesController < ApplicationController
     )
   end
 
-  def flash_errors(article)
-    flash.now[:error] = article.errors.full_messages
+  def flash_errors
+    flash.now[:error] = @article.errors.full_messages
   end
 
-  def assign_relational_params(article)
-    article.ship unless params[:wip]
-    article.tags = article_tags
-  end
-
+  # TODO: https://github.com/hr-dash/hr-dash/pull/481/files#diff-ddd1a6250ecb975d0c309f9af262ff5eR37 のように置き換える
   def article_tags
     tags = params[:article][:article_tags]&.split(',')&.map do |name|
       tag = Tag.find_or_initialize_by_name_ignore_case(name.strip)

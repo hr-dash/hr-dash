@@ -1,7 +1,7 @@
 a.list-group-item href=(article_path(article))
   = action_name == 'index' ? "#{article.user.name} " : ''
   br.visible-xs-block
-  .visible-xs-inline 　
+  .visible-xs-inline
   small.article-shipped-at.text-muted.hidden-xs
     = "投稿日: #{article.shipped_at.strftime("%Y-%m-%d")}" unless action_name == 'drafts'
   - tags = article.article_tags.order('article_tags.id')
@@ -12,4 +12,4 @@ a.list-group-item href=(article_path(article))
       span.glyphicon.glyphicon-comment aria-hidden="true"
       span = article.comments_count
   br
-  = article.title
+  b = article.title

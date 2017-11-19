@@ -43,4 +43,9 @@ class Article < ApplicationRecord
   def browseable?(access_user)
     shipped? || user == access_user
   end
+
+  def assign_relational_params(wip, tags)
+    ship unless wip
+    self.tags = tags
+  end
 end

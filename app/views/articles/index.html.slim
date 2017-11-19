@@ -2,5 +2,5 @@
 .page-content
   #article_index
     .list-group.article-index
-      == render partial: 'layouts/article_index', collection: @articles, as: 'article'
+      == render partial: 'list', collection: @articles, as: 'article'
   = paginate @articles
