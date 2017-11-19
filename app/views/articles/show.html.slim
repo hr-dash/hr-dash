@@ -33,7 +33,6 @@
         button.btn.btn-default type="button" data-dismiss="modal" 閉じる
 - if @article.shipped?
   h2 コメント
-  - @article.comments.order(:created_at).each do |comment|
-    == render 'articles/comment', comment: comment
+  == render partial: 'articles/comment', collection: @article.comments.order(:created_at), as: 'comment'
 
   == render 'articles/new_comment', comment: @article.comments.new, attr: 'new-comment'
