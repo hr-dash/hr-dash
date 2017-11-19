@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ArticleCommentsController < ApplicationController
   def create
     comment = ArticleComment.new(permitted_params)

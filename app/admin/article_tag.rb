@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register ArticleTag do
   menu parent: 'ノート'
   active_admin_action_log

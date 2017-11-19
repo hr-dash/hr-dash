@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: articles
@@ -50,6 +51,6 @@ FactoryGirl.define do
       end
     end
 
-    factory :shipped_article, traits: [:shipped, :with_tags]
+    factory :shipped_article, traits: %i[shipped with_tags]
   end
 end

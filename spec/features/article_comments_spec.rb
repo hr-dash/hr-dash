@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe ArticleCommentsController, type: :feature do
   let(:user) { create(:user) }
   let(:article) { create(:article, :shipped, :with_tags) }

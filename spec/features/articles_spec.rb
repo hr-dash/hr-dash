@@ -1,11 +1,12 @@
 # frozen_string_literal: true
+
 describe ArticlesController, type: :feature do
   let(:user) { create(:user) }
   before { login user }
 
   describe '#index GET /articles' do
     describe 'sort by shipped_at desc' do
-      let!(:today) { create(:article, :with_tags, shipped_at: Date.today) }
+      let!(:today) { create(:article, :with_tags, shipped_at: Time.zone.today) }
       let!(:yesterday) { create(:article, :with_tags, shipped_at: Date.yesterday) }
       let(:first_report) { find('#article_index').first('a') }
 
@@ -15,7 +16,7 @@ describe ArticlesController, type: :feature do
   end
 
   describe '#user GET /articles/users/:user_id' do
-    let!(:today) { create(:article, :with_tags, user: user, shipped_at: Date.today) }
+    let!(:today) { create(:article, :with_tags, user: user, shipped_at: Time.zone.today) }
     let!(:yesterday) { create(:article, :with_tags, user: user, shipped_at: Date.yesterday) }
     let(:first_report) { find('#article_index').first('a') }
     let(:title) { find('.page-header') }

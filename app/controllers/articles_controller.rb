@@ -1,7 +1,8 @@
 # frozen_string_literal: true
+
 class ArticlesController < ApplicationController
-  before_action :assign_placeholders, only: [:new, :create, :edit, :update]
-  before_action :assign_saved_article, only: [:edit, :update]
+  before_action :assign_placeholders, only: %i[new create edit update]
+  before_action :assign_saved_article, only: %i[edit update]
 
   def index
     references = [:user, { article_tags: :tag }]
@@ -89,10 +90,10 @@ class ArticlesController < ApplicationController
   end
 
   def article_tags
-    tags = params[:article][:article_tags].try!(:split, ',').try!(:map) do |name|
+    tags = params[:article][:article_tags]&.split(',')&.map do |name|
       tag = Tag.find_or_initialize_by_name_ignore_case(name.strip)
       tag.save ? tag : nil
-    end.try!(:compact)
+    end&.compact
 
     tags || []
   end
