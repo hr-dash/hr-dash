@@ -25,7 +25,7 @@
 #  failed_attempts        :integer          default(0), not null
 #  unlock_token           :string
 #  locked_at              :datetime
-#  gender                 :integer          default(0), not null
+#  gender                 :integer          default("gender_unknown"), not null
 #
 
 class User < ApplicationRecord

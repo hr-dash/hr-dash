@@ -41,6 +41,10 @@
             th 誕生日
             td
               = @profile.birthday || '未入力'
+          tr
+            th 興味のある技術
+            td
+              = render 'shared/tags', tags: @profile.tags, prefix: :interested
     section
       h2.profile-heading 自己紹介
       pre

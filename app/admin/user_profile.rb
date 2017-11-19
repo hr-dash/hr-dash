@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register UserProfile do
-  menu parent: 'ユーザー'
+  menu parent: 'ユーザー', priority: 2
   active_admin_action_log
   permit_params { UserProfile.column_names }
   actions :all, except: %i[new create destroy]

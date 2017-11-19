@@ -7,7 +7,7 @@
 #  id                :integer          not null, primary key
 #  user_id           :integer          not null
 #  self_introduction :text
-#  blood_type        :integer          default(0), not null
+#  blood_type        :integer          default("blood_blank"), not null
 #  birthday          :date
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
@@ -15,6 +15,8 @@
 
 class UserProfile < ApplicationRecord
   belongs_to :user
+  has_many :interested_topics, dependent: :destroy
+  has_many :tags, through: :interested_topics
 
   validates :self_introduction, length: { maximum: 1000 }
   validates :blood_type, presence: true

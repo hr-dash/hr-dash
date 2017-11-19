@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register User do
-  menu parent: 'ユーザー'
+  menu parent: 'ユーザー', priority: 1
   active_admin_action_log
   actions :all, except: [:destroy]
   permit_params :name, :employee_code, :email, :entry_date, :beginner_flg,

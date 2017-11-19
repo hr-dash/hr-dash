@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveAdmin.register UserRole do
-  menu parent: 'ユーザー'
+  menu parent: 'ユーザー', priority: 3
   active_admin_action_log
   permit_params { UserRole.column_names }
 

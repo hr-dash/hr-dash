@@ -14,6 +14,7 @@ ja:
       tag: タグ
       user: ユーザー
       user_profile: プロフィール
+      interested_topic: 興味のある技術
     attributes:
       announcement:
         title: タイトル
@@ -74,6 +75,7 @@ ja:
         self_introduction: 自己紹介
         blood_type: 血液型
         birthday: 生年月日
+        interested_topics: 興味のある技術
   activemodel:
     <<: activerecord
   enums:

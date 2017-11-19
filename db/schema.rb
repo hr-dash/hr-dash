@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170303143632) do
+ActiveRecord::Schema.define(version: 20170513133419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,15 @@ ActiveRecord::Schema.define(version: 20170303143632) do
     t.index ["user_id"], name: "index_inquiries_on_user_id", using: :btree
   end
 
+  create_table "interested_topics", force: :cascade do |t|
+    t.integer  "user_profile_id", null: false
+    t.integer  "tag_id",          null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["tag_id"], name: "index_interested_topics_on_tag_id", using: :btree
+    t.index ["user_profile_id"], name: "index_interested_topics_on_user_profile_id", using: :btree
+  end
+
   create_table "monthly_report_comments", force: :cascade do |t|
     t.integer  "user_id",           null: false
     t.text     "comment"
@@ -128,10 +137,10 @@ ActiveRecord::Schema.define(version: 20170303143632) do
     t.boolean  "process_operation",      default: false, null: false
     t.boolean  "process_analysis",       default: false, null: false
     t.boolean  "process_training",       default: false, null: false
-    t.boolean  "process_structure",      default: false, null: false
-    t.boolean  "process_trouble",        default: false, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.boolean  "process_structure",      default: false, null: false
+    t.boolean  "process_trouble",        default: false, null: false
     t.index ["monthly_report_id"], name: "index_monthly_working_processes_on_monthly_report_id", using: :btree
   end
 
