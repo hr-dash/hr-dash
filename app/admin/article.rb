@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 ActiveAdmin.register Article do
-  menu parent: '記事'
+  menu parent: 'ノート'
   active_admin_action_log
   permit_params { Article.column_names }
   actions :all, except: [:new, :create]

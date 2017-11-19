@@ -8,7 +8,7 @@ describe 'Admin::Article', type: :feature do
   describe '#index' do
     before { visit admin_articles_path }
     it 'should open index page.' do
-      expect(page_title).to have_content('記事')
+      expect(page_title).to have_content('ノート')
       expect(page).to have_content(user.name)
       expect(page).to have_content(article.shipped_at)
     end
@@ -24,7 +24,7 @@ describe 'Admin::Article', type: :feature do
     before do
       visit edit_admin_article_path(article)
       fill_in 'タイトル', with: new_title
-      click_on '記事を更新'
+      click_on 'ノートを更新'
     end
 
     it 'should update the article.' do

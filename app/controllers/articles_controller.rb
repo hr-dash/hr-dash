@@ -58,7 +58,7 @@ class ArticlesController < ApplicationController
     @article = current_user.articles.find(params[:id])
 
     if @article.destroy
-      flash[:notice] = '記事を削除しました'
+      flash[:notice] = 'ノートを削除しました'
       redirect_to :articles
     else
       flash_errors(@article)

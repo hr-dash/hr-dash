@@ -14,9 +14,9 @@ ja:
       tag: タグ
       user: ユーザー
       user_profile: プロフィール
-      article: 記事
-      article_comment: 記事コメント
-      article_tag: 記事タグ
+      article: ノート
+      article_comment: ノートコメント
+      article_tag: ノートタグ
     attributes:
       announcement:
         title: タイトル
@@ -83,10 +83,10 @@ ja:
         body: 本文
         shipped_at: 公開日
       article_comment:
-        article: 記事
+        article: ノート
         comment: コメント
       article_tag:
-        article: 記事
+        article: ノート
         tag: タグ
   activemodel:
     <<: activerecord

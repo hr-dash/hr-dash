@@ -11,7 +11,7 @@ describe 'Admin::ArticleTag', type: :feature do
     before { visit admin_article_tags_path }
 
     it 'should open the index page.' do
-      expect(page_title).to have_content('記事タグ')
+      expect(page_title).to have_content('ノートタグ')
       expect(page).to have_content(tag.name)
       expect(page).to have_css('.delete_link')
     end
@@ -27,7 +27,7 @@ describe 'Admin::ArticleTag', type: :feature do
     before do
       visit edit_admin_article_tag_path(article_tag)
       select new_tag.name, from: 'article_tag_tag_id'
-      click_on '記事タグを更新'
+      click_on 'ノートタグを更新'
     end
 
     it 'should update the article tag.' do

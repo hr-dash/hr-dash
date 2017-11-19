@@ -24,8 +24,8 @@ describe ArticlesController, type: :feature do
     before { visit user_articles_path(user) }
 
     it { expect(first_report[:href]).to eq article_path(today) }
-    it { expect(btn).to have_content '下書き中の記事一覧へ' }
-    it { expect(title).to have_content "#{user.name}さんの記事一覧" }
+    it { expect(btn).to have_content '下書き中のノート一覧へ' }
+    it { expect(title).to have_content "#{user.name}さんのノート一覧" }
   end
 
   describe '#drafts GET /articles/users/:user_id/drafts' do
@@ -38,8 +38,8 @@ describe ArticlesController, type: :feature do
     before { visit drafts_articles_path(user) }
 
     it { expect(first_report[:href]).to eq article_path(yesterday) }
-    it { expect(btn).to have_content '公開済みの記事一覧へ' }
-    it { expect(title).to have_content '下書き中の記事一覧' }
+    it { expect(btn).to have_content '公開済みのノート一覧へ' }
+    it { expect(title).to have_content '下書き中のノート一覧' }
   end
 
   describe '#create POST /articles', js: true do
@@ -92,7 +92,7 @@ describe ArticlesController, type: :feature do
       fill_in 'タイトル', with: 'すごいH本を読んでみた'
       find('#article_tags_input').set('Haskell')
       fill_in '本文', with: 'Haskellすごーい、たのしー！'
-      click_button 'Update （記事を更新）'
+      click_button 'Update （ノートを更新）'
     end
 
     it { expect(title).to have_content 'すごいH本を読んでみた' }
@@ -108,7 +108,7 @@ describe ArticlesController, type: :feature do
       click_on 'はい'
     end
 
-    it { expect(page).to have_content '記事を削除しました' }
+    it { expect(page).to have_content 'ノートを削除しました' }
     it { expect(current_path).to eq '/articles' }
   end
 

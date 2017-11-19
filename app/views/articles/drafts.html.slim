@@ -1,7 +1,7 @@
-- provide :page_title, '下書き中の記事一覧'
+- provide :page_title, '下書き中のノート一覧'
 .article-user
   .btn.btn-success.btn-sm
-    = link_to '公開済みの記事一覧へ', user_articles_path(current_user)
+    = link_to '公開済みのノート一覧へ', user_articles_path(current_user)
 
   .page-content
     #article_index
@@ -9,5 +9,5 @@
         - if @articles.present?
           == render partial: 'layouts/article_index', collection: @articles,as: 'article'
         - else
-          p 下書き中の記事はありません
+          p 下書き中のノートはありません
     = paginate @articles

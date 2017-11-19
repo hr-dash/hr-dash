@@ -20,13 +20,13 @@
     .panel-body
       = render 'layouts/markdown_view', content: @article.body
   .pull-right.article-user-link
-    = link_to "#{@article.user.name}さんの記事一覧へ", user_articles_path(@article.user.id)
+    = link_to "#{@article.user.name}さんのノート一覧へ", user_articles_path(@article.user.id)
 .modal.fade#article-confirm
   .modal-dialog
     .modal-content
       .modal-header
-        .modal-title 記事を削除
-      .modal-body 本当にこの記事を削除しますか?
+        .modal-title ノートを削除
+      .modal-body 本当にこのノートを削除しますか?
       .modal-footer
         = link_to 'はい', article_path(@article), method: :delete,
           class: 'btn btn-danger'
