@@ -1,0 +1,38 @@
+- provide :page_title, @article.title
+.well.well-sm style='overflow:hidden'
+  - if @article.tags.size > 0
+    = render 'shared/tags', tags: @article.tags, prefix: :article
+  - else
+    = 'タグ未登録'
+.panel-group.article-show
+  .panel.panel-default
+    - if current_user == @article.user
+      .panel-heading
+        .panel-title
+          - if @article.shipped?
+            span.label.label-success.article-status 公開済
+          - else
+            span.label.label-info.article-status 下書き
+          .pull-right
+             = link_to '', edit_article_path(@article),
+               class: 'glyphicon glyphicon-pencil'
+             a.glyphicon.glyphicon-remove data-toggle="modal" data-target="#article-confirm"
+    .panel-body
+      = render 'layouts/markdown_view', content: @article.body
+  .pull-right.article-user-link
+    = link_to "#{@article.user.name}さんのノート一覧へ", user_articles_path(@article.user.id)
+.modal.fade#article-confirm
+  .modal-dialog
+    .modal-content
+      .modal-header
+        .modal-title ノートを削除
+      .modal-body 本当にこのノートを削除しますか?
+      .modal-footer
+        = link_to 'はい', article_path(@article), method: :delete,
+          class: 'btn btn-danger'
+        button.btn.btn-default type="button" data-dismiss="modal" 閉じる
+- if @article.shipped?
+  h2 コメント
+  == render partial: 'articles/comment', collection: @article.comments.order(:created_at), as: 'comment'
+
+  == render 'shared/new_comment', comment: @article.comments.new, attr: 'new-comment', hidden: :article_id

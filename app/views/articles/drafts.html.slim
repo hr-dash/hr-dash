@@ -1,0 +1,13 @@
+- provide :page_title, '下書き中のノート一覧'
+.article-user
+  .btn.btn-success.btn-sm
+    = link_to '公開済みのノート一覧へ', user_articles_path(current_user)
+
+  .page-content
+    #article_index
+      .list-group.article-index
+        - if @articles.present?
+          == render partial: 'list', collection: @articles, as: 'article'
+        - else
+          p 下書き中のノートはありません
+    = paginate @articles

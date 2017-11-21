@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170303143632) do
+ActiveRecord::Schema.define(version: 20170318224539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,36 @@ ActiveRecord::Schema.define(version: 20170303143632) do
     t.date     "published_date", null: false
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+  end
+
+  create_table "article_comments", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.text     "comment"
+    t.integer  "article_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_article_comments_on_article_id", using: :btree
+    t.index ["user_id"], name: "index_article_comments_on_user_id", using: :btree
+  end
+
+  create_table "article_tags", force: :cascade do |t|
+    t.integer  "tag_id",     null: false
+    t.integer  "article_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_article_tags_on_article_id", using: :btree
+    t.index ["tag_id"], name: "index_article_tags_on_tag_id", using: :btree
+  end
+
+  create_table "articles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "body"
+    t.datetime "shipped_at"
+    t.integer  "comments_count", default: 0, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["user_id"], name: "index_articles_on_user_id", using: :btree
   end
 
   create_table "group_assignments", force: :cascade do |t|
@@ -128,10 +158,10 @@ ActiveRecord::Schema.define(version: 20170303143632) do
     t.boolean  "process_operation",      default: false, null: false
     t.boolean  "process_analysis",       default: false, null: false
     t.boolean  "process_training",       default: false, null: false
-    t.boolean  "process_structure",      default: false, null: false
-    t.boolean  "process_trouble",        default: false, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.boolean  "process_structure",      default: false, null: false
+    t.boolean  "process_trouble",        default: false, null: false
     t.index ["monthly_report_id"], name: "index_monthly_working_processes_on_monthly_report_id", using: :btree
   end
 
@@ -188,6 +218,7 @@ ActiveRecord::Schema.define(version: 20170303143632) do
   end
 
   add_foreign_key "active_admin_action_logs", "users"
+  add_foreign_key "articles", "users"
   add_foreign_key "group_assignments", "groups"
   add_foreign_key "group_assignments", "users"
   add_foreign_key "monthly_working_processes", "monthly_reports"

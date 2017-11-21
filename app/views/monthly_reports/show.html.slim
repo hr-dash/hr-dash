@@ -7,7 +7,7 @@
         .col-xs-2
           - if @monthly_report.prev_month.try(:browseable?, current_user)
             a.btn.btn-default.btn-xs.monthly-report-panel-button href=(monthly_report_path(@monthly_report.prev_month)) role="button" 先月
-        .col-xs-8.monthly-report-panel-date 
+        .col-xs-8.monthly-report-panel-date
           - if @monthly_report.shipped?
             span.label.label-success.monthly-report-status 登録済
           -else
@@ -26,7 +26,7 @@
         .form-group
           label.col-sm-3.control-label = t "#{attr}.monthly_report_tags"
           .col-sm-9.form-control-static
-            = render 'layouts/monthly_report_tags_show', tags: @monthly_report.tags, prefix: :report
+            = render 'shared/tags', tags: @monthly_report.tags, prefix: :report
         .form-group
           - process_attr = 'activerecord.attributes.monthly_working_process'
           label.col-sm-3.control-label = t "#{attr}.monthly_working_process"
@@ -62,4 +62,4 @@
   - @monthly_report.comments.order(:created_at).each do |comment|
     == render 'monthly_reports/comment', comment: comment
 
-  == render 'monthly_reports/new_comment', comment: @monthly_report.comments.new, attr: 'new-comment'
+  == render 'shared/new_comment', comment: @monthly_report.comments.new, attr: 'new-comment', hidden: :monthly_report_id

@@ -30,3 +30,18 @@
   help_type: hint
   target: this_month_goals
   body: "先月の月報が入力されていません。\r\n先月の月報の「来月の目標」が表示されます。"
+- id: 7
+  category: article
+  help_type: placeholder
+  target: title
+  body: "例）\r\nJava + Spring4 + Gradle での環境構築方法"
+- id: 8
+  category: article
+  help_type: placeholder
+  target: tags
+  body: 例）Java + <Enter>
+- id: 9
+  category: article
+  help_type: placeholder
+  target: body
+  body: "例）\r\n# はじめに・・"
