@@ -15,7 +15,8 @@ class MonthlyReportsController < ApplicationController
   end
 
   def show
-    @monthly_report = MonthlyReport.includes(comments: { user: :user_profile }).find(params[:id])
+    references = [{ comments: { user: :user_profile } }, { likes: { user: :user_profile } }]
+    @monthly_report = MonthlyReport.includes(references).find(params[:id])
     raise(Forbidden, 'can not see wip reports of other users') unless browseable?(@monthly_report)
   end
 

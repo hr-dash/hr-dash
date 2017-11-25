@@ -15,5 +15,17 @@
               role: 'button',
               remote: true
 .like-count
-  strong = link_to monthly_report.likes_count, '#', class: 'text-info'
+  strong = link_to monthly_report.likes_count, '', class: 'text-info', data: { toggle: 'modal', target: '#like-user-modal' }
+
+#like-user-modal.modal.fade tabindex='-1'
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header-like
+        h4.modal-title.text-center = "#{monthly_report.likes_count}人のいいね"
+      .modal-body
+        .list-group
+          - monthly_report.likes.order(:created_at).each do |like|
+            = link_to like.user.name, like.user.user_profile, class: 'list-group-item'
+      .modal-footer
+        button.btn.btn-success data-dismiss='modal' 閉じる
 
