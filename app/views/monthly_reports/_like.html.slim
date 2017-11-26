@@ -21,7 +21,7 @@
   .modal-dialog.modal-sm
     .modal-content
       .modal-header-like
-        h4.modal-title.text-center = "#{monthly_report.likes_count}人のいいね"
+        h4.modal-title.text-center = "#{monthly_report.likes_count}人がいいね！と言っています"
       .modal-body
         .list-group
           - monthly_report.likes.order(:created_at).each do |like|
