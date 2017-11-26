@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe 'Admin::MonthlyWorkingProcess', type: :feature do
   let(:page_title) { find('#page_title') }
   let!(:working_process) { create(:monthly_working_process) }

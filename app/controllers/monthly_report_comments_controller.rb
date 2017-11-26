@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class MonthlyReportCommentsController < ApplicationController
   def create
     comment = MonthlyReportComment.new(permitted_params)
@@ -16,7 +17,8 @@ class MonthlyReportCommentsController < ApplicationController
 
   def edit
     comment = current_user.monthly_report_comments.find(params[:id])
-    render partial: 'monthly_reports/new_comment', locals: { comment: comment, attr: "edit-comment#{comment.id}" }
+    render partial: 'shared/new_comment',
+           locals: { comment: comment, attr: "edit-comment#{comment.id}", hidden: :monthly_report_id }
   end
 
   def update

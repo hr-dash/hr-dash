@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register User do
   menu parent: 'ユーザー'
   active_admin_action_log
@@ -101,7 +102,7 @@ ActiveAdmin.register User do
     end
   end
 
-  action_item :change_password, only: [:edit, :show] do
+  action_item :change_password, only: %i[edit show] do
     link_to 'PW変更', edit_password_admin_user_path(user)
   end
 

@@ -150,3 +150,39 @@ a[data-toggle="dropdown"], a[data-toggle="collapse"] {
     border-radius: 3px;
   }
 }
+
+/* article */
+.article-index {
+  @extend .monthly-report-index
+}
+
+.article-user {
+  .btn-sm {
+    margin-bottom: 0.5em;
+    a {
+      color: #fff;
+    }
+  }
+}
+
+.article-user-link {
+  margin-top: 0.5em;
+  a {
+    color: #000;
+    &:hover {
+      color: #3a87ad;
+    }
+  }
+}
+
+.article-show {
+  .pull-right {
+    .glyphicon {
+      margin: 0 0.3em;
+    }
+  }
+}
+
+a.glyphicon {
+  color: #000;
+}

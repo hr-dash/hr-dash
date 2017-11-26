@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -24,7 +25,7 @@
 #  failed_attempts        :integer          default(0), not null
 #  unlock_token           :string
 #  locked_at              :datetime
-#  gender                 :integer          default(0), not null
+#  gender                 :integer          default("gender_unknown"), not null
 #
 
 describe User, type: :model do
@@ -55,10 +56,10 @@ describe User, type: :model do
       it { is_expected.to validate_length_of(:password).is_at_least(8).is_at_most(72) }
 
       context 'valid_passwords' do
-        valid_passwords = %w(
+        valid_passwords = %w[
           Passw0rd
           aA1#$%&@'()/*+.=-
-        )
+        ]
 
         valid_passwords.each do |password|
           it { is_expected.to allow_value(password).for(:password) }
@@ -66,11 +67,11 @@ describe User, type: :model do
       end
 
       context 'invalid_passwords' do
-        invalid_passwords = %w(
+        invalid_passwords = %w[
           ABCD1234
           1a2b3c4d
           aAzZ@bBcC
-        )
+        ]
 
         invalid_passwords.each do |password|
           it { is_expected.not_to allow_value(password).for(:password) }

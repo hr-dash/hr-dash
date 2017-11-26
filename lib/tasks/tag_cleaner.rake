@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 namespace :tag_cleaner do
   desc 'Delete unfixed, unused tags. if no args, dry_run.'
   task :delete_unused_tags, ['exec_flag'] => :environment do |_, args|

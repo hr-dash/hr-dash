@@ -13,6 +13,17 @@ li.dropdown
         = link_to "月報編集", edit_monthly_report_path(latest_month_report)
       - else
         = link_to "月報登録", new_monthly_report_path
+li.dropdown
+  a.lead.bg-primary.dropdown-toggle data-toggle="dropdown" aria-expanded="false"
+    span.glyphicon.glyphicon-th-list aria-hidden="true"
+    span  ノート
+  ul.dropdown-menu
+    li
+      = link_to "トップ", articles_path
+    li
+      = link_to "新規投稿", new_article_path
+    li
+      = link_to "自分のノート一覧", user_articles_path(current_user)
 li.dropdown.hidden-xs
   a.lead.bg-primary.dropdown-toggle data-toggle="dropdown" aria-expanded="false"
     span.glyphicon.glyphicon-th-list aria-hidden="true"

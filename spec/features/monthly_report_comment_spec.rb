@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe MonthlyReportCommentsController, type: :feature do
   let(:user) { create(:user) }
   let(:report) { create(:monthly_report, :shipped, :with_tags) }

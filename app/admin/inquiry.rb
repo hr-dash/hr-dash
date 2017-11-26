@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 ActiveAdmin.register Inquiry do
   active_admin_action_log
   permit_params { Inquiry.column_names }

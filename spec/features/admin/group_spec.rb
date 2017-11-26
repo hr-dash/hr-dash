@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe 'Admin::Group', type: :feature do
   before { login(admin: true) }
   let(:group) { create(:group) }

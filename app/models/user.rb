@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -24,7 +25,7 @@
 #  failed_attempts        :integer          default(0), not null
 #  unlock_token           :string
 #  locked_at              :datetime
-#  gender                 :integer          default(0), not null
+#  gender                 :integer          default("gender_unknown"), not null
 #
 
 class User < ApplicationRecord
@@ -40,6 +41,8 @@ class User < ApplicationRecord
   has_many :monthly_reports
   has_many :monthly_report_comments
   has_many :monthly_report_likes
+  has_many :articles
+  has_many :article_comments
   delegate :admin?, to: :role, allow_nil: true
   delegate :operator?, to: :role, allow_nil: true
 

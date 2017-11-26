@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Helpers
   def generate_random_password
     required_chars = ['A'..'Z', 'a'..'z', '0'..'9'].map do |range|

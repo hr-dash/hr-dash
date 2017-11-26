@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 FactoryGirl.define do
   factory :monthly_report do
     association :user
@@ -56,6 +57,6 @@ FactoryGirl.define do
       end
     end
 
-    factory :shipped_monthly_report, traits: [:shipped, :with_tags]
+    factory :shipped_monthly_report, traits: %i[shipped with_tags]
   end
 end

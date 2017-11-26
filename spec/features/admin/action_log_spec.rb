@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe 'Admin::HelpText', type: :feature do
   let(:page_title) { find('#page_title') }
   let(:new_group) { build(:group) }

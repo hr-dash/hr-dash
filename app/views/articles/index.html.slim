@@ -1,0 +1,6 @@
+- provide :page_title, "最新ノート一覧"
+.page-content
+  #article_index
+    .list-group.article-index
+      == render partial: 'list', collection: @articles, as: 'article'
+  = paginate @articles

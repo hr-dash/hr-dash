@@ -1,6 +1,7 @@
 # frozen_string_literal: true
+
 class MonthlyReportsController < ApplicationController
-  before_action :assign_saved_report, only: [:edit, :update]
+  before_action :assign_saved_report, only: %i[edit update]
 
   def index
     references = [{ user: :groups }, :monthly_working_process, { monthly_report_tags: :tag }]

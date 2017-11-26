@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe Encryptor, type: :model do
   class Sample
     include Encryptor

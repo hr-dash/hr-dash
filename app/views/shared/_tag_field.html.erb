@@ -1,13 +1,13 @@
-<div id="monthly_report_tags" class="tag-list"></div>
+<div id="<%= attr %>" class="tag-list"></div>
 
 <script>
 $(function(){
   var refresh_tags_input = function(self) {
-    var input = $('#monthly_report_tags_input');
+    var input = $('<%= "##{attr}_input" %>');
     (typeof(input) == undefined) ? null : input.val(self.getTags());
   }
 
-  var tagger = $('#monthly_report_tags').tags({
+  var tagger = $('<%= "##{attr}" %>').tags({
       tagData: <%= tags.to_json.html_safe %>,
       suggestions: <%= Tag.fixed.pluck(:name).to_json.html_safe %>,
       suggestOnClick: true,
@@ -23,6 +23,6 @@ $(function(){
   });
   refresh_tags_input(tagger);
 
-  $('#monthly_report_tags > input').focusout(function() { this.value = ''; });
+  $('<%= "##{attr}" %>').focusout(function() { this.value = ''; });
 });
 </script>

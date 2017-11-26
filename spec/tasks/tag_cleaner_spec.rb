@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 describe 'tag_cleaner' do
   describe 'delete_unused_tags' do
     let(:used_tag) { create(:tag, status: :unfixed) }
