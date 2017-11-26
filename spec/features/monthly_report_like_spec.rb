@@ -11,12 +11,12 @@ describe MonthlyReportCommentsController, type: :feature do
     end
 
     it 'displays Like! btn', js: true do
-      expect(page).to have_content 'Like!'
+      expect(page).to have_content 'いいね！'
     end
 
     it 'can change to Liked by clicking the btn', js: true do
-      click_on 'Like!'
-      expect(page).to have_content 'Liked'
+      click_on 'いいね！'
+      expect(page).to have_content 'いいね済み'
     end
   end
 
@@ -27,12 +27,12 @@ describe MonthlyReportCommentsController, type: :feature do
     end
 
     it 'displays Liked btn', js: true do
-      expect(page).to have_content 'Liked'
+      expect(page).to have_content 'いいね済み'
     end
 
     it 'can change to Like! btn by clicking the btn', js: true do
-      click_on 'Liked'
-      expect(page).to have_content 'Like!'
+      click_on 'いいね済み'
+      expect(page).to have_content 'いいね！'
     end
   end
 end
