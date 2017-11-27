@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: monthly_report_likes
@@ -12,16 +13,20 @@
 
 describe MonthlyReportLike, type: :model do
   describe 'Relations' do
-    it { is_expected.to belong_to :user }
-    it { is_expected.to belong_to :monthly_report }
+    it do
+      is_expected.to belong_to :user
+      is_expected.to belong_to :monthly_report
+    end
   end
 
   describe 'Validations' do
     subject { build(:monthly_report_like) }
 
-    it { is_expected.to be_valid }
-    it { is_expected.to validate_presence_of(:user) }
-    it { is_expected.to validate_presence_of(:monthly_report) }
+    it do
+      is_expected.to be_valid
+      is_expected.to validate_presence_of(:user)
+      is_expected.to validate_presence_of(:monthly_report)
+    end
 
     # このバグを踏んだようです
     # https://github.com/thoughtbot/shoulda-matchers/issues/814
