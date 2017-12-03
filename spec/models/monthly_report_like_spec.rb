@@ -31,7 +31,7 @@ describe MonthlyReportLike, type: :model do
     # このバグを踏んだようです
     # https://github.com/thoughtbot/shoulda-matchers/issues/814
     #
-    # it { is_expected.to validate_uniqueness_of(:user, scope: :monthly_report) }
+    xit { is_expected.to validate_uniqueness_of(:user, scope: :monthly_report) }
   end
 
   describe 'Uniqueness Validation' do
