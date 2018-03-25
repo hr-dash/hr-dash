@@ -1,0 +1,31 @@
+- like = monthly_report.find_like_by_user(current_user)
+.like-btn
+  - if like
+    = link_to 'いいね済み',
+              monthly_report_like_path(monthly_report, like),
+              class: 'btn btn-default',
+              method: 'delete',
+              role: 'button',
+              remote: true
+  - else
+    = link_to 'いいね！',
+              monthly_report_likes_path(monthly_report),
+              class: 'btn btn-success',
+              method: 'post',
+              role: 'button',
+              remote: true
+.like-count
+  strong = link_to monthly_report.likes_count, '', class: 'text-info', data: { toggle: 'modal', target: '#like-user-modal' }
+
+#like-user-modal.modal.fade tabindex='-1'
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header-like
+        h4.modal-title.text-center = "#{monthly_report.likes_count}人がいいね！と言っています"
+      .modal-body
+        .list-group
+          - monthly_report.likes.order(:created_at).each do |like|
+            = link_to like.user.name, like.user.user_profile, class: 'list-group-item'
+      .modal-footer
+        button.btn.btn-success data-dismiss='modal' 閉じる
+

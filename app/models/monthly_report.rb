@@ -20,6 +20,7 @@
 class MonthlyReport < ApplicationRecord
   belongs_to :user
   has_many :comments, class_name: 'MonthlyReportComment', dependent: :delete_all
+  has_many :likes, class_name: 'MonthlyReportLike', dependent: :delete_all
   has_many :monthly_report_tags, dependent: :destroy
   has_many :tags, through: :monthly_report_tags
   has_one :monthly_working_process, dependent: :destroy
@@ -99,6 +100,10 @@ class MonthlyReport < ApplicationRecord
 
   def browseable?(other_user)
     shipped? || user == other_user
+  end
+
+  def find_like_by_user(user)
+    likes.find_by(user: user)
   end
 
   def self.target_month_select_options

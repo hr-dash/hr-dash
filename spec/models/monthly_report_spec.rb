@@ -74,6 +74,7 @@ RSpec.describe MonthlyReport, type: :model do
   describe 'Relations' do
     it { is_expected.to belong_to :user }
     it { is_expected.to have_many :comments }
+    it { is_expected.to have_many :likes }
     it { is_expected.to have_many :monthly_report_tags }
     it { is_expected.to have_many :tags }
     it { is_expected.to have_one :monthly_working_process }
@@ -86,6 +87,17 @@ RSpec.describe MonthlyReport, type: :model do
       context 'When report destroyed' do
         before { report.destroy }
         it { expect(comments.size).to eq 0 }
+      end
+    end
+
+    describe 'Likes' do
+      let!(:report) { create(:monthly_report, :with_likes, like_size: 3) }
+      let!(:likes) { report.likes }
+      it { expect(likes.size).to eq 3 }
+
+      context 'When report destroyed' do
+        before { report.destroy }
+        it { expect(likes.size).to eq 0 }
       end
     end
 

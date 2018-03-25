@@ -27,3 +27,56 @@ small.monthly-report-shipped-at {
 #prev_month_report_copy {
   margin-bottom: 2rem;
 }
+
+#monthly-report-like-btn {
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.like-count {
+  position: relative;
+  padding: 8px 20px;
+  border: solid;
+  border-width: 1px;
+  border-radius: 4px;
+  margin-left: 15px;
+}
+
+.like-count::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  left: -10px;
+  top: 10px;
+  border-right: 10px solid black;
+  border-top: 10px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+
+.like-count::after{
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  left: -9px;
+  top: 10px;
+  border-right: 10px solid white;
+  border-top: 10px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+
+.modal-header-like {
+  color:#fff;
+  padding:13px 15px;
+  border-bottom:1px solid #eee;
+  background-color: #dd4814;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}

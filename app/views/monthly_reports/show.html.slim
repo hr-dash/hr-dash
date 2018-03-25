@@ -51,6 +51,10 @@
           label.col-sm-3.control-label = t "#{attr}.next_month_goals"
           .col-sm-9.form-control-static
             = render 'layouts/markdown_view', content: @monthly_report.next_month_goals
+
+#monthly-report-like-btn
+  == render 'monthly_reports/like', monthly_report: @monthly_report
+
 - if @monthly_report.user == current_user
   = link_to '編集',
             edit_monthly_report_path(@monthly_report),
