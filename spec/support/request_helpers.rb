@@ -4,12 +4,12 @@ include Warden::Test::Helpers
 
 module RequestHelpers
   def login(user = nil, admin: false, operator: false)
-    user ||= FactoryGirl.create(:user)
+    user ||= FactoryBot.create(:user)
 
     if admin
-      FactoryGirl.create(:user_role, :admin, user: user)
+      FactoryBot.create(:user_role, :admin, user: user)
     elsif operator
-      FactoryGirl.create(:user_role, :operator, user: user)
+      FactoryBot.create(:user_role, :operator, user: user)
     end
 
     login_as user

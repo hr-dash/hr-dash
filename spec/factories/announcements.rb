@@ -12,7 +12,7 @@
 #  updated_at     :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :announcement do
     title { Faker::Lorem.sentence }
     body { Faker::Lorem.paragraph }

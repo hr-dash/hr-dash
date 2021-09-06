@@ -19,7 +19,7 @@
 #  updated_at             :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :monthly_working_process do
     association :monthly_report
     process_definition { [true, false].sample }

@@ -11,7 +11,7 @@
 #  updated_at :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :article_tag do
     association :article
     association :tag

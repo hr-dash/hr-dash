@@ -11,7 +11,7 @@
 #  updated_at        :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :monthly_report_like do
     association :user
     association :monthly_report
