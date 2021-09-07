@@ -1,4 +1,4 @@
-class CreateActiveAdminActionLogs < ActiveRecord::Migration
+class CreateActiveAdminActionLogs < ActiveRecord::Migration[6.0]
   def change
     create_table :active_admin_action_logs do |t|
       t.references :user, index: true, foreign_key: true

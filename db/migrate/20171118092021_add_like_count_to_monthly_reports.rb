@@ -1,4 +1,4 @@
-class AddLikeCountToMonthlyReports < ActiveRecord::Migration[5.0]
+class AddLikeCountToMonthlyReports < ActiveRecord::Migration[6.0]
   def self.up
     add_column :monthly_reports, :likes_count, :integer, null: false, default: 0
   end

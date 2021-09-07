@@ -1,4 +1,4 @@
-class CreateMonthlyWorkingProcesses < ActiveRecord::Migration
+class CreateMonthlyWorkingProcesses < ActiveRecord::Migration[6.0]
   def change
     create_table :monthly_working_processes do |t|
       t.references :monthly_report, index: true, foreign_key: true
