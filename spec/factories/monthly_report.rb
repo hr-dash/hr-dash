@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :monthly_report do
     association :user
     target_month { Faker::Date.between(6.months.ago, 2.months.ago).beginning_of_month }
@@ -23,7 +23,7 @@ FactoryGirl.define do
 
     trait :with_comments do
       transient do
-        comment_size 3
+        comment_size { 3 }
       end
 
       after(:create) do |report, evaluator|
@@ -35,7 +35,7 @@ FactoryGirl.define do
 
     trait :with_likes do
       transient do
-        like_size 3
+        like_size { 3 }
       end
 
       after(:create) do |report, evaluator|
@@ -47,7 +47,7 @@ FactoryGirl.define do
 
     trait :with_tags do
       transient do
-        tag_size 3
+        tag_size { 3 }
       end
 
       after(:build) do |report, evaluator|

@@ -1,4 +1,4 @@
-class CreateMonthlyReportLikes < ActiveRecord::Migration[5.0]
+class CreateMonthlyReportLikes < ActiveRecord::Migration[6.0]
   def change
     create_table :monthly_report_likes do |t|
       t.belongs_to :user, null: false

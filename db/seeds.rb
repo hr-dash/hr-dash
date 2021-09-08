@@ -20,14 +20,14 @@ Dir.glob("#{Rails.root}/db/seeds/*.yml").each do |yaml_filename|
 end
 
 if Rails.env.development?
-  user = FactoryGirl.create(:user, email: 'test@example.com', password: 'Passw0rd')
-  FactoryGirl.create(:user_role, :admin, user: user)
+  user = FactoryBot.create(:user, email: 'test@example.com', password: 'Passw0rd')
+  FactoryBot.create(:user_role, :admin, user: user)
 
-  FactoryGirl.create(:user, email: 'testuser@example.com', password: 'Passw0rd')
+  FactoryBot.create(:user, email: 'testuser@example.com', password: 'Passw0rd')
 
-  5.times { FactoryGirl.create(:monthly_report, :shipped, :with_tags, :with_comments, :with_likes) }
-  5.times { FactoryGirl.create(:article, :shipped, :with_tags, :with_comments) }
-  10.times { |i| FactoryGirl.create(:announcement, published_date: Time.current.ago(i.days)) }
+  5.times { FactoryBot.create(:monthly_report, :shipped, :with_tags, :with_comments, :with_likes) }
+  5.times { FactoryBot.create(:article, :shipped, :with_tags, :with_comments) }
+  10.times { |i| FactoryBot.create(:announcement, published_date: Time.current.ago(i.days)) }
 else
   user = User.create(name: 'admin',
                      email: 'test@example.com',

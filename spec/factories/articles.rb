@@ -13,7 +13,7 @@
 #  updated_at :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :article do
     association :user
     title { Faker::Lorem.sentence }
@@ -29,7 +29,7 @@ FactoryGirl.define do
 
     trait :with_comments do
       transient do
-        comment_size 3
+        comment_size { 3 }
       end
 
       after(:create) do |article, evaluator|
@@ -41,7 +41,7 @@ FactoryGirl.define do
 
     trait :with_tags do
       transient do
-        tag_size 3
+        tag_size { 3 }
       end
 
       after(:build) do |article, evaluator|

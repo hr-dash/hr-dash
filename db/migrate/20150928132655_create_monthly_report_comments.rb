@@ -1,4 +1,4 @@
-class CreateMonthlyReportComments < ActiveRecord::Migration
+class CreateMonthlyReportComments < ActiveRecord::Migration[6.0]
   def change
     create_table :monthly_report_comments do |t|
       t.belongs_to :user, null: false

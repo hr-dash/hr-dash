@@ -15,7 +15,7 @@
 #  updated_at :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :inquiry do
     association :user
     body { Faker::Lorem.paragraph }

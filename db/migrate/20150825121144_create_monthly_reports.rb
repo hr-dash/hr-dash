@@ -1,4 +1,4 @@
-class CreateMonthlyReports < ActiveRecord::Migration
+class CreateMonthlyReports < ActiveRecord::Migration[6.0]
   def change
     create_table :monthly_reports do |t|
       t.integer :user_id,       null: false

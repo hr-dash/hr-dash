@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
     name { Faker::Name.name }
     sequence(:employee_code) { |i| "#{i}#{Faker::Number.number(10)}" }
@@ -10,7 +10,7 @@ FactoryGirl.define do
     gender { User.genders.keys.sample }
 
     transient do
-      group_size 1
+      group_size { 1 }
     end
 
     after(:create) do |user, evaluator|

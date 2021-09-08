@@ -13,10 +13,10 @@
 #  updated_at        :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user_profile do
     association :user
-    self_introduction Faker::Lorem.paragraph
+    self_introduction { Faker::Lorem.paragraph } 
     blood_type { UserProfile.blood_types.keys.sample }
     birthday { Faker::Date.between(100.years.ago, Date.today) }
   end
